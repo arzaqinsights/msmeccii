@@ -94,7 +94,8 @@
                     <a href="" class="flex items-center gap-2">
                         <i class="fa-brands fa-whatsapp text-brand-primary"></i>
                     </a>
-                    <a href="{{ route('login') }}" class="flex items-center gap-2 pl-2 border-l text-sm text-brand-primary">LOGIN
+                    <a href="{{ route('login') }}"
+                        class="flex items-center gap-2 pl-2 border-l text-sm text-brand-primary">LOGIN
                         <i class="fa-solid fa-user text-brand-primary"></i>
                     </a>
                 </div>
@@ -132,7 +133,7 @@
                             'name' => 'JOIN US',
                             'route' => 'join.index',
                             'active' => 'join',
-                            'sub_menu' => \App\Models\Form::where('status', 'published')->get()->map(function($form) {
+                            'sub_menu' => \App\Models\Form::where('status', 'published')->get()->map(function ($form) {
                                 return [
                                     'name' => $form->name,
                                     'route' => 'join.forms.show',
@@ -151,11 +152,11 @@
                             'route' => 'events.index',
                             'active' => 'events'
                         ],
-                        [
-                            'name' => 'CONTACT',
-                            'route' => 'contact',
-                            'active' => 'contact'
-                        ],
+                        // [
+                        //     'name' => 'CONTACT',
+                        //     'route' => 'contact',
+                        //     'active' => 'contact'
+                        // ],
                     ];
                 @endphp
                 <!-- Desktop Menu -->
@@ -163,15 +164,20 @@
                     @foreach ($menu as $m)
                         @if(isset($m['sub_menu']))
                             <div class="relative group">
-                                <a href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif class="flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors uppercase {{ request()->is($m['active'].'*') ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">
+                                <button href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()"
+                                @endif
+                                    class="flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors uppercase {{ request()->is($m['active'] . '*') ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">
                                     {{ $m['name'] }}
-                                    <i class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
-                                </a>
+                                    <i
+                                        class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
+                                </button>
                                 <!-- Dropdown -->
-                                <div class="absolute top-full left-0 mt-6 w-64 bg-white rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 z-50 overflow-hidden border border-slate-100">
+                                <div
+                                    class="absolute top-full left-0 mt-6 w-64 bg-white rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 z-50 overflow-hidden border border-slate-100">
                                     <div class="py-2">
                                         @foreach($m['sub_menu'] as $sub)
-                                            <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}" class="block px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-brand-primary/5 hover:text-brand-primary transition-colors border-l-2 border-transparent hover:border-brand-primary">
+                                            <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
+                                                class="block px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-brand-primary/5 hover:text-brand-primary transition-colors border-l-2 border-transparent hover:border-brand-primary">
                                                 {{ $sub['name'] }}
                                             </a>
                                         @endforeach
@@ -179,7 +185,8 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{ route($m['route']) }}" class="text-sm font-semibold relative text-brand-light transition-colors uppercase {{ request()->is($m['active']) ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">{{ $m['name'] }}</a>
+                            <a href="{{ route($m['route']) }}"
+                                class="text-sm font-semibold relative text-brand-light transition-colors uppercase {{ request()->is($m['active']) ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">{{ $m['name'] }}</a>
                         @endif
                     @endforeach
                 </nav>
@@ -202,7 +209,8 @@
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="bg-brand-light transform translate-x-full transition-all duration-300 ease-in-out fixed w-3/4 h-dvh right-0 top-0 z-51 overflow-y-auto pb-20 shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
+        <div id="mobile-menu"
+            class="bg-brand-light transform translate-x-full transition-all duration-300 ease-in-out fixed w-3/4 h-dvh right-0 top-0 z-51 overflow-y-auto pb-20 shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
             <div class="p-6 border-b border-brand-primary/10 flex justify-between items-center bg-brand-primary">
                 <span class="text-white font-black text-xl tracking-wider">MENU</span>
                 <button onclick="closeMenu()" class="text-white">
@@ -212,20 +220,23 @@
             @foreach ($menu as $m)
                 @if(isset($m['sub_menu']))
                     <div class="border-b border-slate-100">
-                        <a href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif class="flex justify-between items-center p-4 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">
+                        <button href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif
+                            class="flex justify-between items-center p-4 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">
                             {{ $m['name'] }}
                             <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
-                        </a>
+                        </button>
                         <div class="bg-slate-50 border-t border-slate-100">
                             @foreach($m['sub_menu'] as $sub)
-                                <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}" class="block px-8 py-3 text-sm font-medium text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors">
+                                <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
+                                    class="block px-8 py-3 text-sm font-medium text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors">
                                     <i class="fa-solid fa-angle-right text-[10px] mr-2 text-brand-accent"></i> {{ $sub['name'] }}
                                 </a>
                             @endforeach
                         </div>
                     </div>
                 @else
-                    <a href="{{ route($m['route']) }}" class="block p-4 border-b border-slate-100 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">{{ $m['name'] }}</a>
+                    <a href="{{ route($m['route']) }}"
+                        class="block p-4 border-b border-slate-100 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">{{ $m['name'] }}</a>
                 @endif
             @endforeach
         </div>
