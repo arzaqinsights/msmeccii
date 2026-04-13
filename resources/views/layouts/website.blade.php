@@ -212,7 +212,7 @@
             @foreach ($menu as $m)
                 @if(isset($m['sub_menu']))
                     <div class="border-b border-slate-100">
-                        <a href="{{ route($m['route']) }}" class="flex justify-between items-center p-4 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">
+                        <a href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif class="flex justify-between items-center p-4 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">
                             {{ $m['name'] }}
                             <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
                         </a>
