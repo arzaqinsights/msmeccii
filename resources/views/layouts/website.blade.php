@@ -94,7 +94,7 @@
                     <a href="" class="flex items-center gap-2">
                         <i class="fa-brands fa-whatsapp text-brand-primary"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2 pl-2 border-l text-sm text-brand-primary">LOGIN
+                    <a href="{{ route('login') }}" class="flex items-center gap-2 pl-2 border-l text-sm text-brand-primary">LOGIN
                         <i class="fa-solid fa-user text-brand-primary"></i>
                     </a>
                 </div>
@@ -163,7 +163,7 @@
                     @foreach ($menu as $m)
                         @if(isset($m['sub_menu']))
                             <div class="relative group">
-                                <a href="{{ route($m['route']) }}" class="flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors uppercase {{ request()->is($m['active'].'*') ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">
+                                <a href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif class="flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors uppercase {{ request()->is($m['active'].'*') ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">
                                     {{ $m['name'] }}
                                     <i class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
                                 </a>
@@ -186,7 +186,7 @@
 
                 <!-- CTA Button -->
                 <div class="hidden lg:flex items-center">
-                    <a href=""
+                    <a href="{{ route('register') }}"
                         class="bg-brand-light text-brand-primary px-4 py-2.5 rounded-sm font-semibold transition-all shadow-sm">
                         Register Now
                     </a>
