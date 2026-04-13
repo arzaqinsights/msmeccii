@@ -34,38 +34,96 @@
             </div>
 
         </div>
-        <!-- Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Layout Output -->
+        @php
+            $layoutMode = $sectorSettings['sector_home_layout'] ?? 'grid';
+        @endphp
 
-            @forelse($sectors as $sector)
-                <a href="{{ route('sectors.show', $sector->slug) }}"
-                    class="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+        @if($layoutMode === 'grid')
+            <!-- Traditional Grid Layout -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @forelse($sectors as $sector)
+                    <a href="{{ route('sectors.show', $sector->slug) }}"
+                        class="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
 
-                    <!-- Image -->
-                    <img src="{{ $sector->thumbnail ? asset($sector->thumbnail) : asset('images/sectors/textile.png') }}" alt="{{ $sector->title }}" loading="lazy"
-                        class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
+                        <img src="{{ Str::startsWith($sector->thumbnail, 'http') ? $sector->thumbnail : asset($sector->thumbnail ?: 'images/sectors/textile.png') }}" alt="{{ $sector->title }}" loading="lazy"
+                            class="w-full h-64 object-cover group-hover:scale-110 transition duration-500 bg-slate-200">
 
-                    <!-- Overlay -->
-                    <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition"></div>
+                        <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/60 to-transparent group-hover:via-slate-900/80 transition"></div>
 
-                    <!-- Content -->
-                    <div class="absolute bottom-0 p-5 text-white">
-                        <h3 class="text-xl font-bold">
-                            {{ $sector->title }}
-                        </h3>
-                        <p class="text-sm text-slate-200">
-                            {{ Str::limit($sector->description, 60) }}
-                        </p>
+                        <div class="absolute bottom-0 p-5 text-white z-10">
+                            <h3 class="text-xl font-bold mb-1 group-hover:text-brand-primary transition-colors">
+                                {{ $sector->title }}
+                            </h3>
+                            <p class="text-xs text-slate-300 font-medium leading-relaxed">
+                                {{ Str::limit($sector->description, 60) }}
+                            </p>
+                        </div>
+                    </a>
+                @empty
+                    <div class="col-span-full py-10 text-center text-slate-500 font-bold">
+                        <p>No active sectors found. Please publish some in the Admin Panel.</p>
                     </div>
+                @endforelse
+            </div>
+        @else
+            <!-- Swiper Slider Layout -->
+            <div class="swiper sector-slider relative group overflow-hidden px-4 md:px-0">
+                <div class="swiper-wrapper py-4 pb-12">
+                    @foreach($sectors as $sector)
+                        <div class="swiper-slide w-full md:w-80">
+                            <a href="{{ route('sectors.show', $sector->slug) }}" class="block relative rounded-xl h-72 overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group/card">
+                                
+                                <img src="{{ Str::startsWith($sector->thumbnail, 'http') ? $sector->thumbnail : asset($sector->thumbnail ?: 'images/sectors/textile.png') }}" class="w-full h-full object-cover group-hover/card:scale-110 transition duration-500 bg-slate-200" loading="lazy">
+                                
+                                <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/50 to-transparent transition-opacity duration-300"></div>
 
-                </a>
-            @empty
-                <div class="col-span-full py-10 text-center text-slate-500">
-                    <p>No active sectors found. Please publish some in the Admin Panel.</p>
+                                <div class="absolute bottom-0 p-6 text-white w-full z-10">
+                                    <h3 class="text-lg font-black group-hover/card:text-brand-primary transition-colors leading-tight mb-2">
+                                        {{ $sector->title }}
+                                    </h3>
+                                    <p class="text-xs text-slate-300 font-medium">
+                                        {{ Str::limit($sector->description, 50) }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
-            @endforelse
+                <!-- Pagination -->
+                <div class="swiper-pagination !bottom-0"></div>
+            </div>
 
-        </div>
+            <!-- Additional Quick CSS for Swiper Layout width and Pagination bullets -->
+            <style>
+                .sector-slider .swiper-slide { width: 300px; }
+                .sector-slider .swiper-pagination-bullet { background: #94a3b8; opacity: 0.5; }
+                .sector-slider .swiper-pagination-bullet-active { background: #ed1c24; opacity: 1; }
+            </style>
+
+            <script>
+                document.addEventListener('turbo:load', function() {
+                    new Swiper('.sector-slider', {
+                        slidesPerView: 1,
+                        spaceBetween: 24,
+                        pagination: {
+                            el: '.sector-slider .swiper-pagination',
+                            clickable: true,
+                            dynamicBullets: true,
+                        },
+                        breakpoints: {
+                            640: { slidesPerView: 2 },
+                            1024: { slidesPerView: 3 },
+                            1280: { slidesPerView: 4 }
+                        },
+                        autoplay: {
+                            delay: 4000,
+                            disableOnInteraction: false,
+                        }
+                    });
+                });
+            </script>
+        @endif
 
     </div>
 </section>

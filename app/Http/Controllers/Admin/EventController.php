@@ -58,6 +58,8 @@ class EventController extends Controller
         $event->location = $request->location;
         $event->design_style = $request->design_style;
         $event->status = $request->status;
+        $event->show_timer = $request->has('show_timer');
+        $event->download_btn_text = $request->download_btn_text;
         
         // General top-level featured image
         if ($request->hasFile('image')) {
@@ -69,45 +71,16 @@ class EventController extends Controller
             $event->image = $request->image_url;
         }
 
-        // Process Builder Content securely
-        if ($request->has('builder_content')) {
-            $builderArray = json_decode($request->builder_content, true);
-            if (is_array($builderArray)) {
-                $event->builder_content = $this->processBuilderBlocks($builderArray, $request);
-            } else {
-                $event->builder_content = [];
-            }
+        // Handle Download PDF/Video
+        if ($request->hasFile('download_file')) {
+            $file = $request->file('download_file');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/events/files'), $filename);
+            $event->download_file = '/uploads/events/files/' . $filename;
         }
 
         $event->save();
 
         return redirect()->route('admin.events.index')->with('success', 'Event successfully secured in the database.');
-    }
-
-    private function processBuilderBlocks($blocks, Request $request) 
-    {
-        foreach($blocks as &$block) {
-            if (isset($block['id']) && $request->hasFile("builder_image_{$block['id']}")) {
-                $file = $request->file("builder_image_{$block['id']}");
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/events'), $filename);
-                
-                if (!isset($block['content'])) $block['content'] = [];
-                $block['content']['image_url'] = '/uploads/events/' . $filename;
-            }
-
-            if (isset($block['id']) && $request->hasFile("builder_bg_{$block['id']}")) {
-                $file = $request->file("builder_bg_{$block['id']}");
-                $filename = time() . '_bg_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/events'), $filename);
-                $block['bg_image'] = '/uploads/events/' . $filename;
-            }
-
-            // Recursive traversal for nested structural columns/blocks
-            if (isset($block['blocks']) && is_array($block['blocks'])) {
-                $block['blocks'] = $this->processBuilderBlocks($block['blocks'], $request);
-            }
-        }
-        return $blocks;
     }
 }

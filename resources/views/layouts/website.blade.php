@@ -238,7 +238,7 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-white pt-20 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <!-- Branding Col -->
                 <div>
@@ -337,9 +337,8 @@
                     &copy; {{ date('Y') }} MSME Chamber of Commerce and Industry of India. All rights reserved.
                 </p>
                 <div class="flex gap-4 text-sm text-slate-500">
-                    <a href="/" class="hover:text-white transition-colors">Main Theme</a>
-                    <a href="/modern" class="hover:text-white transition-colors">Modern Theme</a>
-                    <a href="/traditional" class="hover:text-white transition-colors">Classic Theme</a>
+                    <a href="/" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/modern" class="hover:text-white transition-colors">Terms & Conditions</a>
                 </div>
             </div>
         </div>

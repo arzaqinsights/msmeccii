@@ -8,7 +8,7 @@
             <!-- Image Area -->
             <div class="w-full lg:w-1/2 relative group animate-on-scroll">
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="" alt="About MSMECCII" class="w-full h-[500px] object-cover bg-slate-200">
+                    <img src="{{ asset('images/home/slide-4.webp') }}" alt="About MSMECCII" class="w-full h-[550px] object-cover bg-slate-200">
                     <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
                 </div>
 

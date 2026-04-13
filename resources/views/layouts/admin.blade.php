@@ -53,6 +53,12 @@
                 <i class="fa-solid fa-table-list w-5 text-center"></i>
                 <span class="font-bold">Forms</span>
             </a>
+
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 ml-2 mt-6">CRM / Community</div>
+            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.users.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                <i class="fa-solid fa-users w-5 text-center"></i>
+                <span class="font-bold">Users & Database</span>
+            </a>
         </div>
 
         <!-- Sidebar Footer / Logout -->

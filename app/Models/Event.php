@@ -16,10 +16,14 @@ class Event extends Model
         'design_style',
         'builder_content',
         'status',
+        'show_timer',
+        'download_file',
+        'download_btn_text'
     ];
 
     protected $casts = [
         'event_date' => 'datetime',
         'builder_content' => 'array',
+        'show_timer' => 'boolean',
     ];
 }

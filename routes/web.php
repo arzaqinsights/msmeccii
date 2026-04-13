@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\VerificationController;
 
 Route::get('/', function () {
-    $sectors = \App\Models\Sector::where('status', 'active')->latest()->take(8)->get();
     
     $featuredEvent = \App\Models\Event::where('status', 'published')
         ->where('design_style', 'featured')
@@ -20,7 +19,12 @@ Route::get('/', function () {
             ->first();
     }
 
-    return view('website.home.index', compact('sectors', 'featuredEvent'));
+        $sectorSettings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
+        $cardCount = $sectorSettings['sector_home_count'] ?? 8;
+        
+        $sectors = \App\Models\Sector::where('status', 'active')->latest()->take($cardCount)->get();
+        
+        return view('website.home.index', compact('sectors', 'featuredEvent', 'sectorSettings'));
 })->name('home');
 
 Route::prefix('about')->group(function () {
@@ -78,9 +82,11 @@ Route::middleware('auth')->group(function () {
 // -------------------------------------------------------------
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('sectors/settings', [\App\Http\Controllers\Admin\SectorController::class, 'updateSettings'])->name('sectors.settings');
     Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
 });
 
 Route::get('/sectors', function () {

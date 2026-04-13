@@ -12,7 +12,21 @@ class SectorController extends Controller
     public function index()
     {
         $sectors = Sector::withCount('sections')->latest()->paginate(10);
-        return view('admin.sectors.index', compact('sectors'));
+        $settings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
+        return view('admin.sectors.index', compact('sectors', 'settings'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $request->validate([
+            'sector_home_count' => 'required|integer|min:1|max:24',
+            'sector_home_layout' => 'required|in:grid,scroll',
+        ]);
+
+        \App\Models\SiteSetting::updateOrCreate(['key' => 'sector_home_count'], ['value' => $request->sector_home_count]);
+        \App\Models\SiteSetting::updateOrCreate(['key' => 'sector_home_layout'], ['value' => $request->sector_home_layout]);
+
+        return back()->with('success', 'Global Homepage Sector layout settings updated.');
     }
 
     public function create()

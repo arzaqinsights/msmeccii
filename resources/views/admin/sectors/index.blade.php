@@ -15,6 +15,33 @@
     </a>
 </div>
 
+<div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 shadow-sm mb-8">
+    <h3 class="text-sm font-black text-indigo-900 uppercase tracking-widest mb-4 border-b border-indigo-200 pb-2"><i class="fa-solid fa-desktop"></i> Homepage Render Configuration</h3>
+    
+    <form action="{{ route('admin.sectors.settings') }}" method="POST" class="flex flex-col md:flex-row gap-6 items-end">
+        @csrf
+        
+        <div class="w-full md:w-1/3">
+            <label class="block text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-2">Display Mode</label>
+            <select name="sector_home_layout" class="w-full bg-white border border-indigo-200 rounded-xl p-3 outline-none focus:border-indigo-500 font-bold text-indigo-900 shadow-sm cursor-pointer">
+                <option value="grid" {{ (isset($settings['sector_home_layout']) && $settings['sector_home_layout'] == 'grid') ? 'selected' : '' }}>Standard CSS Grid (Stacked Rows)</option>
+                <option value="scroll" {{ (isset($settings['sector_home_layout']) && $settings['sector_home_layout'] == 'scroll') ? 'selected' : '' }}>Interactive Slider (Left to Right)</option>
+            </select>
+        </div>
+        
+        <div class="w-full md:w-1/3">
+            <label class="block text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-2">Card Limit Count</label>
+            <input type="number" name="sector_home_count" value="{{ $settings['sector_home_count'] ?? 8 }}" min="1" max="24" class="w-full bg-white border border-indigo-200 rounded-xl p-3 outline-none focus:border-indigo-500 font-bold text-indigo-900 shadow-sm">
+        </div>
+        
+        <div class="w-full md:w-1/3">
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all">
+                Update Live Feed
+            </button>
+        </div>
+    </form>
+</div>
+
 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full text-left text-sm text-slate-600">

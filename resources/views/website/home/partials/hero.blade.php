@@ -1,29 +1,32 @@
+@php
+    $imageSrc = [
+        'images/home/slide-1.webp',
+        'images/home/slide-2.webp',
+        'images/home/slide-3.webp',
+        'images/home/slide-4.webp',
+        'images/home/slide-5.webp',
+        'images/home/slide-6.webp',
+        'images/home/slide-7.webp',
+        'images/home/slide-8.webp',
+        'images/home/slide-9.webp',
+        'images/home/slide-10.webp',
+        'images/home/slide-11.webp',
+        'images/home/slide-12.webp',
+    ]
+@endphp
 <!-- Dynamic Hero Slider Section -->
 <section class="relative h-[90vh] min-h-[600px] w-full bg-slate-900 border-b-4 border-accent">
     <!-- Swiper Container -->
     <div class="swiper hero-swiper h-full w-full absolute inset-0">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
-            <div class="swiper-slide relative">
-                <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
+            @foreach ($imageSrc as $image)
+                <div class="swiper-slide relative">
+                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
+                    </div>
+                    <img src="{{ asset($image) }}" alt="Global Tex Trade Fair" class="w-full h-full object-cover">
                 </div>
-                <img src="https://i0.wp.com/msmeccii.in/wp-content/uploads/2025/05/ED3A9427-scaled.webp?fit=2560%2C1707&ssl=1"
-                    alt="Global Tex Trade Fair" class="w-full h-full object-cover">
-            </div>
-            <!-- Slide 2 -->
-            <div class="swiper-slide relative">
-                <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
-                </div>
-                <img src="https://i0.wp.com/msmeccii.in/wp-content/uploads/2025/01/N8A0028-scaled.jpg?fit=2560%2C1707&ssl=1"
-                    alt="MSME Networking" class="w-full h-full object-cover">
-            </div>
-            <!-- Slide 3 -->
-            <div class="swiper-slide relative">
-                <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
-                </div>
-                <img src="https://i0.wp.com/msmeccii.in/wp-content/uploads/2024/12/N8A0374-scaled.jpg?fit=2560%2C1707&ssl=1"
-                    alt="Chamber Event" class="w-full h-full object-cover">
-            </div>
+            @endforeach
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination mb-8!"></div>
