@@ -8,9 +8,48 @@
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #224c84;
-    --color-primary-light: #34609b;
-    --color-primary-dark: #163660;
-    --color-accent: #a6df5d;
-    --color-accent-hover: #b4ea6c;
+    --color-brand-primary: #224c84;
+    --color-brand-primary-light: #34609b;
+    --color-brand-primary-dark: #163660;
+    --color-brand-accent: #a6df5d;
+    --color-brand-accent-hover: #b4ea6c;
+    --color-brand-secondary: #f5f5f5;
+    --color-brand-secondary-hover: #e5e5e5;
+    --color-brand-secondary-dark: #d5d5d5;
+    --color-brand-secondary-darker: #c5c5c5;
+    --color-brand-light: #ffffff;
+    --color-brand-light-hover: #f0f0f0;
+    --color-brand-light-dark: #e0e0e0;
+    --color-brand-light-darker: #d0d0d0;
+    --color-brand-dark: #000000;
+    --color-brand-dark-hover: #101010;
+    --color-brand-dark-dark: #202020;
+    --color-brand-dark-darker: #303030;
+    --color-brand-border: #c7c7c7;
+}
+
+@layer base {
+    body {
+        @apply bg-white;
+    }
+}
+@layer components {
+    .container {
+        @apply mx-auto px-4 md:px-6 lg:px-8;
+    }
+    .border {
+        @apply border-brand-border;
+    }
+    .border-l {
+        @apply border-brand-border;
+    }
+    .border-l {
+        @apply border-brand-border;
+    }
+    .border-b {
+        @apply border-brand-border;
+    }
+    .border-r {
+        @apply border-brand-border;
+    }
 }

@@ -1,18 +1,9 @@
 import './bootstrap';
+import "@hotwired/turbo"
 
 // Initialize Feather Icons
 document.addEventListener('DOMContentLoaded', () => {
     feather.replace();
-    
-    // Mobile menu logic
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
 
     // Scroll Animations using Intersection Observer
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
