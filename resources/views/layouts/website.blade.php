@@ -145,7 +145,8 @@
                         [
                             'name' => 'FOCUSED SECTORS',
                             'route' => 'sectors.index',
-                            'active' => 'sectors'
+                            'active' => 'sectors',
+                            'sub_menu' => config('sectors.sectors')
                         ],
                         [
                             'name' => 'EVENTS & AWARDS',
@@ -178,7 +179,7 @@
                                         @foreach($m['sub_menu'] as $sub)
                                             <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
                                                 class="block px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-brand-primary/5 hover:text-brand-primary transition-colors border-l-2 border-transparent hover:border-brand-primary">
-                                                {{ $sub['name'] }}
+                                                {{ $sub['name'] ?? $sub['title'] }}
                                             </a>
                                         @endforeach
                                     </div>
@@ -229,7 +230,7 @@
                             @foreach($m['sub_menu'] as $sub)
                                 <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
                                     class="block px-8 py-3 text-sm font-medium text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors">
-                                    <i class="fa-solid fa-angle-right text-[10px] mr-2 text-brand-accent"></i> {{ $sub['name'] }}
+                                    <i class="fa-solid fa-angle-right text-[10px] mr-2 text-brand-accent"></i> {{ $sub['name'] ?? $sub['title'] }}
                                 </a>
                             @endforeach
                         </div>
