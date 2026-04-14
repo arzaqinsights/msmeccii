@@ -61,57 +61,62 @@
 
 <body class="font-sans text-gray-800 bg-white antialiased">
 
-    <!-- Glassmorphic Header Navigation -->
-    <header class="sticky top-0 bg-brand-primary z-50 transition-all duration-300">
+    <!-- Header Navigation -->
+    <header class="sticky top-0 bg-brand-primary z-50 transition-all duration-300" x-data="{ megaOpen: false }">
+        <!-- Top Bar -->
         <div class="bg-brand-light hidden md:block">
-            <div class="flex py-1 container items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <a href="tel:+919810690843" class="flex items-center gap-2">
-                        <i class="fa-solid fa-phone text-brand-primary"></i>
-                        <span class="text-brand-primary text-sm">+91-9810690843</span>
+            <div class="flex py-1.5 container items-center justify-between">
+                <div class="flex items-center gap-5">
+                    <a href="tel:+919810690843" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-phone text-brand-primary text-xs"></i>
+                        <span class="text-brand-primary text-xs font-medium">+91-9810690843</span>
                     </a>
-                    <a href="mailto:supprt@msmeccii.in" class="flex items-center gap-2">
-                        <i class="fa-solid fa-envelope text-brand-primary"></i>
-                        <span class="text-brand-primary text-sm">SUPPORT@MSMECCII.IN</span>
+                    <a href="mailto:support@msmeccii.in" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-envelope text-brand-primary text-xs"></i>
+                        <span class="text-brand-primary text-xs font-medium">SUPPORT@MSMECCII.IN</span>
                     </a>
                 </div>
-                <div class="flex items-center gap-2">
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-facebook-f text-brand-primary"></i>
+                <div class="flex items-center gap-3">
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-facebook-f text-brand-primary text-[10px] hover:text-white"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-twitter text-brand-primary"></i>
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-twitter text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-instagram text-brand-primary"></i>
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-instagram text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-linkedin-in text-brand-primary"></i>
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-linkedin-in text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-youtube text-brand-primary"></i>
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-youtube text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="flex items-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-brand-primary"></i>
+                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        <i class="fa-brands fa-whatsapp text-brand-primary text-[10px]"></i>
                     </a>
+                    <div class="w-px h-5 bg-brand-primary/20 mx-1"></div>
                     <a href="{{ route('login') }}"
-                        class="flex items-center gap-2 pl-2 border-l text-sm text-brand-primary">LOGIN
-                        <i class="fa-solid fa-user text-brand-primary"></i>
+                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
                     </a>
                 </div>
             </div>
         </div>
+
+        <!-- Main Nav -->
         <div class="px-4 container">
-            <div class="flex justify-between items-center h-[88px]">
+            <div class="flex justify-between items-center h-[80px]">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/" class="flex items-center gap-2">
                         <img src="{{ asset('images/logo/logo.png') }}" alt="MSMECCII Logo"
-                            class="h-14 md:h-16 w-auto shrink-0 object-contain">
+                            class="h-12 md:h-14 w-auto shrink-0 object-contain">
                         <span
-                            class="text-5xl hidden md:block font-black text-brand-light hover:text-brand-primary transition-colors uppercase mb-1">MSMECCII</span>
+                            class="text-4xl xl:text-5xl hidden md:block font-black text-brand-light hover:text-white/90 transition-colors uppercase">MSMECCII</span>
                     </a>
                 </div>
+
                 @php
                     $menu = [
                         [
@@ -121,8 +126,8 @@
                         ],
                         [
                             'name' => 'ABOUT US',
-                            'route' => 'about.what_is', // Base route
-                            'active' => 'about', // Prefix matching
+                            'route' => 'about.what_is',
+                            'active' => 'about',
                             'sub_menu' => [
                                 ['name' => 'What is MSMECCII', 'route' => 'about.what_is', 'active' => 'about/what-is-msmeccii'],
                                 ['name' => 'Global Chairman', 'route' => 'about.chairman', 'active' => 'about/chairman'],
@@ -146,6 +151,7 @@
                             'name' => 'FOCUSED SECTORS',
                             'route' => 'sectors.index',
                             'active' => 'sectors',
+                            'mega' => true,
                             'sub_menu' => config('sectors.sectors')
                         ],
                         [
@@ -153,32 +159,36 @@
                             'route' => 'events.index',
                             'active' => 'events'
                         ],
-                        // [
-                        //     'name' => 'CONTACT',
-                        //     'route' => 'contact',
-                        //     'active' => 'contact'
-                        // ],
                     ];
                 @endphp
+
                 <!-- Desktop Menu -->
-                <nav class="hidden lg:flex space-x-6 xl:space-x-8">
+                <nav class="hidden lg:flex items-center space-x-5 xl:space-x-7">
                     @foreach ($menu as $m)
-                        @if(isset($m['sub_menu']))
-                            <div class="relative group">
-                                <button href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()"
-                                @endif
-                                    class="flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors uppercase {{ request()->is($m['active'] . '*') ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">
+                        @if(isset($m['mega']) && $m['mega'])
+                            {{-- MEGA MENU trigger only --}}
+                            <div @mouseenter="megaOpen = true" @mouseleave="setTimeout(() => { if(!$el.parentElement.querySelector('.mega-panel:hover')) megaOpen = false }, 80)">
+                                <button onclick="event.preventDefault()"
+                                    class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
                                     {{ $m['name'] }}
-                                    <i
-                                        class="fa-solid fa-chevron-down text-[10px] opacity-70 group-hover:rotate-180 transition-transform"></i>
+                                    <i class="fa-solid fa-chevron-down text-[9px] opacity-70 transition-transform" :class="megaOpen ? 'rotate-180' : ''"></i>
                                 </button>
-                                <!-- Dropdown -->
+                            </div>
+                        @elseif(isset($m['sub_menu']))
+                            {{-- Regular Dropdown --}}
+                            <div class="relative group">
+                                <button onclick="event.preventDefault()"
+                                    class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
+                                    {{ $m['name'] }}
+                                    <i class="fa-solid fa-chevron-down text-[9px] opacity-70 group-hover:rotate-180 transition-transform"></i>
+                                </button>
                                 <div
-                                    class="absolute top-full left-0 mt-6 w-64 bg-white rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 z-50 overflow-hidden border border-slate-100">
-                                    <div class="py-2">
+                                    class="absolute top-full left-0 mt-4 w-60 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-3 group-hover:translate-y-0 z-50 overflow-hidden border border-slate-100">
+                                    <div class="py-1.5">
                                         @foreach($m['sub_menu'] as $sub)
                                             <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
-                                                class="block px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-brand-primary/5 hover:text-brand-primary transition-colors border-l-2 border-transparent hover:border-brand-primary">
+                                                class="flex items-center gap-2.5 px-4 py-2.5 text-[13px] font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-colors">
+                                                <span class="w-1 h-1 rounded-full bg-brand-primary/30"></span>
                                                 {{ $sub['name'] ?? $sub['title'] }}
                                             </a>
                                         @endforeach
@@ -187,7 +197,7 @@
                             </div>
                         @else
                             <a href="{{ route($m['route']) }}"
-                                class="text-sm font-semibold relative text-brand-light transition-colors uppercase {{ request()->is($m['active']) ? 'before:content-[\'\'] before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-brand-light' : '' }}">{{ $m['name'] }}</a>
+                                class="text-[13px] font-semibold relative text-brand-light hover:text-white transition-colors uppercase py-2 {{ request()->is($m['active']) ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">{{ $m['name'] }}</a>
                         @endif
                     @endforeach
                 </nav>
@@ -195,52 +205,119 @@
                 <!-- CTA Button -->
                 <div class="hidden lg:flex items-center">
                     <a href="{{ route('register') }}"
-                        class="bg-brand-light text-brand-primary px-4 py-2.5 rounded-sm font-semibold transition-all shadow-sm">
+                        class="bg-brand-light text-brand-primary px-5 py-2.5 rounded-lg font-bold text-sm transition-all shadow-sm hover:shadow-md hover:bg-white">
                         Register Now
                     </a>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center">
-                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-brand-light text-3xl cursor-pointer">
+                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-brand-light text-2xl cursor-pointer w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
+        {{-- MEGA MENU PANEL (outside nav, full-width under header) --}}
+        <div class="mega-panel hidden lg:block"
+            x-show="megaOpen"
+            @mouseenter="megaOpen = true"
+            @mouseleave="megaOpen = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2"
+            style="display: none;">
+            <div class="bg-white shadow-2xl border-t-4 border-white/20">
+                <div class="container py-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-800">
+                            <i class="fa-solid fa-industry text-brand-primary mr-2"></i>Focused Industry Sectors
+                        </h3>
+                        <a href="{{ route('sectors.index') }}" class="text-sm font-semibold text-brand-primary hover:underline flex items-center gap-1">
+                            View All Sectors <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-0.5">
+                        @foreach(config('sectors.sectors') as $sector)
+                            <a href="{{ route('sectors.show', $sector['slug']) }}"
+                                class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span>
+                                {{ $sector['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
         <div id="mobile-menu"
-            class="bg-brand-light transform translate-x-full transition-all duration-300 ease-in-out fixed w-3/4 h-dvh right-0 top-0 z-51 overflow-y-auto pb-20 shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
-            <div class="p-6 border-b border-brand-primary/10 flex justify-between items-center bg-brand-primary">
-                <span class="text-white font-black text-xl tracking-wider">MENU</span>
-                <button onclick="closeMenu()" class="text-white">
-                    <i class="fa-solid fa-xmark text-2xl"></i>
+            class="bg-white transform translate-x-full transition-all duration-300 ease-in-out fixed w-[85%] max-w-sm h-dvh right-0 top-0 z-[60] overflow-y-auto pb-20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)]"
+            x-data="{ openSub: null }">
+            <!-- Mobile Header -->
+            <div class="p-5 flex justify-between items-center bg-brand-primary sticky top-0 z-10">
+                <span class="text-white font-black text-lg tracking-wider">MENU</span>
+                <button onclick="closeMenu()" class="text-white w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            @foreach ($menu as $m)
+
+            @foreach ($menu as $mIndex => $m)
                 @if(isset($m['sub_menu']))
                     <div class="border-b border-slate-100">
-                        <button href="{{ route($m['route']) }}" @if($m['sub_menu']) onclick="event.preventDefault()" @endif
-                            class="flex justify-between items-center p-4 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">
+                        {{-- Accordion toggle --}}
+                        <button @click="openSub === {{ $mIndex }} ? openSub = null : openSub = {{ $mIndex }}"
+                            class="flex justify-between items-center w-full px-5 py-4 text-sm font-bold text-slate-800 hover:text-brand-primary transition-colors">
                             {{ $m['name'] }}
-                            <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
+                            <i class="fa-solid fa-chevron-down text-[10px] opacity-50 transition-transform duration-200"
+                                :class="openSub === {{ $mIndex }} ? 'rotate-180' : ''"></i>
                         </button>
-                        <div class="bg-slate-50 border-t border-slate-100">
+                        {{-- Collapsible items --}}
+                        <div x-show="openSub === {{ $mIndex }}"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 max-h-0"
+                            x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0 max-h-0"
+                            class="bg-slate-50 border-t border-slate-100 {{ isset($m['mega']) ? 'max-h-[50vh] overflow-y-auto' : '' }}"
+                            style="display: none;">
                             @foreach($m['sub_menu'] as $sub)
-                                <a href="{{ isset($sub['slug']) ? route($sub['route'], $sub['slug']) : route($sub['route']) }}"
-                                    class="block px-8 py-3 text-sm font-medium text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors">
-                                    <i class="fa-solid fa-angle-right text-[10px] mr-2 text-brand-accent"></i> {{ $sub['name'] ?? $sub['title'] }}
+                                <a href="{{ isset($sub['slug']) ? route(isset($m['mega']) ? 'sectors.show' : $sub['route'], $sub['slug']) : route($sub['route']) }}"
+                                    class="flex items-center gap-2 px-7 py-2.5 text-[13px] font-medium text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors">
+                                    <span class="w-1 h-1 rounded-full bg-brand-primary/40 shrink-0"></span>
+                                    {{ $sub['name'] ?? $sub['title'] }}
                                 </a>
                             @endforeach
+                            @if(isset($m['mega']))
+                                <a href="{{ route('sectors.index') }}"
+                                    class="flex items-center gap-2 px-7 py-3 text-[13px] font-bold text-brand-primary bg-brand-primary/5 border-t border-slate-100">
+                                    <i class="fa-solid fa-arrow-right text-[10px]"></i> View All Sectors
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @else
                     <a href="{{ route($m['route']) }}"
-                        class="block p-4 border-b border-slate-100 text-base font-bold text-slate-800 hover:text-brand-primary transition-colors">{{ $m['name'] }}</a>
+                        class="block px-5 py-4 border-b border-slate-100 text-sm font-bold text-slate-800 hover:text-brand-primary transition-colors">{{ $m['name'] }}</a>
                 @endif
             @endforeach
+
+            <!-- Mobile CTA -->
+            <div class="p-5">
+                <a href="{{ route('register') }}"
+                    class="block w-full text-center bg-brand-primary text-white py-3 rounded-lg font-bold text-sm hover:bg-brand-primary/90 transition-colors">
+                    Register Now
+                </a>
+            </div>
         </div>
+
+        <!-- Mobile overlay -->
+        <div id="mobile-overlay" onclick="closeMenu()" class="fixed inset-0 bg-black/40 z-[55] hidden"></div>
     </header>
 
     <!-- Main Content -->
@@ -358,44 +435,27 @@
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-overlay');
 
-            if (menu.classList.contains('hidden')) {
-                // SHOW
-                menu.classList.remove('hidden');
+            // SHOW
+            menu.classList.remove('translate-x-full');
+            menu.classList.add('translate-x-0');
+            overlay.classList.remove('hidden');
 
-                setTimeout(() => {
-                    menu.classList.remove('translate-x-full');
-                    menu.classList.add('translate-x-0');
-                }, 10);
-
-                // Add outside click listener
-                document.addEventListener('click', handleOutsideClick);
-
-            } else {
-                closeMenu();
-            }
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
         }
 
         function closeMenu() {
             const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-overlay');
 
             menu.classList.remove('translate-x-0');
             menu.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
 
-            setTimeout(() => {
-                menu.classList.add('hidden');
-            }, 300);
-
-            document.removeEventListener('click', handleOutsideClick);
-        }
-
-        function handleOutsideClick(e) {
-            const menu = document.getElementById('mobile-menu');
-            const toggleBtn = document.getElementById('menu-btn'); // apna button id set karo
-
-            if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
-                closeMenu();
-            }
+            // Restore body scroll
+            document.body.style.overflow = '';
         }
     </script>
 </body>
