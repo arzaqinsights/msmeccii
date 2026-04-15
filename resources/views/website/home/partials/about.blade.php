@@ -1,4 +1,4 @@
-<section class="py-24 bg-white relative overflow-hidden">
+<section class="pt-24 bg-white relative overflow-hidden">
     <!-- Background Decorators -->
     <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-accent/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-brand-primary/10 rounded-full blur-3xl"></div>
