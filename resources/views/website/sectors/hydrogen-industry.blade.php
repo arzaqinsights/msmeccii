@@ -1,6 +1,6 @@
 @extends('layouts.website')
 
-@section('title', 'Hydrogen Industry')
+@section('title', 'Hydrogen')
 
 @section('content')
 
@@ -13,7 +13,7 @@
 
         <div class="container relative z-10 text-center">
             <h1 class="text-4xl md:text-6xl font-black uppercase mb-4 tracking-wide">
-                Hydrogen Industry
+                Hydrogen
             </h1>
             <p class="text-lg md:text-xl text-sky-300 font-semibold mb-2">The Fuel of the Future</p>
             <p class="text-slate-300 max-w-3xl mx-auto">

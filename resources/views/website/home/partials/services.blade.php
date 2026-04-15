@@ -1,19 +1,19 @@
-<section class="py-24 bg-slate-900 relative overflow-hidden">
+<section class="py-24 bg-white relative overflow-hidden border-brand-primary border-b" style="border-bottom-width: 24px; border-top-width: 24px;">
     <!-- Grid Pattern -->
     <div class="absolute inset-0 z-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')] bg-repeat"></div>
 
     <div class="container relative z-10">
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
-                <i class="fa-solid fa-cubes text-brand-accent text-xs"></i>
+        <div class="text-center max-w-5xl mx-auto mb-16 animate-on-scroll">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary border mb-6">
+                <i class="fa-solid fa-cubes text-white text-xs"></i>
                 <span class="text-white text-xs font-bold tracking-widest uppercase">What We Do</span>
             </div>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
-                Our Core Pillars of <span class="text-brand-accent">Service</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-brand-primary mb-6">
+                Our Core Pillars of Service
             </h2>
-            <p class="text-slate-400 text-lg leading-relaxed">
-                We empower MSMEs through a comprehensive suite of strategic services designed to elevate and scale your business operations globally.
+            <p class="text-slate-600 font-semibold text-lg leading-relaxed">
+                Empowering MSMEs through strategic initiatives, industry advocacy, business networking, and growth-driven solutions to foster sustainable success and global competitiveness.
             </p>
         </div>
 
@@ -31,12 +31,12 @@
             @endphp
 
             @foreach($services as $idx => $svc)
-            <div class="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all duration-300 group hover:-translate-y-1 animate-on-scroll {{ $idx > 0 ? 'delay-' . min($idx, 4) . '00' : '' }}">
+            <div class="bg-brand-primary border p-8 rounded-2xl hover:bg-black transition-all duration-300 group hover:-translate-y-1 animate-on-scroll {{ $idx > 0 ? 'delay-' . min($idx, 4) . '00' : '' }}">
                 <div class="w-14 h-14 bg-{{ $svc['bg'] }} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="{{ $svc['icon'] }} text-{{ $svc['color'] }} text-xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3">{{ $svc['title'] }}</h3>
-                <p class="text-slate-400 leading-relaxed text-sm">{{ $svc['desc'] }}</p>
+                <p class="text-white leading-relaxed text-sm">{{ $svc['desc'] }}</p>
             </div>
             @endforeach
         </div>

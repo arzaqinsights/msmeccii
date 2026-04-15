@@ -378,7 +378,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white pt-20 pb-0">
+    <footer class="bg-brand-light text-slate-500 pt-20 pb-0">
         <div class="container">
 
             <!-- Top Row -->
@@ -388,8 +388,8 @@
                 <div>
                     <div class="flex items-center gap-3 mb-6">
                         <img src="{{ asset('images/logo/logo.png') }}" alt="MSMECCII Logo"
-                            class="h-12 w-auto object-contain bg-white/90 p-1.5 rounded-lg">
-                        <span class="text-2xl font-black tracking-wider text-white">MSMECCII</span>
+                            class="h-12 w-auto object-contain bg-brand-primary p-1.5 rounded-lg">
+                        <span class="text-4xl font-black tracking-wider text-brand-primary">MSMECCII</span>
                     </div>
                     <p class="text-slate-400 leading-relaxed mb-6 text-sm">
                         A global business network and NGO established in 2019, dedicated to furthering the interests of
@@ -398,37 +398,37 @@
                     <div class="flex gap-3">
                         @if($site['facebook_url'] ?? false)
                             <a href="{{ $site['facebook_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-facebook-f text-sm"></i>
                             </a>
                         @endif
                         @if($site['twitter_url'] ?? false)
                             <a href="{{ $site['twitter_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-twitter text-sm"></i>
                             </a>
                         @endif
                         @if($site['linkedin_url'] ?? false)
                             <a href="{{ $site['linkedin_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-linkedin-in text-sm"></i>
                             </a>
                         @endif
                         @if($site['instagram_url'] ?? false)
                             <a href="{{ $site['instagram_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-instagram text-sm"></i>
                             </a>
                         @endif
                         @if($site['youtube_url'] ?? false)
                             <a href="{{ $site['youtube_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-youtube text-sm"></i>
                             </a>
                         @endif
                         @if($site['whatsapp_url'] ?? false)
                             <a href="{{ $site['whatsapp_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
                                 <i class="fa-brands fa-whatsapp text-sm"></i>
                             </a>
                         @endif
@@ -437,59 +437,59 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Quick Links</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Quick Links</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('about.what_is') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> About MSMECCII
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> About MSMECCII
                             </a></li>
                         <li><a href="{{ route('sectors.index') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Focused Sectors
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Focused Sectors
                             </a></li>
                         <li><a href="{{ route('join.index') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Join / Membership
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Join / Membership
                             </a></li>
                         <li><a href="{{ route('about.leadership') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Core Leadership
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Core Leadership
                             </a></li>
                     </ul>
                 </div>
 
                 <!-- Activities -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Activities</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Activities</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('events.index') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Events & Awards
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Events & Awards
                             </a></li>
                         <li><a href="{{ route('register') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Register Now
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Register Now
                             </a></li>
                         <li><a href="{{ route('about.chairman') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Chairman's Message
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Chairman's Message
                             </a></li>
                         <li><a href="{{ route('sectors.index') }}"
-                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Trade & Expo
+                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Trade & Expo
                             </a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Contact Us</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Contact Us</h3>
                     <ul class="space-y-4">
                         @if($site['address'] ?? false)
                             <li class="flex items-start gap-3">
                                 <div
                                     class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                                    <i class="fa-solid fa-location-dot text-brand-accent text-sm"></i>
+                                    <i class="fa-solid fa-location-dot text-brand-primary text-sm"></i>
                                 </div>
                                 <span
                                     class="text-slate-400 text-sm leading-relaxed">{!! nl2br(e($site['address'])) !!}</span>
@@ -500,7 +500,7 @@
                                 <li class="flex items-center gap-3">
                                     <div
                                         class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
-                                        <i class="fa-solid fa-phone text-brand-accent text-sm"></i>
+                                        <i class="fa-solid fa-phone text-brand-primary text-sm"></i>
                                     </div>
                                     <a href="tel:{{ $site[$pk] }}"
                                         class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$pk] }}</a>
@@ -512,7 +512,7 @@
                                 <li class="flex items-center gap-3">
                                     <div
                                         class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
-                                        <i class="fa-solid fa-envelope text-brand-accent text-sm"></i>
+                                        <i class="fa-solid fa-envelope text-brand-primary text-sm"></i>
                                     </div>
                                     <a href="mailto:{{ $site[$ek] }}"
                                         class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$ek] }}</a>

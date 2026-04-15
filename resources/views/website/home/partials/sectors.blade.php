@@ -10,7 +10,7 @@
                         Focused Industry Sectors
                     </h2>
 
-                    <p class="text-brand-primary-dark mb-3">
+                    <p class="text-brand-primary-dark mb-3 font-bold">
                         Empowering key industries with growth, networking, and recognition.
                     </p>
                 </div>
@@ -40,9 +40,9 @@
         <div class="swiper sector-slider relative group overflow-hidden px-4 md:px-0">
             <div class="swiper-wrapper py-4 pb-12 w-full">
                 @foreach(config('sectors.sectors') as $sector)
-                    <div class="swiper-slide w-full md:w-1/3">
+                    <div class="swiper-slide w-full md:w-1/3 -mx-29" style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);">
                         <a href="{{ route('sectors.show', $sector['slug']) }}"
-                            class="block relative rounded-xl h-92 overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group/card">
+                            class="block relative rounded-xl h-120 overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group/card">
 
                             <img src="{{ Str::startsWith($sector['thumbnail'], 'http') ? $sector['thumbnail'] : asset($sector['thumbnail'] ?: 'images/sectors/textile.png') }}"
                                 class="w-full h-full object-cover group-hover/card:scale-110 transition duration-500 bg-slate-200"
@@ -52,9 +52,9 @@
                                 class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/50 to-transparent transition-opacity duration-300">
                             </div>
 
-                            <div class="absolute bottom-0 p-6 text-white w-full z-10 whitespace-normal">
+                            <div class="absolute bottom-0 p-12 text-white w-full z-10 whitespace-normal">
                                 <h3
-                                    class="text-lg font-black group-hover/card:text-brand-primary transition-colors leading-tight mb-2">
+                                    class="text-lg font-black group-hover/card:text-brand-accent transition-colors leading-tight mb-2">
                                     {{ $sector['title'] }}
                                 </h3>
                                 <p class="text-xs text-slate-300 font-medium">

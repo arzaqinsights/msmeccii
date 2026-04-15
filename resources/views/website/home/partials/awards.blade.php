@@ -1,5 +1,5 @@
 <!-- Awards & Recognition -->
-<section class="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+<section class="py-4 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
     <div class="container relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-16">
 
@@ -44,7 +44,7 @@
             <div class="w-full lg:w-1/2 animate-on-scroll delay-200">
                 <div class="relative">
                     <div class="rounded-2xl overflow-hidden shadow-2xl">
-                        <img src="{{ asset('images/home/slide-6.webp') }}" alt="MSMECCII Awards Ceremony"
+                        <img src="{{ asset('images/home/award.jpeg') }}" alt="MSMECCII Awards Ceremony"
                             class="w-full md:h-[500px] object-cover bg-slate-200" loading="lazy">
                     </div>
 
@@ -63,7 +63,7 @@
 
                     <!-- Award Badge -->
                     <div class="absolute -bottom-6 right-2 md:-right-4 bg-brand-primary text-white rounded-2xl px-6 py-4 shadow-xl">
-                        <p class="text-2xl font-black mb-0.5">⭐ 5th Edition</p>
+                        <p class="text-2xl font-black mb-0.5">⭐ 3rd Edition</p>
                         <p class="text-xs font-semibold text-white/70">Coming Soon</p>
                     </div>
                 </div>

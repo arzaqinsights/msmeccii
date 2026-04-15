@@ -45,13 +45,6 @@ return [
             'route' => 'sectors.show',
         ],
         [
-            'title' => 'Battery Recycling',
-            'description' => 'Battery recycling is the process of recycling batteries.',
-            'thumbnail' => 'images/sectors/battery-recycling.jpg',
-            'slug' => 'battery-recycling',
-            'route' => 'sectors.show',
-        ],
-        [
             'title' => 'Solar Recycling',
             'description' => 'Solar recycling is the process of recycling solar panels.',
             'thumbnail' => 'images/sectors/solar-recycling.jpeg',
@@ -129,7 +122,7 @@ return [
             'route' => 'sectors.show',
         ],
         [
-            'title' => 'Hydrogen Industry',
+            'title' => 'Hydrogen',
             'description' => 'Clean energy carrier for power generation, industrial processes, mobility, and global decarbonization.',
             'thumbnail' => 'images/sectors/hydrogen-industry.jpg',
             'slug' => 'hydrogen-industry',

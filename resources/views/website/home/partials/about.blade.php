@@ -7,10 +7,12 @@
         <div class="flex flex-col lg:flex-row items-center gap-16">
             <!-- Image Area -->
             <div class="w-full lg:w-1/2 relative group animate-on-scroll">
-                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="{{ asset('images/home/slide-4.webp') }}" alt="About MSMECCII"
-                        class="w-full md:h-[550px] object-cover bg-slate-200" loading="lazy">
-                    <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col gap-4">
+                    <img src="{{ asset('images/home/growth.jpeg') }}" alt="About MSMECCII"
+                        class="w-full md:h-[260px] object-cover bg-slate-200" loading="lazy">
+                    <!-- <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-500"></div> -->
+                    <img src="{{ asset('images/home/award-1.jpeg') }}" alt="About MSMECCII"
+                        class="w-full md:h-[260px] object-cover object-top bg-slate-200" loading="lazy">
                 </div>
 
                 <!-- Floating Badge -->

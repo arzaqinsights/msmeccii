@@ -1,5 +1,7 @@
 @php
     $imageSrc = [
+        'images/home/slide-0.jpeg',
+        'images/home/award-1.jpeg',
         'images/home/slide-1.webp',
         'images/home/slide-2.webp',
         'images/home/slide-3.webp',

@@ -8,7 +8,7 @@
     <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-accent/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
 
     <div class="container relative z-10">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+        <div class="text-center animate-on-scroll">
 
             <!-- Badge -->
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 mb-8">
