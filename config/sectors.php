@@ -26,7 +26,7 @@ return [
         [
             'title' => 'E-Waste Recycling',
             'description' => 'Collection, dismantling, and recovery of valuable materials from discarded electronics and equipment.',
-            'thumbnail' => 'images/sectors/e-waste-recycling.webp',
+            'thumbnail' => 'images/sectors/e-waste-recycling.jpeg',
             'slug' => 'e-waste-recycling',
             'route' => 'sectors.show',
         ],
