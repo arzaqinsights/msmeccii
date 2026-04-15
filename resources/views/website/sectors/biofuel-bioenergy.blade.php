@@ -8,7 +8,7 @@
     <section class="relative pt-32 pb-24 bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-green-900 via-slate-900 to-black"></div>
         <div class="absolute inset-0 opacity-10"
-            style="background-image: url('{{ asset('images/sectors/biofuel-bioenergy.jpg') }}'); background-size: cover; background-position: center;">
+            style="background-image: url('{{ asset('images/sectors/biofuel.jpeg') }}'); background-size: cover; background-position: center;">
         </div>
 
         <div class="container relative z-10 text-center">
@@ -41,7 +41,7 @@
                     </p>
                 </div>
 
-                <img src="{{ asset('images/sectors/biofuel-bioenergy.jpg') }}" alt="Biofuel Bio Energy"
+                <img src="{{ asset('images/sectors/biofuel.jpeg') }}" alt="Biofuel Bio Energy"
                     class="w-full h-[320px] object-cover rounded-2xl shadow-lg">
             </div>
 
@@ -267,7 +267,7 @@
             <!-- WHY INDIA -->
             <div class="grid md:grid-cols-2 gap-12 items-center">
 
-                <img src="{{ asset('images/sectors/biofuel-bioenergy.jpg') }}" alt="India Bio Energy Hub"
+                <img src="{{ asset('images/sectors/biofuel.jpeg') }}" alt="India Bio Energy Hub"
                     class="w-full h-[300px] object-cover rounded-2xl shadow-md">
 
                 <div class="p-6 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-800 text-white shadow-lg min-h-[300px] flex flex-col justify-center">

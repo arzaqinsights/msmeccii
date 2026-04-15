@@ -1,28 +1,51 @@
 import './bootstrap';
-import "@hotwired/turbo"
+import "@hotwired/turbo";
+import Alpine from 'alpinejs';
+import intersect from '@alpinejs/intersect';
 
-// Initialize Feather Icons
-document.addEventListener('DOMContentLoaded', () => {
-    feather.replace();
+// Register Alpine plugins
+Alpine.plugin(intersect);
 
-    // Scroll Animations using Intersection Observer
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+// Make Alpine available globally
+window.Alpine = Alpine;
+
+// Start Alpine — it will auto-detect x-data on initial load
+Alpine.start();
+
+/**
+ * Turbo + Alpine compatibility:
+ * After every Turbo page visit, Alpine needs to re-initialize new elements
+ * that were injected into the DOM by Turbo's body swap.
+ */
+document.addEventListener('turbo:load', () => {
+    // Re-init Alpine on Turbo navigations (not the initial page load)
+    // Alpine.start() is idempotent — safe to call again
+    // But we need to use initTree for Turbo-replaced body content
+    document.querySelectorAll('[x-data]').forEach(el => {
+        if (!el._x_dataStack) {
+            Alpine.initTree(el);
+        }
     });
 
-    animatedElements.forEach(el => observer.observe(el));
+    // Scroll Animations — Intersection Observer
+    const animatedElements = document.querySelectorAll('.animate-on-scroll:not(.visible)');
+    if (animatedElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+        animatedElements.forEach(el => observer.observe(el));
+    }
 
-    // Initialize Swiper for Hero
-    if(document.querySelector('.hero-swiper')) {
+    // Hero Swiper
+    if (document.querySelector('.hero-swiper')) {
         new Swiper('.hero-swiper', {
             loop: true,
             effect: 'fade',
@@ -41,14 +64,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Countdown Timer logic for Upcoming Events
-    const countdownDate = new Date('2026-06-15T09:00:00').getTime();
-    
-    if (document.getElementById('countdown-days')) {
+    // Sector Slider Swiper
+    if (document.querySelector('.sector-slider')) {
+        new Swiper('.sector-slider', {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            pagination: {
+                el: '.sector-slider .swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 3 }
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            }
+        });
+    }
+
+    // Countdown Timer for Upcoming Events
+    const countdownDays = document.getElementById('countdown-days');
+    if (countdownDays) {
+        const countdownDate = new Date('2026-06-15T09:00:00').getTime();
         const timer = setInterval(() => {
             const now = new Date().getTime();
             const distance = countdownDate - now;
-            
+
             if (distance < 0) {
                 clearInterval(timer);
                 return;

@@ -10,7 +10,7 @@
             
             <div class="w-full lg:w-2/3">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-bold text-sm tracking-wider uppercase mb-6 shadow-sm">
-                    <i data-feather="bell" class="w-4 h-4"></i>
+                    <i class="fa-solid fa-bell text-sm"></i>
                     Major Announcement
                 </div>
                 

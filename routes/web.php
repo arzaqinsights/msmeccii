@@ -124,8 +124,11 @@ Route::middleware('auth')->group(function () {
 // -------------------------------------------------------------
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::post('sectors/settings', [\App\Http\Controllers\Admin\SectorController::class, 'updateSettings'])->name('sectors.settings');
-    Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
+
+    // Site Settings
+    Route::get('settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'index'])->name('settings.index');
+    Route::put('settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'bulkUpdate'])->name('settings.bulk-update');
+
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);

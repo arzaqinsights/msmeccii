@@ -4,7 +4,7 @@
         <div class="mb-14 flex flex-col gap-6">
 
             <!-- Left Content -->
-            <div class="flex items-start justify-between">
+            <div class="flex flex-col md:flex-row items-start justify-between">
                 <div class="max-w-2xl">
                     <h2 class="text-4xl md:text-5xl font-extrabold text-brand-primary mb-4">
                         Focused Industry Sectors
@@ -40,9 +40,9 @@
         <div class="swiper sector-slider relative group overflow-hidden px-4 md:px-0">
             <div class="swiper-wrapper py-4 pb-12 w-full">
                 @foreach(config('sectors.sectors') as $sector)
-                    <div class="swiper-slide w-full md:w-80">
+                    <div class="swiper-slide w-full md:w-1/3">
                         <a href="{{ route('sectors.show', $sector['slug']) }}"
-                            class="block relative rounded-xl h-72 overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group/card">
+                            class="block relative rounded-xl h-92 overflow-hidden shadow-md hover:shadow-2xl transition duration-300 group/card">
 
                             <img src="{{ Str::startsWith($sector['thumbnail'], 'http') ? $sector['thumbnail'] : asset($sector['thumbnail'] ?: 'images/sectors/textile.png') }}"
                                 class="w-full h-full object-cover group-hover/card:scale-110 transition duration-500 bg-slate-200"
@@ -86,29 +86,6 @@
                 opacity: 1;
             }
         </style>
-
-        <script>
-            document.addEventListener('turbo:load', function () {
-                new Swiper('.sector-slider', {
-                    slidesPerView: 1,
-                    spaceBetween: 24,
-                    pagination: {
-                        el: '.sector-slider .swiper-pagination',
-                        clickable: true,
-                        dynamicBullets: true,
-                    },
-                    breakpoints: {
-                        640: { slidesPerView: 2 },
-                        1024: { slidesPerView: 3 },
-                        1280: { slidesPerView: 4 }
-                    },
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }
-                });
-            });
-        </script>
 
     </div>
 </section>

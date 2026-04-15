@@ -99,7 +99,7 @@
 
             <!-- IMAGE + GLOBAL GROWTH -->
             <div class="grid md:grid-cols-2 gap-10">
-                <img src="{{ asset('images/sectors/other-types-of-packaging.webp') }}" alt="Packaging Growth"
+                <img src="{{ asset('images/sectors/packeging-1.jpeg') }}" alt="Packaging Growth"
                     class="h-[320px] w-full object-cover rounded-2xl shadow-md">
 
                 <div class="p-6 rounded-2xl bg-white border shadow-sm">

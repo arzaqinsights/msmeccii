@@ -14,13 +14,13 @@
             <ol class="inline-flex items-center space-x-1 md:space-x-3 text-sm font-medium">
                 <li class="inline-flex items-center">
                     <a href="/" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
-                        <i data-feather="home" class="w-4 h-4"></i>
+                        <i class="fa-solid fa-house text-sm"></i>
                         Home
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center text-slate-500">
-                        <i data-feather="chevron-right" class="w-4 h-4 mx-1"></i>
+                        <i class="fa-solid fa-chevron-right text-[10px] mx-1"></i>
                         <span class="text-brand-accent ml-1 md:ml-2">About Us</span>
                     </div>
                 </li>

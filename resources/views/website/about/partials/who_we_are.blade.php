@@ -25,19 +25,19 @@
                 <!-- Key Focus Areas list -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div class="flex items-center gap-3">
-                        <i data-feather="check-circle" class="text-brand-accent w-5 h-5 flex-shrink-0"></i>
+                        <i class="fa-solid fa-circle-check text-brand-accent text-lg flex-shrink-0"></i>
                         <span class="text-slate-800 font-medium">Plastics & Packaging Strategy</span>
                     </div>
                     <div class="flex items-center gap-3">
-                        <i data-feather="check-circle" class="text-brand-accent w-5 h-5 flex-shrink-0"></i>
+                        <i class="fa-solid fa-circle-check text-brand-accent text-lg flex-shrink-0"></i>
                         <span class="text-slate-800 font-medium">EPR & Sustainability Goals</span>
                     </div>
                     <div class="flex items-center gap-3">
-                        <i data-feather="check-circle" class="text-brand-accent w-5 h-5 flex-shrink-0"></i>
+                        <i class="fa-solid fa-circle-check text-brand-accent text-lg flex-shrink-0"></i>
                         <span class="text-slate-800 font-medium">Women in MSME Empowerment</span>
                     </div>
                     <div class="flex items-center gap-3">
-                        <i data-feather="check-circle" class="text-brand-accent w-5 h-5 flex-shrink-0"></i>
+                        <i class="fa-solid fa-circle-check text-brand-accent text-lg flex-shrink-0"></i>
                         <span class="text-slate-800 font-medium">Clean & Green India Initiatives</span>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <!-- Highlight Box -->
                 <div class="bg-slate-50 border-l-4 border-brand-primary p-6 rounded-r-xl">
                     <p class="text-slate-700 italic font-medium relative z-10">
-                        <i data-feather="quote" class="absolute -top-3 -left-3 text-slate-200 w-10 h-10 -z-10 rotate-180"></i>
+                        <i class="fa-solid fa-quote-left absolute -top-3 -left-3 text-slate-200 text-4xl -z-10"></i>
                         "Driving social impact alongside supreme economic growth through initiatives like Beti Bachao Beti Padhao."
                     </p>
                 </div>

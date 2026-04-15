@@ -4,29 +4,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'MSME Chamber of Commerce and Industy of India')</title>
+    <title>@yield('title', 'MSME Chamber of Commerce and Industry of India')</title>
+    <meta name="description"
+        content="@yield('meta_description', 'MSMECCII - The global MSME Chamber of Commerce and Industry of India. Supporting 50,000+ enterprises across 26+ sectors.')">
 
-    <!-- Fonts -->
+    <!-- DNS Prefetch & Preconnect for speed -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Critical CSS: Fonts (swap to prevent FOIT) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Font Awesome (deferred) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
 
-    <!-- Swiper CSS & JS via CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Swiper CSS (deferred) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print"
+        onload="this.media='all'" />
 
-    <!-- Alpine JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Swiper JS (deferred) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <!-- Tailwind Vite Directives & App JS -->
+    <!-- Tailwind Vite Directives & App JS (includes Alpine.js + Turbo) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Google Analytics (GA4) — async, non-blocking -->
+    @if(config('services.google.analytics_id'))
+        <script async
+            src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google.analytics_id') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', '{{ config('services.google.analytics_id') }}');
+        </script>
+    @endif
 
     <style>
         /* Animation helper styles */
@@ -61,48 +84,80 @@
 
 <body class="font-sans text-gray-800 bg-white antialiased">
 
+    @php
+        $site = cache()->remember('site_settings', 60, function () {
+            return \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        });
+    @endphp
+
     <!-- Header Navigation -->
-    <header class="sticky top-0 bg-brand-primary z-50 transition-all duration-300" x-data="{ megaOpen: false }">
-        <!-- Top Bar -->
-        <div class="bg-brand-light hidden md:block">
-            <div class="flex py-1.5 container items-center justify-between">
-                <div class="flex items-center gap-5">
-                    <a href="tel:+919810690843" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                        <i class="fa-solid fa-phone text-brand-primary text-xs"></i>
-                        <span class="text-brand-primary text-xs font-medium">+91-9810690843</span>
-                    </a>
-                    <a href="mailto:support@msmeccii.in" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                        <i class="fa-solid fa-envelope text-brand-primary text-xs"></i>
-                        <span class="text-brand-primary text-xs font-medium">SUPPORT@MSMECCII.IN</span>
-                    </a>
-                </div>
-                <div class="flex items-center gap-3">
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+    <div class="bg-brand-light hidden md:block">
+        <div class="flex py-1.5 container items-center justify-between">
+            <div class="flex items-center gap-5">
+                @foreach(['phone_1', 'phone_2', 'phone_3'] as $pk)
+                    @if($site[$pk] ?? false)
+                        <a href="tel:{{ $site[$pk] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                            <i class="fa-solid fa-phone text-brand-primary text-xs"></i>
+                            <span class="text-brand-primary text-xs font-medium">{{ $site[$pk] }}</span>
+                        </a>
+                    @endif
+                @endforeach
+                @foreach(['email_1', 'email_2'] as $ek)
+                    @if($site[$ek] ?? false)
+                        <a href="mailto:{{ $site[$ek] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                            <i class="fa-solid fa-envelope text-brand-primary text-xs"></i>
+                            <span class="text-brand-primary text-xs font-medium">{{ strtoupper($site[$ek]) }}</span>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+            <div class="flex items-center gap-3">
+                @if($site['facebook_url'] ?? false)
+                    <a href="{{ $site['facebook_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-facebook-f text-brand-primary text-[10px] hover:text-white"></i>
                     </a>
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                @endif
+                @if($site['twitter_url'] ?? false)
+                    <a href="{{ $site['twitter_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-twitter text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                @endif
+                @if($site['instagram_url'] ?? false)
+                    <a href="{{ $site['instagram_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-instagram text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                @endif
+                @if($site['linkedin_url'] ?? false)
+                    <a href="{{ $site['linkedin_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-linkedin-in text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                @endif
+                @if($site['youtube_url'] ?? false)
+                    <a href="{{ $site['youtube_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-youtube text-brand-primary text-[10px]"></i>
                     </a>
-                    <a href="" class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                @endif
+                @if($site['whatsapp_url'] ?? false)
+                    <a href="{{ $site['whatsapp_url'] }}" target="_blank"
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
                         <i class="fa-brands fa-whatsapp text-brand-primary text-[10px]"></i>
                     </a>
-                    <div class="w-px h-5 bg-brand-primary/20 mx-1"></div>
-                    <a href="{{ route('login') }}"
-                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
-                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
-                    </a>
-                </div>
+                @endif
+                <div class="w-px h-5 bg-brand-primary/20 mx-1"></div>
+                <a href="{{ route('login') }}"
+                    class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
+                    <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
+                </a>
             </div>
         </div>
+    </div>
+    <header class="sticky top-0 bg-brand-primary z-50 transition-all duration-300" x-data="{ megaOpen: false }">
+        <!-- Top Bar -->
 
         <!-- Main Nav -->
         <div class="px-4 container">
@@ -167,11 +222,12 @@
                     @foreach ($menu as $m)
                         @if(isset($m['mega']) && $m['mega'])
                             {{-- MEGA MENU trigger only --}}
-                            <div @mouseenter="megaOpen = true" @mouseleave="setTimeout(() => { if(!$el.parentElement.querySelector('.mega-panel:hover')) megaOpen = false }, 80)">
+                            <div class="relative" @mouseenter="megaOpen = true" @mouseleave="megaOpen = false">
                                 <button onclick="event.preventDefault()"
                                     class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
                                     {{ $m['name'] }}
-                                    <i class="fa-solid fa-chevron-down text-[9px] opacity-70 transition-transform" :class="megaOpen ? 'rotate-180' : ''"></i>
+                                    <i class="fa-solid fa-chevron-down text-[9px] opacity-70 transition-transform"
+                                        :class="megaOpen ? 'rotate-180' : ''"></i>
                                 </button>
                             </div>
                         @elseif(isset($m['sub_menu']))
@@ -180,7 +236,8 @@
                                 <button onclick="event.preventDefault()"
                                     class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
                                     {{ $m['name'] }}
-                                    <i class="fa-solid fa-chevron-down text-[9px] opacity-70 group-hover:rotate-180 transition-transform"></i>
+                                    <i
+                                        class="fa-solid fa-chevron-down text-[9px] opacity-70 group-hover:rotate-180 transition-transform"></i>
                                 </button>
                                 <div
                                     class="absolute top-full left-0 mt-4 w-60 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-3 group-hover:translate-y-0 z-50 overflow-hidden border border-slate-100">
@@ -212,7 +269,8 @@
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center">
-                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-brand-light text-2xl cursor-pointer w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
+                    <button id="menu-btn" onclick="toggleMobileMenu()"
+                        class="text-brand-light text-2xl cursor-pointer w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                 </div>
@@ -220,24 +278,19 @@
         </div>
 
         {{-- MEGA MENU PANEL (outside nav, full-width under header) --}}
-        <div class="mega-panel hidden lg:block"
-            x-show="megaOpen"
-            @mouseenter="megaOpen = true"
-            @mouseleave="megaOpen = false"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 -translate-y-2"
-            x-transition:enter-end="opacity-100 translate-y-0"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 -translate-y-2"
-            style="display: none;">
+        <div class="mega-panel hidden lg:block" x-show="megaOpen" @mouseenter="megaOpen = true"
+            @mouseleave="megaOpen = false" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2" style="display: none;">
             <div class="bg-white shadow-2xl border-t-4 border-white/20">
                 <div class="container py-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-bold text-slate-800">
                             <i class="fa-solid fa-industry text-brand-primary mr-2"></i>Focused Industry Sectors
                         </h3>
-                        <a href="{{ route('sectors.index') }}" class="text-sm font-semibold text-brand-primary hover:underline flex items-center gap-1">
+                        <a href="{{ route('sectors.index') }}"
+                            class="text-sm font-semibold text-brand-primary hover:underline flex items-center gap-1">
                             View All Sectors <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                     </div>
@@ -245,7 +298,8 @@
                         @foreach(config('sectors.sectors') as $sector)
                             <a href="{{ route('sectors.show', $sector['slug']) }}"
                                 class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
-                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span>
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span>
                                 {{ $sector['title'] }}
                             </a>
                         @endforeach
@@ -261,7 +315,8 @@
             <!-- Mobile Header -->
             <div class="p-5 flex justify-between items-center bg-brand-primary sticky top-0 z-10">
                 <span class="text-white font-black text-lg tracking-wider">MENU</span>
-                <button onclick="closeMenu()" class="text-white w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
+                <button onclick="closeMenu()"
+                    class="text-white w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
@@ -277,12 +332,9 @@
                                 :class="openSub === {{ $mIndex }} ? 'rotate-180' : ''"></i>
                         </button>
                         {{-- Collapsible items --}}
-                        <div x-show="openSub === {{ $mIndex }}"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 max-h-0"
-                            x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100"
+                        <div x-show="openSub === {{ $mIndex }}" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                             x-transition:leave-end="opacity-0 max-h-0"
                             class="bg-slate-50 border-t border-slate-100 {{ isset($m['mega']) ? 'max-h-[50vh] overflow-y-auto' : '' }}"
                             style="display: none;">
@@ -326,110 +378,162 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white pt-20 pb-8">
+    <footer class="bg-slate-900 text-white pt-20 pb-0">
         <div class="container">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <!-- Branding Col -->
+
+            <!-- Top Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <!-- Branding -->
                 <div>
-                    <img src="https://i0.wp.com/msmeccii.in/wp-content/uploads/2026/04/NEW-MSMECCII-LOGO-2-01-2.png"
-                        alt="MSMECCII Logo"
-                        class="h-16 w-auto object-contain bg-white/90 p-2 rounded-md mb-6 inline-block">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="{{ asset('images/logo/logo.png') }}" alt="MSMECCII Logo"
+                            class="h-12 w-auto object-contain bg-white/90 p-1.5 rounded-lg">
+                        <span class="text-2xl font-black tracking-wider text-white">MSMECCII</span>
+                    </div>
                     <p class="text-slate-400 leading-relaxed mb-6 text-sm">
                         A global business network and NGO established in 2019, dedicated to furthering the interests of
-                        the MSME sector through innovation, training, and policy advocacy.
+                        MSMEs through innovation, training, awards, and policy advocacy.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all"><i
-                                data-feather="facebook" class="w-4 h-4"></i></a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all"><i
-                                data-feather="twitter" class="w-4 h-4"></i></a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-accent hover:text-white transition-all"><i
-                                data-feather="linkedin" class="w-4 h-4"></i></a>
+                    <div class="flex gap-3">
+                        @if($site['facebook_url'] ?? false)
+                            <a href="{{ $site['facebook_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-facebook-f text-sm"></i>
+                            </a>
+                        @endif
+                        @if($site['twitter_url'] ?? false)
+                            <a href="{{ $site['twitter_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-twitter text-sm"></i>
+                            </a>
+                        @endif
+                        @if($site['linkedin_url'] ?? false)
+                            <a href="{{ $site['linkedin_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-linkedin-in text-sm"></i>
+                            </a>
+                        @endif
+                        @if($site['instagram_url'] ?? false)
+                            <a href="{{ $site['instagram_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-instagram text-sm"></i>
+                            </a>
+                        @endif
+                        @if($site['youtube_url'] ?? false)
+                            <a href="{{ $site['youtube_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-youtube text-sm"></i>
+                            </a>
+                        @endif
+                        @if($site['whatsapp_url'] ?? false)
+                            <a href="{{ $site['whatsapp_url'] }}" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-primary flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
 
-                <!-- Links Col 1 -->
+                <!-- Quick Links -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 text-white uppercase tracking-wider text-sm">Quick Links</h3>
+                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Quick Links</h3>
                     <ul class="space-y-3">
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> About Us
+                        <li><a href="{{ route('about.what_is') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> About MSMECCII
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Focused Sectors
+                        <li><a href="{{ route('sectors.index') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Focused Sectors
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Membership
+                        <li><a href="{{ route('join.index') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Join / Membership
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Media Gallery
+                        <li><a href="{{ route('about.leadership') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Core Leadership
                             </a></li>
                     </ul>
                 </div>
 
-                <!-- Links Col 2 -->
+                <!-- Activities -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 text-white uppercase tracking-wider text-sm">Activities</h3>
+                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Activities</h3>
                     <ul class="space-y-3">
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Award Nominations
+                        <li><a href="{{ route('events.index') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Events & Awards
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Upcoming Events
+                        <li><a href="{{ route('register') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Register Now
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Trade Fair Expo
+                        <li><a href="{{ route('about.chairman') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Chairman's Message
                             </a></li>
-                        <li><a href="#"
-                                class="text-slate-400 hover:text-accent transition-colors flex items-center gap-2">
-                                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Connect & Network
+                        <li><a href="{{ route('sectors.index') }}"
+                                class="text-slate-400 hover:text-brand-accent transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-accent/50"></span> Trade & Expo
                             </a></li>
                     </ul>
                 </div>
 
-                <!-- Contact Col -->
+                <!-- Contact -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 text-white uppercase tracking-wider text-sm">Contact Us</h3>
+                    <h3 class="text-sm font-bold mb-6 text-white uppercase tracking-widest">Contact Us</h3>
                     <ul class="space-y-4">
-                        <li class="flex items-start gap-4">
-                            <div
-                                class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border border-primary/30">
-                                <i data-feather="map-pin" class="w-4 h-4 text-accent"></i>
-                            </div>
-                            <span class="text-slate-400 text-sm pt-2">India's MSME Headquarters<br>New Delhi,
-                                India</span>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border border-primary/30">
-                                <i data-feather="mail" class="w-4 h-4 text-accent"></i>
-                            </div>
-                            <a href="mailto:info@msmecci.in"
-                                class="text-slate-400 hover:text-white transition-colors text-sm">info@msmecci.in</a>
-                        </li>
+                        @if($site['address'] ?? false)
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-location-dot text-brand-accent text-sm"></i>
+                                </div>
+                                <span
+                                    class="text-slate-400 text-sm leading-relaxed">{!! nl2br(e($site['address'])) !!}</span>
+                            </li>
+                        @endif
+                        @foreach(['phone_1', 'phone_2', 'phone_3'] as $pk)
+                            @if($site[$pk] ?? false)
+                                <li class="flex items-center gap-3">
+                                    <div
+                                        class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-phone text-brand-accent text-sm"></i>
+                                    </div>
+                                    <a href="tel:{{ $site[$pk] }}"
+                                        class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$pk] }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                        @foreach(['email_1', 'email_2'] as $ek)
+                            @if($site[$ek] ?? false)
+                                <li class="flex items-center gap-3">
+                                    <div
+                                        class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-envelope text-brand-accent text-sm"></i>
+                                    </div>
+                                    <a href="mailto:{{ $site[$ek] }}"
+                                        class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$ek] }}</a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-800 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-sm">
                     &copy; {{ date('Y') }} MSME Chamber of Commerce and Industry of India. All rights reserved.
                 </p>
-                <div class="flex gap-4 text-sm text-slate-500">
-                    <a href="/" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="/modern" class="hover:text-white transition-colors">Terms & Conditions</a>
+                <div class="flex gap-6 text-sm text-slate-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
                 </div>
             </div>
+
         </div>
     </footer>
     <script>

@@ -33,7 +33,7 @@
                         </p>
                     </div>
                     <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         </p>
                     </div>
                     <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                         </p>
                     </div>
                     <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                         </p>
                     </div>
                     <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
                     </div>
                 </div>
             </div>

@@ -51,17 +51,5 @@
         </div>
     </div>
     
-    <!-- Initialize Intersections for basic fade-ins -->
-    <script>
-        document.addEventListener('turbo:load', function() {
-            const animateEls = document.querySelectorAll('.animate-on-scroll');
-            if (animateEls.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-                }, { threshold: 0.1 });
-                animateEls.forEach(el => observer.observe(el));
-            }
-        });
-    </script>
 </body>
 </html>

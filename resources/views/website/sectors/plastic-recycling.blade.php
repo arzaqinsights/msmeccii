@@ -8,7 +8,7 @@
     <section class="relative pt-32 pb-24 bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-slate-900 to-black"></div>
         <div class="absolute inset-0 opacity-10"
-            style="background-image: url('{{ asset('images/sectors/plastic-recycling.jpg') }}'); background-size: cover; background-position: center;">
+            style="background-image: url('{{ asset('images/sectors/plastic-recycling.jpeg') }}'); background-size: cover; background-position: center;">
         </div>
 
         <div class="container relative z-10 text-center">
@@ -38,7 +38,7 @@
                     </p>
                 </div>
 
-                <img src="{{ asset('images/sectors/plastic-recycling.jpg') }}" alt="Plastic Recycling"
+                <img src="{{ asset('images/sectors/plastic-recycling.jpeg') }}" alt="Plastic Recycling"
                     class="w-full h-[320px] object-cover rounded-2xl shadow-lg">
             </div>
 
@@ -264,7 +264,7 @@
             <!-- WHY INDIA -->
             <div class="grid md:grid-cols-2 gap-12 items-center">
 
-                <img src="{{ asset('images/sectors/plastic-recycling.jpg') }}" alt="India Plastic Recycling Hub"
+                <img src="{{ asset('images/sectors/plastic-recycling.jpeg') }}" alt="India Plastic Recycling Hub"
                     class="w-full h-[320px] object-cover rounded-2xl shadow-md">
 
                 <div class="p-6 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-lg min-h-[320px] flex flex-col justify-center">

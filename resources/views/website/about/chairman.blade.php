@@ -43,7 +43,7 @@
 
                         <!-- The Quote/Message -->
                         <div class="relative mb-12">
-                            <i data-feather="message-square" class="absolute -top-6 -left-6 w-16 h-16 text-slate-200 -z-10 opacity-50 transform -scale-x-100"></i>
+                            <i class="fa-solid fa-quote-left absolute -top-6 -left-6 text-6xl text-slate-200 -z-10 opacity-50"></i>
                             <h4 class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug mb-8">
                                 "I am profoundly honored and excited to serve as the Chairman of the Board of Directors for the MSME Chamber of Commerce and Industry of India."
                             </h4>
@@ -93,17 +93,4 @@
         </div>
     </section>
 
-    <!-- Initialize Scripts -->
-    <script>
-        document.addEventListener('turbo:load', function() {
-            if (typeof feather !== 'undefined') feather.replace();
-            const animateEls = document.querySelectorAll('.animate-on-scroll');
-            if (animateEls.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-                }, { threshold: 0.1 });
-                animateEls.forEach(el => observer.observe(el));
-            }
-        });
-    </script>
 @endsection
