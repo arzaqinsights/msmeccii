@@ -68,12 +68,12 @@
 
                 <div class="mt-8 flex gap-8 border-t border-white/20 pt-6">
                     <div class="flex flex-col">
-                        <span class="text-3xl font-bold text-white">50K+</span>
+                        <span class="text-3xl font-bold text-white">200K+</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Enterprises Reached</span>
                     </div>
                     <div class="flex flex-col border-l border-white/20 pl-8">
                         <span class="text-3xl font-bold text-white">2019</span>
-                        <span class="text-sm text-slate-300 font-medium tracking-wide">Established NGO</span>
+                        <span class="text-sm text-slate-300 font-medium tracking-wide">Established Year</span>
                     </div>
                 </div>
             </div>

@@ -4,9 +4,9 @@
             <!-- Section Header -->
             <div class="flex flex-col md:flex-row justify-between items-end mb-6 gap-6 animate-on-scroll">
                 <div class="max-w-2xl">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
-                        <span class="text-brand-primary text-xs font-bold tracking-widest uppercase">Upcoming Featured Event</span>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary border mb-4">
+                        <span class="w-2 h-2 rounded-full bg-brand-light"></span>
+                        <span class="text-brand-light text-xs font-bold tracking-widest uppercase">Upcoming Featured Event</span>
                     </div>
                     <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
                         Our Upcoming Events

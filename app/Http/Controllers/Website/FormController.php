@@ -61,6 +61,7 @@ class FormController extends Controller
         $dynamicData = $request->input('dynamic_fields', []);
         $totalAmount = 0;
         $totalTax = 0;
+        $lineItems = [];
 
         // Secure Server-Side Dependency & Price verification
         foreach ($form->fields as $field) {
@@ -89,12 +90,31 @@ class FormController extends Controller
                     }
                 }
 
-                if ($isAccessible && $field->base_amount > 0) {
-                    $base = $field->base_amount;
-                    $tax = $field->tax_percentage > 0 ? ($base * ($field->tax_percentage / 100)) : 0;
-                    
-                    $totalAmount += $base;
-                    $totalTax += $tax;
+                if ($isAccessible) {
+                    $fieldBase = 0;
+                    $fieldTax = 0;
+
+                    // Option-specific pricing for dropdowns
+                    if ($field->type === 'dropdown' && is_array($field->options)) {
+                        foreach ($field->options as $opt) {
+                            if (isset($opt['label']) && $opt['label'] === $submittedValue) {
+                                $fieldBase = (float) ($opt['price'] ?? 0);
+                                $fieldTax = $opt['price'] > 0 ? ($opt['price'] * (($opt['tax'] ?? 0) / 100)) : 0;
+                                break;
+                            }
+                        }
+                    } else {
+                        // Standard field-level pricing
+                        if ($field->base_amount > 0) {
+                            $fieldBase = (float) $field->base_amount;
+                            $fieldTax = $field->tax_percentage > 0 ? ($fieldBase * ($field->tax_percentage / 100)) : 0;
+                        }
+                    }
+
+                    if ($fieldBase > 0) {
+                        $totalAmount += $fieldBase;
+                        $totalTax += $fieldTax;
+                    }
                 }
             }
         }
@@ -110,14 +130,77 @@ class FormController extends Controller
             'payment_status' => $grandTotal > 0 ? 'pending' : 'completed'
         ]);
 
-        // 5. Payment Gateway Redirect Logic
+        // 5. Razorpay Order Creation
         if ($grandTotal > 0) {
-            // Placeholder: Here you would integrate Razorpay/Stripe Redirect 
-            // For now, auto-complete if no gateway is implemented.
-            // return redirect()->route('payment.checkout', $submission->id);
-            $submission->update(['payment_status' => 'completed']);
+            // Check Environment & Keys
+            $keyId = env('RAZORPAY_KEY_ID');
+            $keySecret = env('RAZORPAY_KEY_SECRET');
+
+            if (app()->environment('local') && (!$keyId || !$keySecret)) {
+                // In local environment without keys, we can simulate order creation for testing
+                return response()->json([
+                    'success' => true,
+                    'is_paid' => true,
+                    'is_test' => true, // Flag for frontend to skip actual Razorpay
+                    'message' => 'Simulating payment in Local environment (Keys missing)',
+                    'redirect' => route('forms.thank_you', ['submission' => $submission->id])
+                ]);
+            }
+
+            try {
+                $api = new \Razorpay\Api\Api($keyId, $keySecret);
+                $orderData = [
+                    'receipt'         => 'rcpt_' . $submission->id,
+                    'amount'          => round($grandTotal * 100), // in paise
+                    'currency'        => 'INR',
+                    'notes'           => [
+                        'submission_id' => $submission->id,
+                        'form_name'     => $form->name
+                    ]
+                ];
+                $razorpayOrder = $api->order->create($orderData);
+                
+                // Create internal payment record
+                \App\Models\Payment::create([
+                    'user_id' => $user->id,
+                    'submission_id' => $submission->id,
+                    'razorpay_order_id' => $razorpayOrder['id'],
+                    'amount' => round($grandTotal * 100),
+                    'status' => 'pending'
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'is_paid' => true,
+                    'order_id' => $razorpayOrder['id'],
+                    'amount' => round($grandTotal * 100),
+                    'key' => env('RAZORPAY_KEY_ID'),
+                    'name' => "MSMECCII",
+                    'description' => "Payment for " . $form->name,
+                    'user' => [
+                        'name' => $user->first_name . ' ' . $user->last_name,
+                        'email' => $user->email,
+                        'contact' => $user->phone_number
+                    ],
+                    'redirect' => route('forms.thank_you', ['submission' => $submission->id])
+                ]);
+            } catch (\Exception $e) {
+                if (app()->environment('local')) {
+                     return response()->json(['success' => false, 'message' => 'Razorpay Error (Local): ' . $e->getMessage()], 500);
+                }
+                return response()->json(['success' => false, 'message' => 'Payment Gateway Error. Please try again later.'], 500);
+            }
         }
 
-        return redirect()->route('join.index')->with('success', $form->thank_you_message ?? 'Application successfully submitted.');
+        // Handle AJAX for free forms too
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'is_paid' => false,
+                'redirect' => route('join.forms.thank_you', ['submission' => $submission->id])
+            ]);
+        }
+
+        return redirect()->route('join.forms.thank_you', ['submission' => $submission->id]);
     }
 }

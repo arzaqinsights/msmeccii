@@ -88,6 +88,26 @@
                 </div>
 
                 <div class="pt-4 border-t border-slate-100">
+                    <h4 class="text-xs font-black text-slate-900 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-file-invoice text-emerald-600"></i> Invoice Data Config
+                    </h4>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Invoice Prefix</label>
+                            <input type="text" name="invoice_prefix" value="{{ old('invoice_prefix', $form->invoice_prefix ?? 'MSME-') }}" placeholder="e.g. MSME-"
+                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Company Details (JSON/Text)</label>
+                            <textarea name="invoice_details[address]" placeholder="Company Address, GSTIN, etc. to show on invoice"
+                                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-xs" rows="3">{{ old('invoice_details.address', $form->invoice_details['address'] ?? '') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100">
                     <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl transition-all shadow-lg text-center drop-shadow-sm flex justify-center items-center gap-2">
                         <i class="fa-solid fa-microchip"></i> Save Advanced Form Concept
                     </button>
@@ -190,11 +210,40 @@
                                         </div>
                                     </template>
                                     
-                                    <template x-if="field.type === 'dropdown' && (!field.depends_on || field.dependency_mode === 'visibility')">
+                                    <template x-if="field.type === 'dropdown' && (!field.depends_on || field.dependency_mode === 'visibility' || field.dependency_mode === 'options')">
                                         <div class="md:col-span-2">
-                                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Dropdown Options (Comma Separated)</label>
-                                            <input type="text" x-model="field.options" placeholder="Maths, Science, English" 
-                                                   class="w-full text-sm font-medium text-slate-600 border border-slate-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
+                                            <div class="flex justify-between items-end mb-2">
+                                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dropdown Options & Monetization</label>
+                                                <button type="button" @click="addOption(field)" class="text-[9px] bg-emerald-100 text-emerald-700 font-black px-2 py-1 rounded uppercase hover:bg-emerald-200 transition-colors">
+                                                    + Add Option
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="space-y-2">
+                                                <template x-for="(opt, oIdx) in field.options_list" :key="oIdx">
+                                                    <div class="flex gap-2 items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                                                        <input type="text" x-model="opt.label" placeholder="Option Label" 
+                                                               class="flex-1 text-xs font-bold text-slate-700 border border-slate-200 rounded p-1.5 focus:border-emerald-500 outline-none">
+                                                        <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                            <span class="text-[10px] font-bold text-slate-400">₹</span>
+                                                            <input type="number" x-model="opt.price" placeholder="0" 
+                                                                   class="w-16 text-xs font-bold text-slate-700 outline-none">
+                                                        </div>
+                                                        <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                            <input type="number" x-model="opt.tax" placeholder="0" 
+                                                                   class="w-10 text-xs font-bold text-slate-700 outline-none">
+                                                            <span class="text-[10px] font-bold text-slate-400">%</span>
+                                                        </div>
+                                                        <button type="button" @click="removeOption(field, oIdx)" class="text-red-400 hover:text-red-600 p-1">
+                                                            <i class="fa-solid fa-xmark text-[10px]"></i>
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            
+                                            <div x-show="field.options_list.length === 0" class="text-[10px] text-slate-400 font-medium italic mt-1">
+                                                No options defined. Click "+ Add Option" to begin.
+                                            </div>
                                         </div>
                                     </template>
 
@@ -296,12 +345,13 @@
         // Prepare pre-existing data
         let initialFields = @json($form->exists ? $form->fields : []);
         
-        // Data format mapping because options is stored as array in DB but we want comma separated str for editing
+        // Data format mapping because options is stored as array in DB but we want objects for editing
         initialFields = initialFields.map(field => {
             field.id = field.field_identifier || field.id.toString(); 
             field.depends_on = field.depends_on || '';
             field.depends_on_value = field.depends_on_value || '';
-            
+            field.options_list = [];
+
             // Reconstruct Dependency Options visually
             if (field.depends_on_value === '__MAPPED__' && typeof field.options === 'object' && field.options !== null) {
                 field.dependency_mode = 'options';
@@ -314,8 +364,15 @@
             } else {
                 field.dependency_mode = 'visibility';
                 field.mapped_options = {};
+                
+                // Advanced Options parsing
                 if (Array.isArray(field.options)) {
-                    field.options = field.options.join(', ');
+                    field.options_list = field.options.map(opt => {
+                        if (typeof opt === 'string') {
+                            return { label: opt, price: null, tax: null };
+                        }
+                        return { label: opt.label || '', price: opt.price || null, tax: opt.tax || null };
+                    });
                 }
             }
             return field;
@@ -336,12 +393,22 @@
                     label: '',
                     placeholder: '',
                     options: '',
+                    options_list: [],
                     is_required: false,
                     depends_on: '',
                     depends_on_value: '',
                     base_amount: null,
                     tax_percentage: null
                 });
+            },
+
+            // New Option Helpers
+            addOption(field) {
+                if (!field.options_list) field.options_list = [];
+                field.options_list.push({ label: '', price: null, tax: null });
+            },
+            removeOption(field, index) {
+                field.options_list.splice(index, 1);
             },
             removeField(index) {
                 // If we remove a field, any field dependent on it should have their dependency cleared
@@ -386,6 +453,12 @@
             },
 
             prepareSubmit() {
+                // Transfer options_list into options property for dropdowns
+                this.fields.forEach(f => {
+                    if (f.type === 'dropdown' && f.dependency_mode !== 'options') {
+                        f.options = f.options_list;
+                    }
+                });
                 this.fieldsJson = JSON.stringify(this.fields);
             }
         }

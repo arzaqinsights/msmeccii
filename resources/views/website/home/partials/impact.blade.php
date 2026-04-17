@@ -1,5 +1,5 @@
 <!-- Impact Numbers -->
-<section class="relative py-16 bg-brand-primary overflow-hidden border-t-4 border-b-4 border-brand-accent">
+<section class="relative py-16 mt-10 bg-brand-primary overflow-hidden">
     <!-- Decorative -->
     <div
         class="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIvPjwvc3ZnPg==')] bg-repeat">

@@ -1,4 +1,4 @@
-<section class="pt-24 bg-white relative overflow-hidden">
+<section class="pt-20 pb-10 bg-white relative overflow-hidden">
     <!-- Background Decorators -->
     <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-accent/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-brand-primary/10 rounded-full blur-3xl"></div>
@@ -9,24 +9,24 @@
             <div class="w-full lg:w-1/2 relative group animate-on-scroll">
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col gap-4">
                     <img src="{{ asset('images/home/growth.jpeg') }}" alt="About MSMECCII"
-                        class="w-full md:h-[260px] object-cover bg-slate-200" loading="lazy">
+                        class="w-full md:h-[300px] object-cover" loading="lazy">
                     <!-- <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-500"></div> -->
                     <img src="{{ asset('images/home/award-1.jpeg') }}" alt="About MSMECCII"
-                        class="w-full md:h-[260px] object-cover object-top bg-slate-200" loading="lazy">
+                        class="w-full md:h-[300px] object-cover object-top" loading="lazy">
                 </div>
 
                 <!-- Floating Badge -->
                 <div class="absolute -bottom-6 md:-right-6 right-2 bg-brand-primary text-white p-6 rounded-2xl shadow-2xl z-20 animate-on-scroll delay-200">
                     <p class="text-4xl font-black text-brand-accent mb-1">2019</p>
-                    <p class="text-xs font-bold tracking-widest uppercase text-white/70">Established NGO</p>
+                    <p class="text-xs font-bold tracking-widest uppercase text-white/70">Established Year</p>
                 </div>
             </div>
 
             <!-- Content Area -->
             <div class="w-full lg:w-1/2 animate-on-scroll delay-100">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
-                    <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
-                    <span class="text-brand-primary text-xs font-bold tracking-widest uppercase">About MSMECCII</span>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary border mb-6">
+                    <span class="w-2 h-2 rounded-full bg-brand-light"></span>
+                    <span class="text-brand-light text-xs font-bold tracking-widest uppercase">About MSMECCII</span>
                 </div>
 
                 <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.15] mb-6">

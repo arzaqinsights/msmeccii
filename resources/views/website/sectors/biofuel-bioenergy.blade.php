@@ -1,23 +1,22 @@
 @extends('layouts.website')
 
-@section('title', 'Biofuel / Bio Energy')
+@section('title', 'Biofuel / Bio Energy Overview')
 
 @section('content')
 
     <!-- HERO -->
     <section class="relative pt-32 pb-24 bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-green-900 via-slate-900 to-black"></div>
-        <div class="absolute inset-0 opacity-10"
+        <div class="absolute inset-0 opacity-25"
             style="background-image: url('{{ asset('images/sectors/biofuel.jpeg') }}'); background-size: cover; background-position: center;">
         </div>
 
         <div class="container relative z-10 text-center">
             <h1 class="text-4xl md:text-6xl font-black uppercase mb-4 tracking-wide">
-                Biofuel / Bio Energy
+                Biofuel & <span class="text-green-500">Bio Energy</span>
             </h1>
-            <p class="text-lg md:text-xl text-green-300 font-semibold mb-2">Powering Tomorrow with Nature</p>
-            <p class="text-slate-300 max-w-3xl mx-auto">
-                Renewable energy derived from biological and organic materials — sustainable alternatives to fossil fuels for power, transport, and industry.
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Powering Tomorrow with Nature through sustainable alternatives to fossil fuels.
             </p>
         </div>
     </section>
@@ -28,284 +27,185 @@
 
             <!-- INTRO -->
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl font-extrabold mb-4 text-slate-900">What is Biofuel / Bio Energy?</h2>
-                    <p class="text-slate-600 leading-relaxed mb-4">
-                        <strong>Biofuel and Bio Energy</strong> refer to renewable energy sources derived from biological and
-                        organic materials such as <strong>agricultural residue, biomass, vegetable oils, animal fats, municipal
-                        waste, industrial waste, and algae</strong>.
+                <div class="animate-in fade-in slide-in-from-left duration-700">
+                    <h2 class="text-3xl font-extrabold mb-6 text-slate-900 uppercase">Sustainable Energy Solutions</h2>
+                    <p class="text-slate-600 leading-relaxed mb-4 text-lg">
+                        <strong>Biofuel and Bio Energy</strong> refer to renewable energy sources derived from biological materials such as agricultural residue, biomass, vegetable oils, and organic waste.
                     </p>
                     <p class="text-slate-600 leading-relaxed">
-                        These sustainable fuels are used as alternatives to fossil fuels for <strong>power generation,
-                        transportation, industrial heating, and chemical production</strong>.
+                        As the world shifts towards carbon neutrality, these fuels provide a critical alternative for power generation, transportation, and industrial heating, significantly reducing greenhouse gas emissions.
                     </p>
                 </div>
 
-                <img src="{{ asset('images/sectors/biofuel.jpeg') }}" alt="Biofuel Bio Energy"
-                    class="w-full h-[320px] object-cover rounded-2xl shadow-lg">
-            </div>
-
-            <!-- SEGMENTS -->
-            <div>
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-8 text-center">Major Biofuel / Bio Energy Segments</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                    <div class="p-5 rounded-2xl bg-green-50 border border-green-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-green-100 flex items-center justify-center">
-                            <i class="fa-solid fa-flask text-xl text-green-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Ethanol Production</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-lime-50 border border-lime-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-lime-100 flex items-center justify-center">
-                            <i class="fa-solid fa-gas-pump text-xl text-lime-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Biodiesel Manufacturing</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-amber-100 flex items-center justify-center">
-                            <i class="fa-solid fa-bolt text-xl text-amber-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Biomass Power Gen</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-teal-50 border border-teal-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-teal-100 flex items-center justify-center">
-                            <i class="fa-solid fa-fire-flame-curved text-xl text-teal-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Bio-CNG / Biogas</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-orange-50 border border-orange-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-orange-100 flex items-center justify-center">
-                            <i class="fa-solid fa-recycle text-xl text-orange-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Waste-to-Energy</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-emerald-100 flex items-center justify-center">
-                            <i class="fa-solid fa-cubes text-xl text-emerald-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Pellet & Briquette Fuel</h4>
-                    </div>
-                    <div class="p-5 rounded-2xl bg-sky-50 border border-sky-200 text-center sm:col-span-2 lg:col-span-2">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-sky-100 flex items-center justify-center">
-                            <i class="fa-solid fa-plane text-xl text-sky-600"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800">Sustainable Aviation Fuel (SAF)</h4>
-                    </div>
+                <div class="relative group animate-in fade-in slide-in-from-right duration-700">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                    <img src="{{ asset('images/sectors/biofuel.jpeg') }}" alt="Biofuel Industry"
+                        class="relative w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>
 
             <!-- GLOBAL vs INDIA -->
             <div class="grid md:grid-cols-2 gap-10">
 
-                <div class="p-6 rounded-2xl bg-gradient-to-br from-green-600 to-green-800 text-white shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4">Global Biofuel / Bio Energy Market</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li>Biofuel Market (2025): <strong>USD 180+ Billion</strong></li>
-                        <li>Bioenergy Market: <strong>USD 350+ Billion+</strong></li>
-                        <li>CAGR: <strong>7–10%</strong> annually</li>
+                <!-- GLOBAL -->
+                <div class="p-8 rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 text-white shadow-2xl transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-white/10 rounded-xl">
+                            <i class="fa-solid fa-earth-americas text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold uppercase tracking-tight">Global Market</h3>
+                    </div>
+                    
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-baseline justify-between border-b border-white/10 pb-2">
+                            <span class="text-sm uppercase font-bold text-slate-400">Biofuel Market (2025)</span>
+                            <span class="text-xl font-black text-white">$180 Billion+</span>
+                        </li>
+                        <li class="flex items-baseline justify-between border-b border-white/10 pb-2">
+                            <span class="text-sm uppercase font-bold text-slate-400">Bioenergy Market</span>
+                            <span class="text-xl font-black text-white">$350 Billion+</span>
+                        </li>
+                        <li class="flex items-baseline justify-between border-b border-white/10 pb-2">
+                            <span class="text-sm uppercase font-bold text-slate-400">Annual CAGR</span>
+                            <span class="text-xl font-black text-green-400">7% – 10%</span>
+                        </li>
                     </ul>
 
-                    <h4 class="font-semibold mt-5 mb-2">Growth Drivers</h4>
-                    <ul class="list-disc pl-5 text-sm space-y-1">
-                        <li>Carbon neutrality and decarbonization goals</li>
-                        <li>Biofuel blending mandates</li>
-                        <li>Sustainable transportation initiatives</li>
-                        <li>Renewable power generation demand</li>
-                        <li>Industrial clean energy adoption</li>
-                    </ul>
+                    <div class="mt-8">
+                        <h4 class="font-semibold mb-4 text-slate-400 uppercase tracking-wider text-xs">Growth Drivers</h4>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach(['Carbon Neutrality', 'Blending Mandates', 'Clean Energy Demand', 'SAF'] as $driver)
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs font-bold border border-white/10 text-slate-300">{{ $driver }}</span>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-brand-accent border border-slate-200 shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4 text-brand-primary">Indian Biofuel Market</h3>
-                    <ul class="space-y-2 text-sm text-slate-700">
-                        <li>Market Size (2025): <strong>₹50,000–60,000 Crore+</strong></li>
-                        <li>Expanding under <strong>National Bioenergy Mission</strong></li>
-                        <li>CAGR: <strong>15–20%</strong> annually</li>
-                    </ul>
+                <!-- INDIA -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-green-100 rounded-xl text-green-600">
+                            <i class="fa-solid fa-industry text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 uppercase tracking-tight">Indian Market</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-tight">Market value (2025)</p>
+                            <p class="text-xl font-black text-green-700">₹60K Cr+</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-tight">Target by 2031</p>
+                            <p class="text-xl font-black text-green-700">₹1.5L Cr+</p>
+                        </div>
+                    </div>
 
-                    <h4 class="font-semibold mt-5 mb-2">India Target by 2031</h4>
-                    <ul class="text-sm text-slate-600 space-y-1">
-                        <li>Projected to exceed <strong>₹1.5 Lakh Crore+</strong></li>
-                        <li>Ethanol blending target reaching <strong>20%+</strong></li>
-                    </ul>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-100">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Ethanol Blending Target</span>
+                            <span class="text-sm font-black text-slate-800">20%+</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-100">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Projected CAGR</span>
+                            <span class="text-sm font-black text-green-600">15-20%</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
             <!-- STATS CARDS -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div class="p-6 bg-white border rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-bold text-green-600">$180B+</h4>
-                    <p class="text-sm text-slate-500 mt-1">Global Biofuel (2025)</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="group p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 text-center">
+                    <div class="mb-2 text-green-600 text-3xl font-black group-hover:scale-110 transition-transform">$180B</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Global Biofuel</div>
                 </div>
-                <div class="p-6 bg-white border rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-bold text-green-600">₹60K Cr+</h4>
-                    <p class="text-sm text-slate-500 mt-1">India Market (2025)</p>
+                <div class="group p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 text-center">
+                    <div class="mb-2 text-green-600 text-3xl font-black group-hover:scale-110 transition-transform">700+</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Ethanol Plants</div>
                 </div>
-                <div class="p-6 bg-white border rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-bold text-green-600">700+</h4>
-                    <p class="text-sm text-slate-500 mt-1">India Ethanol Plants</p>
+                <div class="group p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 text-center">
+                    <div class="mb-2 text-green-600 text-3xl font-black group-hover:scale-110 transition-transform">15-20%</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">India CAGR</div>
                 </div>
-                <div class="p-6 bg-white border rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-bold text-green-600">15–20%</h4>
-                    <p class="text-sm text-slate-500 mt-1">India CAGR</p>
+                <div class="group p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-green-200 transition-all duration-300 text-center">
+                    <div class="mb-2 text-green-600 text-3xl font-black group-hover:scale-110 transition-transform">TOP Hub</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Energy Security</div>
                 </div>
             </div>
 
-            <!-- INDIA CAPACITY + GLOBAL -->
-            <div class="grid md:grid-cols-2 gap-10">
+            <!-- OPPORTUNITIES -->
+            <div class="grid md:grid-cols-2 gap-12 items-center pt-8">
+                <div class="order-2 md:order-1 space-y-8">
+                    <h2 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight">High Potential Segments</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        @php
+                            $items = [
+                                ['icon' => 'flask', 'title' => 'Ethanol Distilleries'],
+                                ['icon' => 'gas-pump', 'title' => 'Biodiesel Plants'],
+                                ['icon' => 'cubes', 'title' => 'Biomass Pellets'],
+                                ['icon' => 'bolt', 'title' => 'Waste-to-Energy'],
+                                ['icon' => 'plane', 'title' => 'Aviation Biofuel'],
+                                ['icon' => 'fire-flame-curved', 'title' => 'Bio-CNG Infra'],
+                            ];
+                        @endphp
+                        @foreach($items as $i)
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-green-200 hover:bg-white transition-all group">
+                            <div class="w-10 h-10 flex items-center justify-center bg-green-100 text-green-600 rounded-lg group-hover:bg-green-600 group-hover:text-white transition-all">
+                                <i class="fa-solid fa-{{ $i['icon'] }}"></i>
+                            </div>
+                            <span class="font-bold text-slate-700 text-sm leading-tight">{{ $i['title'] }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
 
-                <div class="p-6 rounded-2xl bg-slate-50 border shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">India Biofuel Capacity</h3>
-                    <p class="text-sm text-slate-600 mb-3">
-                        Ethanol blending target reaching <strong>20%+</strong>. Over <strong>700+ ethanol/biofuel</strong>
-                        production facilities. Strong biomass and agricultural waste availability nationwide.
+                <div class="order-1 md:order-2 p-8 bg-slate-900 rounded-3xl text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold mb-6 italic text-green-400">Emerging Trends (2026–2031)</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0 mt-1">
+                                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                                </div>
+                                <p class="text-sm text-slate-300">2G / 3G Ethanol Plants development.</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0 mt-1">
+                                    <i class="fa-solid fa-plane text-[10px]"></i>
+                                </div>
+                                <p class="text-sm text-slate-300">Sustainable Aviation Fuel (SAF) adoption.</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0 mt-1">
+                                    <i class="fa-solid fa-droplet text-[10px]"></i>
+                                </div>
+                                <p class="text-sm text-slate-300">Green Methanol and Bio-Hydrogen production.</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0 mt-1">
+                                    <i class="fa-solid fa-recycle text-[10px]"></i>
+                                </div>
+                                <p class="text-sm text-slate-300">Waste-to-Biofuel Refineries expansion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONCLUSION (CTA) -->
+            <div class="relative bg-slate-900 text-white p-12 md:p-16 rounded-3xl text-center shadow-2xl overflow-hidden border-b-4 border-green-600">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-green-600/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold mb-6 uppercase tracking-tight">The Bio Energy Revolution</h3>
+                    <p class="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-10">
+                        Biofuel and bio energy are powering the transition from fossil fuels to sustainable energy. With India's 20%+ ethanol blending target, the sector represents one of the most significant clean energy opportunities of our time.
                     </p>
-
-                    <h4 class="font-semibold mt-4 mb-2">Major Biofuel States</h4>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Uttar Pradesh</div>
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Maharashtra</div>
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Punjab</div>
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Haryana</div>
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Gujarat</div>
-                        <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fa-solid fa-map-pin text-green-500 text-xs"></i> Karnataka</div>
-                    </div>
+                    <a href="" class="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-black uppercase tracking-widest rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 shadow-xl group">
+                        Join the Energy Transition <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </a>
                 </div>
-
-                <div class="p-6 rounded-2xl bg-slate-50 border shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">Global Bio Energy</h3>
-                    <ul class="space-y-2 text-sm text-slate-600">
-                        <li>Estimated <strong>100,000+</strong> bioenergy & biofuel plants globally</li>
-                    </ul>
-
-                    <h4 class="font-semibold mt-4 mb-2">India's Global Position</h4>
-                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
-                        <li>One of the <strong>fastest-growing</strong> biofuel markets globally</li>
-                        <li>Emerging leader in <strong>ethanol blending & biomass energy</strong></li>
-                    </ul>
-
-                    <h4 class="font-semibold mt-4 mb-2">Key Market Drivers</h4>
-                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
-                        <li>Government blending mandates</li>
-                        <li>Rising fossil fuel prices</li>
-                        <li>Agricultural waste utilization</li>
-                        <li>Energy security concerns</li>
-                        <li>Corporate ESG / carbon targets</li>
-                        <li>Sustainable aviation fuel demand</li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <!-- TRENDS + OPPORTUNITIES -->
-            <div class="grid md:grid-cols-2 gap-10">
-
-                <div class="p-6 rounded-2xl bg-slate-50 border shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">Emerging Trends (2026–2031)</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-flask text-green-600 text-xs"></i></div>
-                            2G / 3G Ethanol Plants
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-plane text-sky-600 text-xs"></i></div>
-                            Sustainable Aviation Fuel (SAF)
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-droplet text-emerald-600 text-xs"></i></div>
-                            Green Methanol Production
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-recycle text-orange-600 text-xs"></i></div>
-                            Waste-to-Biofuel Refineries
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-atom text-teal-600 text-xs"></i></div>
-                            Bio-Hydrogen Production
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-coins text-amber-600 text-xs"></i></div>
-                            Carbon Credit Linked Bio Projects
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 rounded-2xl bg-slate-50 border shadow-sm">
-                    <h3 class="text-2xl font-bold mb-4">High Potential Segments</h3>
-                    <p class="text-sm text-slate-600 mb-4">Industry opportunities across the biofuel value chain:</p>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-flask text-brand-primary text-xs"></i></div>
-                            Ethanol Distilleries
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-gas-pump text-brand-primary text-xs"></i></div>
-                            Biodiesel Plants
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-cubes text-brand-primary text-xs"></i></div>
-                            Biomass Pellet Manufacturing
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt text-brand-primary text-xs"></i></div>
-                            Waste-to-Energy Projects
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-plane text-brand-primary text-xs"></i></div>
-                            Aviation Biofuel Production
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-600">
-                            <div class="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-fire-flame-curved text-brand-primary text-xs"></i></div>
-                            Bio-CNG Infrastructure
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- WHY INDIA -->
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-
-                <img src="{{ asset('images/sectors/biofuel.jpeg') }}" alt="India Bio Energy Hub"
-                    class="w-full h-[300px] object-cover rounded-2xl shadow-md">
-
-                <div class="p-6 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-800 text-white shadow-lg min-h-[300px] flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold mb-4">Why India is a Bio Energy Hub</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-check-circle text-green-200 shrink-0"></i>
-                            Huge agricultural residue availability
-                        </div>
-                        <div class="flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-check-circle text-green-200 shrink-0"></i>
-                            Strong government incentives
-                        </div>
-                        <div class="flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-check-circle text-green-200 shrink-0"></i>
-                            Growing domestic energy demand
-                        </div>
-                        <div class="flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-check-circle text-green-200 shrink-0"></i>
-                            Rapid industrialization
-                        </div>
-                        <div class="flex items-center gap-2 text-sm">
-                            <i class="fa-solid fa-check-circle text-green-200 shrink-0"></i>
-                            Global push for alternative fuels
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- CONCLUSION -->
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10 rounded-2xl text-center shadow-lg">
-                <h3 class="text-3xl font-bold mb-4">The Bio Energy Revolution</h3>
-                <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                    Biofuel and bio energy are powering the <strong>transition from fossil fuels to sustainable energy</strong>.
-                    With India's <strong>20%+ ethanol blending target</strong> and over <strong>700+ production facilities</strong>,
-                    the bio energy sector represents one of the most significant <strong>clean energy opportunities of our time</strong>.
-                </p>
             </div>
 
         </div>

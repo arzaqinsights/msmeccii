@@ -40,6 +40,9 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-3">
+                                <a href="{{ route('admin.forms.submissions', $form) }}" class="text-blue-600 hover:text-blue-700 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-users-viewfinder mr-1"></i> View Leads
+                                </a>
                                 <a href="{{ route('admin.forms.edit', $form) }}" class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors">
                                     <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Blueprint
                                 </a>

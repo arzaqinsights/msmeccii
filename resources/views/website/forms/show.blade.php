@@ -1,6 +1,6 @@
-@extends('layouts.website')
-
-@section('title', $form->name)
+@section('scripts')
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+@endsection
 
 @section('content')
 
@@ -29,7 +29,7 @@
         
         <form action="{{ route('join.forms.store', $form->slug) }}" method="POST" enctype="multipart/form-data" 
               class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-200"
-              x-data="formEngine()">
+              x-data="formEngine()" @submit.prevent="submitForm">
             @csrf
             
             <!-- Standard Authentication Block -->
@@ -44,20 +44,20 @@
                     </div>
                 @else
                     <div class="bg-emerald-50 border border-emerald-100 text-emerald-700 p-4 rounded-xl text-sm font-bold mb-6 flex items-center gap-2">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->first_name . ' ' . auth()->user()->last_name) }}&background=10b981&color=fff" class="w-8 h-8 rounded-full border border-emerald-200">
-                        Logged in as {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=10b981&color=fff" class="w-8 h-8 rounded-full border border-emerald-200">
+                        Logged in as {{ auth()->user()->name }}
                     </div>
                 @endif
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">First Name *</label>
-                        <input type="text" name="first_name" value="{{ auth()->check() ? auth()->user()->first_name : old('first_name') }}" required {{ auth()->check() ? 'readonly' : '' }}
+                        <label class="block text-xs font-bold text-slate-500 mb-2">First/Full Name *</label>
+                        <input type="text" name="first_name" value="{{ auth()->check() ? auth()->user()->name : old('name') }}" required {{ auth()->check() ? 'readonly' : '' }}
                                class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Last Name *</label>
-                        <input type="text" name="last_name" value="{{ auth()->check() ? auth()->user()->last_name : old('last_name') }}" required {{ auth()->check() ? 'readonly' : '' }}
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Last Name (Optional)</label>
+                        <input type="text" name="last_name" value="{{ old('last_name') }}" {{ auth()->check() ? 'readonly' : '' }}
                                class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
                     </div>
                     <div>
@@ -103,8 +103,8 @@
                                     :required="field.is_required && isFieldVisible(field)"
                                     class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold bg-white transition-all shadow-sm focus:shadow-md cursor-pointer border-r-8 border-r-transparent">
                                 <option value="" disabled selected>-- Select an option --</option>
-                                <template x-for="option in getFieldOptions(field)" :key="option">
-                                    <option :value="option" x-text="option"></option>
+                                <template x-for="option in getFieldOptions(field)" :key="option.label">
+                                    <option :value="option.label" x-text="option.label + (option.price > 0 ? ' (₹' + option.price + ')' : '')"></option>
                                 </template>
                             </select>
                         </template>
@@ -146,9 +146,12 @@
             </div>
 
             <div class="mt-10 pt-8 border-t border-slate-100">
-                <button type="submit" class="w-full bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3">
-                    {{ $form->submit_button_text }}
-                    <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                <button type="submit" :disabled="loading" class="w-full bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
+                    <template x-if="loading">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    </template>
+                    <span x-text="loading ? 'Processing...' : '{{ $form->submit_button_text }}'"></span>
+                    <i x-show="!loading" class="fa-solid fa-arrow-right-long text-sm"></i>
                 </button>
             </div>
 
@@ -164,6 +167,7 @@
         return {
             fields: rawFields,
             formData: {},
+            loading: false,
             
             init() {
                 // Initialize default form data paths to allow reactive tracking
@@ -186,13 +190,11 @@
                 // Mapped Options Dependency Type (Child options change dynamically)
                 if (field.depends_on_value === '__MAPPED__') {
                     if (typeof field.options === 'object' && field.options !== null) {
-                        // Show ONLY if the currently selected parent value yields valid mapped child options
                         return (field.options[parentValue] && field.options[parentValue].length > 0);
                     }
                     return false;
                 }
 
-                // Standard Visibility Mode (Exact Value Match)
                 if (field.depends_on_value && field.depends_on_value.trim() !== '') {
                     return parentValue.toString().trim() === field.depends_on_value.trim();
                 }
@@ -205,13 +207,13 @@
                 if (field.depends_on_value === '__MAPPED__' && typeof field.options === 'object' && field.options !== null) {
                     const parentValue = this.formData[field.depends_on];
                     if (parentValue && field.options[parentValue]) {
-                        return field.options[parentValue];
+                        return field.options[parentValue].map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
                     }
                     return [];
                 }
                 
                 if (Array.isArray(field.options)) {
-                    return field.options;
+                    return field.options.map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
                 }
                 return [];
             },
@@ -221,7 +223,11 @@
                 let total = 0;
                 this.fields.forEach(f => {
                     if (this.isFieldVisible(f) && this.formData[f.field_identifier] !== '') {
-                        if (f.base_amount && parseFloat(f.base_amount) > 0) {
+                        if (f.type === 'dropdown') {
+                            const opts = this.getFieldOptions(f);
+                            const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
+                            if (selected && selected.price) total += parseFloat(selected.price);
+                        } else if (f.base_amount && parseFloat(f.base_amount) > 0) {
                             total += parseFloat(f.base_amount);
                         }
                     }
@@ -233,7 +239,13 @@
                 let tax = 0;
                 this.fields.forEach(f => {
                     if (this.isFieldVisible(f) && this.formData[f.field_identifier] !== '') {
-                        if (f.base_amount && parseFloat(f.base_amount) > 0 && f.tax_percentage && parseFloat(f.tax_percentage) > 0) {
+                        if (f.type === 'dropdown') {
+                            const opts = this.getFieldOptions(f);
+                            const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
+                            if (selected && selected.price && selected.tax) {
+                                tax += parseFloat(selected.price) * (parseFloat(selected.tax) / 100);
+                            }
+                        } else if (f.base_amount && parseFloat(f.base_amount) > 0 && f.tax_percentage && parseFloat(f.tax_percentage) > 0) {
                             tax += parseFloat(f.base_amount) * (parseFloat(f.tax_percentage) / 100);
                         }
                     }
@@ -243,6 +255,76 @@
 
             get totalCalculated() {
                 return this.subtotal + this.totalTax;
+            },
+
+            async submitForm(e) {
+                this.loading = true;
+                const formData = new FormData(e.target);
+                
+                try {
+                    const response = await fetch(e.target.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        alert(result.message || 'Something went wrong.');
+                        this.loading = false;
+                        return;
+                    }
+
+                    if (result.is_test) {
+                        // Environment is LOCAL and keys are missing - Simulate success
+                        alert('✨ Local Test Mode: ' + result.message);
+                        window.location.href = result.redirect;
+                        return;
+                    }
+
+                    if (result.is_paid) {
+                        this.payWithRazorpay(result);
+                    } else {
+                        window.location.href = result.redirect;
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                    alert('Critical system error. Please try again.');
+                    this.loading = false;
+                }
+            },
+
+            payWithRazorpay(data) {
+                const options = {
+                    key: data.key,
+                    amount: data.amount,
+                    currency: "INR",
+                    name: data.name,
+                    description: data.description,
+                    order_id: data.order_id,
+                    handler: async function (response) {
+                        // Handled via verification controller
+                        window.location.href = `/payment/verify?razorpay_order_id=${response.razorpay_order_id}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_signature=${response.razorpay_signature}`;
+                    },
+                    prefill: {
+                        name: data.user.name,
+                        email: data.user.email,
+                        contact: data.user.contact
+                    },
+                    theme: {
+                        color: "#0f172a"
+                    }
+                };
+                const rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response){
+                    alert("Payment Failed: " + response.error.description);
+                });
+                rzp1.open();
+                this.loading = false;
             }
         }
     }

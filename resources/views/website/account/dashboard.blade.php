@@ -71,21 +71,29 @@
                                 </div>
 
                                 <!-- Submitted Data Dump -->
-                                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mt-4">
-                                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-3 border-b border-slate-200 pb-2">Encrypted Payload Data</h5>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
-                                        @foreach($sub->data as $key => $value)
-                                            <div>
-                                                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Field UID: {{ substr($key, 0, 8) }}..</span>
-                                                <span class="block text-sm font-semibold text-slate-800 break-words">
-                                                    @if(is_string($value) && str_starts_with($value, '/uploads/'))
-                                                        <a href="{{ asset($value) }}" target="_blank" class="text-blue-500 hover:underline"><i class="fa-solid fa-download mr-1"></i> View Attachment</a>
-                                                    @else
-                                                        {{ $value ?: 'Null' }}
-                                                    @endif
-                                                </span>
-                                            </div>
-                                        @endforeach
+                                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mt-4 flex flex-col md:flex-row gap-6">
+                                    <div class="flex-1">
+                                        <h5 class="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-3 border-b border-slate-200 pb-2">Payload Details</h5>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
+                                            @foreach($sub->data as $key => $value)
+                                                <div>
+                                                    <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Field: {{ substr($key, 0, 8) }}..</span>
+                                                    <span class="block text-sm font-semibold text-slate-800 break-words">
+                                                        @if(is_string($value) && str_starts_with($value, '/uploads/'))
+                                                            <a href="{{ asset($value) }}" target="_blank" class="text-blue-500 hover:underline"><i class="fa-solid fa-download mr-1"></i> View Attachment</a>
+                                                        @else
+                                                            {{ $value ?: 'Null' }}
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="md:w-48 flex items-end">
+                                        <a href="{{ route('admin.invoice.download', $sub->id) }}" class="w-full bg-slate-900 hover:bg-black text-white text-[10px] font-black uppercase tracking-widest py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
+                                            <i class="fa-solid fa-file-pdf"></i> Official Invoice
+                                        </a>
                                     </div>
                                 </div>
                                 

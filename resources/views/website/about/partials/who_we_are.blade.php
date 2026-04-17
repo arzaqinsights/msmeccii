@@ -54,7 +54,7 @@
             <!-- Image Area -->
             <div class="w-full lg:w-1/2 relative group animate-on-scroll delay-100">
                 <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[600px]">
-                    <img src="{{ asset('images/about/global_network.png') }}" alt="MSMECCII Global Network" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <img src="{{ asset('images/about/globe.webp') }}" alt="MSMECCII Global Network" class="w-full scale-135 h-full object-cover group-hover:scale-150 transition-transform duration-700">
                     <div class="absolute inset-0 bg-brand-primary/10 group-hover:bg-transparent transition-all duration-500"></div>
                 </div>
                 

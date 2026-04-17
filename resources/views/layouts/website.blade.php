@@ -114,45 +114,52 @@
             <div class="flex items-center gap-3">
                 @if($site['facebook_url'] ?? false)
                     <a href="{{ $site['facebook_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-facebook-f text-brand-primary text-[10px] hover:text-white"></i>
                     </a>
                 @endif
                 @if($site['twitter_url'] ?? false)
                     <a href="{{ $site['twitter_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-twitter text-brand-primary text-[10px]"></i>
                     </a>
                 @endif
                 @if($site['instagram_url'] ?? false)
                     <a href="{{ $site['instagram_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-instagram text-brand-primary text-[10px]"></i>
                     </a>
                 @endif
                 @if($site['linkedin_url'] ?? false)
                     <a href="{{ $site['linkedin_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-linkedin-in text-brand-primary text-[10px]"></i>
                     </a>
                 @endif
                 @if($site['youtube_url'] ?? false)
                     <a href="{{ $site['youtube_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-youtube text-brand-primary text-[10px]"></i>
                     </a>
                 @endif
                 @if($site['whatsapp_url'] ?? false)
                     <a href="{{ $site['whatsapp_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
                         <i class="fa-brands fa-whatsapp text-brand-primary text-[10px]"></i>
                     </a>
                 @endif
                 <div class="w-px h-5 bg-brand-primary/20 mx-1"></div>
-                <a href="{{ route('login') }}"
-                    class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
-                    <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
-                </a>
+                @if (!Auth::check())
+                    <a href="{{ route('login') }}"
+                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
+                    </a>
+                @else
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
+                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> DASHBOARD
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -294,10 +301,18 @@
                             View All Sectors <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                     </div>
-                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-0.5">
+                    <div
+                        class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-0.5 max-h-[65vh] overflow-y-auto">
+                        @php
+                            $numb = 0;
+                        @endphp
                         @foreach(config('sectors.sectors') as $sector)
+                            @php
+                                $numb++;
+                            @endphp
                             <a href="{{ route('sectors.show', $sector['slug']) }}"
                                 class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
+                                <!-- <span class="text-brand-primary">{{ $numb }}</span> -->
                                 <span
                                     class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span>
                                 {{ $sector['title'] }}

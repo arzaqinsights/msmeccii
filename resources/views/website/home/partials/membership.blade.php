@@ -37,9 +37,9 @@
 
             <!-- Content -->
             <div class="w-full lg:w-1/2 animate-on-scroll delay-100">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border mb-6">
-                    <i class="fa-solid fa-gem text-brand-accent text-xs"></i>
-                    <span class="text-brand-primary text-xs font-bold tracking-widest uppercase">Membership</span>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary border mb-6">
+                    <i class="fa-solid fa-gem text-brand-light text-xs"></i>
+                    <span class="text-brand-light text-xs font-bold tracking-widest uppercase">Membership</span>
                 </div>
 
                 <h2 class="text-4xl md:text-5xl font-extrabold text-brand-primary leading-[1.15] mb-6">

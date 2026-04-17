@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -47,7 +48,6 @@ Route::prefix('sectors')->name('sectors.')->group(function () {
         return view('website.sectors.' . $slug);
     })->name('show');
 });
-
 Route::prefix('join')->name('join.')->group(function () {
     Route::get('/', function () {
         return view('website.join.index');
@@ -55,7 +55,12 @@ Route::prefix('join')->name('join.')->group(function () {
 
     Route::get('/application/{slug}', [\App\Http\Controllers\Website\FormController::class, 'show'])->name('forms.show');
     Route::post('/application/{slug}', [\App\Http\Controllers\Website\FormController::class, 'store'])->name('forms.store');
+    Route::get('/thank-you/{submission}', function (\App\Models\Submission $submission) {
+        return view('website.forms.thank_you', compact('submission'));
+    })->name('forms.thank_you');
 });
+
+Route::get('/payment/verify', [\App\Http\Controllers\RazorpayController::class, 'verify']);
 
 Route::prefix('events')->name('events.')->group(function () {
     Route::get('/', function () {
@@ -100,6 +105,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Email Verification Routes
@@ -130,6 +136,13 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::put('settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'bulkUpdate'])->name('settings.bulk-update');
 
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
+    Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
+
+    // Admin Submissions Management
+    Route::get('submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'index'])->name('submissions.index');
+    Route::get('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'show'])->name('submissions.show');
+    Route::delete('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'destroy'])->name('submissions.destroy');
+    Route::get('invoice/{submission}/download', [\App\Http\Controllers\InvoiceController::class, 'download'])->name('invoice.download');
 });

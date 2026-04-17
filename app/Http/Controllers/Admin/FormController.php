@@ -56,6 +56,8 @@ class FormController extends Controller
         $form->submit_button_text = $request->submit_button_text ?: 'Submit';
         $form->thank_you_message = $request->thank_you_message;
         $form->status = $request->status ?: 'draft';
+        $form->invoice_prefix = $request->invoice_prefix ?: 'MSME-';
+        $form->invoice_details = $request->invoice_details;
         
         // Process File Upload
         if ($request->hasFile('thumbnail')) {
@@ -77,11 +79,11 @@ class FormController extends Controller
                     if (isset($field['dependency_mode']) && $field['dependency_mode'] === 'options' && isset($field['mapped_options'])) {
                         $mapped = [];
                         foreach ($field['mapped_options'] as $parentVal => $childOptionsString) {
-                            $mapped[$parentVal] = array_filter(array_map('trim', explode(',', $childOptionsString)));
+                            $mapped[$parentVal] = is_array($childOptionsString) ? $childOptionsString : array_filter(array_map('trim', explode(',', $childOptionsString)));
                         }
                         $optionsToSave = $mapped;
                     } else if (isset($field['options'])) {
-                        $optionsToSave = array_filter(array_map('trim', explode(',', $field['options'])));
+                        $optionsToSave = $field['options']; // Alpine already sends it as structured array/object
                     }
 
                     $form->fields()->create([
