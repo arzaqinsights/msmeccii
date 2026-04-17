@@ -31,7 +31,14 @@
                         </div>
                         <div>
                             <span class="block text-[10px] text-slate-400 uppercase tracking-widest leading-none mb-1">Date & Time</span>
-                            <span class="text-sm">{{ $event->event_date->format('F d, Y - h:i A') }}</span>
+                            <span class="text-sm">
+                                @if($event->end_date)
+                                    {{ $event->event_date->format('M d, Y') }} - {{ $event->end_date->format('M d, Y') }}
+                                    <span class="text-slate-400 ml-1">({{ $event->event_date->format('h:i A') }})</span>
+                                @else
+                                    {{ $event->event_date->format('F d, Y - h:i A') }}
+                                @endif
+                            </span>
                         </div>
                     </div>
                     
@@ -53,14 +60,41 @@
                     {{ $event->description }}
                 </div>
                 
-                @if($event->download_file)
+                @if($event->builder_content && count($event->builder_content) > 0)
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 mb-12 shadow-sm">
+                        <h3 class="text-lg font-black text-indigo-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-paperclip"></i>
+                            Official Event Resources
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @foreach($event->builder_content as $resource)
+                                @if(!empty($resource['url']))
+                                    <div class="bg-white p-4 rounded-xl border border-indigo-100 flex items-center justify-between group hover:border-brand-primary transition-all">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-black text-slate-900 leading-tight">{{ $resource['title'] ?: 'Resource File' }}</p>
+                                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Attachment</p>
+                                            </div>
+                                        </div>
+                                        <a href="{{ asset($resource['url']) }}" target="_blank" class="text-indigo-600 hover:text-brand-primary font-bold text-xs flex items-center gap-1">
+                                            View <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                @elseif($event->download_file)
                     <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 mb-12 flex items-center justify-between shadow-sm">
                         <div>
                             <h3 class="text-lg font-black text-indigo-900 mb-1">Attached Event Resources</h3>
-                            <p class="text-sm text-indigo-700 font-medium">Download the official brochure or resources for this event.</p>
+                            <p class="text-sm text-indigo-700 font-medium">View the official brochure or resources for this event.</p>
                         </div>
-                        <a href="{{ asset($event->download_file) }}" download class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md flex items-center gap-2">
-                            <i class="fa-solid fa-download"></i> {{ $event->download_btn_text ?: 'Download File' }}
+                        <a href="{{ asset($event->download_file) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-eye"></i> {{ $event->download_btn_text ?: 'View Resource' }}
                         </a>
                     </div>
                 @endif

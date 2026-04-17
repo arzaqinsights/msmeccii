@@ -1,98 +1,139 @@
-@if(isset($featuredEvent) && $featuredEvent)
-    <section class="py-24 bg-white relative">
-        <div class="container">
+@php
+    // Fetch specifically for popup regardless of date if needed for testing, 
+    // but usually we want active/upcoming events.
+    // For now, ensuring we have the latest published popup event.
+    $popupEvent = $popupEvent ?? \App\Models\Event::where('status', 'published')
+        ->where('show_as_popup', true)
+        ->latest()
+        ->first();
+@endphp
 
-            <div class="relative bg-slate-900 rounded-md overflow-hidden animate-on-scroll delay-100 flex flex-col lg:flex-row items-center border border-slate-800">
-                <div class="w-full lg:w-1/2 p-10 lg:p-16 relative z-20">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-brand-light mb-4 leading-tight">{{ $featuredEvent->title }}</h2>
-                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
-                        {{ $featuredEvent->description ?: 'Join the industry leaders and change-makers at our latest upcoming featured event. Discover new opportunities, networking, and expert keynotes.' }}
-                    </p>
+@if(isset($popupEvent) && $popupEvent)
+    <div id="event-popup-container" class="fixed inset-0 z-9999 items-center justify-center p-4 sm:p-6" style="display: none;">
+        <!-- Backdrop -->
+        <div id="popup-backdrop" class="absolute inset-0 bg-slate-900/80 backdrop-blur-md transition-opacity duration-500 opacity-0 cursor-pointer"></div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 border-t border-slate-800 pt-8 mt-8">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center shrink-0">
-                                <i class="fa-regular fa-clock text-brand-primary w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-1">Date & Time</h5>
-                                <p class="text-slate-400 font-medium">{{ $featuredEvent->event_date->format('F d, Y h:i A') }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-location-dot text-blue-400 w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-1">Location Base</h5>
-                                <p class="text-slate-400 font-medium">{{ $featuredEvent->location ?: 'Virtual/TBA' }}</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Modal Content -->
+        <div id="popup-content" class="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row transform transition-all duration-500 scale-95 opacity-0">
+            
+            <!-- Close Button -->
+            <button id="close-popup-btn" class="absolute top-2 right-2 border z-50 w-10 h-10 rounded-full bg-white/50 hover:bg-white text-slate-900 flex items-center justify-center transition-all backdrop-blur-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a href="{{ route('events.show', $featuredEvent->slug) }}" class="bg-brand-primary hover:bg-brand-primary-light text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-brand-primary/20 group">
-                            Event Details <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                        
-                        @if($featuredEvent->download_file)
-                            <a href="{{ asset($featuredEvent->download_file) }}" download class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold transition-all border border-white/10">
-                                <i class="fa-solid fa-download mr-1"></i> {{ $featuredEvent->download_btn_text ?: 'Download' }}
-                            </a>
-                        @endif
-                    </div>
-                </div>
+            <!-- Left Side: Image -->
+            <div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden bg-slate-100">
+                @if($popupEvent->image)
+                    <img src="{{ asset($popupEvent->image) }}" class="absolute inset-0 w-full h-full object-cover">
+                @else
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-accent"></div>
+                @endif
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent md:hidden"></div>
                 
-                <div class="w-full lg:w-1/2 h-full min-h-[400px] lg:absolute lg:right-0 lg:top-0 lg:bottom-0 bg-slate-800 flex items-center justify-center relative">
-                    <!-- Background Cover -->
-                    @if($featuredEvent->image)
-                        <img src="{{ asset($featuredEvent->image) }}" class="absolute inset-0 w-full h-full object-cover opacity-30">
-                    @else
-                        <div class="absolute inset-0 bg-slate-800"></div>
-                    @endif
-                    
-                    <div class="absolute inset-0 bg-linear-to-r from-slate-900 to-transparent lg:block hidden"></div>
-                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/50 to-transparent lg:hidden block"></div>
+                @if($popupEvent->design_style === 'featured')
+                    <div class="absolute top-2 left-2 bg-brand-primary text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+                        <i class="fa-solid fa-star mr-1"></i> Featured Event
+                    </div>
+                @endif
+            </div>
 
-                    <!-- Centered Timer Injection -->
-                    @if($featuredEvent->show_timer)
-                        <div class="relative z-50 p-8">
-                            <h4 class="text-center text-white font-black tracking-widest uppercase mb-6"><i class="fa-solid fa-hourglass-half text-brand-primary"></i> Countdown to Launch</h4>
-                            
-                            <div x-data="{
-                                    target: new Date('{{ $featuredEvent->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
-                                    now: new Date().getTime(),
-                                    get t() { return Math.max(0, this.target - this.now); },
-                                    get days() { return Math.floor(this.t / (1000 * 60 * 60 * 24)); },
-                                    get hours() { return Math.floor((this.t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); },
-                                    get minutes() { return Math.floor((this.t % (1000 * 60 * 60)) / (1000 * 60)); },
-                                    get seconds() { return Math.floor((this.t % (1000 * 60)) / 1000); }
-                                }" 
-                                x-init="setInterval(() => now = new Date().getTime(), 1000)" 
-                                class="flex justify-center gap-4 md:gap-6 text-center">
-                                
-                                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-white/20 shadow-2xl min-w-[80px]">
-                                    <span class="block text-4xl md:text-6xl font-black text-white tracking-tighter shadow-sm" x-text="days">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-2">Days</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-white/20 shadow-2xl min-w-[80px]">
-                                    <span class="block text-4xl md:text-6xl font-black text-white tracking-tighter shadow-sm" x-text="hours">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-2">Hours</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-white/20 shadow-2xl min-w-[80px]">
-                                    <span class="block text-4xl md:text-6xl font-black text-white tracking-tighter shadow-sm" x-text="minutes">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-2">Mins</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-white/20 shadow-2xl min-w-[80px]">
-                                    <span class="block text-4xl md:text-6xl font-black text-white tracking-tighter shadow-sm" x-text="seconds">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-2">Secs</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+            <!-- Right Side: Content -->
+            <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-white">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6 text-brand-primary text-[10px] font-bold tracking-widest uppercase">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></span>
+                    Announcing
                 </div>
 
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight">
+                    {{ $popupEvent->title }}
+                </h2>
+
+                <p class="text-slate-500 font-medium mb-8 line-clamp-3">
+                    {{ $popupEvent->description ?: 'Join us for this exclusive event. Network with industry experts and discover new growth opportunities.' }}
+                </p>
+
+                <div class="space-y-4 mb-10">
+                    <div class="flex items-center gap-4 text-slate-700">
+                        <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-brand-primary shadow-sm border border-slate-200/50">
+                            <i class="fa-regular fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">Date & Time</p>
+                            <p class="text-sm font-black">
+                                @if($popupEvent->end_date)
+                                    {{ $popupEvent->event_date->format('M d') }} - {{ $popupEvent->end_date->format('M d, Y') }}
+                                @else
+                                    {{ $popupEvent->event_date->format('F d, Y') }}
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{{ route('events.show', $popupEvent->slug) }}" class="flex-1 bg-brand-primary hover:bg-brand-primary-light text-white text-center py-4 rounded-2xl font-black shadow-xl shadow-brand-primary/20 transition-all transform hover:-translate-y-1">
+                        View Details
+                    </a>
+                    <button id="later-popup-btn" class="flex-1 hidden bg-slate-100 hover:bg-slate-200 text-slate-900 text-center py-4 rounded-2xl font-black transition-all">
+                        Maybe Later
+                    </button>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <script>
+        (function() {
+            const popupId = '{{ $popupEvent->id }}';
+            const storageKey = 'msmeccii_popup_seen_' + popupId;
+
+            function initPopup() {
+                const container = document.getElementById('event-popup-container');
+                const backdrop = document.getElementById('popup-backdrop');
+                const content = document.getElementById('popup-content');
+                const closeBtn = document.getElementById('close-popup-btn');
+                const laterBtn = document.getElementById('later-popup-btn');
+
+                if (!container || !content) return;
+
+                // Check if already seen
+                if (localStorage.getItem(storageKey)) {
+                    console.log('Popup already seen.');
+                    return;
+                }
+
+                setTimeout(() => {
+                    container.style.display = 'flex';
+                    
+                    // Trigger reflow for animations
+                    container.offsetHeight; 
+
+                    backdrop.style.opacity = '1';
+                    content.style.opacity = '1';
+                    content.style.transform = 'translateY(0) scale(1)';
+                }, 1500);
+
+                function closePopup() {
+                    backdrop.style.opacity = '0';
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(12px) scale(0.95)';
+                    
+                    setTimeout(() => {
+                        container.style.display = 'none';
+                        localStorage.setItem(storageKey, 'true');
+                    }, 500);
+                }
+
+                closeBtn.onclick = closePopup;
+                laterBtn.onclick = closePopup;
+                backdrop.onclick = closePopup;
+            }
+
+            if (document.readyState === 'complete') {
+                initPopup();
+            } else {
+                window.addEventListener('load', initPopup);
+            }
+        })();
+    </script>
 @endif

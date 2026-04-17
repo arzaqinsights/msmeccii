@@ -12,7 +12,7 @@
                 <span class="text-white text-xs font-bold tracking-widest uppercase">Why Choose Us</span>
             </div>
             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
-                Why <span class="text-brand-primary">200K</span> Enterprises Trust MSMECCII
+                Why <span class="text-brand-primary">100K</span> Enterprises Trust MSMECCII
             </h2>
             <p class="text-slate-500 font-semibold text-lg leading-relaxed">
                 We go beyond traditional chambers — delivering real value, real connections, and real recognition to

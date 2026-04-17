@@ -48,9 +48,15 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="px-6 py-4">
-                            <p class="font-black text-slate-800">{{ $event->event_date->format('M d, Y') }}</p>
-                            <p class="text-xs text-slate-400 font-medium">at {{ $event->event_date->format('h:i A') }}</p>
+                        <td class="px-6 py-4 text-[13px]">
+                            <p class="font-black text-slate-800">
+                                @if($event->end_date)
+                                    {{ $event->event_date->format('M d') }} - {{ $event->end_date->format('M d, Y') }}
+                                @else
+                                    {{ $event->event_date->format('M d, Y') }}
+                                @endif
+                            </p>
+                            <p class="text-xs text-slate-400 font-medium">Starts at {{ $event->event_date->format('h:i A') }}</p>
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-3">

@@ -10,7 +10,7 @@
         @php
             $sectorCount = count(config('sectors.sectors'));
         @endphp
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center" x-data="{
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" x-data="{
                 shown: false,
                 animateCount(target, id) {
                     let current = 0;
@@ -23,9 +23,10 @@
                 }
             }" x-intersect.once="
                 shown = true;
-                animateCount(200, 'count-enterprises');
+                animateCount(100, 'count-enterprises');
                 animateCount({{ $sectorCount }}, 'count-sectors');
                 animateCount(30, 'count-countries');
+                animateCount(100, 'count-guest');
             ">
 
             <div class="animate-on-scroll">
@@ -47,6 +48,12 @@
                     <span id="count-countries">0</span><span class="text-brand-accent">+</span>
                 </div>
                 <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Countries Reached</p>
+            </div>
+            <div class="animate-on-scroll delay-200">
+                <div class="text-5xl md:text-8xl font-black text-brand-light mb-2 tabular-nums">
+                    <span id="count-guest">0</span><span class="text-brand-accent">+</span>
+                </div>
+                <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Guest of Honour</p>
             </div>
 
         </div>

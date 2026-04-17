@@ -12,4 +12,5 @@
     @include('website.home.partials.impact')
     @include('website.home.partials.membership')
     @include('website.home.partials.cta')
+    @include('website.home.partials.popup')
 @endsection

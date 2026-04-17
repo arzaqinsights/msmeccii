@@ -22,13 +22,17 @@
                     Our awards recognize businesses that demonstrate exceptional quality, leadership, social responsibility, and contribution to India's economic growth across 26+ focused industry sectors.
                 </p>
 
-                <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                     <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
-                        <div class="text-3xl font-black text-brand-primary mb-1">26+</div>
+                        <div class="text-3xl font-black text-brand-primary mb-1">{{ count(config('sectors.sectors')) }}+</div>
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Industry Sectors</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+                        <div class="text-3xl font-black text-brand-primary mb-1">2300+</div>
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Award Categories</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
-                        <div class="text-3xl font-black text-brand-primary mb-1">500+</div>
+                        <div class="text-3xl font-black text-brand-primary mb-1">350+</div>
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Past Awardees</p>
                     </div>
                 </div>

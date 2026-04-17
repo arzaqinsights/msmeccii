@@ -2,17 +2,17 @@
     <section class="py-24 bg-white relative">
         <div class="container">
             <!-- Section Header -->
-            <div class="flex flex-col md:flex-row justify-between items-end mb-6 gap-6 animate-on-scroll">
+            <div class="flex flex-col md:flex-row justify-between mb-6 gap-6 animate-on-scroll">
                 <div class="max-w-2xl">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary border mb-4">
                         <span class="w-2 h-2 rounded-full bg-brand-light"></span>
                         <span class="text-brand-light text-xs font-bold tracking-widest uppercase">Upcoming Featured Event</span>
                     </div>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-                        Our Upcoming Events
+                    <h2 class="text-4xl md:text-5xl max-w-xs md:max-w-none font-extrabold text-brand-primary leading-tight">
+                        Our Upcoming <span class="text-brand-accent">Events</span>
                     </h2>
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-4">
                     <a href="{{ route('events.index') }}" class="inline-flex items-center gap-2 text-brand-light bg-brand-primary border-2 border-slate-200 px-6 py-3 rounded-md font-bold hover:bg-slate-50 hover:text-slate-700 transition-all duration-300">
                         All Events <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -33,7 +33,13 @@
                             </div>
                             <div>
                                 <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-1">Date & Time</h5>
-                                <p class="text-slate-400 font-medium">{{ $featuredEvent->event_date->format('F d, Y h:i A') }}</p>
+                                <p class="text-slate-400 font-medium">
+                                    @if($featuredEvent->end_date)
+                                        {{ $featuredEvent->event_date->format('M d') }} - {{ $featuredEvent->end_date->format('M d, Y') }}
+                                    @else
+                                        {{ $featuredEvent->event_date->format('F d, Y h:i A') }}
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
@@ -47,14 +53,22 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a href="{{ route('events.show', $featuredEvent->slug) }}" class="bg-brand-primary hover:bg-brand-primary-light text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-brand-primary/20 group">
+                    <div class="flex flex-col md:flex-row items-center gap-4">
+                        <a href="{{ route('events.show', $featuredEvent->slug) }}" class="bg-brand-primary shrink-0 hover:bg-brand-primary-light w-full md:w-auto text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-brand-primary/20 group">
                             Event Details <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                         
-                        @if($featuredEvent->download_file)
-                            <a href="{{ asset($featuredEvent->download_file) }}" download class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold transition-all border border-white/10">
-                                <i class="fa-solid fa-download mr-1"></i> {{ $featuredEvent->download_btn_text ?: 'Download' }}
+                        @if($featuredEvent->builder_content && count($featuredEvent->builder_content) > 0)
+                            <div class="flex flex-col md:flex-row gap-3 w-full">
+                                @foreach(array_slice($featuredEvent->builder_content, 0, 2) as $resource)
+                                    <a href="{{ asset($resource['url']) }}" target="_blank" class="bg-white/10 hover:bg-white/20 text-white w-full md:w-auto px-8 py-4 rounded-xl font-bold transition-all border border-white/10 flex items-center">
+                                        {{ $resource['title'] ?: 'View Resource' }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        @elseif($featuredEvent->download_file)
+                            <a href="{{ asset($featuredEvent->download_file) }}" target="_blank" class="bg-white/10 hover:bg-white/20 w-full md:w-auto text-white px-8 py-4 rounded-xl font-bold transition-all border border-white/10 inline-block mt-4">
+                                {{ $featuredEvent->download_btn_text ?: 'View' }}
                             </a>
                         @endif
                     </div>

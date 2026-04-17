@@ -34,7 +34,11 @@
                         @endif
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/20 shadow-sm text-xs font-black text-slate-800 flex items-center gap-2">
                             <i class="fa-regular fa-calendar text-brand-primary"></i>
-                            {{ $event->event_date->format('M d, Y') }}
+                            @if($event->end_date)
+                                {{ $event->event_date->format('M d') }} - {{ $event->end_date->format('M d, Y') }}
+                            @else
+                                {{ $event->event_date->format('M d, Y') }}
+                            @endif
                         </div>
                         @if($event->design_style === 'featured')
                             <div class="absolute top-4 left-4 bg-brand-primary px-3 py-1.5 rounded-lg shadow-sm text-xs font-black text-white flex items-center gap-2 uppercase tracking-wide">

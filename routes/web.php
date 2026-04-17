@@ -20,10 +20,15 @@ Route::get('/', function () {
             ->first();
     }
 
-    $sectorSettings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
-    $cardCount = $sectorSettings['sector_home_count'] ?? 8;
+    $popupEvent = \App\Models\Event::where('status', 'published')
+        ->where('show_as_popup', true)
+        ->where('event_date', '>=', now())
+        ->latest()
+        ->first();
 
-    return view('website.home.index', compact('featuredEvent', 'sectorSettings'));
+    $sectorSettings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
+
+    return view('website.home.index', compact('featuredEvent', 'popupEvent', 'sectorSettings'));
 })->name('home');
 
 Route::prefix('about')->group(function () {
@@ -137,6 +142,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
 
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
     Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');
+    Route::post('events/upload-attachment', [\App\Http\Controllers\Admin\EventController::class, 'uploadAttachment'])->name('events.upload-attachment');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
 
