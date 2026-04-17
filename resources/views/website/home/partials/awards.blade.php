@@ -1,5 +1,5 @@
 <!-- Awards & Recognition -->
-<section class="py-4 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+<section class="py-14 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
     <div class="container relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-16">
 

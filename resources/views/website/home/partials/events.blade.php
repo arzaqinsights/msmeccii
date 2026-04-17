@@ -2,8 +2,9 @@
     <section class="py-24 bg-white relative">
         <div class="container">
             <!-- Section Header -->
-            <div class="flex flex-col md:flex-row justify-between mb-6 gap-6 animate-on-scroll">
-                <div class="max-w-2xl">
+            <div class="flex flex-col justify-between mb-16 gap-6 animate-on-scroll">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="max-w-2xl">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary border mb-4">
                         <span class="w-2 h-2 rounded-full bg-brand-light"></span>
                         <span class="text-brand-light text-xs font-bold tracking-widest uppercase">Upcoming Featured Event</span>
@@ -17,6 +18,11 @@
                         All Events <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
+                </div>
+                <p class="text-slate-500 text-lg leading-relaxed font-medium">
+                    Empowering MSMEs through strategic initiatives, industry advocacy, and growth-driven solutions designed
+                    to foster global competitiveness.
+                </p>
             </div>
 
             <div class="relative bg-slate-900 rounded-md overflow-hidden animate-on-scroll delay-100 flex flex-col lg:flex-row items-center border border-slate-800">
