@@ -17,8 +17,8 @@
 
                 <!-- Floating Badge -->
                 <div class="absolute -bottom-6 md:-right-6 right-2 bg-brand-primary text-white p-6 rounded-2xl shadow-2xl z-20 animate-on-scroll delay-200">
-                    <p class="text-4xl font-black text-brand-accent mb-1">2019</p>
-                    <p class="text-xs font-bold tracking-widest uppercase text-white/70">Established Year</p>
+                    <p class="text-4xl font-black text-brand-accent mb-1">7+ Years</p>
+                    <p class="text-xs font-bold tracking-widest uppercase text-white/70">Relentless Services <br> to the Industreis</p>
                 </div>
             </div>
 

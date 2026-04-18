@@ -3,6 +3,13 @@
 return [
     'sectors' => [
         [
+            'title' => 'Chemicals & Petrochemicals',
+            'description' => 'The backbone of modern manufacturing transforming raw materials into value-added products for global industries.',
+            'thumbnail' => 'images/sectors/chemicals-petrochemicals-industry.jpg',
+            'slug' => 'chemicals-petrochemicals-industry',
+            'route' => 'sectors.show',
+        ],
+        [
             'title' => 'Plastic Industry',
             'description' => 'The plastic industry is a global industry that produces a wide range of plastic products.',
             'thumbnail' => 'images/sectors/plastic-industry.png',
@@ -108,7 +115,7 @@ return [
             'route' => 'sectors.show',
         ],
         [
-            'title' => 'Biogas Industry',
+            'title' => 'Biogas',
             'description' => 'Renewable energy from anaerobic digestion of organic waste for power, heating, and clean fuel production.',
             'thumbnail' => 'images/sectors/biogas-industry.webp',
             'slug' => 'biogas-industry',
@@ -180,7 +187,7 @@ return [
         [
             'title' => 'ESG Industry',
             'description' => 'Environmental, Social, and Governance (ESG) is a strategic framework evaluating business sustainability and ethics.',
-            'thumbnail' => 'images/sectors/esg-industry.jpg',
+            'thumbnail' => 'images/sectors/esg.jpeg',
             'slug' => 'esg-industry',
             'route' => 'sectors.show',
         ],
@@ -201,7 +208,7 @@ return [
         [
             'title' => 'Home Furnishing',
             'description' => 'Manufacturing and design of interior lifestyle products including textiles, décor, and luxury furnishings.',
-            'thumbnail' => 'images/sectors/home-furnishing.jpg',
+            'thumbnail' => 'images/sectors/home.jpeg',
             'slug' => 'home-furnishing-industry',
             'route' => 'sectors.show',
         ],
@@ -229,7 +236,7 @@ return [
         [
             'title' => 'Jute',
             'description' => 'Global leader in the "Golden Fiber" industry, providing sustainable and eco-friendly packaging and textile solutions.',
-            'thumbnail' => 'images/sectors/rice.png',
+            'thumbnail' => 'images/sectors/jute-industry.jpg',
             'slug' => 'jute-industry',
             'route' => 'sectors.show',
         ],
@@ -371,6 +378,13 @@ return [
             'description' => 'Empowering the modern world through innovative smart technology, semiconductors, and electronic devices.',
             'thumbnail' => 'images/sectors/electronics-industry.jpg',
             'slug' => 'electronics-industry',
+            'route' => 'sectors.show',
+        ],
+        [
+            'title' => 'AI for Industry',
+            'description' => 'Artificial Intelligence is no longer sector-specific—it is a horizontal capability layer transforming every major industry.',
+            'thumbnail' => 'images/sectors/ai-for-industry.jpg',
+            'slug' => 'ai-for-industry',
             'route' => 'sectors.show',
         ],
     ]

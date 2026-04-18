@@ -8,7 +8,7 @@
     <section class="relative pt-32 pb-24 bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-yellow-900 via-slate-900 to-black"></div>
         <div class="absolute inset-0 opacity-20"
-            style="background-image: url('{{ asset('images/sectors/rice.png') }}'); background-size: cover; background-position: center;">
+            style="background-image: url('{{ asset('images/sectors/jute-industry.jpg') }}'); background-size: cover; background-position: center;">
         </div>
 
         <div class="container relative z-10 text-center">
@@ -45,7 +45,7 @@
                     <div
                         class="absolute -inset-1 bg-gradient-to-r from-yellow-600 to-amber-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000">
                     </div>
-                    <img src="{{ asset('images/sectors/rice.png') }}" alt="Jute Industry"
+                    <img src="{{ asset('images/sectors/jute-industry.jpg') }}" alt="Jute Industry"
                         class="relative w-full h-[400px] object-cover rounded-2xl shadow-2xl">
                 </div>
             </div>

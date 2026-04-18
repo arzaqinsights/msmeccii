@@ -15,7 +15,7 @@ class RazorpayController extends Controller
         $orderId = $request->razorpay_order_id;
         $paymentId = $request->razorpay_payment_id;
 
-        $api = new Api(env('RAZORPAY_KEY_ID'), env('RAZORPAY_KEY_SECRET'));
+        $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
         try {
             $attributes = [

@@ -18,7 +18,9 @@ class Form extends Model
         'thank_you_message',
         'status',
         'invoice_prefix',
-        'invoice_details'
+        'invoice_details',
+        'invoice_logo',
+        'invoice_terms'
     ];
 
     protected $casts = [

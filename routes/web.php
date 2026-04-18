@@ -31,6 +31,18 @@ Route::get('/', function () {
     return view('website.home.index', compact('featuredEvent', 'popupEvent', 'sectorSettings'));
 })->name('home');
 
+Route::get('/terms-and-conditions', function () {
+    return view('website.terms');
+})->name('terms');
+
+Route::get('/privacy-policy', function () {
+    return view('website.privacy');
+})->name('privacy');
+
+Route::get('/contact-us', function () {
+    return view('website.contact');
+})->name('contact');
+
 Route::prefix('about')->group(function () {
     Route::get('/what-is-msmeccii', function () {
         return view('website.about.what_is');
@@ -51,6 +63,12 @@ Route::prefix('sectors')->name('sectors.')->group(function () {
     })->name('index');
     Route::get('{slug}', function ($slug) {
         return view('website.sectors.' . $slug);
+    })->name('show');
+});
+
+Route::prefix('services')->name('services.')->group(function () {
+    Route::get('{slug}', function ($slug) {
+        return view('website.services.' . $slug);
     })->name('show');
 });
 Route::prefix('join')->name('join.')->group(function () {

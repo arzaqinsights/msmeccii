@@ -41,9 +41,9 @@
                                 <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-1">Date & Time</h5>
                                 <p class="text-slate-400 font-medium">
                                     @if($featuredEvent->end_date)
-                                        {{ $featuredEvent->event_date->format('M d') }} - {{ $featuredEvent->end_date->format('M d, Y') }}
+                                        {{ $featuredEvent->event_date->format('d') }} - {{ $featuredEvent->end_date->format('d M, Y h:i A') }}
                                     @else
-                                        {{ $featuredEvent->event_date->format('F d, Y h:i A') }}
+                                        {{ $featuredEvent->event_date->format('d M, Y h:i A') }}
                                     @endif
                                 </p>
                             </div>

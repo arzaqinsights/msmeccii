@@ -58,13 +58,22 @@ class FormController extends Controller
         $form->status = $request->status ?: 'draft';
         $form->invoice_prefix = $request->invoice_prefix ?: 'MSME-';
         $form->invoice_details = $request->invoice_details;
+        $form->invoice_terms = $request->invoice_terms;
         
-        // Process File Upload
+        // Process Main Thumbnail
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_thumb_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/forms'), $filename);
             $form->thumbnail = '/uploads/forms/' . $filename;
+        }
+
+        // Process Invoice Logo
+        if ($request->hasFile('invoice_logo')) {
+            $file = $request->file('invoice_logo');
+            $filename = time() . '_inv_logo_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/forms'), $filename);
+            $form->invoice_logo = '/uploads/forms/' . $filename;
         }
 
         $form->save();

@@ -1,8 +1,8 @@
-@section('scripts')
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-@endsection
+@extends('layouts.website')
 
 @section('content')
+<!-- Force Load Razorpay if yield fails -->
+<script src="https://checkout.razorpay.com/v1/checkout.js" async onload="console.log('Razorpay Loaded Successfully')"></script>
 
 <!-- Form Header -->
 <section class="relative pt-32 pb-20 bg-slate-900 border-b border-brand-primary/20">
@@ -86,6 +86,7 @@
                         <!-- Text Input -->
                         <template x-if="field.type === 'text'">
                             <input type="text" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
+                                   @input="handleFieldChange(field.field_identifier)"
                                    :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)"
                                    class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md">
                         </template>
@@ -93,6 +94,7 @@
                         <!-- Textarea -->
                         <template x-if="field.type === 'textarea'">
                             <textarea :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
+                                      @input="handleFieldChange(field.field_identifier)"
                                       :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)" rows="4"
                                       class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none"></textarea>
                         </template>
@@ -100,11 +102,12 @@
                         <!-- Dropdown -->
                         <template x-if="field.type === 'dropdown'">
                             <select :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
+                                    @change="handleFieldChange(field.field_identifier)"
                                     :required="field.is_required && isFieldVisible(field)"
                                     class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold bg-white transition-all shadow-sm focus:shadow-md cursor-pointer border-r-8 border-r-transparent">
                                 <option value="" disabled selected>-- Select an option --</option>
                                 <template x-for="option in getFieldOptions(field)" :key="option.label">
-                                    <option :value="option.label" x-text="option.label + (option.price > 0 ? ' (₹' + option.price + ')' : '')"></option>
+                                    <option :value="option.label" x-text="option.label"></option>
                                 </template>
                             </select>
                         </template>
@@ -173,6 +176,26 @@
                 // Initialize default form data paths to allow reactive tracking
                 this.fields.forEach(f => {
                     this.formData[f.field_identifier] = '';
+                });
+
+                // Emergency Loader for Razorpay
+                if (typeof Razorpay === 'undefined') {
+                    console.warn('Razorpay undefined on init, attempting dynamic injection...');
+                    let script = document.createElement('script');
+                    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+                    document.head.appendChild(script);
+                }
+            },
+
+            handleFieldChange(fieldId) {
+                // Find all fields that depend on this changed field
+                this.fields.forEach(f => {
+                    if (f.depends_on === fieldId) {
+                        // Reset child value
+                        this.formData[f.field_identifier] = '';
+                        // Recursively reset grandchildren
+                        this.handleFieldChange(f.field_identifier);
+                    }
                 });
             },
 
@@ -258,6 +281,10 @@
             },
 
             async submitForm(e) {
+                if (this.totalCalculated > 0 && typeof Razorpay === 'undefined') {
+                    alert('Payment gateway script (Razorpay) failed to load. Please refresh the page.');
+                    return;
+                }
                 this.loading = true;
                 const formData = new FormData(e.target);
                 

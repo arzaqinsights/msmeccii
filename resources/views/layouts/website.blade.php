@@ -221,6 +221,11 @@
                             'route' => 'events.index',
                             'active' => 'events'
                         ],
+                        [
+                            'name' => 'CONTACT US',
+                            'route' => 'contact',
+                            'active' => 'contact-us'
+                        ],
                     ];
                 @endphp
 
@@ -311,10 +316,9 @@
                                 $numb++;
                             @endphp
                             <a href="{{ route('sectors.show', $sector['slug']) }}"
-                                class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
-                                <!-- <span class="text-brand-primary">{{ $numb }}</span> -->
-                                <span
-                                    class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span>
+                                class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
+                                <span class="text-brand-primary">{{ $numb }}</span>
+                                <!-- <span class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span> -->
                                 {{ $sector['title'] }}
                             </a>
                         @endforeach
@@ -539,13 +543,13 @@
             </div>
 
             <!-- Bottom Bar -->
-            <div class="border-t border-slate-800 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="border-t border-slate-300 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-sm">
                     &copy; {{ date('Y') }} MSME Chamber of Commerce and Industry of India. All rights reserved.
                 </p>
                 <div class="flex gap-6 text-sm text-slate-500">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
+                    <a href="{{ route('privacy') }}" class="hover:text-brand-primary transition-colors">Privacy Policy</a>
+                    <a href="{{ route('terms') }}" class="hover:text-brand-primary transition-colors">Terms & Conditions</a>
                 </div>
             </div>
 
@@ -576,7 +580,9 @@
             // Restore body scroll
             document.body.style.overflow = '';
         }
-    </script>
+    <!-- Yield dynamic scripts -->
+    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>

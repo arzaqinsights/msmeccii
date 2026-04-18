@@ -38,11 +38,11 @@
     <div class="absolute inset-0 z-20 flex items-center">
         <div class="container w-full">
             <div class="max-w-3xl animate-on-scroll">
-                <div
+                <!-- <div
                     class="inline-flex items-baseline gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
                     <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
                     <span class="text-white text-xs font-bold tracking-widest uppercase">Global Business Network</span>
-                </div>
+                </div> -->
 
                 <h1
                     class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 drop-shadow-lg">
@@ -52,7 +52,7 @@
                 <p class="text-base text-slate-200 mb-8 max-w-2xl leading-relaxed drop-shadow-md flex flex-col gap-4">
                     Join a powerful network of entrepreneurs, industry leaders, and innovators.
                     Get access to awards, business opportunities, and national-level recognition. <br>
-                    <span class="text-accent font-semibold text-xl">Awards • Networking • Growth Opportunities</span>
+                    <span class="text-accent font-semibold text-xl">Knowledge & Awareness Programs • Growth & Business Opportunities •  Networking & Industry Connect • Recognition & Awards</span>
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 mb-4">
@@ -62,13 +62,13 @@
                     </a>
                     <a href="#"
                         class="bg-transparent border-2 border-white/60 hover:border-white hover:bg-white/10 text-white px-8 py-4 rounded-md font-bold text-lg text-center transition-all">
-                        Apply for Awards
+                        Upcoming Events
                     </a>
                 </div>
 
                 <div class="mt-8 flex gap-8 border-t border-white/20 pt-6">
                     <div class="flex flex-col">
-                        <span class="text-3xl font-bold text-white">200K+</span>
+                        <span class="text-3xl font-bold text-white">100,000+</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Enterprises Reached</span>
                     </div>
                     <div class="flex flex-col border-l border-white/20 pl-8">

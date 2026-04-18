@@ -37,5 +37,8 @@ return [
     'google' => [
         'analytics_id' => env('GA_MEASUREMENT_ID'),
     ],
-
+    'razorpay' => [
+        'key' => env('APP_ENV') === 'production' ? env('RAZORPAY_KEY_ID_LIVE') : env('RAZORPAY_KEY_ID_TEST'),
+        'secret' => env('APP_ENV') === 'production' ? env('RAZORPAY_KEY_SECRET_LIVE') : env('RAZORPAY_KEY_SECRET_TEST'),
+    ],
 ];

@@ -88,21 +88,44 @@
                 </div>
 
                 <div class="pt-4 border-t border-slate-100">
-                    <h4 class="text-xs font-black text-slate-900 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-file-invoice text-emerald-600"></i> Invoice Data Config
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-file-invoice text-emerald-600"></i> Invoice Branding Designer
                     </h4>
                     
-                    <div class="space-y-3">
+                    <div class="space-y-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Invoice Prefix</label>
-                            <input type="text" name="invoice_prefix" value="{{ old('invoice_prefix', $form->invoice_prefix ?? 'MSME-') }}" placeholder="e.g. MSME-"
-                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-purple-600">Invoice Logo</label>
+                            @if($form->invoice_logo)
+                                <div class="mb-2 bg-white border border-slate-200 p-2 rounded-lg">
+                                    <img src="{{ asset($form->invoice_logo) }}" class="h-10 w-auto">
+                                </div>
+                            @endif
+                            <input type="file" name="invoice_logo" class="w-full text-[10px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Inv Prefix</label>
+                                <input type="text" name="invoice_prefix" value="{{ old('invoice_prefix', $form->invoice_prefix ?? 'MSME-') }}" placeholder="MSME-"
+                                       class="w-full bg-white border border-slate-200 rounded-xl p-2 outline-none focus:border-emerald-500 font-black text-slate-900 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">GST Number</label>
+                                <input type="text" name="invoice_details[gst]" value="{{ old('invoice_details.gst', $form->invoice_details['gst'] ?? '') }}" placeholder="GSTIN (Optional)"
+                                       class="w-full bg-white border border-slate-200 rounded-xl p-2 outline-none focus:border-emerald-500 font-black text-slate-900 text-xs">
+                            </div>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Company Details (JSON/Text)</label>
-                            <textarea name="invoice_details[address]" placeholder="Company Address, GSTIN, etc. to show on invoice"
-                                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-xs" rows="3">{{ old('invoice_details.address', $form->invoice_details['address'] ?? '') }}</textarea>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Vendor Address Details</label>
+                            <textarea name="invoice_details[address]" placeholder="Full business address to show on invoice..."
+                                      class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-[10px] h-20">{{ old('invoice_details.address', $form->invoice_details['address'] ?? '') }}</textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Invoice Terms & footer</label>
+                            <textarea name="invoice_terms" placeholder="Terms & conditions, signature text..."
+                                      class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-[10px] h-20">{{ old('invoice_terms', $form->invoice_terms) }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -166,9 +189,9 @@
                                     
                                     <!-- Badges -->
                                     <div class="flex gap-1 ml-2">
-                                        <template x-if="field.base_amount > 0">
+                                        <template x-if="field.type === 'dropdown' && field.options_list.some(o => o.price > 0)">
                                             <span class="bg-emerald-500 text-white font-bold text-[9px] px-1.5 rounded uppercase shadow-sm">
-                                                <i class="fa-solid fa-sack-dollar text-[8px]"></i> Monetized
+                                                <i class="fa-solid fa-sack-dollar text-[8px]"></i> Pricing Active
                                             </span>
                                         </template>
                                         <template x-if="field.depends_on && field.depends_on !== ''">
@@ -210,7 +233,7 @@
                                         </div>
                                     </template>
                                     
-                                    <template x-if="field.type === 'dropdown' && (!field.depends_on || field.dependency_mode === 'visibility' || field.dependency_mode === 'options')">
+                                    <template x-if="field.type === 'dropdown' && field.dependency_mode !== 'options'">
                                         <div class="md:col-span-2">
                                             <div class="flex justify-between items-end mb-2">
                                                 <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dropdown Options & Monetization</label>
@@ -295,10 +318,37 @@
                                             <h4 class="text-[10px] font-black text-purple-600 uppercase tracking-widest"><i class="fa-solid fa-list-ul"></i> Mapped Child Options</h4>
                                             
                                             <template x-for="parentOpt in getParentOptions(field.depends_on)" :key="parentOpt">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-1/3 text-xs font-bold text-purple-900 bg-purple-100/50 py-2 px-3 rounded-l-lg border border-purple-200 border-r-0 truncate" x-text="'If Parent is \'' + parentOpt + '\''"></div>
-                                                    <input type="text" x-model="field.mapped_options[parentOpt]" placeholder="Comma separated options..." 
-                                                           class="w-2/3 text-xs font-medium text-slate-700 border border-slate-200 rounded-r-lg p-2 focus:border-purple-500 outline-none shadow-sm">
+                                                <div class="bg-white border border-purple-200 rounded-2xl overflow-hidden shadow-sm">
+                                                    <div class="bg-purple-100/50 px-4 py-2 border-b border-purple-200 flex justify-between items-center">
+                                                        <span class="text-[10px] font-black text-purple-700 uppercase" x-text="'IF PARENT IS: ' + parentOpt"></span>
+                                                        <button type="button" @click="addMappedOption(field, parentOpt)" class="text-[9px] bg-purple-600 text-white font-black px-2 py-1 rounded uppercase hover:bg-purple-700">
+                                                            + Add Child Option
+                                                        </button>
+                                                    </div>
+                                                    <div class="p-3 space-y-2">
+                                                        <template x-for="(mOpt, mIdx) in (field.mapped_options[parentOpt] || [])" :key="mIdx">
+                                                            <div class="flex gap-2 items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                                                                <input type="text" x-model="mOpt.label" placeholder="Option Label" 
+                                                                       class="flex-1 text-xs font-bold text-slate-700 border border-slate-200 rounded p-1.5 focus:border-purple-500 outline-none">
+                                                                <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                                    <span class="text-[10px] font-bold text-slate-400">₹</span>
+                                                                    <input type="number" x-model="mOpt.price" placeholder="0" 
+                                                                           class="w-16 text-xs font-bold text-slate-700 outline-none">
+                                                                </div>
+                                                                <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                                    <input type="number" x-model="mOpt.tax" placeholder="0" 
+                                                                           class="w-10 text-xs font-bold text-slate-700 outline-none">
+                                                                    <span class="text-[10px] font-bold text-slate-400">%</span>
+                                                                </div>
+                                                                <button type="button" @click="removeMappedOption(field, parentOpt, mIdx)" class="text-red-400 hover:text-red-600 p-1">
+                                                                    <i class="fa-solid fa-xmark text-[10px]"></i>
+                                                                </button>
+                                                            </div>
+                                                        </template>
+                                                        <div x-show="!field.mapped_options[parentOpt] || field.mapped_options[parentOpt].length === 0" class="text-[9px] text-slate-400 italic text-center py-2">
+                                                            No child options mapped for this parent value.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </template>
                                             
@@ -309,25 +359,6 @@
                                     </template>
                                 </div>
 
-                                <!-- Monetization Engine -->
-                                <div class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-4 bg-emerald-50/30 rounded-xl p-4 -mx-4 -mb-4 mt-2 border-t border-emerald-50">
-                                    <div class="md:col-span-2 flex items-center justify-between">
-                                        <h4 class="text-[10px] font-black text-emerald-600 uppercase tracking-widest"><i class="fa-solid fa-sack-dollar"></i> Monetization Engine</h4>
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Base Amount Trigger (₹)</label>
-                                        <input type="number" step="0.01" x-model="field.base_amount" placeholder="0.00" 
-                                               class="w-full text-xs font-bold text-slate-700 border border-slate-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
-                                        <p class="text-[9px] text-slate-400 mt-1">If this field is filled/selected, charge this base amount.</p>
-                                    </div>
-
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tax Rules Config (%)</label>
-                                        <input type="number" step="0.01" x-model="field.tax_percentage" placeholder="18.00" 
-                                               class="w-full text-xs font-bold text-slate-700 border border-slate-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
-                                        <p class="text-[9px] text-slate-400 mt-1">Percentage markup automatically calculated at checkout.</p>
-                                    </div>
                                 </div>
 
                             </div>
@@ -355,10 +386,7 @@
             // Reconstruct Dependency Options visually
             if (field.depends_on_value === '__MAPPED__' && typeof field.options === 'object' && field.options !== null) {
                 field.dependency_mode = 'options';
-                field.mapped_options = {};
-                for(let key in field.options) {
-                    field.mapped_options[key] = field.options[key].join(', ');
-                }
+                field.mapped_options = field.options; 
                 field.options = ''; 
                 field.depends_on_value = '';
             } else {
@@ -397,8 +425,7 @@
                     is_required: false,
                     depends_on: '',
                     depends_on_value: '',
-                    base_amount: null,
-                    tax_percentage: null
+                    mapped_options: {}
                 });
             },
 
@@ -409,6 +436,15 @@
             },
             removeOption(field, index) {
                 field.options_list.splice(index, 1);
+            },
+            addMappedOption(field, parentValue) {
+                if (!field.mapped_options[parentValue]) {
+                    field.mapped_options[parentValue] = [];
+                }
+                field.mapped_options[parentValue].push({ label: '', price: null, tax: null });
+            },
+            removeMappedOption(field, parentValue, index) {
+                field.mapped_options[parentValue].splice(index, 1);
             },
             removeField(index) {
                 // If we remove a field, any field dependent on it should have their dependency cleared
@@ -445,6 +481,10 @@
                 if(!parentId) return [];
                 let parent = this.fields.find(f => f.id === parentId);
                 if(parent && parent.type === 'dropdown') {
+                    // Check if parent has options_list (objects) or legacy comma string
+                    if (parent.options_list && parent.options_list.length > 0) {
+                        return parent.options_list.map(o => o.label).filter(l => l && l.trim() !== '');
+                    }
                     if(typeof parent.options === 'string' && parent.options.trim() !== '') {
                         return parent.options.split(',').map(s=>s.trim()).filter(s=>s!=='');
                     }
@@ -455,8 +495,18 @@
             prepareSubmit() {
                 // Transfer options_list into options property for dropdowns
                 this.fields.forEach(f => {
-                    if (f.type === 'dropdown' && f.dependency_mode !== 'options') {
-                        f.options = f.options_list;
+                    // Pricing is now strictly option-based for dropdowns
+                    f.base_amount = null;
+                    f.tax_percentage = null;
+                    
+                    if (f.type === 'dropdown') {
+                        if (f.depends_on && f.dependency_mode === 'options') {
+                            // Map dynamic cascading options
+                            f.depends_on_value = '__MAPPED__';
+                            f.options = f.mapped_options;
+                        } else {
+                            f.options = f.options_list;
+                        }
                     }
                 });
                 this.fieldsJson = JSON.stringify(this.fields);

@@ -61,9 +61,9 @@
                             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">Date & Time</p>
                             <p class="text-sm font-black">
                                 @if($popupEvent->end_date)
-                                    {{ $popupEvent->event_date->format('M d') }} - {{ $popupEvent->end_date->format('M d, Y') }}
+                                    {{ $popupEvent->event_date->format('d') }} - {{ $popupEvent->end_date->format('d M, Y') }}
                                 @else
-                                    {{ $popupEvent->event_date->format('F d, Y') }}
+                                    {{ $popupEvent->event_date->format('d M, Y') }}
                                 @endif
                             </p>
                         </div>

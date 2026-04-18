@@ -34,7 +34,11 @@
 <body>
     <div class="invoice-box">
         <div class="header clearfix">
-            <div class="logo">MSME<span>CCII</span></div>
+            @if($form->invoice_logo)
+                <img src="{{ public_path($form->invoice_logo) }}" style="height: 60px; float: left;">
+            @else
+                <div class="logo" style="float: left;">MSME<span>CCII</span></div>
+            @endif
             <div class="title">
                 <h1>Tax Invoice</h1>
                 <p>#{{ $submission->invoice_number }}</p>
@@ -50,24 +54,37 @@
                     <div class="details-value" style="font-weight: normal; font-size: 12px;">{{ $user->phone_number }}</div>
                 </td>
                 <td style="text-align: right;">
-                    <div class="details-label">Vendor Details</div>
-                    <div class="details-value">MSME Chamber of Commerce</div>
+                    <div class="details-label">Organization / Vendor</div>
+                    <div class="details-value">MSME Chamber of Commerce & Industry</div>
                     <div class="details-value" style="font-weight: normal; font-size: 11px; white-space: pre-wrap;">{{ $details['address'] ?? 'Official Business Entity Address' }}</div>
+                    @if(isset($details['gst']))
+                        <div class="details-value" style="font-size: 10px; color: #64748b; margin-top: 5px;">GSTIN: {{ $details['gst'] }}</div>
+                    @endif
                 </td>
             </tr>
         </table>
 
+        <!-- Summary Table -->
         <table class="items">
             <thead>
                 <tr>
-                    <th>Description of Service</th>
+                    <th>Item Description</th>
                     <th style="text-align: right;">Amount (INR)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ $form->name }} &mdash; Application Fee</td>
-                    <td style="text-align: right;">₹{{ number_format($submission->total_amount_paid, 2) }}</td>
+                    <td>
+                        <div style="font-size: 14px; color: #0f172a;">{{ $form->name }} Registration</div>
+                        <div style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 5px;">
+                            @foreach($submission->data as $label => $value)
+                                @if(!is_array($value))
+                                    <strong>{{ $label }}:</strong> {{ $value }} |
+                                @endif
+                            @endforeach
+                        </div>
+                    </td>
+                    <td style="text-align: right;">Rs. {{ number_format($submission->total_amount_paid, 2) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -76,19 +93,24 @@
             <div class="totals">
                 @php
                     $final = $submission->total_amount_paid;
-                    // For calculation in PDF, we'll assume standard 18% if no break down is stored, 
-                    // or just show total if it's already calculated.
                     $subtotal = $final / 1.18;
                     $tax = $final - $subtotal;
                 @endphp
-                <div class="total-row">Subtotal <span>₹{{ number_format($subtotal, 2) }}</span></div>
-                <div class="total-row">IGST (18%) <span>₹{{ number_format($tax, 2) }}</span></div>
-                <div class="total-row grand-total">Total Amount <span>₹{{ number_format($final, 2) }}</span></div>
+                <div class="total-row">Subtotal <span>Rs. {{ number_format($subtotal, 2) }}</span></div>
+                <div class="total-row">IGST (18%) <span>Rs. {{ number_format($tax, 2) }}</span></div>
+                <div class="total-row grand-total">Total Amount <span>Rs. {{ number_format($final, 2) }}</span></div>
             </div>
         </div>
 
+        @if($form->invoice_terms)
+            <div style="margin-top: 40px; border-top: 1px solid #f1f5f9; pt-20">
+                <div class="details-label">Terms & Conditions / Remarks</div>
+                <div style="font-size: 10px; color: #64748b; white-space: pre-wrap;">{{ $form->invoice_terms }}</div>
+            </div>
+        @endif
+
         <div class="footer">
-            <p>This is a computer-generated invoice and does not require a physical signature.</p>
+            <p>This is a computer-generated tax invoice issued by MSMECCII regarding application ID #{{ $submission->id }}.</p>
             <p>&copy; {{ date('Y') }} MSMECCII. All Rights Reserved.</p>
         </div>
     </div>

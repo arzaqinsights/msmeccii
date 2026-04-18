@@ -32,7 +32,7 @@ class FormController extends Controller
         // 1. Fixed Authentication Field Validations
         $request->validate([
             'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:20',
         ]);
@@ -45,8 +45,7 @@ class FormController extends Controller
             
             if (!$user) {
                 $user = User::create([
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
+                    'name' => $request->first_name . ' ' . $request->last_name,
                     'email' => $request->email,
                     'phone_number' => $request->phone_number,
                     'password' => Hash::make(Str::random(16)), // Secure throwaway, can trigger password reset later
@@ -85,8 +84,10 @@ class FormController extends Controller
                 $isAccessible = true;
                 if ($field->depends_on) {
                     $parentValue = $dynamicData[$field->depends_on] ?? null;
-                    if ($parentValue !== $field->depends_on_value) {
-                        $isAccessible = false; // Dependency failed, ignore pricing
+                    if ($field->depends_on_value !== '__MAPPED__' && $parentValue !== $field->depends_on_value) {
+                        $isAccessible = false; // Standard dependency failed
+                    } else if ($field->depends_on_value === '__MAPPED__' && (!$parentValue || !isset($field->options[$parentValue]))) {
+                        $isAccessible = false; // Mapped dependency failed (parent has no options defined for this child)
                     }
                 }
 
@@ -96,18 +97,27 @@ class FormController extends Controller
 
                     // Option-specific pricing for dropdowns
                     if ($field->type === 'dropdown' && is_array($field->options)) {
-                        foreach ($field->options as $opt) {
-                            if (isset($opt['label']) && $opt['label'] === $submittedValue) {
+                        $lookupOptions = $field->options;
+
+                        // NEW: Handle pricing for Mapped/Cascading dropdowns
+                        if ($field->depends_on_value === '__MAPPED__') {
+                            $parentValue = $dynamicData[$field->depends_on] ?? null;
+                            $lookupOptions = $field->options[$parentValue] ?? [];
+                        }
+
+                        foreach ($lookupOptions as $opt) {
+                            $optLabel = trim($opt['label'] ?? '');
+                            if ($optLabel !== '' && strtolower($optLabel) === strtolower(trim($submittedValue))) {
                                 $fieldBase = (float) ($opt['price'] ?? 0);
-                                $fieldTax = $opt['price'] > 0 ? ($opt['price'] * (($opt['tax'] ?? 0) / 100)) : 0;
+                                $fieldTax = $fieldBase > 0 ? ($fieldBase * ((float) ($opt['tax'] ?? 0) / 100)) : 0;
                                 break;
                             }
                         }
                     } else {
                         // Standard field-level pricing
-                        if ($field->base_amount > 0) {
+                        if ((float)$field->base_amount > 0) {
                             $fieldBase = (float) $field->base_amount;
-                            $fieldTax = $field->tax_percentage > 0 ? ($fieldBase * ($field->tax_percentage / 100)) : 0;
+                            $fieldTax = (float)$field->tax_percentage > 0 ? ($fieldBase * ((float)$field->tax_percentage / 100)) : 0;
                         }
                     }
 
@@ -122,29 +132,29 @@ class FormController extends Controller
         $grandTotal = $totalAmount + $totalTax;
 
         // 4. Secure Submission Creation
+        // Map Field IDs to actual Human-Readable labels for the invoice
+        $labeledData = [];
+        foreach ($dynamicData as $key => $value) {
+            $field = $form->fields->where('field_identifier', $key)->first();
+            $label = $field ? $field->label : $key;
+            $labeledData[$label] = $value;
+        }
+
         $submission = Submission::create([
             'user_id' => $user->id,
             'form_id' => $form->id,
-            'data' => $dynamicData,
+            'data' => $labeledData,
             'total_amount_paid' => $grandTotal,
             'payment_status' => $grandTotal > 0 ? 'pending' : 'completed'
         ]);
 
         // 5. Razorpay Order Creation
         if ($grandTotal > 0) {
-            // Check Environment & Keys
-            $keyId = env('RAZORPAY_KEY_ID');
-            $keySecret = env('RAZORPAY_KEY_SECRET');
+            $keyId = config('services.razorpay.key');
+            $keySecret = config('services.razorpay.secret');
 
-            if (app()->environment('local') && (!$keyId || !$keySecret)) {
-                // In local environment without keys, we can simulate order creation for testing
-                return response()->json([
-                    'success' => true,
-                    'is_paid' => true,
-                    'is_test' => true, // Flag for frontend to skip actual Razorpay
-                    'message' => 'Simulating payment in Local environment (Keys missing)',
-                    'redirect' => route('forms.thank_you', ['submission' => $submission->id])
-                ]);
+            if (!$keyId || !$keySecret) {
+                return response()->json(['success' => false, 'message' => 'Payment gateway not configured.'], 500);
             }
 
             try {
@@ -174,21 +184,18 @@ class FormController extends Controller
                     'is_paid' => true,
                     'order_id' => $razorpayOrder['id'],
                     'amount' => round($grandTotal * 100),
-                    'key' => env('RAZORPAY_KEY_ID'),
+                    'key' => $keyId,
                     'name' => "MSMECCII",
                     'description' => "Payment for " . $form->name,
                     'user' => [
-                        'name' => $user->first_name . ' ' . $user->last_name,
+                        'name' => $user->name,
                         'email' => $user->email,
                         'contact' => $user->phone_number
                     ],
-                    'redirect' => route('forms.thank_you', ['submission' => $submission->id])
+                    'redirect' => route('join.forms.thank_you', ['submission' => $submission->id])
                 ]);
             } catch (\Exception $e) {
-                if (app()->environment('local')) {
-                     return response()->json(['success' => false, 'message' => 'Razorpay Error (Local): ' . $e->getMessage()], 500);
-                }
-                return response()->json(['success' => false, 'message' => 'Payment Gateway Error. Please try again later.'], 500);
+                return response()->json(['success' => false, 'message' => 'Razorpay Error: ' . $e->getMessage()], 500);
             }
         }
 
