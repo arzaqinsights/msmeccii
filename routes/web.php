@@ -83,7 +83,8 @@ Route::prefix('join')->name('join.')->group(function () {
     })->name('forms.thank_you');
 });
 
-Route::get('/payment/verify', [\App\Http\Controllers\RazorpayController::class, 'verify']);
+Route::get('/payment/verify', [\App\Http\Controllers\RazorpayController::class, 'verify'])->name('payment.verify');
+Route::post('/payment/webhook', [\App\Http\Controllers\RazorpayController::class, 'webhook'])->name('payment.webhook');
 
 Route::prefix('events')->name('events.')->group(function () {
     Route::get('/', function () {

@@ -334,8 +334,15 @@
                     description: data.description,
                     order_id: data.order_id,
                     handler: async function (response) {
-                        // Handled via verification controller
-                        window.location.href = `/payment/verify?razorpay_order_id=${response.razorpay_order_id}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_signature=${response.razorpay_signature}`;
+                        // Dynamically build verification URL
+                        const verifyUrl = "{{ route('payment.verify') }}";
+                        const params = new URLSearchParams({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature
+                        });
+                        
+                        window.location.href = `${verifyUrl}?${params.toString()}`;
                     },
                     prefill: {
                         name: data.user.name,
