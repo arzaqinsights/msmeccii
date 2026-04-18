@@ -114,26 +114,25 @@
             {{-- Row 1: 1 (Big) + 2 (Small) --}}
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div class="{{ $bigCardClass }}">
-                    <div class="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-lg shadow-xl shadow-black/10">1</div>
                     <div class="flex flex-col md:flex-row items-start gap-8">
                         <div class="{{ $iconBox }}">
                             <i class="{{ $reasons[0]['icon'] }} {{ $reasons[0]['color'] }} text-2xl"></i>
-                        </div>
+                    </div>
                         <div>
                             <h3 class="{{ $titleClass }}">{{ $reasons[0]['title'] }}</h3>
                             <p class="{{ $descClass }}">{{ $reasons[0]['desc'] }}</p>
                             <div class="flex flex-wrap gap-2">
-                                @foreach($reasons[0]['points'] as $point)
-                                    <span class="px-3 py-1 bg-white/10 rounded-lg text-[10px] font-bold text-white border border-white/5 uppercase tracking-tighter italic">
-                                        {{ $point }}
-                                    </span>
-                                @endforeach
-                            </div>
+                            @foreach($reasons[0]['points'] as $point)
+                                    <span
+                                        class="px-3 py-1 bg-white/10 rounded-lg text-[10px] font-bold text-white border border-white/5 uppercase tracking-tighter italic">
+                                    {{ $point }}
+                                </span>
+                            @endforeach
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="{{ $smallCardClass }}">
-                    <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-sm">2</div>
                     <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
                         <i class="{{ $reasons[1]['icon'] }} {{ $reasons[1]['color'] }} text-lg"></i>
                     </div>
@@ -144,28 +143,35 @@
                 </div>
             </div>
 
-            {{-- Row 2: 3 (Small) + 4 (Big) --}}
+            {{-- Row 2: 3 (Big) + 4 (Small) --}}
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <div class="{{ $smallCardClass }}">
-                    <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-sm">3</div>
-                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
-                        <i class="{{ $reasons[2]['icon'] }} {{ $reasons[2]['color'] }} text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-black text-white mb-2 leading-tight uppercase text-xs">{{ $reasons[2]['title'] }}</h3>
-                        <p class="text-[10px] text-slate-300 font-medium leading-relaxed">{{ $reasons[2]['desc'] }}</p>
-                    </div>
-                </div>
-                <div class="{{ $bigCardClass }}">
-                    <div class="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-lg shadow-xl shadow-black/10">4</div>
+                <div class="{{ $bigCardClass }} lg:order-2">
                     <div class="flex flex-col md:flex-row items-start gap-8">
                         <div class="{{ $iconBox }}">
-                            <i class="{{ $reasons[3]['icon'] }} {{ $reasons[3]['color'] }} text-2xl"></i>
-                        </div>
+                            <i class="{{ $reasons[2]['icon'] }} {{ $reasons[2]['color'] }} text-2xl"></i>
+                    </div>
                         <div>
-                            <h3 class="{{ $titleClass }} uppercase italic">{{ $reasons[3]['title'] }}</h3>
-                            <p class="{{ $descClass }} text-sm">{{ $reasons[3]['desc'] }}</p>
+                            <h3 class="{{ $titleClass }}">{{ $reasons[2]['title'] }}</h3>
+                            <p class="{{ $descClass }}">{{ $reasons[2]['desc'] }}</p>
+                            <div class="grid grid-cols-2 gap-3">
+                        @foreach($reasons[2]['points'] as $point)
+                                    <div class="flex items-center gap-2 bg-white/5 p-2 rounded-xl border border-white/5">
+                                        <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                                        <span
+                                            class="text-[10px] font-bold text-slate-100 uppercase italic">{{ $point }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="{{ $smallCardClass }} lg:order-1">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="{{ $reasons[3]['icon'] }} {{ $reasons[3]['color'] }} text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight">{{ $reasons[3]['title'] }}</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">{{ $reasons[3]['desc'] }}</p>
                     </div>
                 </div>
             </div>
@@ -173,7 +179,6 @@
             {{-- Row 3: 5 (Big) + 6 (Small) --}}
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div class="{{ $bigCardClass }}">
-                    <div class="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-lg shadow-xl shadow-black/10">5</div>
                     <div class="flex flex-col md:flex-row items-start gap-8">
                         <div class="{{ $iconBox }}">
                             <i class="{{ $reasons[4]['icon'] }} {{ $reasons[4]['color'] }} text-2xl"></i>
@@ -183,7 +188,8 @@
                             <p class="{{ $descClass }}">{{ $reasons[4]['desc'] }}</p>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($reasons[4]['points'] as $point)
-                                    <span class="px-3 py-1 bg-emerald-500 text-white rounded-lg text-[10px] font-black uppercase tracking-tighter italic">
+                                    <span
+                                        class="px-3 py-1 bg-emerald-500 text-white rounded-lg text-[10px] font-black uppercase tracking-tighter italic">
                                         {{ $point }}
                                     </span>
                                 @endforeach
@@ -192,39 +198,44 @@
                     </div>
                 </div>
                 <div class="{{ $smallCardClass }}">
-                    <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-sm">6</div>
                     <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
                         <i class="{{ $reasons[5]['icon'] }} {{ $reasons[5]['color'] }} text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="font-black text-white mb-2 leading-tight uppercase text-xs">{{ $reasons[5]['title'] }}</h3>
-                        <p class="text-[10px] text-slate-300 font-medium leading-relaxed">{{ $reasons[5]['desc'] }}</p>
+                        <h3 class="font-black text-white mb-2 leading-tight">{{ $reasons[5]['title'] }}</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">{{ $reasons[5]['desc'] }}</p>
                     </div>
                 </div>
             </div>
 
-            {{-- Row 4: 7 (Small) + 8 (Big) --}}
+            {{-- Row 4: 7 (Big) + 8 (Small) --}}
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <div class="{{ $smallCardClass }}">
-                    <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-sm">7</div>
-                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
-                        <i class="{{ $reasons[6]['icon'] }} {{ $reasons[6]['color'] }} text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-black text-white mb-2 leading-tight uppercase text-xs">{{ $reasons[6]['title'] }}</h3>
-                        <p class="text-[10px] text-slate-300 font-medium leading-relaxed">{{ $reasons[6]['desc'] }}</p>
-                    </div>
-                </div>
-                <div class="{{ $bigCardClass }}">
-                    <div class="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-lg shadow-xl shadow-black/10">8</div>
+                <div class="{{ $bigCardClass }} lg:order-2">
                     <div class="flex flex-col md:flex-row items-start gap-8">
                         <div class="{{ $iconBox }}">
-                            <i class="{{ $reasons[7]['icon'] }} {{ $reasons[7]['color'] }} text-2xl"></i>
+                            <i class="{{ $reasons[6]['icon'] }} {{ $reasons[6]['color'] }} text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="{{ $titleClass }} uppercase italic">{{ $reasons[7]['title'] }}</h3>
-                            <p class="{{ $descClass }} text-sm">{{ $reasons[7]['desc'] }}</p>
+                            <h3 class="{{ $titleClass }}">{{ $reasons[6]['title'] }}</h3>
+                            <p class="{{ $descClass }}">{{ $reasons[6]['desc'] }}</p>
+                            <div class="flex flex-wrap gap-2">
+                                @foreach($reasons[6]['points'] as $point)
+                                    <span
+                                        class="px-3 py-1 bg-white/10 rounded-lg text-[10px] font-bold text-white border border-white/5 italic">
+                                        # {{ $point }}
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
+                    </div>
+            </div>
+                <div class="{{ $smallCardClass }} lg:order-1">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="{{ $reasons[7]['icon'] }} {{ $reasons[7]['color'] }} text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight">{{ $reasons[7]['title'] }}</h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed">{{ $reasons[7]['desc'] }}</p>
                     </div>
                 </div>
             </div>
@@ -232,7 +243,6 @@
             {{-- Row 5: 9 (Big) + 10 (Small) --}}
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div class="{{ $bigCardClass }}">
-                    <div class="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-lg shadow-xl shadow-black/10">9</div>
                     <div class="flex flex-col md:flex-row items-start gap-8">
                         <div class="{{ $iconBox }}">
                             <i class="{{ $reasons[8]['icon'] }} {{ $reasons[8]['color'] }} text-2xl"></i>
@@ -242,16 +252,16 @@
                             <p class="{{ $descClass }}">{{ $reasons[8]['desc'] }}</p>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($reasons[8]['points'] as $point)
-                                    <div class="flex items-center gap-1 px-2 py-1 bg-white/10 text-white rounded-lg text-[9px] font-black uppercase italic tracking-tighter">
+                                    <div
+                                        class="flex items-center gap-1 px-2 py-1 bg-white/10 text-white rounded-lg text-[9px] font-black uppercase italic tracking-tighter">
                                         <i class="fa-solid fa-star text-amber-400"></i> {{ $point }}
-                                    </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="{{ $smallCardClass }}">
-                    <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-black text-sm">10</div>
                     <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
                         <i class="{{ $reasons[9]['icon'] }} {{ $reasons[9]['color'] }} text-lg"></i>
                     </div>
@@ -268,7 +278,7 @@
             <p class="relative z-10 text-3xl md:text-6xl font-black text-brand-primary leading-tight mx-auto">
                 "MSMECCII is not just a chamber—it is a growth partner, global connector, and catalyst for India's
                 industrial transformation."
-            </p>
+                </p>
         </div>
 
     </div>

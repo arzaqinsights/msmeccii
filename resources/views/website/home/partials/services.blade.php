@@ -113,7 +113,7 @@
 
                     <!-- Card Bottom: Content -->
                     <div class="p-8 pt-12 relative z-10">
-                        <h3 class="text-xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-brand-primary transition-colors uppercase italic">
+                        <h3 class="text-xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-brand-primary transition-colors uppercase rounded-2xl">
                             {{ $svc['title'] }}
                         </h3>
                         <p class="text-slate-500 leading-relaxed text-sm font-medium mb-8">
