@@ -294,12 +294,22 @@
                                                class="w-full bg-slate-50 border-0 rounded-lg p-2 text-xs font-bold">
                                     </div>
                                     <div class="flex-1">
-                                        <div class="flex gap-2">
-                                            <input type="text" :name="'builder_content[resources]['+index+'][url]'" x-model="item.url" readonly
-                                                   class="flex-1 bg-slate-100 border border-slate-200 rounded-lg p-2 text-[10px] font-mono">
-                                            <div class="relative overflow-hidden">
-                                                <button type="button" class="bg-emerald-50 text-emerald-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-emerald-100">Upload</button>
-                                                <input type="file" @change="uploadPartnerLogo($event, index, 'resources')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                        <div class="flex flex-col gap-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" :name="'builder_content[resources]['+index+'][url]'" x-model="item.url" readonly placeholder="File URL"
+                                                       class="flex-1 bg-slate-100 border border-slate-200 rounded-lg p-2 text-[10px] font-mono">
+                                                <div class="relative overflow-hidden">
+                                                    <button type="button" class="bg-emerald-50 text-emerald-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-emerald-100 whitespace-nowrap">Upload File</button>
+                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'resources_file')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <input type="text" :name="'builder_content[resources]['+index+'][thumbnail]'" x-model="item.thumbnail" readonly placeholder="Thumbnail Image URL"
+                                                       class="flex-1 bg-slate-100 border border-slate-200 rounded-lg p-2 text-[10px] font-mono">
+                                                <div class="relative overflow-hidden">
+                                                    <button type="button" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-blue-100 whitespace-nowrap">Upload Thumb</button>
+                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'resources_thumb')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -416,7 +426,7 @@
                 if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '' });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });
-                if (section === 'resources') this.content.resources.push({ title: '', url: '' });
+                if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
             },
             removeItem(section, index) {
                 this.content[section].splice(index, 1);
@@ -439,9 +449,11 @@
                         if (type === 'partners') {
                             this.content.partners[index].logo = data.path;
                             if(!this.content.partners[index].name) this.content.partners[index].name = data.name;
-                        } else {
+                        } else if (type === 'resources_file') {
                             this.content.resources[index].url = data.path;
                             if(!this.content.resources[index].title) this.content.resources[index].title = data.name;
+                        } else if (type === 'resources_thumb') {
+                            this.content.resources[index].thumbnail = data.path;
                         }
                     }
                 } catch (e) {

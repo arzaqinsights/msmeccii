@@ -91,7 +91,7 @@
                                     ['id' => 'venue', 'label' => 'Venue Info', 'icon' => 'fa-map-marker-alt'],
                                     ['id' => 'partners', 'label' => 'Sponsors', 'icon' => 'fa-handshake'],
                                     ['id' => 'faq', 'label' => 'FAQ', 'icon' => 'fa-question-circle'],
-                                    ['id' => 'resources', 'label' => 'Downloads', 'icon' => 'fa-file-pdf'],
+                                    ['id' => 'resources', 'label' => 'Resources', 'icon' => 'fa-folder-open'],
                                 ];
                             @endphp
 
@@ -274,18 +274,49 @@
                 <!-- Resources Section -->
                 @if(isset($event->builder_content['resources']) && count($event->builder_content['resources']) > 0)
                 <div id="resources" class="animate-on-scroll">
-                    <h2 class="text-3xl font-black text-slate-900 mb-8 border-b-4 border-brand-accent inline-block pb-2">Summit Resources</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center">
+                            <i class="fa-solid fa-folder-open text-brand-accent text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Summit <span class="text-brand-primary">Resources</span></h2>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Key documents and presentations</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                         @foreach($event->builder_content['resources'] as $res)
-                            <a href="{{ asset($res['url']) }}" target="_blank" class="flex items-center gap-4 p-5 bg-white rounded-3xl border border-slate-100 group hover:border-brand-primary transition-all">
-                                <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center group-hover:bg-brand-primary transition-all">
-                                    <i class="fa-solid fa-file-pdf text-emerald-600 group-hover:text-white text-xl"></i>
+                            <a href="{{ asset($res['url']) }}" target="_blank" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-brand-primary hover:shadow-2xl transition-all duration-300 flex flex-col">
+                                <!-- Image Part -->
+                                <div class="relative aspect-video bg-slate-100 overflow-hidden border-b border-slate-100">
+                                    @if(isset($res['thumbnail']) && $res['thumbnail'])
+                                        <img src="{{ asset($res['thumbnail']) }}" alt="{{ $res['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    @else
+                                        <div class="w-full h-full flex flex-col items-center justify-center bg-slate-50 gap-2">
+                                            <i class="fa-solid fa-file-pdf text-4xl text-brand-primary/20"></i>
+                                            <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Document Preview</span>
+                                        </div>
+                                    @endif
+                                    
+                                    <!-- Action Indicator Overlay -->
+                                    <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span class="bg-white text-slate-900 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all">
+                                            View File <i class="fa-solid fa-up-right-from-square ml-1 text-brand-primary"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <h5 class="text-xs font-black text-slate-900 uppercase tracking-widest leading-none mb-1">{{ $res['title'] }}</h5>
-                                    <span class="text-[9px] font-bold text-slate-400">DOWNLOAD PDF DOCUMENT (2.4MB)</span>
+
+                                <!-- Text Part -->
+                                <div class="p-4 flex-1 flex flex-col justify-between">
+                                    <h5 class="text-base font-black text-slate-900 uppercase tracking-widest leading-snug group-hover:text-brand-primary transition-colors">
+                                        {{ $res['title'] }}
+                                    </h5>
+                                    
+                                    <div class="mt-4 flex items-center justify-between text-slate-400">
+                                        <span class="text-[9px] font-bold uppercase">Click to open</span>
+                                        <i class="fa-solid fa-circle-arrow-right text-brand-primary transform group-hover:translate-x-1 transition-transform"></i>
+                                    </div>
                                 </div>
-                                <i class="fa-solid fa-download text-slate-300 group-hover:text-brand-primary group-hover:translate-y-1 transition-all"></i>
                             </a>
                         @endforeach
                     </div>
