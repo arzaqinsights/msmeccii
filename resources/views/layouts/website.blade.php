@@ -306,22 +306,27 @@
                             View All Sectors <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                     </div>
-                    <div
-                        class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-0.5 max-h-[65vh] overflow-y-auto">
-                        @php
-                            $numb = 0;
-                        @endphp
-                        @foreach(config('sectors.sectors') as $sector)
+                    <div class="max-h-[65vh] overflow-y-auto pr-2">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             @php
-                                $numb++;
+                                $numb = 0;
+                                // Split exactly 15 items per vertical list
+                                $chunks = array_chunk(config('sectors.sectors'), 14);
                             @endphp
-                            <a href="{{ route('sectors.show', $sector['slug']) }}"
-                                class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
-                                <span class="text-brand-primary">{{ $numb }}</span>
-                                <!-- <span class="w-1.5 h-1.5 rounded-full bg-brand-primary/30 group-hover:bg-brand-primary group-hover:scale-125 transition-all shrink-0"></span> -->
-                                {{ $sector['title'] }}
-                            </a>
-                        @endforeach
+                            
+                            @foreach($chunks as $chunk)
+                                <div class="flex flex-col gap-1">
+                                    @foreach($chunk as $sector)
+                                        @php $numb++; @endphp
+                                        <a href="{{ route('sectors.show', $sector['slug']) }}"
+                                            class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-primary/5 hover:text-brand-primary transition-all group">
+                                            <span class="text-brand-primary/60 font-black w-6 shrink-0">{{ $numb }}.</span>
+                                            <span class="leading-tight">{{ $sector['title'] }}</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

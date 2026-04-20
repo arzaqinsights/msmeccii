@@ -387,5 +387,12 @@ return [
             'slug' => 'ai-for-industry',
             'route' => 'sectors.show',
         ],
+        [
+            'title' => 'Commerce & Industry',
+            'description' => 'A strategic bridge between businesses, government, and global markets empowering trade and industrial growth.',
+            'thumbnail' => 'images/sectors/commerce-industry-hero.png',
+            'slug' => 'commerce-and-industry',
+            'route' => 'sectors.show',
+        ],
     ]
 ];

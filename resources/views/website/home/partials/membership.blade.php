@@ -75,9 +75,9 @@
                 @endphp
 
                 <!-- Scrollable Benefits List -->
-                <div class="space-y-12 lg:space-y-16">
+                <div class="space-y-6 lg:space-y-6">
                     @foreach($benefits as $index => $benefit)
-                        <div class="flex gap-6 md:gap-8 group animate-on-scroll">
+                        <div class="flex gap-6 md:gap-8 group animate-on-scroll hover:bg-slate-200 rounded-2xl p-8">
                             <!-- Big Number -->
                             <div class="shrink-0 pt-1">
                                 <span class="text-4xl md:text-5xl font-black text-slate-200 group-hover:text-brand-accent transition-colors duration-500">
