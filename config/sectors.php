@@ -227,6 +227,13 @@ return [
             'route' => 'sectors.show',
         ],
         [
+            'title' => 'Textile',
+            'description' => 'Global manufacturing backbone covering fibers, yarns, fabrics, and technical textiles for diverse industrial applications.',
+            'thumbnail' => 'images/sectors/textile.png',
+            'slug' => 'textile-industry',
+            'route' => 'sectors.show',
+        ],
+        [
             'title' => 'Leather',
             'description' => 'Premium manufacturing of footwear, bags, and luxury accessories, blending durability with timeless style.',
             'thumbnail' => 'images/sectors/leather.webp',
@@ -245,13 +252,6 @@ return [
             'description' => 'Transforming discarded organic waste into compost, biogas, and bio-fertilizers for a sustainable planet.',
             'thumbnail' => 'images/sectors/food-waste-recycling.jpg',
             'slug' => 'food-waste-recycling',
-            'route' => 'sectors.show',
-        ],
-        [
-            'title' => 'Textile',
-            'description' => 'Global manufacturing backbone covering fibers, yarns, fabrics, and technical textiles for diverse industrial applications.',
-            'thumbnail' => 'images/sectors/textile.png',
-            'slug' => 'textile-industry',
             'route' => 'sectors.show',
         ],
         [
