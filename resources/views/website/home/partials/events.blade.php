@@ -41,10 +41,16 @@
                         <!-- Content Info (All at bottom) -->
                         <div class="absolute transition-all duration-500 bottom-0 left-0 right-0 p-8 z-20">
                             <a href="{{ route('events.show', $event->slug) }}" class="block">
-                                <h3 class="text-2xl font-black text-white leading-tight mb-4 group-hover:text-brand-accent transition-colors duration-300">
+                                <h3 class="text-2xl font-black text-white leading-tight mb-2 group-hover:text-brand-accent transition-colors duration-300">
                                     {{ $event->title }}
                                 </h3>
                             </a>
+
+                            @if($event->short_description)
+                                <p class="text-white/80 text-sm font-medium leading-relaxed mb-4 line-clamp-2">
+                                    {{ $event->short_description }}
+                                </p>
+                            @endif
 
                             <!-- Location (Now under title and date) -->
                             <p class="text-slate-300 text-sm font-bold uppercase tracking-wider mb-6 flex items-center gap-2">

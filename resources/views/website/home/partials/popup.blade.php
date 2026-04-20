@@ -49,7 +49,7 @@
                 </h2>
 
                 <p class="text-slate-500 font-medium mb-8 line-clamp-3">
-                    {{ $popupEvent->description ?: 'Join us for this exclusive event. Network with industry experts and discover new growth opportunities.' }}
+                    {{ $popupEvent->short_description ?: ($popupEvent->description ?: 'Join us for this exclusive event. Network with industry experts and discover new growth opportunities.') }}
                 </p>
 
                 <div class="space-y-4 mb-10">

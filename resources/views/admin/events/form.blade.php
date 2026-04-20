@@ -54,6 +54,12 @@
                     </div>
                 </div>
 
+                <div class="pt-4">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Short Description / Card Preview</label>
+                    <textarea name="short_description" rows="2" placeholder="Brief 1-2 line summary to show on cards."
+                              class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium text-slate-900 transition-all text-sm">{{ old('short_description', $event->short_description) }}</textarea>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Start Date & Time</label>

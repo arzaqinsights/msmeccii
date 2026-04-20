@@ -75,6 +75,7 @@ class EventController extends Controller
         ]);
 
         $event->title = $request->title;
+        $event->short_description = $request->short_description;
         $event->slug = $request->slug ?: Str::slug($request->title);
         $event->description = $request->description;
         $event->event_date = $request->event_date;
