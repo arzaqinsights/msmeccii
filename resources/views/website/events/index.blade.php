@@ -1,80 +1,70 @@
 @extends('layouts.website')
 
-@section('title', 'Upcoming Events & Awards - MSMECCII')
+@section('title', 'Global Summits & Business Events | MSMECCII')
 
 @section('content')
-
-<!-- Header Section -->
-<section class="py-24 bg-slate-900 border-b border-slate-800 pt-32">
-    <div class="container mx-auto px-4 max-w-7xl relative z-10 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-primary/30 mb-6">
-            <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
-            <span class="text-brand-primary text-xs font-bold tracking-widest uppercase">Global Chambers</span>
+<section class="pt-40 pb-24 bg-slate-50 relative overflow-hidden">
+    <div class="container relative z-10">
+        <div class="max-w-3xl mb-16 animate-on-scroll">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
+                <i class="fa-solid fa-calendar-days text-brand-primary text-xs"></i>
+                <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">Official Event Calendar</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
+                Upcoming <span class="text-brand-primary">Global Summits</span>
+            </h1>
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">Events & <span class="text-brand-primary">Conferences</span></h1>
-        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-medium mb-12">
-            Join MSMECCII for upcoming trade fairs, digital seminars, and massive networking opportunities shaping the future of global businesses.
-        </p>
-    </div>
-</section>
 
-<!-- Events Grid -->
-<section class="py-20 bg-slate-50 min-h-screen">
-    <div class="container mx-auto px-4 max-w-7xl">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($events as $event)
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
-                    <div class="h-56 w-full bg-slate-100 relative overflow-hidden">
-                        @if($event->image)
-                            <img src="{{ asset($event->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-slate-100">
-                                <i class="fa-regular fa-calendar-check text-4xl text-slate-300"></i>
-                            </div>
-                        @endif
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/20 shadow-sm text-xs font-black text-slate-800 flex items-center gap-2">
-                            <i class="fa-regular fa-calendar text-brand-primary"></i>
-                            @if($event->end_date)
-                                {{ $event->event_date->format('M d') }} - {{ $event->end_date->format('M d, Y') }}
-                            @else
-                                {{ $event->event_date->format('M d, Y') }}
-                            @endif
-                        </div>
-                        @if($event->design_style === 'featured')
-                            <div class="absolute top-4 left-4 bg-brand-primary px-3 py-1.5 rounded-lg shadow-sm text-xs font-black text-white flex items-center gap-2 uppercase tracking-wide">
-                                <i class="fa-solid fa-star text-white"></i> Featured
-                            </div>
-                        @endif
-                    </div>
+                <div class="group relative aspect-4/3 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 animate-on-scroll">
+                    <!-- Background Image -->
+                    <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" 
+                         alt="{{ $event->title }}"
+                         class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
                     
-                    <div class="p-8 flex-1 flex flex-col">
-                        <h3 class="text-xl font-black text-slate-900 group-hover:text-brand-primary transition-colors mb-3 line-clamp-2">
-                            <a href="{{ route('events.show', $event->slug) }}">{{ $event->title }}</a>
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+
+                    <!-- Content Info (All at bottom) -->
+                    <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
+                        <h3 class="text-2xl font-black text-white leading-tight mb-4 group-hover:text-brand-accent transition-colors duration-300">
+                            {{ $event->title }}
                         </h3>
-                        <p class="text-sm font-medium text-slate-500 mb-6 flex-1 line-clamp-3">
-                            {{ $event->description ?: 'Join us for this incredible event. Tap below to see the full details and registration links.' }}
-                        </p>
                         
-                        <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">
-                            <i class="fa-solid fa-location-dot"></i> {{ Str::limit($event->location, 30) ?: 'Location TBA' }}
+                        <!-- Date & Time Info -->
+                        <div class="flex flex-col gap-1 mb-3 border-l-2 border-brand-accent pl-4">
+                            <span class="text-[10px] font-black text-white uppercase tracking-widest">
+                                {{ $event->event_date->format('d M, Y') }} 
+                                @if($event->end_date && $event->event_date->format('Y-m-d') !== $event->end_date->format('Y-m-d')) 
+                                    - {{ $event->end_date->format('d M') }} 
+                                @endif
+                            </span>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{{ $event->event_date->format('h:i A') }} IST</span>
                         </div>
 
-                        <a href="{{ route('events.show', $event->slug) }}" class="block w-full bg-slate-50 hover:bg-brand-primary hover:text-white border border-slate-200 hover:border-brand-primary text-slate-700 text-center font-bold py-3 px-4 rounded-xl transition-all">
-                            View Event Details
-                        </a>
+                        <!-- Location Info -->
+                        <p class="text-slate-300 text-[10px] font-bold uppercase tracking-wider mb-6 flex items-center gap-2 pl-4">
+                            <i class="fa-solid fa-location-dot text-brand-accent/60"></i>
+                            {{ $event->location ?: 'New Delhi, India' }}
+                        </p>
+
+                        <!-- Action -->
+                        <div class="mt-4 pt-5 border-t border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <a href="{{ route('events.show', $event->slug) }}" class="inline-flex items-center gap-2 text-white text-[9px] font-black uppercase tracking-widest hover:text-brand-accent">
+                                View Full Details <i class="fa-solid fa-arrow-right-long text-brand-accent"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             @empty
-                <div class="col-span-full py-20 text-center">
-                    <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fa-regular fa-calendar-xmark text-4xl text-slate-400"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-slate-900 mb-2">No Upcoming Events</h3>
-                    <p class="text-slate-500 font-medium">There are currently no published events scheduled. Check back soon!</p>
+                <div class="col-span-full py-24 text-center">
+                    <i class="fa-solid fa-calendar-circle-exclamation text-slate-200 text-6xl mb-6 block"></i>
+                    <h3 class="text-2xl font-black text-slate-400">No Upcoming Events Found</h3>
                 </div>
             @endforelse
         </div>
-        
+
         @if($events->hasPages())
             <div class="mt-16 flex justify-center">
                 {{ $events->links() }}
@@ -82,5 +72,4 @@
         @endif
     </div>
 </section>
-
 @endsection

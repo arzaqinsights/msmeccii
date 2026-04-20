@@ -8,16 +8,17 @@ use App\Http\Controllers\Auth\VerificationController;
 
 Route::get('/', function () {
 
-    $featuredEvent = \App\Models\Event::where('status', 'published')
-        ->where('design_style', 'featured')
+    $upcomingEvents = \App\Models\Event::where('status', 'published')
         ->where('event_date', '>=', now())
         ->orderBy('event_date', 'asc')
-        ->first();
+        ->limit(3)
+        ->get();
 
-    if (!$featuredEvent) {
-        $featuredEvent = \App\Models\Event::where('status', 'published')
-            ->orderBy('event_date', 'asc')
-            ->first();
+    if ($upcomingEvents->count() < 1) {
+        $upcomingEvents = \App\Models\Event::where('status', 'published')
+            ->latest()
+            ->limit(3)
+            ->get();
     }
 
     $popupEvent = \App\Models\Event::where('status', 'published')
@@ -28,7 +29,7 @@ Route::get('/', function () {
 
     $sectorSettings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
 
-    return view('website.home.index', compact('featuredEvent', 'popupEvent', 'sectorSettings'));
+    return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings'));
 })->name('home');
 
 Route::get('/terms-and-conditions', function () {
@@ -158,6 +159,14 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     // Site Settings
     Route::get('settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'bulkUpdate'])->name('settings.bulk-update');
+
+    // Invoice Designer (Multiple Templates)
+    Route::get('invoice-designer', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'index'])->name('invoice-designer.index');
+    Route::get('invoice-designer/create', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'create'])->name('invoice-designer.create');
+    Route::post('invoice-designer', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'store'])->name('invoice-designer.store');
+    Route::get('invoice-designer/{template}/edit', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'edit'])->name('invoice-designer.edit');
+    Route::put('invoice-designer/{template}', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'update'])->name('invoice-designer.update');
+    Route::delete('invoice-designer/{template}', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'destroy'])->name('invoice-designer.destroy');
 
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
     Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');

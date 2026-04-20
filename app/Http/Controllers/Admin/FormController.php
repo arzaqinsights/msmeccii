@@ -17,7 +17,8 @@ class FormController extends Controller
     public function create()
     {
         $form = new Form();
-        return view('admin.forms.form', compact('form'));
+        $invoiceTemplates = \App\Models\InvoiceTemplate::all();
+        return view('admin.forms.form', compact('form', 'invoiceTemplates'));
     }
 
     public function store(Request $request)
@@ -28,7 +29,8 @@ class FormController extends Controller
     public function edit(Form $form)
     {
         $form->load('fields');
-        return view('admin.forms.form', compact('form'));
+        $invoiceTemplates = \App\Models\InvoiceTemplate::all();
+        return view('admin.forms.form', compact('form', 'invoiceTemplates'));
     }
 
     public function update(Request $request, Form $form)
@@ -59,6 +61,7 @@ class FormController extends Controller
         $form->invoice_prefix = $request->invoice_prefix ?: 'MSME-';
         $form->invoice_details = $request->invoice_details;
         $form->invoice_terms = $request->invoice_terms;
+        $form->invoice_template_id = $request->invoice_template_id;
         
         // Process Main Thumbnail
         if ($request->hasFile('thumbnail')) {

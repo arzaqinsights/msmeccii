@@ -88,45 +88,20 @@
                 </div>
 
                 <div class="pt-4 border-t border-slate-100">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 border-b border-slate-100 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-file-invoice text-emerald-600"></i> Invoice Branding Designer
-                    </h4>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-purple-600">Invoice Logo</label>
-                            @if($form->invoice_logo)
-                                <div class="mb-2 bg-white border border-slate-200 p-2 rounded-lg">
-                                    <img src="{{ asset($form->invoice_logo) }}" class="h-10 w-auto">
-                                </div>
-                            @endif
-                            <input type="file" name="invoice_logo" class="w-full text-[10px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Inv Prefix</label>
-                                <input type="text" name="invoice_prefix" value="{{ old('invoice_prefix', $form->invoice_prefix ?? 'MSME-') }}" placeholder="MSME-"
-                                       class="w-full bg-white border border-slate-200 rounded-xl p-2 outline-none focus:border-emerald-500 font-black text-slate-900 text-xs">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">GST Number</label>
-                                <input type="text" name="invoice_details[gst]" value="{{ old('invoice_details.gst', $form->invoice_details['gst'] ?? '') }}" placeholder="GSTIN (Optional)"
-                                       class="w-full bg-white border border-slate-200 rounded-xl p-2 outline-none focus:border-emerald-500 font-black text-slate-900 text-xs">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Vendor Address Details</label>
-                            <textarea name="invoice_details[address]" placeholder="Full business address to show on invoice..."
-                                      class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-[10px] h-20">{{ old('invoice_details.address', $form->invoice_details['address'] ?? '') }}</textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 text-purple-600">Invoice Terms & footer</label>
-                            <textarea name="invoice_terms" placeholder="Terms & conditions, signature text..."
-                                      class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 resize-none text-[10px] h-20">{{ old('invoice_terms', $form->invoice_terms) }}</textarea>
-                        </div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-blue-600">Active Invoice Branding Template</label>
+                    <select name="invoice_template_id" class="w-full bg-blue-50 border border-blue-200 rounded-xl p-3 outline-none focus:border-blue-500 font-bold text-blue-900 shadow-sm text-xs cursor-pointer">
+                        <option value="">-- Use Default Template --</option>
+                        @foreach($invoiceTemplates ?? [] as $tmpl)
+                            <option value="{{ $tmpl->id }}" {{ old('invoice_template_id', $form->invoice_template_id) == $tmpl->id ? 'selected' : '' }}>
+                                {{ $tmpl->name }} ({{ $tmpl->config['type'] ?? 'Tax' }})
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="mt-3 flex justify-between items-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase italic leading-tight">Design & modify templates in the Designer section.</p>
+                        <a href="{{ route('admin.invoice-designer.index') }}" target="_blank" class="text-[9px] text-blue-600 font-black hover:underline flex items-center gap-1">
+                            Designer <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
                     </div>
                 </div>
 

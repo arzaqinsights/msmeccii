@@ -18,7 +18,8 @@ class EventController extends Controller
     public function create()
     {
         $event = new Event();
-        return view('admin.events.form', compact('event'));
+        $currentPopup = Event::where('show_as_popup', true)->first();
+        return view('admin.events.form', compact('event', 'currentPopup'));
     }
 
     public function store(Request $request)
@@ -28,7 +29,8 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
-        return view('admin.events.form', compact('event'));
+        $currentPopup = Event::where('show_as_popup', true)->where('id', '!=', $event->id)->first();
+        return view('admin.events.form', compact('event', 'currentPopup'));
     }
 
     public function update(Request $request, Event $event)

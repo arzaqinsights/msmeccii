@@ -1,159 +1,304 @@
 @extends('layouts.website')
 
-@section('title', $event->title . ' - MSMECCII Event')
+@section('title', $event->title . ' | MSMECCII Events')
 
 @section('content')
+<!-- Hero Section -->
+<section class="relative min-h-[60vh] flex items-center pt-32 pb-24 overflow-hidden bg-slate-900">
+    <div class="absolute inset-0 z-0">
+        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-30 scale-105 blur-sm">
+        <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+    </div>
 
-<section class="py-24 bg-slate-50 min-h-screen pt-32 relative">
-    <div class="container mx-auto px-4 max-w-5xl relative z-10">
-        
-        <!-- Header Image -->
-        @if($event->image)
-            <div class="w-full h-[400px] md:h-[500px] mb-12 rounded-[2rem] overflow-hidden shadow-2xl relative">
-                <img src="{{ asset($event->image) }}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent"></div>
+    <div class="container relative z-10">
+        <div class="max-w-4xl animate-on-scroll">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-primary/30 mb-6">
+                <i class="fa-solid fa-calendar-star text-brand-primary text-xs"></i>
+                <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">Official Global Summit</span>
             </div>
-        @endif
-
-        <div class="flex flex-col lg:flex-row gap-12">
             
-            <div class="w-full lg:w-2/3">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-4 text-brand-primary text-xs font-bold tracking-widest uppercase">
-                    <i class="fa-solid fa-microphone-lines"></i> Official Event
-                </div>
-                
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">{{ $event->title }}</h1>
-                
-                <div class="flex flex-wrap items-center gap-6 mb-10 text-slate-600 font-bold bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
-                            <i class="fa-regular fa-clock"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] text-slate-400 uppercase tracking-widest leading-none mb-1">Date & Time</span>
-                            <span class="text-sm">
-                                @if($event->end_date)
-                                    {{ $event->event_date->format('M d, Y') }} - {{ $event->end_date->format('M d, Y') }}
-                                    <span class="text-slate-400 ml-1">({{ $event->event_date->format('h:i A') }})</span>
-                                @else
-                                    {{ $event->event_date->format('F d, Y - h:i A') }}
-                                @endif
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="w-px h-10 bg-slate-200 hidden md:block"></div>
+            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-8">
+                {{ $event->title }}
+            </h1>
 
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] text-slate-400 uppercase tracking-widest leading-none mb-1">Location</span>
-                            <span class="text-sm">{{ $event->location ?: 'Virtual / To Be Announced' }}</span>
-                        </div>
+            <div class="flex flex-wrap gap-6 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
+                        <i class="fa-regular fa-clock text-brand-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Start Date</span>
+                        <span class="block text-sm font-bold text-white">{{ $event->event_date->format('d M, Y | h:i A') }}</span>
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div class="prose prose-lg max-w-none text-slate-700 font-medium leading-relaxed mb-12">
-                    {{ $event->description }}
-                </div>
-                
-                @if($event->builder_content && count($event->builder_content) > 0)
-                    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 mb-12 shadow-sm">
-                        <h3 class="text-lg font-black text-indigo-900 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-paperclip"></i>
-                            Official Event Resources
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @foreach($event->builder_content as $resource)
-                                @if(!empty($resource['url']))
-                                    <div class="bg-white p-4 rounded-xl border border-indigo-100 flex items-center justify-between group hover:border-brand-primary transition-all">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-brand-primary group-hover:text-white transition-colors">
-                                                <i class="fa-solid fa-file-pdf"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-black text-slate-900 leading-tight">{{ $resource['title'] ?: 'Resource File' }}</p>
-                                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Attachment</p>
-                                            </div>
-                                        </div>
-                                        <a href="{{ asset($resource['url']) }}" target="_blank" class="text-indigo-600 hover:text-brand-primary font-bold text-xs flex items-center gap-1">
-                                            View <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
+                        <i class="fa-solid fa-location-dot text-brand-accent text-xl"></i>
                     </div>
-                @elseif($event->download_file)
-                    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 mb-12 flex items-center justify-between shadow-sm">
-                        <div>
-                            <h3 class="text-lg font-black text-indigo-900 mb-1">Attached Event Resources</h3>
-                            <p class="text-sm text-indigo-700 font-medium">View the official brochure or resources for this event.</p>
-                        </div>
-                        <a href="{{ asset($event->download_file) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md flex items-center gap-2">
-                            <i class="fa-solid fa-eye"></i> {{ $event->download_btn_text ?: 'View Resource' }}
-                        </a>
-                    </div>
-                @endif
-            </div>
-
-            <!-- Sidebar / Timer -->
-            <div class="w-full lg:w-1/3">
-                <div class="sticky top-32 space-y-6">
-                    
-                    @if($event->show_timer)
-                        <div class="bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-800 text-center relative overflow-hidden">
-                            <!-- Background gradient -->
-                            <div class="absolute inset-0 bg-linear-to-br from-brand-primary/20 to-transparent"></div>
-                            
-                            <h4 class="text-white font-black tracking-widest uppercase mb-6 relative z-10"><i class="fa-solid fa-hourglass-half text-brand-primary"></i> Live Countdown</h4>
-                            
-                            <div x-data="{
-                                    target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
-                                    now: new Date().getTime(),
-                                    get t() { return Math.max(0, this.target - this.now); },
-                                    get days() { return Math.floor(this.t / (1000 * 60 * 60 * 24)); },
-                                    get hours() { return Math.floor((this.t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); },
-                                    get minutes() { return Math.floor((this.t % (1000 * 60 * 60)) / (1000 * 60)); },
-                                    get seconds() { return Math.floor((this.t % (1000 * 60)) / 1000); }
-                                }" 
-                                x-init="setInterval(() => now = new Date().getTime(), 1000)" 
-                                class="grid grid-cols-2 gap-4 relative z-10">
-                                
-                                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
-                                    <span class="block text-3xl font-black text-white tracking-tighter" x-text="days">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-brand-primary mt-1">Days</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
-                                    <span class="block text-3xl font-black text-white tracking-tighter" x-text="hours">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-blue-400 mt-1">Hours</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
-                                    <span class="block text-3xl font-black text-white tracking-tighter" x-text="minutes">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-1">Mins</span>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
-                                    <span class="block text-3xl font-black text-white tracking-tighter" x-text="seconds">0</span>
-                                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-300 mt-1">Secs</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                        <h4 class="text-slate-900 font-black tracking-widest uppercase mb-4 text-center">Interested?</h4>
-                        <a href="{{ route('join.index') }}" class="block w-full bg-brand-primary hover:bg-brand-primary-light text-white text-center font-bold py-4 rounded-xl shadow-lg shadow-brand-primary/20 transition-all">
-                            Register & Join
-                        </a>
+                    <div>
+                        <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Location</span>
+                        <span class="block text-sm font-bold text-white">{{ $event->location ?: 'New Delhi, India' }}</span>
                     </div>
                 </div>
             </div>
 
+            @if($event->show_timer)
+                <div class="mt-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 inline-block shadow-2xl">
+                    <div x-data="{
+                        target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
+                        now: new Date().getTime(),
+                        get t() { return Math.max(0, this.target - this.now); },
+                        get d() { return Math.floor(this.t / (1000*60*60*24)); },
+                        get h() { return Math.floor((this.t % (1000*60*60*24)) / (1000*60*60)); },
+                        get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
+                        get s() { return Math.floor((this.t % (1000*60)) / 1000); }
+                    }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex gap-6 text-center">
+                        <div><span class="block text-3xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
+                        <div class="w-px h-10 bg-white/10 my-auto"></div>
+                        <div><span class="block text-3xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
+                        <div class="w-px h-10 bg-white/10 my-auto"></div>
+                        <div><span class="block text-3xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
+                        <div class="w-px h-10 bg-white/10 my-auto"></div>
+                        <div><span class="block text-3xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </section>
 
+<!-- Content Body -->
+<div class="bg-slate-50 py-16" x-data="{ activeSection: 'about' }">
+    <div class="container overflow-visible">
+        <div class="flex flex-col lg:flex-row gap-12 items-start relative">
+            
+            <!-- Left Sticky Sidebar (ElitePlus Style) -->
+            <aside class="w-full lg:w-1/4 sticky top-32 z-30">
+                <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
+                    <div class="bg-slate-900 p-6">
+                        <h4 class="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
+                             <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span> Quick Navigation
+                        </h4>
+                    </div>
+                    <div class="p-2">
+                        <nav class="space-y-1">
+                            @php
+                                $navItems = [
+                                    ['id' => 'about', 'label' => 'About Summit', 'icon' => 'fa-info-circle'],
+                                    ['id' => 'highlights', 'label' => 'Why Join?', 'icon' => 'fa-star'],
+                                    ['id' => 'pricing', 'label' => 'Registration', 'icon' => 'fa-ticket'],
+                                    ['id' => 'venue', 'label' => 'Venue Info', 'icon' => 'fa-map-marker-alt'],
+                                    ['id' => 'partners', 'label' => 'Sponsors', 'icon' => 'fa-handshake'],
+                                    ['id' => 'faq', 'label' => 'FAQ', 'icon' => 'fa-question-circle'],
+                                    ['id' => 'resources', 'label' => 'Downloads', 'icon' => 'fa-file-pdf'],
+                                ];
+                            @endphp
+
+                            @foreach($navItems as $item)
+                                @if(isset($event->builder_content[$item['id']]) && (!is_array($event->builder_content[$item['id']]) || count($event->builder_content[$item['id']]) > 0))
+                                    <a href="#{{ $item['id'] }}" 
+                                       @click="activeSection = '{{ $item['id'] }}'"
+                                       :class="activeSection === '{{ $item['id'] }}' ? 'bg-brand-primary text-white shadow-xl shadow-brand-primary/20' : 'text-slate-600 hover:bg-slate-50'"
+                                       class="flex items-center justify-between p-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all">
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid {{ $item['icon'] }} w-4"></i>
+                                            {{ $item['label'] }}
+                                        </span>
+                                        <i class="fa-solid fa-chevron-right text-[8px] opacity-30"></i>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </nav>
+                    </div>
+                    <div class="p-6 bg-slate-50 border-t border-slate-100">
+                        <a href="#pricing" class="block w-full bg-slate-900 hover:bg-black text-white text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl transition-all">
+                             Register Now <i class="fa-solid fa-bolt ml-1 text-brand-accent"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Box -->
+                <div class="mt-6 bg-linear-to-br from-brand-primary to-brand-primary-light rounded-3xl p-6 text-white shadow-xl shadow-brand-primary/20">
+                    <h5 class="text-[10px] font-black uppercase tracking-widest mb-4 border-b border-white/20 pb-2">Queries & Support</h5>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-xs font-bold">
+                            <i class="fa-solid fa-envelope opacity-50"></i>
+                            <a href="mailto:{{ $event->builder_content['about']['email'] ?? 'events@msmeccii.in' }}" class="hover:underline">events@msmeccii.in</a>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs font-bold">
+                            <i class="fa-solid fa-phone opacity-50"></i>
+                            <span>+91-9810690843</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Sections -->
+            <main class="w-full lg:w-3/4 space-y-16">
+                
+                <!-- About Section -->
+                <div id="about" class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100 animate-on-scroll">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
+                            <i class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-black text-slate-900 tracking-tight">About The <span class="text-brand-primary">Summit</span></h2>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ $event->builder_content['about']['subtitle'] ?? 'Transforming the Future' }}</p>
+                        </div>
+                    </div>
+                    <div class="prose prose-slate max-w-none text-slate-600 font-medium leading-relaxed">
+                        {!! nl2br(e($event->builder_content['about']['description'] ?? $event->description)) !!}
+                    </div>
+                </div>
+
+                <!-- Highlights Section -->
+                @if(isset($event->builder_content['highlights']) && count($event->builder_content['highlights']) > 0)
+                <div id="highlights" class="animate-on-scroll">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-black text-slate-900 mb-2">Why Should You <span class="text-brand-primary">Attend?</span></h2>
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Key takeaways and strategic advantages</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @foreach($event->builder_content['highlights'] as $hl)
+                            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                                <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                                    <i class="{{ $hl['icon'] ?? 'fa-solid fa-star' }} text-brand-accent text-xl"></i>
+                                </div>
+                                <h4 class="text-xl font-black text-slate-900 mb-2">{{ $hl['title'] }}</h4>
+                                <p class="text-sm text-slate-500 font-bold leading-relaxed">{{ $hl['desc'] }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- Pricing Section -->
+                @if(isset($event->builder_content['pricing']) && count($event->builder_content['pricing']) > 0)
+                <div id="pricing" class="animate-on-scroll bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                    
+                    <div class="text-center mb-12 relative z-10">
+                        <h2 class="text-3xl font-black text-white mb-2">Summit <span class="text-brand-accent">Investment</span></h2>
+                        <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Choose your access level</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                        @foreach($event->builder_content['pricing'] as $tier)
+                            <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-10 hover:border-brand-accent transition-all group">
+                                <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{{ $tier['type'] }}</h4>
+                                <div class="flex items-end gap-2 mb-6">
+                                    <span class="text-sm font-bold text-brand-accent opacity-60 mb-2">{{ $tier['currency'] ?? 'INR' }}</span>
+                                    <span class="text-5xl font-black text-white tracking-tighter">{{ $tier['price'] }}</span>
+                                    <span class="text-[10px] font-bold text-slate-500 mb-2 uppercase">/ Person</span>
+                                </div>
+                                <div class="text-[11px] text-slate-400 font-medium mb-8 leading-relaxed">
+                                    {{ $tier['desc'] }}
+                                </div>
+                                <a href="https://rzp.io/l/msmeccii" target="_blank" class="block w-full bg-brand-accent hover:bg-white text-slate-900 text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+                                    Buy Pass <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- Venue Section -->
+                @if(isset($event->builder_content['venue']['name']) && $event->builder_content['venue']['name'])
+                <div id="venue" class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-12">
+                            <i class="fa-solid fa-map-location-dot text-4xl text-brand-primary mb-6 block"></i>
+                            <h2 class="text-3xl font-black text-slate-900 mb-4">The <span class="text-brand-primary">Venue</span></h2>
+                            <h4 class="text-xl font-extrabold text-slate-800 mb-2">{{ $event->builder_content['venue']['name'] }}</h4>
+                            <p class="text-slate-500 font-bold text-sm leading-relaxed mb-8">{{ $event->builder_content['venue']['address'] }}</p>
+                            
+                            <a href="https://maps.google.com/?q={{ urlencode($event->builder_content['venue']['address']) }}" target="_blank" class="inline-flex items-center gap-2 text-brand-primary font-black text-xs uppercase hover:translate-x-1 transition-transform">
+                                Navigate on Maps <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="min-h-[300px] bg-slate-100">
+                             @if(isset($event->builder_content['venue']['map_url']) && str_contains($event->builder_content['venue']['map_url'], 'google.com/maps/embed'))
+                                <iframe src="{{ $event->builder_content['venue']['map_url'] }}" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+                             @else
+                                <div class="w-full h-full flex items-center justify-center bg-slate-800 text-white italic text-xs">
+                                    Map visualization coming soon.
+                                </div>
+                             @endif
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <!-- Sponsors Section -->
+                @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
+                <div id="partners" class="animate-on-scroll">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        @foreach($event->builder_content['partners'] as $partner)
+                            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex items-center justify-center h-28 group hover:-translate-y-1 transition-all">
+                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-full max-w-full grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- FAQ Section -->
+                @if(isset($event->builder_content['faq']) && count($event->builder_content['faq']) > 0)
+                <div id="faq" class="animate-on-scroll">
+                    <h2 class="text-3xl font-black text-slate-900 mb-12 text-center">Frequently <span class="text-brand-primary">Asked Questions</span></h2>
+                    <div class="space-y-4 max-w-3xl mx-auto" x-data="{ openFaq: null }">
+                        @foreach($event->builder_content['faq'] as $index => $q)
+                            <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+                                <button @click="openFaq = openFaq === {{ $index }} ? null : {{ $index }}" class="w-full flex items-center justify-between p-6 text-left">
+                                    <span class="text-sm font-black text-slate-900 leading-tight uppercase">{{ $q['q'] }}</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-300 transition-transform duration-300" :class="openFaq === {{ $index }} ? 'rotate-180 text-brand-primary' : ''"></i>
+                                </button>
+                                <div x-show="openFaq === {{ $index }}" x-collapse class="px-6 pb-6">
+                                    <p class="text-sm font-bold text-slate-500 leading-relaxed border-t border-slate-50 pt-4">
+                                        {{ $q['a'] }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- Resources Section -->
+                @if(isset($event->builder_content['resources']) && count($event->builder_content['resources']) > 0)
+                <div id="resources" class="animate-on-scroll">
+                    <h2 class="text-3xl font-black text-slate-900 mb-8 border-b-4 border-brand-accent inline-block pb-2">Summit Resources</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach($event->builder_content['resources'] as $res)
+                            <a href="{{ asset($res['url']) }}" target="_blank" class="flex items-center gap-4 p-5 bg-white rounded-3xl border border-slate-100 group hover:border-brand-primary transition-all">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center group-hover:bg-brand-primary transition-all">
+                                    <i class="fa-solid fa-file-pdf text-emerald-600 group-hover:text-white text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h5 class="text-xs font-black text-slate-900 uppercase tracking-widest leading-none mb-1">{{ $res['title'] }}</h5>
+                                    <span class="text-[9px] font-bold text-slate-400">DOWNLOAD PDF DOCUMENT (2.4MB)</span>
+                                </div>
+                                <i class="fa-solid fa-download text-slate-300 group-hover:text-brand-primary group-hover:translate-y-1 transition-all"></i>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+            </main>
+        </div>
+    </div>
+</div>
+
+<style>
+    html { scroll-behavior: smooth; }
+    [x-cloak] { display: none !important; }
+</style>
 @endsection

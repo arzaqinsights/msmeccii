@@ -20,7 +20,8 @@ class Form extends Model
         'invoice_prefix',
         'invoice_details',
         'invoice_logo',
-        'invoice_terms'
+        'invoice_terms',
+        'invoice_template_id'
     ];
 
     protected $casts = [
@@ -35,5 +36,10 @@ class Form extends Model
     public function submissions()
     {
         return $this->hasMany(Submission::class);
+    }
+
+    public function invoiceTemplate()
+    {
+        return $this->belongsTo(InvoiceTemplate::class);
     }
 }

@@ -40,7 +40,7 @@
             @endphp
 
             @foreach($faqs as $item)
-                <div class="group border border-slate-200 bg-white rounded-2xl overflow-hidden transition-all duration-300 h-fit shadow-sm"
+                <div class="group border  border-slate-200 bg-white rounded-2xl overflow-hidden transition-all duration-300 h-fit shadow-sm" 
                      :class="active === {{ $item['id'] }} ? 'border-brand-primary shadow-md' : 'hover:border-slate-300'">
                     
                     <button class="w-full flex items-center justify-between p-4 text-left outline-none" 
