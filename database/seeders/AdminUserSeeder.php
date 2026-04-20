@@ -18,7 +18,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@msmeccii.com'],
             [
                 'name' => 'Master Admin',
-                'password' => Hash::make('msmeccii_secure_2026'),
+                'password' => Hash::make('msmeccii@1457'),
                 'company_name' => 'MSMECCII Official',
                 'designation' => 'System Administrator',
                 'phone_number' => '+910000000000',
