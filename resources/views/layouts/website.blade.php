@@ -222,6 +222,11 @@
                             'active' => 'events'
                         ],
                         [
+                            'name' => 'BLOG & NEWS',
+                            'route' => 'blog.index',
+                            'active' => 'blog'
+                        ],
+                        [
                             'name' => 'GALLERY',
                             'route' => 'gallery',
                             'active' => 'gallery'

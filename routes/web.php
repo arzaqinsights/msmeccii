@@ -57,6 +57,12 @@ Route::get('/news', [PageController::class, 'news'])->name('news');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{category}', [PageController::class, 'galleryShow'])->name('gallery.show');
 
+// Blog & Articles
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Website\ArticleController::class, 'index'])->name('index');
+    Route::get('/{slug}', [\App\Http\Controllers\Website\ArticleController::class, 'show'])->name('show');
+});
+
 // SEO Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
@@ -123,6 +129,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
 
     // Gallery Management
     Route::resource('gallery', \App\Http\Controllers\Admin\GalleryController::class)->only(['index', 'store', 'show', 'destroy']);
+
+    // Articles & Blog Builder
+    Route::post('articles/upload-image', [\App\Http\Controllers\Admin\ArticleController::class, 'uploadImage'])->name('articles.upload-image');
+    Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class);
 
     // Admin Submissions Management
     Route::get('submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'index'])->name('submissions.index');
