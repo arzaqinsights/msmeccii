@@ -209,60 +209,77 @@
         <!-- Add ApexCharts -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var dates = {!! json_encode($analyticsData->pluck('date')->map->format('M d')) !!};
-                var visitors = {!! json_encode($analyticsData->pluck('activeUsers')) !!};
-                var pageViews = {!! json_encode($analyticsData->pluck('screenPageViews')) !!};
+            (function() {
+                const initChart = () => {
+                    const container = document.querySelector("#analyticsChart");
+                    if (!container || container.getAttribute('data-chart-initialized')) return;
 
-                var options = {
-                    series: [{
-                        name: 'Unique Visitors',
-                        data: visitors
-                    }, {
-                        name: 'Page Views',
-                        data: pageViews
-                    }],
-                    chart: {
-                        type: 'area',
-                        height: 320,
-                        toolbar: { show: false },
-                        zoom: { enabled: false },
-                        background: 'transparent',
-                        fontFamily: 'Inter, sans-serif'
-                    },
-                    colors: ['#0ea5e9', '#10b981'],
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.35,
-                            opacityTo: 0.05,
-                            stops: [0, 90, 100]
-                        }
-                    },
-                    dataLabels: { enabled: false },
-                    stroke: { curve: 'smooth', width: 3 },
-                    xaxis: {
-                        categories: dates,
-                        axisBorder: { show: false },
-                        axisTicks: { show: false },
-                        labels: { style: { colors: '#64748b', fontWeight: 500 } }
-                    },
-                    yaxis: {
-                        labels: { style: { colors: '#64748b', fontWeight: 500 } }
-                    },
-                    grid: {
-                        borderColor: '#f1f5f9',
-                        strokeDashArray: 4,
-                        yaxis: { lines: { show: true } }
-                    },
-                    theme: { mode: 'light' },
-                    legend: { position: 'top', horizontalAlign: 'right', fontWeight: 600 }
+                    var dates = {!! json_encode($analyticsData->pluck('date')->map->format('M d')) !!};
+                    var visitors = {!! json_encode($analyticsData->pluck('activeUsers')) !!};
+                    var pageViews = {!! json_encode($analyticsData->pluck('screenPageViews')) !!};
+
+                    var options = {
+                        series: [{
+                            name: 'Unique Visitors',
+                            data: visitors
+                        }, {
+                            name: 'Page Views',
+                            data: pageViews
+                        }],
+                        chart: {
+                            type: 'area',
+                            height: 320,
+                            toolbar: { show: false },
+                            zoom: { enabled: false },
+                            background: 'transparent',
+                            fontFamily: 'Inter, sans-serif'
+                        },
+                        colors: ['#0ea5e9', '#10b981'],
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.35,
+                                opacityTo: 0.05,
+                                stops: [0, 90, 100]
+                            }
+                        },
+                        dataLabels: { enabled: false },
+                        stroke: { curve: 'smooth', width: 3 },
+                        xaxis: {
+                            categories: dates,
+                            axisBorder: { show: false },
+                            axisTicks: { show: false },
+                            labels: { style: { colors: '#64748b', fontWeight: 500 } }
+                        },
+                        yaxis: {
+                            labels: { style: { colors: '#64748b', fontWeight: 500 } }
+                        },
+                        grid: {
+                            borderColor: '#f1f5f9',
+                            strokeDashArray: 4,
+                            yaxis: { lines: { show: true } }
+                        },
+                        theme: { mode: 'light' },
+                        legend: { position: 'top', horizontalAlign: 'right', fontWeight: 600 }
+                    };
+
+                    var chart = new ApexCharts(container, options);
+                    chart.render();
+                    container.setAttribute('data-chart-initialized', 'true');
                 };
 
-                var chart = new ApexCharts(document.querySelector("#analyticsChart"), options);
-                chart.render();
-            });
+                // Initialize on load
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initChart);
+                } else {
+                    initChart();
+                }
+
+                // Handle Turbo navigations
+                document.addEventListener('turbo:load', initChart);
+                document.addEventListener('turbo:render', initChart);
+            })();
         </script>
         @else
         <!-- Connecting... (Data empty) -->
