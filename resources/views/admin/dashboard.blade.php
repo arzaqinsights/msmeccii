@@ -62,7 +62,7 @@
     </div>
 
     <!-- Live Google Analytics Data -->
-    @if($gaId && env('ANALYTICS_PROPERTY_ID'))
+    @if($gaId && config('analytics.property_id'))
         @if($analyticsError)
         <!-- Configuration Issue Block -->
         <div class="bg-red-50 rounded-2xl p-6 border border-red-200 mt-8">
@@ -71,7 +71,7 @@
             <div class="mt-4 bg-red-100 p-4 rounded-xl text-xs font-mono text-red-900 shadow-inner">
                 1. Place your <b>Service Account JSON</b> file anywhere on the server and add its path to your <code>.env</code> file:<br>
                    <span class="text-indigo-700 font-bold ml-4">ANALYTICS_CREDENTIALS_PATH="C:/absolute/path/to/credentials.json"</span><br>
-                2. Ensure that the Service Account email has "Viewer" permission on Analytics property <code>{{ env('ANALYTICS_PROPERTY_ID') }}</code>.
+                2. Ensure that the Service Account email has "Viewer" permission on Analytics property <code>{{ config('analytics.property_id') }}</code>.
             </div>
         </div>
         <!-- Live Setup Connected (LIGHT THEME & FULL METRICS) -->
@@ -85,7 +85,7 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-black text-slate-800">Live Traffic Analytics</h3>
-                        <p class="text-sm text-slate-500 font-medium">Last 7 Days Reporting (Property: {{ env('ANALYTICS_PROPERTY_ID') }})</p>
+                        <p class="text-sm text-slate-500 font-medium">Last 7 Days Reporting (Property: {{ config('analytics.property_id') }})</p>
                     </div>
                 </div>
             </div>

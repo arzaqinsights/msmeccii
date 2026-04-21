@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         try {
             // Attempt to fetch data if property ID is correctly configured
-            if (env('ANALYTICS_PROPERTY_ID')) {
+            if (config('analytics.property_id')) {
                 $period = \Spatie\Analytics\Period::days(7);
                 
                 // Fetch Total Visitors and PageViews for the last 7 Days
