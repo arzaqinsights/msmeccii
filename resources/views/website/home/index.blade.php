@@ -9,6 +9,7 @@
     @include('website.home.partials.sectors')
     @include('website.home.partials.awards')
     @include('website.home.partials.impact')
+    @include('website.home.partials.growth')
     @include('website.home.partials.values')
     @include('website.home.partials.membership')
     @include('website.home.partials.faqs')

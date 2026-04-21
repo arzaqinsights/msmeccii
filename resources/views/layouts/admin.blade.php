@@ -59,6 +59,11 @@
                 <span class="font-bold">Articles & Blog</span>
             </a>
 
+            <a href="{{ route('admin.growth.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.growth.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                <span class="font-bold">Growth Analytics</span>
+            </a>
+
             <a href="{{ route('admin.forms.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.forms.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
                 <i class="fa-solid fa-table-list w-5 text-center"></i>
                 <span class="font-bold">Forms Builder</span>

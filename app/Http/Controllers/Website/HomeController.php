@@ -31,6 +31,9 @@ class HomeController extends Controller
 
         $sectorSettings = SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
 
-        return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings'));
+        // Growth Stats for Home (Conference trajectory)
+        $delegates = \App\Models\GrowthRecord::where('group', 'conference')->where('category', 'delegates')->orderBy('year')->get();
+
+        return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings', 'delegates'));
     }
 }

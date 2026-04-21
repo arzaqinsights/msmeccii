@@ -56,6 +56,7 @@ Route::prefix('events')->name('events.')->group(function () {
 Route::get('/news', [PageController::class, 'news'])->name('news');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{category}', [PageController::class, 'galleryShow'])->name('gallery.show');
+Route::get('/growth', [\App\Http\Controllers\Website\GrowthController::class, 'index'])->name('growth');
 
 // Blog & Articles
 Route::prefix('blog')->name('blog.')->group(function () {
@@ -139,4 +140,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'show'])->name('submissions.show');
     Route::delete('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'destroy'])->name('submissions.destroy');
     Route::get('invoice/{submission}/download', [\App\Http\Controllers\InvoiceController::class, 'download'])->name('invoice.download');
+    
+    // Growth & Stats Management
+    Route::resource('growth', \App\Http\Controllers\Admin\GrowthRecordController::class);
 });
