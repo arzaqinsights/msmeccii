@@ -87,7 +87,7 @@
                     <div>
                         <h3 class="text-xl font-black text-slate-800 flex items-center gap-3">
                             Live Traffic Analytics
-                            @if(isset($activeUsersCount))
+                            @if(isset($activeUsersCount) && $activeUsersCount > 0)
                                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold ring-1 ring-emerald-200">
                                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                     {{ $activeUsersCount }} Live Users
