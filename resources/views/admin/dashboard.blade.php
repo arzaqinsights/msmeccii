@@ -74,6 +74,7 @@
                 2. Ensure that the Service Account email has "Viewer" permission on Analytics property <code>{{ config('analytics.property_id') }}</code>.
             </div>
         </div>
+        @elseif($analyticsData && $analyticsData->count() > 0)
         <!-- Live Setup Connected (LIGHT THEME & FULL METRICS) -->
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200 mt-8 overflow-hidden relative">
             
@@ -135,7 +136,7 @@
                                 @foreach($topCountries as $country)
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm font-medium text-slate-700 truncate pr-2">{{ $country['country'] }}</span>
-                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $country['activeUsers'] }}</span>
+                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $country['screenPageViews'] ?? 0 }}</span>
                                     </div>
                                 @endforeach
                             </div>
@@ -152,7 +153,7 @@
                                 @foreach($topReferrers as $ref)
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm font-medium text-slate-700 truncate pr-2" title="{{ $ref['pageReferrer'] }}">{{ Str::limit($ref['pageReferrer'], 20) }}</span>
-                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $ref['screenPageViews'] }}</span>
+                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $ref['screenPageViews'] ?? 0 }}</span>
                                     </div>
                                 @endforeach
                             </div>
@@ -169,7 +170,7 @@
                                 @foreach($topBrowsers as $browser)
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm font-medium text-slate-700 truncate pr-2">{{ $browser['browser'] }}</span>
-                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $browser['activeUsers'] }}</span>
+                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">{{ $browser['screenPageViews'] ?? 0 }}</span>
                                     </div>
                                 @endforeach
                             </div>
@@ -195,7 +196,7 @@
                         @if($topOS && $topOS->count() > 0)
                             <div class="flex gap-2 flex-wrap">
                                 @foreach($topOS as $os)
-                                    <span class="text-[10px] font-bold text-slate-500 uppercase bg-white border border-slate-200 px-2 py-1 rounded-md">{{ $os['operatingSystem'] }} ({{ $os['activeUsers'] }})</span>
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase bg-white border border-slate-200 px-2 py-1 rounded-md">{{ $os['operatingSystem'] ?? 'Unknown' }} ({{ $os['screenPageViews'] ?? 0 }})</span>
                                 @endforeach
                             </div>
                         @endif
