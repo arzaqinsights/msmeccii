@@ -6,112 +6,61 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\VerificationController;
 
-Route::get('/', function () {
+use App\Http\Controllers\Website\AccountController;
+use App\Http\Controllers\Website\HomeController;
+use App\Http\Controllers\Website\PageController;
+use App\Http\Controllers\Website\SectorController;
+use App\Http\Controllers\Website\EventController;
+use App\Http\Controllers\Website\SitemapController;
+use App\Http\Controllers\Website\FormController;
 
-    $upcomingEvents = \App\Models\Event::where('status', 'published')
-        ->where('event_date', '>=', now())
-        ->orderBy('event_date', 'asc')
-        ->limit(3)
-        ->get();
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    if ($upcomingEvents->count() < 1) {
-        $upcomingEvents = \App\Models\Event::where('status', 'published')
-            ->latest()
-            ->limit(3)
-            ->get();
-    }
-
-    $popupEvent = \App\Models\Event::where('status', 'published')
-        ->where('show_as_popup', true)
-        ->where('event_date', '>=', now())
-        ->latest()
-        ->first();
-
-    $sectorSettings = \App\Models\SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
-
-    return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings'));
-})->name('home');
-
-Route::get('/terms-and-conditions', function () {
-    return view('website.terms');
-})->name('terms');
-
-Route::get('/privacy-policy', function () {
-    return view('website.privacy');
-})->name('privacy');
-
-Route::get('/contact-us', function () {
-    return view('website.contact');
-})->name('contact');
+Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
+Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
+Route::get('/contact', [PageController::class, 'contact']);
 
 Route::prefix('about')->group(function () {
-    Route::get('/what-is-msmeccii', function () {
-        return view('website.about.what_is');
-    })->name('about.what_is');
-
-    Route::get('/chairman', function () {
-        return view('website.about.chairman');
-    })->name('about.chairman');
-
-    Route::get('/leadership', function () {
-        return view('website.about.leadership');
-    })->name('about.leadership');
+    Route::get('/what-is-msmeccii', [PageController::class, 'about'])->name('about.what_is');
+    Route::get('/chairman', [PageController::class, 'chairman'])->name('about.chairman');
+    Route::get('/leadership', [PageController::class, 'leadership'])->name('about.leadership');
 });
 
 Route::prefix('sectors')->name('sectors.')->group(function () {
-    Route::get('/', function () {
-        return view('website.sectors.index');
-    })->name('index');
-    Route::get('{slug}', function ($slug) {
-        return view('website.sectors.' . $slug);
-    })->name('show');
+    Route::get('/', [SectorController::class, 'index'])->name('index');
+    Route::get('{slug}', [SectorController::class, 'show'])->name('show');
 });
 
 Route::prefix('services')->name('services.')->group(function () {
-    Route::get('{slug}', function ($slug) {
-        return view('website.services.' . $slug);
-    })->name('show');
+    Route::get('{slug}', [PageController::class, 'service'])->name('show');
 });
-Route::prefix('join')->name('join.')->group(function () {
-    Route::get('/', function () {
-        return view('website.join.index');
-    })->name('index');
 
-    Route::get('/application/{slug}', [\App\Http\Controllers\Website\FormController::class, 'show'])->name('forms.show');
-    Route::post('/application/{slug}', [\App\Http\Controllers\Website\FormController::class, 'store'])->name('forms.store');
-    Route::get('/thank-you/{submission}', function (\App\Models\Submission $submission) {
-        return view('website.forms.thank_you', compact('submission'));
-    })->name('forms.thank_you');
+Route::prefix('join')->name('join.')->group(function () {
+    Route::get('/', [PageController::class, 'join'])->name('index');
+
+    Route::get('/application/{slug}', [FormController::class, 'show'])->name('forms.show');
+    Route::post('/application/{slug}', [FormController::class, 'store'])->name('forms.store');
+    Route::get('/thank-you/{submission}', [FormController::class, 'thankYou'])->name('forms.thank_you');
+
 });
 
 Route::get('/payment/verify', [\App\Http\Controllers\RazorpayController::class, 'verify'])->name('payment.verify');
 Route::post('/payment/webhook', [\App\Http\Controllers\RazorpayController::class, 'webhook'])->name('payment.webhook');
 
 Route::prefix('events')->name('events.')->group(function () {
-    Route::get('/', function () {
-        $events = \App\Models\Event::where('status', 'published')->orderBy('event_date', 'asc')->paginate(12);
-        return view('website.events.index', compact('events'));
-    })->name('index');
-
-    Route::get('/{slug}', function ($slug) {
-        $event = \App\Models\Event::where('slug', $slug)
-            ->where('status', 'published')
-            ->firstOrFail();
-        return view('website.events.show', compact('event'));
-    })->name('show');
+    Route::get('/', [EventController::class, 'index'])->name('index');
+    Route::get('/{slug}', [EventController::class, 'show'])->name('show');
 });
 
-Route::get('/news', function () {
-    return view('website.news.index');
-})->name('news');
+Route::get('/news', [PageController::class, 'news'])->name('news');
+Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{category}', [PageController::class, 'galleryShow'])->name('gallery.show');
 
-Route::get('/gallery', function () {
-    return view('website.gallery.index');
-})->name('gallery');
+// SEO Sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
-Route::get('/contact', function () {
-    return view('website.contact.index');
-})->name('contact');
+
 
 
 // Authentication Routes
@@ -140,13 +89,11 @@ Route::middleware('auth')->group(function () {
 
     // User Account
     Route::prefix('account')->name('account.')->group(function () {
-        Route::get('/', function () {
-            $submissions = \App\Models\Submission::where('user_id', auth()->id())
-                ->with('form')
-                ->latest()
-                ->get();
-            return view('website.account.dashboard', compact('submissions'));
-        })->name('dashboard');
+        Route::get('/', [AccountController::class, 'dashboard'])->name('dashboard');
+        Route::get('/profile', [AccountController::class, 'editProfile'])->name('profile');
+        Route::put('/profile', [AccountController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/security', [AccountController::class, 'security'])->name('security');
+        Route::put('/security', [AccountController::class, 'updateSecurity'])->name('security.update');
     });
 });
 
@@ -173,6 +120,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::post('events/upload-attachment', [\App\Http\Controllers\Admin\EventController::class, 'uploadAttachment'])->name('events.upload-attachment');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
+
+    // Gallery Management
+    Route::resource('gallery', \App\Http\Controllers\Admin\GalleryController::class)->only(['index', 'store', 'show', 'destroy']);
 
     // Admin Submissions Management
     Route::get('submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'index'])->name('submissions.index');

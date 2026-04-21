@@ -222,6 +222,11 @@
                             'active' => 'events'
                         ],
                         [
+                            'name' => 'GALLERY',
+                            'route' => 'gallery',
+                            'active' => 'gallery'
+                        ],
+                        [
                             'name' => 'CONTACT US',
                             'route' => 'contact',
                             'active' => 'contact-us'

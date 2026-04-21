@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Gallery;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class GalleryController extends Controller
+{
+    public function index()
+    {
+        // Get unique categories along with their counts and latest image for cover
+        $categories = Gallery::selectRaw('category, count(*) as image_count, max(id) as latest_id')
+            ->groupBy('category')
+            ->get();
+            
+        // Map cover images
+        foreach ($categories as $cat) {
+            $cat->cover = Gallery::find($cat->latest_id)->image_path;
+        }
+
+        // Just existing names for datalist
+        $existingCategories = Gallery::distinct()->pluck('category');
+
+        return view('admin.gallery.index', compact('categories', 'existingCategories'));
+    }
+
+    public function show($categoryEncoded)
+    {
+        $category = base64_decode($categoryEncoded);
+        $images = Gallery::where('category', $category)->latest()->get();
+
+        return view('admin.gallery.show', compact('images', 'category', 'categoryEncoded'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_select' => 'required|string',
+            'category_new' => 'nullable|string|max:255',
+            'images' => 'required|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:10240' // 10MB max per image
+        ]);
+
+        // Smart Category Selection & Cleanup
+        $rawCategory = $request->category_select === '__NEW__' ? $request->category_new : $request->category_select;
+        $category = trim($rawCategory);
+
+        if (empty($category)) {
+            return back()->with('error', 'Category name cannot be empty.');
+        }
+
+        $uploaded = 0;
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                // Generate a unique naming
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('gallery', $filename, 'public');
+
+                Gallery::create([
+                    'category' => $category,
+                    'image_path' => '/storage/' . $path,
+                    'title' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), // Initial title
+                ]);
+
+                $uploaded++;
+            }
+        }
+
+        return back()->with('success', $uploaded . ' images uploaded to ' . $category . ' successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $image = Gallery::findOrFail($id);
+        
+        // Remove file
+        $relativePath = str_replace('/storage/', '', $image->image_path);
+        if (Storage::disk('public')->exists($relativePath)) {
+            Storage::disk('public')->delete($relativePath);
+        }
+
+        $image->delete();
+
+        return back()->with('success', 'Image deleted successfully.');
+    }
+}

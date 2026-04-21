@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Http\Controllers\Website;
+
+use App\Http\Controllers\Controller;
+
+class PageController extends Controller
+{
+    public function terms()
+    {
+        return view('website.terms');
+    }
+
+    public function privacy()
+    {
+        return view('website.privacy');
+    }
+
+    public function contact()
+    {
+        return view('website.contact.index'); // Fixing the duplicate contact views
+    }
+
+    public function about()
+    {
+        return view('website.about.what_is');
+    }
+
+    public function chairman()
+    {
+        return view('website.about.chairman');
+    }
+
+    public function leadership()
+    {
+        return view('website.about.leadership');
+    }
+
+    public function news()
+    {
+        return view('website.news.index');
+    }
+
+    public function gallery()
+    {
+        // Fetch unique categories and their latest image to show as cover
+        $categories = \App\Models\Gallery::selectRaw('category, count(*) as image_count, max(id) as latest_id')
+            ->groupBy('category')
+            ->get();
+            
+        foreach ($categories as $cat) {
+            $cat->cover = \App\Models\Gallery::find($cat->latest_id)->image_path;
+        }
+
+        return view('website.gallery.index', compact('categories'));
+    }
+
+    public function galleryShow($categoryEncoded)
+    {
+        $category = base64_decode($categoryEncoded);
+        $images = \App\Models\Gallery::where('category', $category)->latest()->get();
+
+        if ($images->isEmpty()) {
+            abort(404);
+        }
+
+        return view('website.gallery.show', compact('images', 'category'));
+    }
+
+    public function service($slug)
+    {
+        return view('website.services.' . $slug);
+    }
+    
+    public function join()
+    {
+        return view('website.join.index');
+    }
+}

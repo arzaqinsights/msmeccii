@@ -9,9 +9,9 @@
         
         <div class="flex items-center justify-between mb-10 pb-6 border-b border-slate-200">
             <div class="flex items-center gap-4">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->first_name . ' ' . auth()->user()->last_name) }}&background=1e293b&color=fff&size=100" class="w-16 h-16 rounded-2xl shadow-sm border border-slate-200">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=1e293b&color=fff&size=100" class="w-16 h-16 rounded-2xl shadow-sm border border-slate-200">
                 <div>
-                    <h1 class="text-3xl font-black text-slate-900">Welcome, {{ auth()->user()->first_name }}!</h1>
+                    <h1 class="text-3xl font-black text-slate-900">Welcome, {{ explode(' ', auth()->user()->name)[0] }}!</h1>
                     <p class="text-sm font-bold text-slate-500 mt-1">Manage your digital profile and history.</p>
                 </div>
             </div>
@@ -27,13 +27,13 @@
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sticky top-32">
                     <nav class="space-y-1">
-                        <a href="{{ route('account.dashboard') }}" class="flex items-center gap-3 px-4 py-3 bg-brand-primary/10 text-brand-primary rounded-xl font-bold text-sm transition-colors">
+                        <a href="{{ route('account.dashboard') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('account.dashboard') ? 'bg-brand-primary/10 text-brand-primary' : 'text-slate-600 hover:bg-slate-50' }} rounded-xl font-bold text-sm transition-colors">
                             <i class="fa-solid fa-table-list w-4 text-center"></i> Form Submissions
                         </a>
-                        <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-bold text-sm transition-colors">
+                        <a href="{{ route('account.profile') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('account.profile') ? 'bg-brand-primary/10 text-brand-primary' : 'text-slate-600 hover:bg-slate-50' }} rounded-xl font-bold text-sm transition-colors">
                             <i class="fa-solid fa-user-pen w-4 text-center"></i> Edit Profile
                         </a>
-                        <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-bold text-sm transition-colors">
+                        <a href="{{ route('account.security') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('account.security') ? 'bg-brand-primary/10 text-brand-primary' : 'text-slate-600 hover:bg-slate-50' }} rounded-xl font-bold text-sm transition-colors">
                             <i class="fa-solid fa-shield-halved w-4 text-center"></i> Security Settings
                         </a>
                     </nav>

@@ -210,4 +210,9 @@ class FormController extends Controller
 
         return redirect()->route('join.forms.thank_you', ['submission' => $submission->id]);
     }
+
+    public function thankYou(Submission $submission)
+    {
+        return view('website.forms.thank_you', compact('submission'));
+    }
 }
