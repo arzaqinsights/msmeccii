@@ -595,6 +595,7 @@
             // Restore body scroll
             document.body.style.overflow = '';
         }
+    </script>
     <!-- Yield dynamic scripts -->
     @yield('scripts')
     @stack('scripts')

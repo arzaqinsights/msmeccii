@@ -98,42 +98,54 @@
 
                 // Check if already seen
                 if (localStorage.getItem(storageKey)) {
-                    console.log('Popup already seen.');
                     return;
                 }
 
                 setTimeout(() => {
-                    container.style.display = 'flex';
+                    const checkContainer = document.getElementById('event-popup-container');
+                    if (!checkContainer) return;
+
+                    checkContainer.style.display = 'flex';
                     
                     // Trigger reflow for animations
-                    container.offsetHeight; 
+                    checkContainer.offsetHeight; 
 
-                    backdrop.style.opacity = '1';
-                    content.style.opacity = '1';
-                    content.style.transform = 'translateY(0) scale(1)';
+                    document.getElementById('popup-backdrop').style.opacity = '1';
+                    const contentEl = document.getElementById('popup-content');
+                    contentEl.style.opacity = '1';
+                    contentEl.style.transform = 'translateY(0) scale(1)';
                 }, 1500);
 
                 function closePopup() {
-                    backdrop.style.opacity = '0';
-                    content.style.opacity = '0';
-                    content.style.transform = 'translateY(12px) scale(0.95)';
+                    const backdropEl = document.getElementById('popup-backdrop');
+                    const contentEl = document.getElementById('popup-content');
+                    if(backdropEl) backdropEl.style.opacity = '0';
+                    if(contentEl) {
+                        contentEl.style.opacity = '0';
+                        contentEl.style.transform = 'translateY(12px) scale(0.95)';
+                    }
                     
                     setTimeout(() => {
-                        container.style.display = 'none';
+                        const containerEl = document.getElementById('event-popup-container');
+                        if(containerEl) containerEl.style.display = 'none';
                         localStorage.setItem(storageKey, 'true');
                     }, 500);
                 }
 
-                closeBtn.onclick = closePopup;
-                laterBtn.onclick = closePopup;
-                backdrop.onclick = closePopup;
+                if(closeBtn) closeBtn.onclick = closePopup;
+                if(laterBtn) laterBtn.onclick = closePopup;
+                if(backdrop) backdrop.onclick = closePopup;
             }
 
+            // Initialize on various event states
             if (document.readyState === 'complete') {
                 initPopup();
             } else {
                 window.addEventListener('load', initPopup);
             }
+            
+            document.addEventListener('turbo:load', initPopup);
+            document.addEventListener('turbo:render', initPopup);
         })();
     </script>
 @endif
