@@ -54,7 +54,7 @@
                         <div class="mb-4 text-center">
                             <span class="text-2xl md:text-4xl font-black text-brand-primary/20 group-hover:text-brand-accent transition-colors duration-500">{{ $stat->year }}</span>
                         </div>
-                        <div class="w-full rounded-2xl relative overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-brand-primary/5"
+                        <div class="w-full relative overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-brand-primary/5"
                              style="height: {{ ($h / 100) * 400 }}px; background: linear-gradient(180deg, var(--color-brand-primary) 0%, #1a3a66 100%);">
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-1 md:p-3">
                                 <div class="text-xl md:text-3xl font-black text-white leading-none tabular-nums tracking-tighter">{{ $stat->value }}</div>
@@ -122,7 +122,7 @@
                     Recognition & Honor
                 </div>
                 <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-4 leading-none">
-                   International Excellence <span class="text-brand-accent italic">Awards</span>
+                   National business Excellence <span class="text-brand-accent italic">Awards</span>
                 </h2>
                 <div class="w-16 h-1.5 bg-brand-accent mx-auto rounded-full"></div>
             </div>

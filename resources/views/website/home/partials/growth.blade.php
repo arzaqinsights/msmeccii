@@ -13,9 +13,9 @@
                     <span class="w-2 h-2 bg-brand-accent rounded-full animate-ping"></span>
                     Live Trajectory
                 </div>
-                <h2 class="text-4xl md:text-6xl font-black text-brand-primary leading-[1] mb-8 tracking-tighter uppercase">
+                <h2 class="text-3xl md:text-5xl font-black text-brand-primary leading-[1] mb-8 tracking-tighter uppercase">
                     Charting Our <br/>
-                    <span class="text-brand-accent italic">Success</span>
+                    <span class="text-brand-accent italic">Success</span> In Global Conference & Expo
                 </h2>
                 <div class="space-y-6">
                     <p class="text-slate-500 font-medium text-lg leading-relaxed">
@@ -23,13 +23,13 @@
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
                         <div class="flex flex-col">
-                            <span class="text-3xl font-black text-brand-primary tracking-tighter italic">50X</span>
+                            <span class="text-3xl font-black text-brand-primary tracking-tighter italic">5.2X</span>
                             <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Growth Factor</span>
                         </div>
                         <div class="w-px h-10 bg-slate-200"></div>
                         <div class="flex flex-col">
-                            <span class="text-3xl font-black text-brand-primary tracking-tighter italic">7.5K+</span>
-                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Expected 2024</span>
+                            <span class="text-3xl font-black text-brand-primary tracking-tighter italic">1.8K+</span>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Expected 2027</span>
                         </div>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
                                 </div>
 
                                 <!-- The Bar -->
-                                <div class="w-full rounded-2xl relative overflow-hidden shadow-lg group-hover/bar:shadow-2xl group-hover/bar:-translate-y-2 transition-all duration-500 border border-brand-primary/5 {{ $isLatest ? 'ring-4 ring-brand-accent/20' : '' }}"
-                                     style="height: {{ ($h / 100) * 350 }}px; background: linear-gradient(180deg, {{ $isLatest ? '#1a3a66' : 'var(--color-brand-primary)' }} 0%, #001a33 100%);">
+                                <div class="w-full relative overflow-hidden shadow-lg group-hover/bar:shadow-2xl group-hover/bar:-translate-y-2 transition-all duration-500 border border-brand-primary/5 {{ $isLatest ? 'ring-4 ring-brand-accent/20' : '' }}"
+                                     style="height: {{ ($h / 100) * 380 }}px; background: linear-gradient(180deg, {{ $isLatest ? '#1a3a66' : 'var(--color-brand-primary)' }} 0%, #001a33 100%);">
                                     
                                     <!-- Reflection Effect -->
                                     <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent"></div>
