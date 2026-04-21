@@ -85,7 +85,15 @@
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-black text-slate-800">Live Traffic Analytics</h3>
+                        <h3 class="text-xl font-black text-slate-800 flex items-center gap-3">
+                            Live Traffic Analytics
+                            @if(isset($activeUsersCount))
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold ring-1 ring-emerald-200">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    {{ $activeUsersCount }} Live Users
+                                </span>
+                            @endif
+                        </h3>
                         <p class="text-sm text-slate-500 font-medium">Last 7 Days Reporting (Property: {{ config('analytics.property_id') }})</p>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ class DashboardController extends Controller
 
         $gaId = config('services.google.analytics_id');
         $analyticsError = null;
+        $activeUsersCount = 0;
         $analyticsData = null;
         $topPages = null;
         $topReferrers = null;
@@ -48,12 +49,26 @@ class DashboardController extends Controller
                 $topBrowsers = \Spatie\Analytics\Facades\Analytics::fetchTopBrowsers($period, 5);
                 $topCountries = \Spatie\Analytics\Facades\Analytics::fetchTopCountries($period, 6);
                 $topOS = \Spatie\Analytics\Facades\Analytics::fetchTopOperatingSystems($period, 5);
+
+                // Fetch Realtime Active Users
+                try {
+                    $realtimeResponse = \Spatie\Analytics\Facades\Analytics::getRealtimeReport([
+                        'metrics' => ['activeUsers']
+                    ]);
+                    $activeUsersCount = $realtimeResponse->rows[0][0] ?? 0;
+                } catch (\Exception $e) {
+                    $activeUsersCount = 0;
+                }
             }
         } catch (\Exception $e) {
             // Fails gracefully if Google Auth JSON is missing or misconfigured
             $analyticsError = "Google Analytics Data API Setup Required: " . $e->getMessage();
         }
 
-        return view('admin.dashboard', compact('stats', 'gaId', 'analyticsData', 'topPages', 'topReferrers', 'userTypes', 'topBrowsers', 'topCountries', 'topOS', 'analyticsError'));
+        return view('admin.dashboard', compact(
+            'stats', 'gaId', 'analyticsData', 'activeUsersCount', 'topPages', 
+            'topReferrers', 'userTypes', 'topBrowsers', 'topCountries', 
+            'topOS', 'analyticsError'
+        ));
     }
 }
