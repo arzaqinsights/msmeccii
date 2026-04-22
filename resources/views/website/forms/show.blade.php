@@ -186,7 +186,7 @@
             </div>
 
             <!-- Pre-Checkout Injector (Monetization Engine) -->
-            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-brand-primary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-brand-primary rounded-2xl p-6 text-white relative overflow-hidden">
                 <!-- BG Pattern -->
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                 
@@ -250,7 +250,7 @@
                 <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
                     <i class="fa-solid fa-circle-exclamation text-amber-500 mt-1"></i>
                     <p class="text-[10px] font-bold text-amber-800 leading-relaxed">
-                        After submission, please share the transaction receipt with our team at {{ $site['email_1'] ?? 'support@msmeccii.in' }} for verification.
+                        After submission, please share the transaction receipt with our team at {{ $site['email_1'] ?? 'support@msmeccii.com' }} or WhatsApp at +91 9810690843 for verification.
                     </p>
                 </div>
             </div>
