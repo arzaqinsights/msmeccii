@@ -163,8 +163,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($event->builder_content['highlights'] as $hl)
                             <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                                <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-6">
-                                    <i class="{{ $hl['icon'] ?? 'fa-solid fa-star' }} text-brand-accent text-xl"></i>
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center shrink-0">
+                                        <i class="{{ $hl['icon'] ?? 'fa-solid fa-star' }} text-brand-accent text-xl"></i>
+                                    </div>
+                                    
+                                    @if(isset($hl['pdf_thumbnail']) && $hl['pdf_thumbnail'])
+                                        <div class="h-12 w-20 rounded-xl overflow-hidden border border-slate-200 shadow-sm shrink-0">
+                                            <img src="{{ asset($hl['pdf_thumbnail']) }}" class="w-full h-full object-cover">
+                                        </div>
+                                    @endif
                                 </div>
                                 <h4 class="text-xl font-black text-slate-900 mb-2">{{ $hl['title'] }}</h4>
                                 <p class="text-sm text-slate-500 font-bold leading-relaxed mb-4">{{ $hl['desc'] }}</p>
