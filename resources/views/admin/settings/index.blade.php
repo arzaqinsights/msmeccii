@@ -112,11 +112,64 @@
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-1.5">
-                            <i class="fa-brands fa-whatsapp text-green-600 mr-1.5"></i> WhatsApp
+                            <i class="fa-brands fa-whatsapp text-green-600 mr-1.5"></i> WhatsApp URL
                         </label>
                         <input type="url" name="settings[whatsapp_url]" value="{{ $site['whatsapp_url'] ?? '' }}"
                             placeholder="https://wa.me/919810690843"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment & Bank Details -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden lg:col-span-2">
+                <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-credit-card text-brand-primary"></i> Payment Gateway & Bank Details
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Configure limits and manual payment options</p>
+                    </div>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Limit Settings -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-slate-700">
+                            <i class="fa-solid fa-bolt text-brand-primary mr-1"></i> Gateway Transaction Limit
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                            <input type="number" name="settings[payment_gateway_limit]" value="{{ $site['payment_gateway_limit'] ?? '500000' }}"
+                                class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary outline-none">
+                        </div>
+                        <p class="text-[10px] text-slate-400 font-medium leading-relaxed italic">
+                            * Amounts exceeding this limit will automatically switch to Manual Bank Transfer mode.
+                        </p>
+                    </div>
+
+                    <!-- Bank Details -->
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                             <label class="block text-sm font-bold text-slate-700 mb-2">
+                                <i class="fa-solid fa-building-columns text-brand-primary mr-1"></i> Manual Bank Transfer Details
+                            </label>
+                        </div>
+                        <div>
+                            <input type="text" name="settings[bank_name]" value="{{ $site['bank_name'] ?? '' }}" placeholder="Bank Name"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <input type="text" name="settings[account_name]" value="{{ $site['account_name'] ?? '' }}" placeholder="Account Holder Name"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <input type="text" name="settings[account_number]" value="{{ $site['account_number'] ?? '' }}" placeholder="Account Number"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <input type="text" name="settings[ifsc_code]" value="{{ $site['ifsc_code'] ?? '' }}" placeholder="IFSC Code"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
                     </div>
                 </div>
             </div>

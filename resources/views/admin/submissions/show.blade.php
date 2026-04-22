@@ -77,9 +77,18 @@
                     <span class="text-xs font-bold text-slate-400 uppercase">Payment Status</span>
                     @if($submission->payment_status === 'completed' || $submission->total_amount_paid == 0)
                         <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase rounded-lg">Paid & Secured</span>
+                    @elseif($submission->payment_status === 'awaiting_verification')
+                        <span class="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase rounded-lg border border-amber-200">Awaiting Verification</span>
                     @else
                         <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-[10px] font-black uppercase rounded-lg">{{ strtoupper($submission->payment_status) }}</span>
                     @endif
+                </div>
+
+                <div class="flex justify-between items-center py-2 border-b border-slate-50">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Payment Method</span>
+                    <span class="text-xs font-black text-slate-900 uppercase">
+                        {{ $submission->payment_method === 'manual' ? 'Bank Transfer' : 'Razorpay Gateway' }}
+                    </span>
                 </div>
 
                 @if($submission->payment)
@@ -92,6 +101,16 @@
                             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Transaction ID</label>
                             <code class="text-[11px] block bg-slate-50 p-2 rounded-lg border border-slate-100 text-slate-600 font-mono">{{ $submission->payment->razorpay_payment_id ?: 'Pending Transaction' }}</code>
                         </div>
+                    </div>
+                @endif
+                @if($submission->payment_status === 'awaiting_verification')
+                    <div class="pt-4 mt-4 border-t border-slate-100">
+                        <form action="{{ route('admin.submissions.mark-as-paid', $submission) }}" method="POST" onsubmit="return confirm('Manually verify this payment?');">
+                            @csrf
+                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-check-double"></i> Verify & Mark as Paid
+                            </button>
+                        </form>
                     </div>
                 @endif
             </div>

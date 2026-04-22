@@ -32,4 +32,10 @@ class SubmissionController extends Controller
         $submission->delete();
         return back()->with('success', 'Submission deleted successfully.');
     }
+
+    public function markAsPaid(Submission $submission)
+    {
+        $submission->update(['payment_status' => 'completed']);
+        return back()->with('success', 'Payment verified and marked as paid manually.');
+    }
 }

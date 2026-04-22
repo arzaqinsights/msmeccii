@@ -188,16 +188,19 @@ class FormController extends Controller
             $labeledData[$label] = $value;
         }
 
+        $paymentMethod = $request->input('payment_method', 'gateway');
+        
         $submission = Submission::create([
             'user_id' => $user->id,
             'form_id' => $form->id,
             'data' => $labeledData,
             'total_amount_paid' => $grandTotal,
-            'payment_status' => $grandTotal > 0 ? 'pending' : 'completed'
+            'payment_status' => $grandTotal > 0 ? ($paymentMethod === 'manual' ? 'awaiting_verification' : 'pending') : 'completed',
+            'payment_method' => $paymentMethod
         ]);
 
         // 5. Razorpay Order Creation
-        if ($grandTotal > 0) {
+        if ($grandTotal > 0 && $paymentMethod === 'gateway') {
             $keyId = config('services.razorpay.key');
             $keySecret = config('services.razorpay.secret');
 

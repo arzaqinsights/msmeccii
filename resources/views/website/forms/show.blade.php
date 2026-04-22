@@ -216,12 +216,52 @@
                 </div>
             </div>
 
+            <!-- Bank Details for Manual Payment -->
+            <div x-show="isManualPayment" x-transition class="mt-8 p-8 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-building-columns text-brand-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-black text-slate-900 uppercase tracking-widest">Manual Bank Transfer</h4>
+                        <p class="text-[10px] font-bold text-slate-400">Please complete the payment using details below</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-1">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Bank Name</p>
+                        <p class="text-xs font-black text-slate-900">{{ $site['bank_name'] ?? 'N/A' }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Account Holder</p>
+                        <p class="text-xs font-black text-slate-900">{{ $site['account_name'] ?? 'N/A' }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Account Number</p>
+                        <p class="text-xs font-black text-slate-900 font-mono tracking-tighter">{{ $site['account_number'] ?? 'N/A' }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">IFSC Code</p>
+                        <p class="text-xs font-black text-slate-900 font-mono tracking-tighter">{{ $site['ifsc_code'] ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
+                    <i class="fa-solid fa-circle-exclamation text-amber-500 mt-1"></i>
+                    <p class="text-[10px] font-bold text-amber-800 leading-relaxed">
+                        After submission, please share the transaction receipt with our team at {{ $site['email_1'] ?? 'support@msmeccii.in' }} for verification.
+                    </p>
+                </div>
+            </div>
+
             <div class="mt-10 pt-8 border-t border-slate-100">
+                <input type="hidden" name="payment_method" :value="isManualPayment ? 'manual' : 'gateway'">
                 <button type="submit" :disabled="loading" class="w-full bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
                     <template x-if="loading">
                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                     </template>
-                    <span x-text="loading ? 'Processing...' : '{{ $form->submit_button_text }}'"></span>
+                    <span x-text="loading ? 'Processing...' : (isManualPayment ? 'Submit Application' : '{{ $form->submit_button_text }}')"></span>
                     <i x-show="!loading" class="fa-solid fa-arrow-right-long text-sm"></i>
                 </button>
             </div>
@@ -239,6 +279,11 @@
             fields: rawFields,
             formData: {},
             loading: false,
+            gatewayLimit: {{ (float)($site['payment_gateway_limit'] ?? 500000) }},
+            
+            get isManualPayment() {
+                return this.totalCalculated > this.gatewayLimit;
+            },
             
             init() {
                 // Initialize default form data paths to allow reactive tracking

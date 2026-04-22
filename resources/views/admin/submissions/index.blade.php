@@ -62,6 +62,10 @@
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
                                     <i class="fa-solid fa-circle-check text-[10px]"></i> {{ $sub->total_amount_paid == 0 ? 'Success (Free)' : 'Paid' }}
                                 </span>
+                            @elseif($sub->payment_status === 'awaiting_verification')
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                                    <i class="fa-solid fa-hourglass-half text-[10px]"></i> Verification Pending
+                                </span>
                             @else
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
                                     <i class="fa-solid fa-clock text-[10px]"></i> {{ ucfirst($sub->payment_status) }}
@@ -73,6 +77,14 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-2">
+                                @if($sub->payment_status === 'awaiting_verification')
+                                    <form action="{{ route('admin.submissions.mark-as-paid', $sub) }}" method="POST" onsubmit="return confirm('Confirm payment receipt?');" class="inline">
+                                        @csrf
+                                        <button type="submit" class="p-2 text-amber-500 hover:text-white transition-colors bg-white hover:bg-amber-500 rounded-lg border border-amber-200 shadow-sm" title="Mark as Paid">
+                                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                                        </button>
+                                    </form>
+                                @endif
                                 <a href="{{ route('admin.submissions.show', $sub) }}" class="p-2 text-slate-400 hover:text-brand-primary transition-colors bg-white hover:bg-brand-primary/5 rounded-lg border border-slate-200">
                                     <i class="fa-regular fa-eye"></i>
                                 </a>
