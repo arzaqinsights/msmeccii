@@ -159,6 +159,16 @@
                                    class="w-full border border-slate-200 focus:border-brand-primary p-3 rounded-xl outline-none font-bold text-slate-900 transition-all text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer shadow-sm">
                         </template>
 
+                        <!-- Number Input -->
+                        <template x-if="field.type === 'number'">
+                            <input type="number" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
+                                   @input="handleFieldChange(field.field_identifier)"
+                                   :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)"
+                                   :min="field.options ? field.options.min : null"
+                                   :max="field.options ? field.options.max : null"
+                                   class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md placeholder:text-slate-300 placeholder:font-medium">
+                        </template>
+
                     </div>
 
                 </template>
@@ -299,7 +309,11 @@
                             if (selected && selected.price) total += parseFloat(selected.price);
                         } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
                             if (f.base_amount && parseFloat(f.base_amount) > 0) {
-                                total += parseFloat(f.base_amount);
+                                if (f.type === 'number') {
+                                    total += parseFloat(this.formData[f.field_identifier] || 0) * parseFloat(f.base_amount);
+                                } else {
+                                    total += parseFloat(f.base_amount);
+                                }
                             }
                         }
                     }
@@ -319,7 +333,11 @@
                             }
                         } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
                             if (f.base_amount && parseFloat(f.base_amount) > 0 && f.tax_percentage && parseFloat(f.tax_percentage) > 0) {
-                                tax += parseFloat(f.base_amount) * (parseFloat(f.tax_percentage) / 100);
+                                if (f.type === 'number') {
+                                    tax += (parseFloat(this.formData[f.field_identifier] || 0) * parseFloat(f.base_amount)) * (parseFloat(f.tax_percentage) / 100);
+                                } else {
+                                    tax += parseFloat(f.base_amount) * (parseFloat(f.tax_percentage) / 100);
+                                }
                             }
                         }
                     }
@@ -347,7 +365,13 @@
                             }
                         } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
                             if (f.base_amount && parseFloat(f.base_amount) > 0) {
-                                amount = parseFloat(f.base_amount);
+                                if (f.type === 'number') {
+                                    const qty = parseFloat(this.formData[f.field_identifier] || 0);
+                                    amount = qty * parseFloat(f.base_amount);
+                                    label = `${f.label} (${qty} units)`;
+                                } else {
+                                    amount = parseFloat(f.base_amount);
+                                }
                             }
                         }
                         

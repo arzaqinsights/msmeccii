@@ -129,6 +129,9 @@
                     <button type="button" @click="addField('textarea')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
                         + Text Area
                     </button>
+                    <button type="button" @click="addField('number')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
+                        + Number (Qty/Size)
+                    </button>
                     <button type="button" @click="addField('dropdown')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
                         + Dropdown Options
                     </button>
@@ -263,6 +266,35 @@
                                             
                                             <div x-show="field.options_list.length === 0" class="text-[10px] text-slate-400 font-medium italic mt-1">
                                                 No options defined. Click "+ Add Option" to begin.
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <template x-if="field.type === 'number'">
+                                        <div class="md:col-span-2 bg-blue-50 p-4 rounded-xl border border-blue-100 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div class="md:col-span-3">
+                                                <h4 class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2"><i class="fa-solid fa-calculator"></i> Unit-Based Pricing & Limits</h4>
+                                                <p class="text-[10px] text-blue-700 font-medium opacity-70">Define how much each unit costs (e.g. ₹1000 per sq meter) and set allowed range.</p>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">Price Per Unit (₹)</label>
+                                                <input type="number" x-model="field.base_amount" placeholder="e.g. 1000" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-blue-200 rounded-lg p-2 focus:border-blue-500 outline-none">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">Min Value</label>
+                                                <input type="number" x-model="field.min" placeholder="0" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-blue-200 rounded-lg p-2 focus:border-blue-500 outline-none">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">Max Value</label>
+                                                <input type="number" x-model="field.max" placeholder="e.g. 1000" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-blue-200 rounded-lg p-2 focus:border-blue-500 outline-none">
+                                            </div>
+                                            <div class="md:col-span-3">
+                                                <label class="block text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">Tax Percentage (%)</label>
+                                                <input type="number" x-model="field.tax_percentage" placeholder="18" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-blue-200 rounded-lg p-2 focus:border-blue-500 outline-none max-w-[100px]">
                                             </div>
                                         </div>
                                     </template>
@@ -500,6 +532,13 @@
                         } else {
                             f.options = f.options_list;
                         }
+                        
+                        // Pricing is option-based for dropdowns
+                        f.base_amount = null;
+                        f.tax_percentage = null;
+
+                    } else if (f.type === 'number') {
+                        f.options = { min: f.min, max: f.max };
                     } else if (f.type !== 'hidden_price') {
                         // Pricing is strictly option-based or hidden_price based
                         f.base_amount = null;
