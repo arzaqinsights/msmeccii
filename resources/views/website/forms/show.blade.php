@@ -224,37 +224,37 @@
                     </div>
                     <div>
                         <h4 class="text-sm font-black text-slate-900 uppercase tracking-widest">Manual Bank Transfer</h4>
-                        <p class="text-[10px] font-bold text-slate-400">Please complete the payment using details below</p>
+                        <p class="text-xs font-bold text-slate-400">Please complete the payment using details below</p>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div class="space-y-1">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Beneficiary / Account Name</p>
-                        <p class="text-xs font-black text-slate-900">{{ $site['account_name'] ?? 'MSME Chamber of Commerce and Industry of India' }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Beneficiary / Account Name</p>
+                        <p class="text-sm font-black text-slate-900">{{ $site['account_name'] ?? 'MSME Chamber of Commerce and Industry of India' }}</p>
                     </div>
                     <div class="space-y-1">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Bank Name</p>
-                        <p class="text-xs font-black text-slate-900">{{ $site['bank_name'] ?? 'Contact Administrator' }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Bank Name</p>
+                        <p class="text-sm font-black text-slate-900">{{ $site['bank_name'] ?? 'Contact Administrator' }}</p>
                     </div>
                     <div class="space-y-1">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Account Number</p>
-                        <p class="text-xs font-black text-slate-900 font-mono tracking-tighter">{{ $site['account_number'] ?? 'Not Configured' }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Account Number</p>
+                        <p class="text-sm font-black text-slate-900 font-mono tracking-tighter">{{ $site['account_number'] ?? 'Not Configured' }}</p>
                     </div>
                     <div class="space-y-1">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">IFSC Code (Domestic/India)</p>
-                        <p class="text-xs font-black text-slate-900 font-mono tracking-tighter">{{ $site['ifsc_code'] ?? 'N/A' }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">IFSC Code (Domestic/India)</p>
+                        <p class="text-sm font-black text-slate-900 font-mono tracking-tighter">{{ $site['ifsc_code'] ?? 'N/A' }}</p>
                     </div>
                     @if(isset($site['swift_code']) && $site['swift_code'])
                     <div class="space-y-1">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">SWIFT / BIC Code (International)</p>
-                        <p class="text-xs font-black text-slate-900 font-mono tracking-tighter">{{ $site['swift_code'] }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">SWIFT / BIC Code (International)</p>
+                        <p class="text-sm font-black text-slate-900 font-mono tracking-tighter">{{ $site['swift_code'] }}</p>
                     </div>
                     @endif
                     @if(isset($site['bank_branch']) && $site['bank_branch'])
                     <div class="space-y-1 md:col-span-2">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Bank Branch Address</p>
-                        <p class="text-xs font-bold text-slate-700 leading-tight">{{ $site['bank_branch'] }}</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Bank Branch Address</p>
+                        <p class="text-sm font-bold text-slate-700 leading-tight">{{ $site['bank_branch'] }}</p>
                     </div>
                     @endif
                 </div>
