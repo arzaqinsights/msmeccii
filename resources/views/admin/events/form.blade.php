@@ -130,13 +130,8 @@
                         <div class="grid grid-cols-1 gap-4">
                             <template x-for="(item, index) in content.highlights" :key="index">
                                 <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 relative group">
-                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                        <div>
-                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Icon (FontAwesome)</label>
-                                            <input type="text" :name="'builder_content[highlights]['+index+'][icon]'" x-model="item.icon" placeholder="fa-solid fa-users"
-                                                   class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs font-mono">
-                                        </div>
-                                        <div class="md:col-span-3">
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div class="md:col-span-4">
                                             <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Highlight Title</label>
                                             <input type="text" :name="'builder_content[highlights]['+index+'][title]'" x-model="item.title"
                                                    class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold">
@@ -174,6 +169,8 @@
                                                                 <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
                                                                 <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb1')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
                                                             </div>
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf1_thumb]'" x-model="item.pdf1_thumb">
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,6 +202,8 @@
                                                                 <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
                                                                 <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb2')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
                                                             </div>
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf2_thumb]'" x-model="item.pdf2_thumb">
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -476,7 +475,6 @@
                     description: @json($event->builder_content['about']['description'] ?? ''),
                 },
                 highlights: @json($event->builder_content['highlights'] ?? []).map(h => ({ 
-                    icon: h.icon || 'fa-solid fa-star', 
                     title: h.title || '', 
                     desc: h.desc || '', 
                     pdf1_path: h.pdf1_path || h.pdf_path || '',
@@ -495,7 +493,7 @@
                 resources: @json($event->builder_content['resources'] ?? []),
             },
             addItem(section) {
-                if (section === 'highlights') this.content.highlights.push({ icon: 'fa-solid fa-star', title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf2_path: '', pdf2_thumb: '' });
+                if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf2_path: '', pdf2_thumb: '' });
                 if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '' });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });

@@ -163,10 +163,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($event->builder_content['highlights'] as $hl)
                             <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-50">
-                                    <div class="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center shrink-0">
-                                        <i class="{{ $hl['icon'] ?? 'fa-solid fa-star' }} text-brand-primary text-lg"></i>
-                                    </div>
+                                <div class="mb-6 pb-4 border-b border-slate-50">
                                     <h4 class="text-xl font-black text-slate-900 leading-tight uppercase tracking-tight">{{ $hl['title'] }}</h4>
                                 </div>
 
