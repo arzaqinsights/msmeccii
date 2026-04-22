@@ -159,14 +159,25 @@
                                    class="w-full border border-slate-200 focus:border-brand-primary p-3 rounded-xl outline-none font-bold text-slate-900 transition-all text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer shadow-sm">
                         </template>
 
-                        <!-- Number Input -->
+                        <!-- Number Input (Converted to Range) -->
                         <template x-if="field.type === 'number'">
-                            <input type="number" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
-                                   @input="handleFieldChange(field.field_identifier)"
-                                   :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)"
-                                   :min="field.options ? field.options.min : null"
-                                   :max="field.options ? field.options.max : null"
-                                   class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md placeholder:text-slate-300 placeholder:font-medium">
+                            <div class="space-y-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100 shadow-sm">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Select Value</span>
+                                    <div class="bg-brand-primary text-white px-3 py-1 rounded-full text-sm font-black shadow-lg shadow-brand-primary/20">
+                                        <span x-text="formData[field.field_identifier] || field.options.min || 0"></span>
+                                    </div>
+                                </div>
+                                <input type="range" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
+                                       @input="handleFieldChange(field.field_identifier)"
+                                       :min="field.options ? field.options.min : 0"
+                                       :max="field.options ? field.options.max : 100"
+                                       class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-primary transition-all hover:bg-slate-300">
+                                <div class="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                    <span x-text="'Min: ' + (field.options ? field.options.min : 0)"></span>
+                                    <span x-text="'Max: ' + (field.options ? field.options.max : 100)"></span>
+                                </div>
+                            </div>
                         </template>
 
                     </div>
@@ -232,7 +243,7 @@
             init() {
                 // Initialize default form data paths to allow reactive tracking
                 this.fields.forEach(f => {
-                    this.formData[f.field_identifier] = '';
+                    this.formData[f.field_identifier] = f.type === 'number' && f.options && f.options.min ? f.options.min : '';
                 });
 
                 // Emergency Loader for Razorpay
