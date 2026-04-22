@@ -411,6 +411,8 @@
             field.depends_on = field.depends_on || '';
             field.depends_on_value = field.depends_on_value || '';
             field.options_list = [];
+            field.dependency_mode = 'visibility';
+            field.mapped_options = {};
 
             // Reconstruct Dependency Options visually
             if (field.depends_on_value === '__MAPPED__' && typeof field.options === 'object' && field.options !== null) {
@@ -419,19 +421,21 @@
                 field.options = ''; 
                 field.depends_on_value = '';
             } else {
-                field.dependency_mode = 'visibility';
-                field.mapped_options = {};
-                
-                // Advanced Options parsing
+                // Advanced Options parsing for non-mapped fields (dropdowns)
                 if (Array.isArray(field.options)) {
                     field.options_list = field.options.map(opt => {
-                        if (typeof opt === 'string') {
-                            return { label: opt, price: null, tax: null };
-                        }
+                        if (typeof opt === 'string') return { label: opt, price: null, tax: null };
                         return { label: opt.label || '', price: opt.price || null, tax: opt.tax || null };
                     });
                 }
             }
+
+            // Extract Number specific options
+            if (field.type === 'number' && typeof field.options === 'object' && field.options !== null) {
+                field.min = field.options.min || null;
+                field.max = field.options.max || null;
+            }
+            
             return field;
         });
 
@@ -454,7 +458,12 @@
                     is_required: false,
                     depends_on: '',
                     depends_on_value: '',
-                    mapped_options: {}
+                    dependency_mode: 'visibility',
+                    mapped_options: {},
+                    min: null,
+                    max: null,
+                    base_amount: null,
+                    tax_percentage: null
                 });
             },
 
