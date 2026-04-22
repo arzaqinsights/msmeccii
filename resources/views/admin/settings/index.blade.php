@@ -151,23 +151,44 @@
                     <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="md:col-span-2">
                              <label class="block text-sm font-bold text-slate-700 mb-2">
-                                <i class="fa-solid fa-building-columns text-brand-primary mr-1"></i> Manual Bank Transfer Details
+                                <i class="fa-solid fa-building-columns text-brand-primary mr-1"></i> Manual Bank Transfer Details (Domestic & International)
                             </label>
                         </div>
                         <div>
-                            <input type="text" name="settings[bank_name]" value="{{ $site['bank_name'] ?? '' }}" placeholder="Bank Name"
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Bank Name</label>
+                            <input type="text" name="settings[bank_name]" value="{{ $site['bank_name'] ?? '' }}" placeholder="e.g. HDFC Bank"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
                         </div>
                         <div>
-                            <input type="text" name="settings[account_name]" value="{{ $site['account_name'] ?? '' }}" placeholder="Account Holder Name"
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Account Holder Name</label>
+                            <input type="text" name="settings[account_name]" value="{{ $site['account_name'] ?? '' }}" placeholder="e.g. MSME Chamber of Commerce"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
                         </div>
                         <div>
-                            <input type="text" name="settings[account_number]" value="{{ $site['account_number'] ?? '' }}" placeholder="Account Number"
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Account Number</label>
+                            <input type="text" name="settings[account_number]" value="{{ $site['account_number'] ?? '' }}" placeholder="e.g. 50100234567890"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
                         </div>
-                        <div>
-                            <input type="text" name="settings[ifsc_code]" value="{{ $site['ifsc_code'] ?? '' }}" placeholder="IFSC Code"
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">IFSC Code (India)</label>
+                                <input type="text" name="settings[ifsc_code]" value="{{ $site['ifsc_code'] ?? '' }}" placeholder="e.g. HDFC0001234"
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">SWIFT / BIC Code</label>
+                                <input type="text" name="settings[swift_code]" value="{{ $site['swift_code'] ?? '' }}" placeholder="e.g. HDFCINBB"
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Bank Branch Address</label>
+                            <input type="text" name="settings[bank_branch]" value="{{ $site['bank_branch'] ?? '' }}" placeholder="e.g. KG Marg, New Delhi, India"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Beneficiary Address (Optional)</label>
+                            <input type="text" name="settings[beneficiary_address]" value="{{ $site['beneficiary_address'] ?? '' }}" placeholder="e.g. B-123, Sector 4, Noida, UP, India"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
                         </div>
                     </div>
