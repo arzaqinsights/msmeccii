@@ -158,8 +158,10 @@
                                                         </template>
                                                     </div>
                                                     <div class="flex-1 min-w-0">
+                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_name]'" x-model="item.pdf1_name" placeholder="Document Name (e.g. Brochure)"
+                                                               class="w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-[10px] font-bold text-slate-700 mb-1 outline-none focus:border-brand-primary">
                                                         <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_path]'" x-model="item.pdf1_path" readonly placeholder="No file"
-                                                               class="w-full bg-slate-50 border-0 text-[9px] font-mono truncate mb-1">
+                                                               class="w-full bg-slate-50 border-0 text-[8px] font-mono truncate mb-1">
                                                         <div class="flex gap-1">
                                                             <div class="relative overflow-hidden">
                                                                 <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
@@ -191,8 +193,10 @@
                                                         </template>
                                                     </div>
                                                     <div class="flex-1 min-w-0">
+                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_name]'" x-model="item.pdf2_name" placeholder="Document Name (e.g. Schedule)"
+                                                               class="w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-[10px] font-bold text-slate-700 mb-1 outline-none focus:border-brand-primary">
                                                         <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_path]'" x-model="item.pdf2_path" readonly placeholder="No file"
-                                                               class="w-full bg-slate-50 border-0 text-[9px] font-mono truncate mb-1">
+                                                               class="w-full bg-slate-50 border-0 text-[8px] font-mono truncate mb-1">
                                                         <div class="flex gap-1">
                                                             <div class="relative overflow-hidden">
                                                                 <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
@@ -479,8 +483,10 @@
                     desc: h.desc || '', 
                     pdf1_path: h.pdf1_path || h.pdf_path || '',
                     pdf1_thumb: h.pdf1_thumb || h.pdf_thumbnail || '',
+                    pdf1_name: h.pdf1_name || '',
                     pdf2_path: h.pdf2_path || '',
-                    pdf2_thumb: h.pdf2_thumb || ''
+                    pdf2_thumb: h.pdf2_thumb || '',
+                    pdf2_name: h.pdf2_name || ''
                 })),
                 pricing: @json($event->builder_content['pricing'] ?? []),
                 venue: {
@@ -493,7 +499,7 @@
                 resources: @json($event->builder_content['resources'] ?? []),
             },
             addItem(section) {
-                if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf2_path: '', pdf2_thumb: '' });
+                if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf1_name: '', pdf2_path: '', pdf2_thumb: '', pdf2_name: '' });
                 if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '' });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });

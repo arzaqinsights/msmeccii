@@ -196,10 +196,10 @@
                                             <div class="flex items-center justify-between">
                                                 <div>
                                                     <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Attachment 01</span>
-                                                    <h5 class="text-sm font-black text-slate-900 uppercase">Strategic Document</h5>
+                                                    <h5 class="text-sm font-black text-slate-900 uppercase">{{ $hl['pdf1_name'] ?: 'Strategic Document' }}</h5>
                                                 </div>
                                                 <a href="{{ asset($hl['pdf1_path']) }}" target="_blank" class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
-                                                    <i class="fa-solid fa-download text-xs"></i>
+                                                    <i class="fa-solid fa-up-right-from-square text-xs"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -225,10 +225,10 @@
                                             <div class="flex items-center justify-between">
                                                 <div>
                                                     <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Attachment 02</span>
-                                                    <h5 class="text-sm font-black text-slate-900 uppercase">Resource Guide</h5>
+                                                    <h5 class="text-sm font-black text-slate-900 uppercase">{{ $hl['pdf2_name'] ?: 'Resource Guide' }}</h5>
                                                 </div>
                                                 <a href="{{ asset($hl['pdf2_path']) }}" target="_blank" class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
-                                                    <i class="fa-solid fa-download text-xs"></i>
+                                                    <i class="fa-solid fa-up-right-from-square text-xs"></i>
                                                 </a>
                                             </div>
                                         </div>
