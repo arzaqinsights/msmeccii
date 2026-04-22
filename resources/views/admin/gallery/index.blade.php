@@ -57,10 +57,17 @@
                         if (response.ok) {
                             this.uploadCount++;
                         } else {
-                            this.errors.push(file.name);
+                            let errorMsg = `Error ${response.status}`;
+                            try {
+                                const data = await response.json();
+                                if (data.message) errorMsg += `: ${data.message}`;
+                                else if (data.error) errorMsg += `: ${data.error}`;
+                            } catch(e) {}
+                            
+                            this.errors.push({ name: file.name, msg: errorMsg });
                         }
                     } catch (err) {
-                        this.errors.push(file.name);
+                        this.errors.push({ name: file.name, msg: 'Network Error / Timeout' });
                     }
                     
                     this.currentProgress = Math.round(((i + 1) / this.totalFiles) * 100);
@@ -113,9 +120,12 @@
 
                     <div x-show="errors.length > 0" class="mt-6 p-4 bg-red-50 rounded-xl border border-red-100">
                         <p class="text-xs font-bold text-red-600 uppercase tracking-widest mb-2"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Failed Files:</p>
-                        <ul class="text-[10px] text-red-500 font-bold max-h-24 overflow-y-auto">
-                            <template x-for="err in errors" :key="err">
-                                <li x-text="err"></li>
+                        <ul class="text-[10px] text-red-500 font-bold max-h-32 overflow-y-auto space-y-1">
+                            <template x-for="err in errors" :key="err.name">
+                                <li class="border-b border-red-100 pb-1">
+                                    <span x-text="err.name" class="block text-red-700"></span>
+                                    <span x-text="err.msg" class="block font-normal opacity-75"></span>
+                                </li>
                             </template>
                         </ul>
                         <button @click="window.location.reload()" class="mt-3 text-xs font-black text-red-700 hover:underline">Close & Refresh</button>
