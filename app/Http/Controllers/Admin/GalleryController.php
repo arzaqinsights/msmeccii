@@ -41,7 +41,7 @@ class GalleryController extends Controller
             'category_select' => 'required|string',
             'category_new' => 'nullable|string|max:255',
             'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:10240' // 10MB max per image
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:20480' // 20MB max per image
         ]);
 
         // Smart Category Selection & Cleanup
