@@ -33,7 +33,7 @@
             @csrf
             
             <!-- Standard Authentication Block -->
-            <div class="mb-10 pb-8 border-b border-slate-100">
+            <div class="pb-8 border-b border-slate-100">
                 <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
                     <i class="fa-solid fa-user-shield text-brand-primary"></i> Primary Identification
                 </h3>
@@ -51,65 +51,65 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Full Name *</label>
-                        <input type="text" name="first_name" value="{{ old('first_name', auth()->check() ? auth()->user()->name : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Full Name <span class="text-red-500">*</span></label>
+                        <input type="text" name="first_name" placeholder="e.g. Indrajit Ghosh" value="{{ old('first_name', auth()->check() ? auth()->user()->name : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Email Address *</label>
-                        <input type="email" name="email" value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Email Address <span class="text-red-500">*</span></label>
+                        <input type="email" name="email" placeholder="e.g. [EMAIL_ADDRESS]" value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Phone Number *</label>
-                        <input type="text" name="phone_number" value="{{ old('phone_number', auth()->check() ? auth()->user()->phone_number : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Phone Number <span class="text-red-500">*</span></label>
+                        <input type="text" name="phone_number" placeholder="e.g. 9876543210" value="{{ old('phone_number', auth()->check() ? auth()->user()->phone_number : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Company Name *</label>
-                        <input type="text" name="company_name" value="{{ old('company_name', auth()->check() ? auth()->user()->company_name : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Company Name <span class="text-red-500">*</span></label>
+                        <input type="text" name="company_name" placeholder="e.g. ABC Pvt. Ltd." value="{{ old('company_name', auth()->check() ? auth()->user()->company_name : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Designation *</label>
-                        <input type="text" name="designation" value="{{ old('designation', auth()->check() ? auth()->user()->designation : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Designation <span class="text-red-500">*</span></label>
+                        <input type="text" name="designation" placeholder="e.g. CEO" value="{{ old('designation', auth()->check() ? auth()->user()->designation : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Website (Optional)</label>
-                        <input type="text" name="website" value="{{ old('website', auth()->check() ? auth()->user()->website : '') }}" 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <input type="text" name="website" placeholder="e.g. www.example.com" value="{{ old('website', auth()->check() ? auth()->user()->website : '') }}" 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                 </div>
 
                 <div class="mt-6">
-                    <label class="block text-xs font-bold text-slate-500 mb-2">Full Office/Company Address *</label>
+                    <label class="block text-xs font-bold text-slate-500 mb-2">Full Office/Company Address <span class="text-red-500">*</span></label>
                     <textarea name="address" rows="2" required 
-                              class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
+                              class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">City *</label>
-                        <input type="text" name="city" value="{{ old('city', auth()->check() ? auth()->user()->city : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">City <span class="text-red-500">*</span></label>
+                        <input type="text" name="city" placeholder="e.g. Kolkata" value="{{ old('city', auth()->check() ? auth()->user()->city : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Pin Code *</label>
-                        <input type="text" name="pincode" value="{{ old('pincode', auth()->check() ? auth()->user()->pincode : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Pin Code <span class="text-red-500">*</span></label>
+                        <input type="text" name="pincode" placeholder="e.g. 700001" value="{{ old('pincode', auth()->check() ? auth()->user()->pincode : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Country *</label>
-                        <input type="text" name="country" value="{{ old('country', auth()->check() ? auth()->user()->country : 'India') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Country <span class="text-red-500">*</span></label>
+                        <input type="text" name="country" placeholder="e.g. India" value="{{ old('country', auth()->check() ? auth()->user()->country : 'India') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                 </div>
 
                 <div class="mt-6">
                     <label class="block text-xs font-bold text-slate-500 mb-2">GSTIN (Optional)</label>
-                    <input type="text" name="gstin" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
-                           class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold" placeholder="e.g. 07AAAAA0000A1Z5">
+                    <input type="text" name="gstin" placeholder="e.g. 07AAAAA0000A1Z5" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
+                           class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                 </div>
             </div>
 
@@ -118,7 +118,7 @@
                 <template x-for="field in fields" :key="field.field_identifier">
                     
                     <div x-show="isFieldVisible(field)" x-transition.opacity duration.500ms>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">
+                        <label class="block text-sm font-bold text-slate-500 mb-2">
                             <span x-text="field.label"></span>
                             <span x-show="field.is_required" class="text-red-500 ml-1">*</span>
                         </label>
@@ -128,7 +128,7 @@
                             <input type="text" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                    @input="handleFieldChange(field.field_identifier)"
                                    :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)"
-                                   class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md">
+                                   class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md placeholder:text-slate-300 placeholder:font-medium">
                         </template>
 
                         <!-- Textarea -->
@@ -136,7 +136,7 @@
                             <textarea :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                       @input="handleFieldChange(field.field_identifier)"
                                       :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)" rows="4"
-                                      class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none"></textarea>
+                                      class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none placeholder:text-slate-300 placeholder:font-medium"></textarea>
                         </template>
 
                         <!-- Dropdown -->
