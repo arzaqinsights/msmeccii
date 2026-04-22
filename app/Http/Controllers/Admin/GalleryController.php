@@ -49,6 +49,7 @@ class GalleryController extends Controller
         $category = trim($rawCategory);
 
         if (empty($category)) {
+            if ($request->ajax()) return response()->json(['error' => 'Category name cannot be empty.'], 422);
             return back()->with('error', 'Category name cannot be empty.');
         }
 
@@ -68,6 +69,10 @@ class GalleryController extends Controller
 
                 $uploaded++;
             }
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'uploaded' => $uploaded]);
         }
 
         return back()->with('success', $uploaded . ' images uploaded to ' . $category . ' successfully.');
