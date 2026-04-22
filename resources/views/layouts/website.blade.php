@@ -50,36 +50,6 @@
             gtag('config', '{{ config('services.google.analytics_id') }}');
         </script>
     @endif
-
-    <style>
-        /* Animation helper styles */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .delay-100 {
-            transition-delay: 100ms;
-        }
-
-        .delay-200 {
-            transition-delay: 200ms;
-        }
-
-        .delay-300 {
-            transition-delay: 300ms;
-        }
-
-        .delay-400 {
-            transition-delay: 400ms;
-        }
-    </style>
 </head>
 
 <body class="font-sans text-gray-800 bg-white antialiased">
@@ -210,7 +180,7 @@
                             })->toArray()
                         ],
                         [
-                            'name' => 'FOCUSED SECTORS',
+                            'name' => 'SECTORS',
                             'route' => 'sectors.index',
                             'active' => 'sectors',
                             'mega' => true,
