@@ -69,7 +69,24 @@
 </section>
 
 <!-- Content Body -->
-<div class="bg-slate-50 py-16" x-data="{ activeSection: 'about' }">
+<div class="bg-slate-50 py-16" 
+     x-data="{ 
+        activeSection: 'about',
+        checkScroll() {
+            const sections = ['about', 'highlights', 'pricing', 'partners', 'faq', 'resources', 'venue'];
+            for (const section of sections) {
+                const el = document.getElementById(section);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= 160 && rect.bottom >= 160) {
+                        this.activeSection = section;
+                        break;
+                    }
+                }
+            }
+        }
+     }"
+     @scroll.window.throttle.50ms="checkScroll()">
     <div class="container overflow-visible">
         <div class="flex flex-col lg:flex-row gap-12 items-start relative">
             
@@ -88,10 +105,11 @@
                                     ['id' => 'about', 'label' => 'About Summit', 'icon' => 'fa-info-circle'],
                                     ['id' => 'highlights', 'label' => 'Why Join?', 'icon' => 'fa-star'],
                                     ['id' => 'pricing', 'label' => 'Registration', 'icon' => 'fa-ticket'],
-                                    ['id' => 'venue', 'label' => 'Venue Info', 'icon' => 'fa-map-marker-alt'],
                                     ['id' => 'partners', 'label' => 'Sponsors', 'icon' => 'fa-handshake'],
                                     ['id' => 'faq', 'label' => 'FAQ', 'icon' => 'fa-question-circle'],
                                     ['id' => 'resources', 'label' => 'Resources', 'icon' => 'fa-folder-open'],
+                                    ['id' => 'venue', 'label' => 'Venue Info', 'icon' => 'fa-map-marker-alt'],
+                                    
                                 ];
                             @endphp
 
@@ -102,7 +120,7 @@
                                        :class="activeSection === '{{ $item['id'] }}' ? 'bg-brand-primary text-white shadow-xl shadow-brand-primary/20' : 'text-slate-600 hover:bg-slate-50'"
                                        class="flex items-center justify-between p-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all">
                                         <span class="flex items-center gap-3">
-                                            <i class="fa-solid {{ $item['icon'] }} w-4"></i>
+                                            <i class="fa-solid {{ $item['icon'] }} w-4 text-[12px]"></i>
                                             {{ $item['label'] }}
                                         </span>
                                         <i class="fa-solid fa-chevron-right text-[8px] opacity-30"></i>
@@ -138,7 +156,7 @@
             <main class="w-full lg:w-3/4 space-y-16">
                 
                 <!-- About Section -->
-                <div id="about" class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 animate-on-scroll">
+                <div id="about" class="scroll-mt-36 bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 animate-on-scroll">
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
                             <i class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
@@ -155,7 +173,7 @@
 
                 <!-- Highlights Section -->
                 @if(isset($event->builder_content['highlights']) && count($event->builder_content['highlights']) > 0)
-                <div id="highlights" class="animate-on-scroll">
+                <div id="highlights" class="scroll-mt-36 animate-on-scroll">
                     <div class="space-y-16">
                         @foreach($event->builder_content['highlights'] as $hl)
                             <div class="animate-on-scroll">
@@ -243,7 +261,7 @@
 
                 <!-- Pricing Section -->
                 @if(isset($event->builder_content['pricing']) && count($event->builder_content['pricing']) > 0)
-                <div id="pricing" class="animate-on-scroll bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                <div id="pricing" class="scroll-mt-36 animate-on-scroll bg-slate-900 rounded-2xl p-12 text-white relative overflow-hidden shadow-2xl">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
                     
                     <div class="text-center mb-12 relative z-10">
@@ -275,7 +293,7 @@
 
                 <!-- Sponsors Section -->
                 @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
-                <div id="partners" class="animate-on-scroll">
+                <div id="partners" class="scroll-mt-36 bg-white rounded-2xl p-12 shadow-sm border border-slate-100 animate-on-scroll">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
@@ -292,7 +310,7 @@
 
                 <!-- FAQ Section -->
                 @if(isset($event->builder_content['faq']) && count($event->builder_content['faq']) > 0)
-                <div id="faq" class="animate-on-scroll">
+                <div id="faq" class="scroll-mt-36 bg-slate-50 rounded-2xl p-12 border border-slate-100 animate-on-scroll">
                     <h2 class="text-3xl font-black text-slate-900 mb-12 text-center">Frequently <span class="text-brand-primary">Asked Questions</span></h2>
                     <div class="space-y-4 max-w-3xl mx-auto" x-data="{ openFaq: null }">
                         @foreach($event->builder_content['faq'] as $index => $q)
@@ -314,7 +332,7 @@
 
                 <!-- Resources Section -->
                 @if(isset($event->builder_content['resources']) && count($event->builder_content['resources']) > 0)
-                <div id="resources" class="animate-on-scroll">
+                <div id="resources" class="scroll-mt-36 animate-on-scroll">
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center">
                             <i class="fa-solid fa-folder-open text-brand-accent text-xl"></i>
@@ -366,7 +384,7 @@
 
                 <!-- Venue Section -->
                 @if(isset($event->builder_content['venue']['name']) && $event->builder_content['venue']['name'])
-                <div id="venue" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
+                <div id="venue" class="scroll-mt-36 bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-12">
                             <i class="fa-solid fa-map-location-dot text-4xl text-brand-primary mb-6 block"></i>
