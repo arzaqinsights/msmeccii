@@ -272,36 +272,6 @@
                 </div>
                 @endif
 
-                <!-- Venue Section -->
-                @if(isset($event->builder_content['venue']['name']) && $event->builder_content['venue']['name'])
-                <div id="venue" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-12">
-                            <i class="fa-solid fa-map-location-dot text-4xl text-brand-primary mb-6 block"></i>
-                            <h2 class="text-3xl font-black text-slate-900 mb-4">The <span class="text-brand-primary">Venue</span></h2>
-                            <h4 class="text-xl font-extrabold text-slate-800 mb-2">{{ $event->builder_content['venue']['name'] }}</h4>
-                            <p class="text-slate-500 font-bold text-sm leading-relaxed mb-8">{{ $event->builder_content['venue']['address'] }}</p>
-                            
-                            <a href="https://maps.google.com/?q={{ urlencode($event->builder_content['venue']['address']) }}" target="_blank" class="inline-flex items-center gap-2 text-brand-primary font-black text-xs uppercase hover:translate-x-1 transition-transform">
-                                Navigate on Maps <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        <div class="h-full bg-slate-100 relative min-h-[400px]">
-                             @if(isset($event->builder_content['venue']['image']) && $event->builder_content['venue']['image'])
-                                <img src="{{ asset($event->builder_content['venue']['image']) }}" class="w-full h-full object-cover">
-                             @else
-                                <div class="w-full h-full flex items-center justify-center bg-slate-900 overflow-hidden relative group">
-                                    <div class="absolute inset-0 bg-brand-primary opacity-10 blur-3xl"></div>
-                                    <div class="relative z-10 text-center p-8">
-                                        <i class="fa-solid fa-building-circle-arrow-right text-6xl text-brand-primary mb-4 opacity-20"></i>
-                                        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Venue Visual Pending</p>
-                                    </div>
-                                </div>
-                             @endif
-                        </div>
-                    </div>
-                </div>
-                @endif
 
                 <!-- Sponsors Section -->
                 @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
@@ -390,6 +360,37 @@
                                 </div>
                             </a>
                         @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- Venue Section -->
+                @if(isset($event->builder_content['venue']['name']) && $event->builder_content['venue']['name'])
+                <div id="venue" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-12">
+                            <i class="fa-solid fa-map-location-dot text-4xl text-brand-primary mb-6 block"></i>
+                            <h2 class="text-3xl font-black text-slate-900 mb-4">The <span class="text-brand-primary">Venue</span></h2>
+                            <h4 class="text-xl font-extrabold text-slate-800 mb-2">{{ $event->builder_content['venue']['name'] }}</h4>
+                            <p class="text-slate-500 font-bold text-sm leading-relaxed mb-8">{{ $event->builder_content['venue']['address'] }}</p>
+                            
+                            <a href="https://maps.google.com/?q={{ urlencode($event->builder_content['venue']['address']) }}" target="_blank" class="inline-flex items-center gap-2 text-brand-primary font-black text-xs uppercase hover:translate-x-1 transition-transform">
+                                Navigate on Maps <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="h-full bg-slate-100 relative min-h-[400px]">
+                             @if(isset($event->builder_content['venue']['image']) && $event->builder_content['venue']['image'])
+                                <img src="{{ asset($event->builder_content['venue']['image']) }}" class="w-full h-full object-cover">
+                             @else
+                                <div class="w-full h-full flex items-center justify-center bg-slate-900 overflow-hidden relative group">
+                                    <div class="absolute inset-0 bg-brand-primary opacity-10 blur-3xl"></div>
+                                    <div class="relative z-10 text-center p-8">
+                                        <i class="fa-solid fa-building-circle-arrow-right text-6xl text-brand-primary mb-4 opacity-20"></i>
+                                        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Venue Visual Pending</p>
+                                    </div>
+                                </div>
+                             @endif
+                        </div>
                     </div>
                 </div>
                 @endif
