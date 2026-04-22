@@ -156,10 +156,6 @@
                 <!-- Highlights Section -->
                 @if(isset($event->builder_content['highlights']) && count($event->builder_content['highlights']) > 0)
                 <div id="highlights" class="animate-on-scroll">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-black text-slate-900 mb-2">Why Should You <span class="text-brand-primary">Attend?</span></h2>
-                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Key takeaways and strategic advantages</p>
-                    </div>
                     <div class="space-y-16">
                         @foreach($event->builder_content['highlights'] as $hl)
                             <div class="animate-on-scroll">
