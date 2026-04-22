@@ -187,7 +187,7 @@
                             'active' => '/'
                         ],
                         [
-                            'name' => 'ABOUT US',
+                            'name' => 'ABOUt',
                             'route' => 'about.what_is',
                             'active' => 'about',
                             'sub_menu' => [
@@ -230,11 +230,6 @@
                             'name' => 'GALLERY',
                             'route' => 'gallery',
                             'active' => 'gallery'
-                        ],
-                        [
-                            'name' => 'CONTACT US',
-                            'route' => 'contact',
-                            'active' => 'contact-us'
                         ],
                     ];
                 @endphp
