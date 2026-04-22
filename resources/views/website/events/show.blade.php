@@ -160,61 +160,77 @@
                         <h2 class="text-3xl font-black text-slate-900 mb-2">Why Should You <span class="text-brand-primary">Attend?</span></h2>
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Key takeaways and strategic advantages</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-16">
                         @foreach($event->builder_content['highlights'] as $hl)
-                            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                                <div class="mb-6 pb-4 border-b border-slate-50">
-                                    <h4 class="text-xl font-black text-slate-900 leading-tight uppercase tracking-tight">{{ $hl['title'] }}</h4>
-                                </div>
+                            <div class="animate-on-scroll">
+                                <!-- Highlight Header (Conditional) -->
+                                @if(($hl['title'] && $hl['title'] !== '') || ($hl['desc'] && $hl['desc'] !== ''))
+                                    <div class="mb-8 p-8 bg-slate-900 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-primary/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                                        <div class="relative z-10">
+                                            <h4 class="text-2xl font-black uppercase tracking-tight mb-2">{{ $hl['title'] }}</h4>
+                                            <p class="text-sm font-medium text-slate-400 leading-relaxed max-w-2xl">{{ $hl['desc'] }}</p>
+                                        </div>
+                                    </div>
+                                @endif
 
-                                <p class="text-sm text-slate-500 font-bold leading-relaxed mb-8">{{ $hl['desc'] }}</p>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <!-- PDF 1 Slot -->
+                                <!-- PDF Cards Grid -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <!-- PDF 1 Card -->
                                     @if(isset($hl['pdf1_path']) && $hl['pdf1_path'])
-                                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 hover:border-brand-primary/30 transition-colors group/pdf">
-                                            <div class="aspect-video bg-white rounded-xl mb-4 overflow-hidden border border-slate-100 relative">
+                                        <div class="group bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                                            <div class="aspect-video bg-slate-50 rounded-2xl mb-5 overflow-hidden border border-slate-100 relative">
                                                 @if(isset($hl['pdf1_thumb']) && $hl['pdf1_thumb'])
-                                                    <img src="{{ asset($hl['pdf1_thumb']) }}" class="w-full h-full object-cover group-hover/pdf:scale-105 transition-transform duration-500">
+                                                    <img src="{{ asset($hl['pdf1_thumb']) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                                 @else
-                                                    <div class="w-full h-full flex items-center justify-center bg-slate-50 opacity-30">
-                                                        <i class="fa-solid fa-file-pdf text-4xl"></i>
+                                                    <div class="w-full h-full flex items-center justify-center bg-brand-primary/5">
+                                                        <i class="fa-solid fa-file-pdf text-5xl text-brand-primary/20"></i>
                                                     </div>
                                                 @endif
-                                                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/pdf:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <a href="{{ asset($hl['pdf1_path']) }}" target="_blank" class="bg-white text-slate-900 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg transform translate-y-2 group-hover/pdf:translate-y-0 transition-all">
-                                                        Open PDF
+                                                <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                                    <a href="{{ asset($hl['pdf1_path']) }}" target="_blank" class="bg-white text-slate-900 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-brand-primary hover:text-white">
+                                                        View Document <i class="fa-solid fa-up-right-from-square ml-2 text-[10px]"></i>
                                                     </a>
                                                 </div>
                                             </div>
-                                            <a href="{{ asset($hl['pdf1_path']) }}" target="_blank" class="flex items-center justify-between text-brand-primary text-[10px] font-black uppercase tracking-widest">
-                                                <span>Download PDF 1</span>
-                                                <i class="fa-solid fa-download"></i>
-                                            </a>
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Attachment 01</span>
+                                                    <h5 class="text-sm font-black text-slate-900 uppercase">Strategic Document</h5>
+                                                </div>
+                                                <a href="{{ asset($hl['pdf1_path']) }}" target="_blank" class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                                                    <i class="fa-solid fa-download text-xs"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     @endif
 
-                                    <!-- PDF 2 Slot -->
+                                    <!-- PDF 2 Card -->
                                     @if(isset($hl['pdf2_path']) && $hl['pdf2_path'])
-                                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 hover:border-brand-primary/30 transition-colors group/pdf">
-                                            <div class="aspect-video bg-white rounded-xl mb-4 overflow-hidden border border-slate-100 relative">
+                                        <div class="group bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                                            <div class="aspect-video bg-slate-50 rounded-2xl mb-5 overflow-hidden border border-slate-100 relative">
                                                 @if(isset($hl['pdf2_thumb']) && $hl['pdf2_thumb'])
-                                                    <img src="{{ asset($hl['pdf2_thumb']) }}" class="w-full h-full object-cover group-hover/pdf:scale-105 transition-transform duration-500">
+                                                    <img src="{{ asset($hl['pdf2_thumb']) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                                 @else
-                                                    <div class="w-full h-full flex items-center justify-center bg-slate-50 opacity-30">
-                                                        <i class="fa-solid fa-file-pdf text-4xl"></i>
+                                                    <div class="w-full h-full flex items-center justify-center bg-brand-primary/5">
+                                                        <i class="fa-solid fa-file-pdf text-5xl text-brand-primary/20"></i>
                                                     </div>
                                                 @endif
-                                                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/pdf:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <a href="{{ asset($hl['pdf2_path']) }}" target="_blank" class="bg-white text-slate-900 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg transform translate-y-2 group-hover/pdf:translate-y-0 transition-all">
-                                                        Open PDF
+                                                <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                                    <a href="{{ asset($hl['pdf2_path']) }}" target="_blank" class="bg-white text-slate-900 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-brand-primary hover:text-white">
+                                                        View Document <i class="fa-solid fa-up-right-from-square ml-2 text-[10px]"></i>
                                                     </a>
                                                 </div>
                                             </div>
-                                            <a href="{{ asset($hl['pdf2_path']) }}" target="_blank" class="flex items-center justify-between text-brand-primary text-[10px] font-black uppercase tracking-widest">
-                                                <span>Download PDF 2</span>
-                                                <i class="fa-solid fa-download"></i>
-                                            </a>
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Attachment 02</span>
+                                                    <h5 class="text-sm font-black text-slate-900 uppercase">Resource Guide</h5>
+                                                </div>
+                                                <a href="{{ asset($hl['pdf2_path']) }}" target="_blank" class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all">
+                                                    <i class="fa-solid fa-download text-xs"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
