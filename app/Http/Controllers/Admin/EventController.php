@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,8 +19,9 @@ class EventController extends Controller
     public function create()
     {
         $event = new Event();
+        $forms = Form::where('status', 'published')->get();
         $currentPopup = Event::where('show_as_popup', true)->first();
-        return view('admin.events.form', compact('event', 'currentPopup'));
+        return view('admin.events.form', compact('event', 'currentPopup', 'forms'));
     }
 
     public function store(Request $request)
@@ -29,8 +31,9 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
+        $forms = Form::where('status', 'published')->get();
         $currentPopup = Event::where('show_as_popup', true)->where('id', '!=', $event->id)->first();
-        return view('admin.events.form', compact('event', 'currentPopup'));
+        return view('admin.events.form', compact('event', 'currentPopup', 'forms'));
     }
 
     public function update(Request $request, Event $event)

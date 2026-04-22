@@ -117,6 +117,28 @@
                             <textarea name="builder_content[about][description]" x-model="content.about.description" rows="8" 
                                       class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:border-purple-500 font-medium text-slate-700 leading-relaxed"></textarea>
                         </div>
+                        <div class="pt-6 border-t border-slate-100">
+                            <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-link text-brand-primary"></i> Registration Configuration
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Select Linked Form</label>
+                                    <select x-model="content.about.registration_url" 
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900 text-xs">
+                                        <option value="">-- Custom Link / Manual --</option>
+                                        @foreach($forms ?? [] as $f)
+                                            <option value="{{ url('application/'.$f->slug) }}">{{ $f->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Registration URL (Custom)</label>
+                                    <input type="text" name="builder_content[about][registration_url]" x-model="content.about.registration_url" placeholder="https://..."
+                                           class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-mono text-[10px] text-slate-500">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Highlights Tab -->
@@ -504,6 +526,7 @@
                 about: {
                     subtitle: @json($event->builder_content['about']['subtitle'] ?? ''),
                     description: @json($event->builder_content['about']['description'] ?? ''),
+                    registration_url: @json($event->builder_content['about']['registration_url'] ?? ''),
                 },
                 highlights: @json($event->builder_content['highlights'] ?? []).map(h => ({ 
                     title: h.title || '', 

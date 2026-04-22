@@ -130,7 +130,7 @@
                         </nav>
                     </div>
                     <div class="p-6 bg-slate-50 border-t border-slate-100">
-                        <a href="#pricing" class="block w-full bg-slate-900 hover:bg-black text-white text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl transition-all">
+                        <a href="{{ $event->builder_content['about']['registration_url'] ?? url('application/delegate-registration') }}" target="_blank" class="block w-full bg-slate-900 hover:bg-black text-white text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl transition-all">
                              Register Now <i class="fa-solid fa-bolt ml-1 text-brand-accent"></i>
                         </a>
                     </div>
@@ -281,8 +281,8 @@
                                 <div class="text-[11px] text-slate-400 font-medium mb-8 leading-relaxed">
                                     {{ $tier['desc'] }}
                                 </div>
-                                <a href="https://rzp.io/l/msmeccii" target="_blank" class="block w-full bg-brand-accent hover:bg-white text-slate-900 text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
-                                    Buy Pass <i class="fa-solid fa-arrow-right ml-1"></i>
+                                <a href="{{ $event->builder_content['about']['registration_url'] ?? 'https://rzp.io/l/msmeccii' }}" target="_blank" class="block w-full bg-brand-accent hover:bg-white text-slate-900 text-center py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+                                    Register Now <i class="fa-solid fa-arrow-right ml-1"></i>
                                 </a>
                             </div>
                         @endforeach
