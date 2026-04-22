@@ -107,7 +107,7 @@ class FormController extends Controller
             }
 
             // Price Calculation Engine
-            if ($submittedValue !== null && $submittedValue !== '') {
+            if ($field->type === 'hidden_price' || ($submittedValue !== null && $submittedValue !== '')) {
                 // Determine if this field should be legally accessible
                 $isAccessible = true;
                 if ($field->depends_on) {
@@ -145,6 +145,13 @@ class FormController extends Controller
                         // Standard field-level pricing
                         if ((float)$field->base_amount > 0) {
                             $fieldBase = (float) $field->base_amount;
+                            
+                            // NEW: Multiply price by quantity for number/range fields
+                            if ($field->type === 'number') {
+                                $qty = (float) ($submittedValue ?: 0);
+                                $fieldBase = $fieldBase * $qty;
+                            }
+
                             $fieldTax = (float)$field->tax_percentage > 0 ? ($fieldBase * ((float)$field->tax_percentage / 100)) : 0;
                         }
                     }
