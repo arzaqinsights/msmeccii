@@ -176,7 +176,7 @@
                                 @endif
 
                                 <!-- PDF Cards Grid -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="flex flex-col md:flex-row md:flex-nowrap gap-8">
                                     <!-- PDF 1 Card -->
                                     @if(isset($hl['pdf1_path']) && $hl['pdf1_path'])
                                         <div class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
