@@ -78,6 +78,24 @@ class GalleryController extends Controller
         return back()->with('success', $uploaded . ' images uploaded to ' . $category . ' successfully.');
     }
 
+    public function updateCategory(Request $request)
+    {
+        $request->validate([
+            'old_category' => 'required|string',
+            'new_category' => 'required|string|max:255',
+        ]);
+
+        $oldCategory = $request->old_category;
+        $newCategory = trim($request->new_category);
+
+        if (empty($newCategory)) {
+            return back()->with('error', 'Category name cannot be empty.');
+        }
+
+        Gallery::where('category', $oldCategory)->update(['category' => $newCategory]);
+
+        return back()->with('success', "Category renamed from '$oldCategory' to '$newCategory' successfully.");
+    }
     public function destroy($id)
     {
         $image = Gallery::findOrFail($id);

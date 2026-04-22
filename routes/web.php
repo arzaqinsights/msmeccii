@@ -129,6 +129,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
 
     // Gallery Management
+    Route::post('gallery/update-category', [\App\Http\Controllers\Admin\GalleryController::class, 'updateCategory'])->name('gallery.update-category');
     Route::resource('gallery', \App\Http\Controllers\Admin\GalleryController::class)->only(['index', 'store', 'show', 'destroy']);
 
     // Articles & Blog Builder

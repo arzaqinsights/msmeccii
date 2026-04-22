@@ -189,18 +189,44 @@
     @if($categories->count() > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($categories as $category)
-        <a href="{{ route('admin.gallery.show', base64_encode($category->category)) }}" class="group block relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 bg-white">
-            <div class="aspect-video w-full relative overflow-hidden bg-slate-100">
-                <img src="{{ asset($category->cover) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $category->category }}">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+        <div x-data="{ editing: false, newName: '{{ $category->category }}' }" class="group block relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 bg-white">
+            <a href="{{ route('admin.gallery.show', base64_encode($category->category)) }}">
+                <div class="aspect-video w-full relative overflow-hidden bg-slate-100">
+                    <img src="{{ asset($category->cover) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $category->category }}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+                </div>
+            </a>
+
+            <!-- Rename Overlay (Only visible when editing) -->
+            <div x-show="editing" x-transition.opacity class="absolute inset-0 z-20 bg-slate-900/95 backdrop-blur-sm flex flex-col items-center justify-center p-4">
+                <form action="{{ route('admin.gallery.update-category') }}" method="POST" class="w-full">
+                    @csrf
+                    <input type="hidden" name="old_category" value="{{ $category->category }}">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 text-center">New Album Name</label>
+                    <input type="text" name="new_category" x-model="newName" required
+                           class="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-white font-bold text-sm outline-none focus:border-indigo-500 text-center mb-3">
+                    <div class="flex gap-2">
+                        <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-black py-2 rounded-lg uppercase tracking-widest transition-all">Save Changes</button>
+                        <button type="button" @click="editing = false" class="flex-1 bg-white/10 hover:bg-white/20 text-white text-[10px] font-black py-2 rounded-lg uppercase tracking-widest transition-all">Cancel</button>
+                    </div>
+                </form>
             </div>
-            <div class="absolute bottom-0 left-0 w-full p-4">
-                <h4 class="text-white font-bold text-lg truncate">{{ $category->category }}</h4>
-                <div class="flex items-center gap-2 text-indigo-200 text-xs font-semibold mt-1">
-                    <i class="fa-regular fa-image"></i> {{ $category->image_count }} {{ Str::plural('Image', $category->image_count) }}
+
+            <!-- Category Info -->
+            <div class="absolute bottom-0 left-0 w-full p-4 pointer-events-none">
+                <div class="flex justify-between items-end">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-white font-bold text-lg truncate drop-shadow-md">{{ $category->category }}</h4>
+                        <div class="flex items-center gap-2 text-indigo-200 text-xs font-semibold mt-1">
+                            <i class="fa-regular fa-image"></i> {{ $category->image_count }} {{ Str::plural('Image', $category->image_count) }}
+                        </div>
+                    </div>
+                    <button @click="editing = true" class="pointer-events-auto ml-2 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm transition-all" title="Rename Album">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                    </button>
                 </div>
             </div>
-        </a>
+        </div>
         @endforeach
     </div>
     @else
