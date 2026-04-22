@@ -128,7 +128,7 @@
                                             class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900 text-xs">
                                         <option value="">-- Custom Link / Manual --</option>
                                         @foreach($forms ?? [] as $f)
-                                            <option value="{{ url('application/'.$f->slug) }}">{{ $f->name }}</option>
+                                            <option value="{{ route('join.forms.show', ['slug' => $f->slug]) }}">{{ $f->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
