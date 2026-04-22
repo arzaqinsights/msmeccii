@@ -118,7 +118,7 @@
                 <template x-for="field in fields" :key="field.field_identifier">
                     
                     <div x-show="isFieldVisible(field)" x-transition.opacity duration.500ms>
-                        <label class="block text-sm font-bold text-slate-500 mb-2">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">
                             <span x-text="field.label"></span>
                             <span x-show="field.is_required" class="text-red-500 ml-1">*</span>
                         </label>
