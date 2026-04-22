@@ -167,7 +167,12 @@
                                     <i class="{{ $hl['icon'] ?? 'fa-solid fa-star' }} text-brand-accent text-xl"></i>
                                 </div>
                                 <h4 class="text-xl font-black text-slate-900 mb-2">{{ $hl['title'] }}</h4>
-                                <p class="text-sm text-slate-500 font-bold leading-relaxed">{{ $hl['desc'] }}</p>
+                                <p class="text-sm text-slate-500 font-bold leading-relaxed mb-4">{{ $hl['desc'] }}</p>
+                                @if(isset($hl['pdf_path']) && $hl['pdf_path'])
+                                    <a href="{{ asset($hl['pdf_path']) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-red-100 hover:bg-red-600 hover:text-white transition-all shadow-sm">
+                                        <i class="fa-solid fa-file-pdf"></i> Download PDF
+                                    </a>
+                                @endif
                             </div>
                         @endforeach
                     </div>
