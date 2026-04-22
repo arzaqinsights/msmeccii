@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\View::share('site', cache()->remember('site_settings', 60, function () {
+            return \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        }));
     }
 }

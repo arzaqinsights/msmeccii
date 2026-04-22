@@ -54,11 +54,7 @@
 
 <body class="font-sans text-gray-800 bg-white antialiased">
 
-    @php
-        $site = cache()->remember('site_settings', 60, function () {
-            return \App\Models\SiteSetting::pluck('value', 'key')->toArray();
-        });
-    @endphp
+
 
     <!-- Header Navigation -->
     <div class="bg-brand-light hidden md:block">
