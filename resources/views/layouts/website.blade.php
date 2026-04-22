@@ -563,6 +563,74 @@
     </script>
     <!-- Yield dynamic scripts -->
     @yield('scripts')
+    <!-- Floating Help Button -->
+    <div x-data="{ open: false }" class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
+        <!-- Sub Buttons -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-10 scale-90"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-10 scale-90"
+             class="flex flex-col gap-3 mb-2">
+            
+            <!-- WhatsApp -->
+            @if(isset($site['whatsapp_url']) && $site['whatsapp_url'])
+            <a href="{{ $site['whatsapp_url'] }}" target="_blank" 
+               class="group flex items-center gap-3">
+                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">WhatsApp Us</span>
+                <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all hover:scale-110">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </div>
+            </a>
+            @endif
+
+            <!-- Email -->
+            @if(isset($site['email_1']) && $site['email_1'])
+            <a href="mailto:{{ $site['email_1'] }}" 
+               class="group flex items-center gap-3">
+                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Send Email</span>
+                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-all hover:scale-110">
+                    <i class="fa-solid fa-envelope text-lg"></i>
+                </div>
+            </a>
+            @endif
+
+            <!-- Phone -->
+            @if(isset($site['phone_1']) && $site['phone_1'])
+            <a href="tel:{{ $site['phone_1'] }}" 
+               class="group flex items-center gap-3">
+                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Call Support</span>
+                <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black transition-all hover:scale-110">
+                    <i class="fa-solid fa-phone text-lg"></i>
+                </div>
+            </a>
+            @endif
+        </div>
+
+        <!-- Main Toggle Button -->
+        <button @click="open = !open" 
+                :class="open ? 'bg-red-500 scale-90' : 'bg-brand-primary'"
+                class="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 group relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            
+            <template x-if="!open">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-headset text-2xl mb-0.5"></i>
+                    <span class="text-[8px] font-black uppercase tracking-tighter">Help</span>
+                </div>
+            </template>
+            
+            <template x-if="open">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </template>
+
+            <!-- Pulse Effect (only when closed) -->
+            <div x-show="!open" class="absolute inset-0 rounded-full bg-brand-primary animate-ping opacity-20 -z-10"></div>
+        </button>
+    </div>
+
     @stack('scripts')
 </body>
 
