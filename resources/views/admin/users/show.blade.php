@@ -52,6 +52,23 @@
                     <p class="font-bold text-slate-800 text-sm"><i class="fa-regular fa-envelope text-brand-primary/50 w-4"></i> <a href="mailto:{{ $user->email }}" class="hover:text-brand-primary">{{ $user->email }}</a></p>
                     <p class="font-bold text-slate-800 text-sm mt-2"><i class="fa-solid fa-phone text-brand-primary/50 w-4"></i> <a href="tel:{{ $user->phone_number }}" class="hover:text-brand-primary">{{ $user->phone_number ?: 'No Phone Number' }}</a></p>
                 </div>
+
+                <div class="pt-4 border-t border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Office Location</p>
+                    <p class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-location-dot text-brand-primary/50 w-4"></i> {{ $user->address ?: 'No Address' }}</p>
+                    @if($user->city || $user->pincode || $user->country)
+                        <p class="font-bold text-slate-800 text-sm mt-1 ml-5">{{ $user->city }}{{ $user->pincode ? ', '.$user->pincode : '' }}</p>
+                        <p class="font-bold text-slate-800 text-sm ml-5">{{ $user->country }}</p>
+                    @endif
+                </div>
+
+                <div class="pt-4 border-t border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Tax & Web Information</p>
+                    <p class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-receipt text-brand-primary/50 w-4"></i> GSTIN: {{ $user->gstin ?: 'N/A' }}</p>
+                    @if($user->website)
+                        <p class="font-bold text-slate-800 text-sm mt-2"><i class="fa-solid fa-globe text-brand-primary/50 w-4"></i> <a href="{{ Str::startsWith($user->website, 'http') ? $user->website : 'https://'.$user->website }}" target="_blank" class="hover:text-brand-primary break-all">{{ $user->website }}</a></p>
+                    @endif
+                </div>
                 
                 <div class="pt-4 border-t border-slate-100">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Sector Profile</p>

@@ -111,8 +111,18 @@
                 <td>
                     <div class="details-label">Issued To</div>
                     <div class="details-value">{{ $user->name }}</div>
-                    <div class="details-value" style="font-weight: normal; font-size: 11px;">{{ $user->email }}</div>
-                    <div class="details-value" style="font-weight: normal; font-size: 11px;">{{ $user->phone_number }}</div>
+                    @if($user->company_name)
+                        <div class="details-value" style="font-weight: normal; font-size: 11px;">{{ $user->company_name }} ({{ $user->designation }})</div>
+                    @endif
+                    <div class="details-value" style="font-weight: normal; font-size: 11px;">{{ $user->email }} | {{ $user->phone_number }}</div>
+                    @if($user->address)
+                        <div class="details-value" style="font-weight: normal; font-size: 10px; margin-top:3px; color: #64748b;">
+                            {{ $user->address }}, {{ $user->city }}, {{ $user->pincode }}, {{ $user->country }}
+                        </div>
+                    @endif
+                    @if($user->gstin)
+                        <div class="details-value" style="font-size: 9px; color: #64748b; margin-top: 2px;">GSTIN: {{ $user->gstin }}</div>
+                    @endif
                 </td>
                 <td style="text-align: right;">
                     <div class="details-label">From / Vendor</div>

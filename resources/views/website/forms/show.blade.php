@@ -51,25 +51,65 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">First/Full Name *</label>
-                        <input type="text" name="first_name" value="{{ auth()->check() ? auth()->user()->name : old('name') }}" required {{ auth()->check() ? 'readonly' : '' }}
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Last Name (Optional)</label>
-                        <input type="text" name="last_name" value="{{ old('last_name') }}" {{ auth()->check() ? 'readonly' : '' }}
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Full Name *</label>
+                        <input type="text" name="first_name" value="{{ old('first_name', auth()->check() ? auth()->user()->name : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Email Address *</label>
-                        <input type="email" name="email" value="{{ auth()->check() ? auth()->user()->email : old('email') }}" required {{ auth()->check() ? 'readonly' : '' }}
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
+                        <input type="email" name="email" value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Phone Number *</label>
-                        <input type="text" name="phone_number" value="{{ auth()->check() ? auth()->user()->phone_number : old('phone_number') }}" required {{ auth()->check() && auth()->user()->phone_number ? 'readonly' : '' }}
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none {{ auth()->check() && auth()->user()->phone_number ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : 'text-slate-900 font-bold' }}">
+                        <input type="text" name="phone_number" value="{{ old('phone_number', auth()->check() ? auth()->user()->phone_number : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
                     </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Company Name *</label>
+                        <input type="text" name="company_name" value="{{ old('company_name', auth()->check() ? auth()->user()->company_name : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Designation *</label>
+                        <input type="text" name="designation" value="{{ old('designation', auth()->check() ? auth()->user()->designation : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Website (Optional)</label>
+                        <input type="text" name="website" value="{{ old('website', auth()->check() ? auth()->user()->website : '') }}" 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label class="block text-xs font-bold text-slate-500 mb-2">Full Office/Company Address *</label>
+                    <textarea name="address" rows="2" required 
+                              class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">City *</label>
+                        <input type="text" name="city" value="{{ old('city', auth()->check() ? auth()->user()->city : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Pin Code *</label>
+                        <input type="text" name="pincode" value="{{ old('pincode', auth()->check() ? auth()->user()->pincode : '') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Country *</label>
+                        <input type="text" name="country" value="{{ old('country', auth()->check() ? auth()->user()->country : 'India') }}" required 
+                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label class="block text-xs font-bold text-slate-500 mb-2">GSTIN (Optional)</label>
+                    <input type="text" name="gstin" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
+                           class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold" placeholder="e.g. 07AAAAA0000A1Z5">
                 </div>
             </div>
 

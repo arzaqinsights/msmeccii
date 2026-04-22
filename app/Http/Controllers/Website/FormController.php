@@ -32,29 +32,57 @@ class FormController extends Controller
         // 1. Fixed Authentication Field Validations
         $request->validate([
             'first_name' => 'required|string|max:255',
-            'last_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:20',
+            'company_name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'address' => 'required|string',
+            'city' => 'required|string|max:255',
+            'pincode' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'gstin' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
         ]);
 
         $user = Auth::user();
 
-        // 2. Auto-Authentication Engine
+        // 2. Auto-Authentication & Profile Sync Engine
         if (!$user) {
             $user = User::where('email', $request->email)->first();
-            
             if (!$user) {
                 $user = User::create([
-                    'name' => $request->first_name . ' ' . $request->last_name,
+                    'name' => $request->first_name,
                     'email' => $request->email,
                     'phone_number' => $request->phone_number,
-                    'password' => Hash::make(Str::random(16)), // Secure throwaway, can trigger password reset later
+                    'company_name' => $request->company_name,
+                    'designation' => $request->designation,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'pincode' => $request->pincode,
+                    'country' => $request->country,
+                    'gstin' => $request->gstin,
+                    'website' => $request->website,
+                    'password' => Hash::make(Str::random(16)), 
                     'role' => 'user'
                 ]);
             }
-            // Log the user in to establish session
             Auth::login($user);
         }
+
+        // Always sync the latest profile information
+        $user->update([
+            'name' => $request->first_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'company_name' => $request->company_name,
+            'designation' => $request->designation,
+            'address' => $request->address,
+            'city' => $request->city,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'gstin' => $request->gstin,
+            'website' => $request->website,
+        ]);
 
         // 3. Dynamic Field Processing & Security Filtering
         $dynamicData = $request->input('dynamic_fields', []);
@@ -131,9 +159,22 @@ class FormController extends Controller
 
         $grandTotal = $totalAmount + $totalTax;
 
-        // 4. Secure Submission Creation
-        // Map Field IDs to actual Human-Readable labels for the invoice
-        $labeledData = [];
+        // 5. Build Unified Submission Data (Standard + Dynamic)
+        $labeledData = [
+            'Full Name' => $request->first_name,
+            'Email Address' => $request->email,
+            'Phone Number' => $request->phone_number,
+            'Company Name' => $request->company_name,
+            'Designation' => $request->designation,
+            'Office Address' => $request->address,
+            'City' => $request->city,
+            'Pin Code' => $request->pincode,
+            'Country' => $request->country,
+            'GSTIN' => $request->gstin,
+            'Website' => $request->website,
+        ];
+
+        // Merge Dynamic Fields
         foreach ($dynamicData as $key => $value) {
             $field = $form->fields->where('field_identifier', $key)->first();
             $label = $field ? $field->label : $key;
