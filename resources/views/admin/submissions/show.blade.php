@@ -10,7 +10,7 @@
         <p class="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest"><i class="fa-solid fa-file-contract mr-1"></i> Form: {{ $submission->form->name }}</p>
     </div>
     <div class="flex gap-2">
-        <a href="{{ route('admin.invoice.download', $submission->id) }}" class="bg-slate-900 border border-slate-800 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:bg-black transition-all">
+        <a href="{{ route('invoice.download', $submission->id) }}" class="bg-slate-900 border border-slate-800 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:bg-black transition-all">
             <i class="fa-solid fa-file-pdf"></i> Download Invoice
         </a>
         <a href="{{ route('admin.forms.submissions', $submission->form_id) }}" class="text-slate-500 hover:text-slate-800 font-bold text-xs bg-white border border-slate-200 py-2.5 px-4 rounded-xl flex items-center gap-2">
