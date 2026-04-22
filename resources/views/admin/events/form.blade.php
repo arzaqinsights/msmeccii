@@ -148,41 +148,69 @@
                                             <textarea :name="'builder_content[highlights]['+index+'][desc]'" x-model="item.desc" rows="2"
                                                       class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs"></textarea>
                                         </div>
-                                        <div>
-                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">PDF Attachment & Thumbnail (Optional)</label>
-                                            <div class="flex flex-col gap-2">
-                                                <!-- File URL Display & Upload -->
+                                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                        <!-- PDF Slot 1 -->
+                                        <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
+                                            <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Slot 1</label>
+                                            <div class="space-y-2">
                                                 <div class="flex items-center gap-2">
-                                                    <input type="text" :name="'builder_content[highlights]['+index+'][pdf_path]'" x-model="item.pdf_path" readonly placeholder="No PDF attached"
-                                                           class="flex-1 bg-white border border-slate-200 rounded-lg p-2 text-[10px] font-mono truncate">
-                                                    <div class="relative overflow-hidden flex-shrink-0">
-                                                        <button type="button" class="bg-red-50 text-red-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-red-100 whitespace-nowrap">
-                                                            <i class="fa-solid fa-file-pdf mr-1"></i> PDF
-                                                        </button>
-                                                        <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                    </div>
-                                                </div>
-                                                <!-- Thumbnail Display & Upload -->
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-10 h-10 rounded border border-slate-200 bg-white flex items-center justify-center overflow-hidden flex-shrink-0">
-                                                        <template x-if="item.pdf_thumbnail">
-                                                            <img :src="item.pdf_thumbnail" class="w-full h-full object-cover">
+                                                    <div class="w-12 h-12 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                                                        <template x-if="item.pdf1_thumb">
+                                                            <img :src="item.pdf1_thumb" class="w-full h-full object-cover">
                                                         </template>
-                                                        <template x-if="!item.pdf_thumbnail">
-                                                            <i class="fa-solid fa-image text-slate-200 text-xs"></i>
+                                                        <template x-if="!item.pdf1_thumb">
+                                                            <i class="fa-solid fa-file-pdf text-slate-200 text-lg"></i>
                                                         </template>
                                                     </div>
-                                                    <input type="text" :name="'builder_content[highlights]['+index+'][pdf_thumbnail]'" x-model="item.pdf_thumbnail" readonly placeholder="No thumbnail"
-                                                           class="flex-1 bg-white border border-slate-200 rounded-lg p-2 text-[10px] font-mono truncate">
-                                                    <div class="relative overflow-hidden flex-shrink-0">
-                                                        <button type="button" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-blue-100 whitespace-nowrap">
-                                                            <i class="fa-solid fa-image mr-1"></i> Thumb
-                                                        </button>
-                                                        <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                    <div class="flex-1 min-w-0">
+                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_path]'" x-model="item.pdf1_path" readonly placeholder="No file"
+                                                               class="w-full bg-slate-50 border-0 text-[9px] font-mono truncate mb-1">
+                                                        <div class="flex gap-1">
+                                                            <div class="relative overflow-hidden">
+                                                                <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
+                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf1')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            </div>
+                                                            <div class="relative overflow-hidden">
+                                                                <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
+                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb1')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- PDF Slot 2 -->
+                                        <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
+                                            <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Slot 2</label>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-12 h-12 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                                                        <template x-if="item.pdf2_thumb">
+                                                            <img :src="item.pdf2_thumb" class="w-full h-full object-cover">
+                                                        </template>
+                                                        <template x-if="!item.pdf2_thumb">
+                                                            <i class="fa-solid fa-file-pdf text-slate-200 text-lg"></i>
+                                                        </template>
+                                                    </div>
+                                                    <div class="flex-1 min-w-0">
+                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_path]'" x-model="item.pdf2_path" readonly placeholder="No file"
+                                                               class="w-full bg-slate-50 border-0 text-[9px] font-mono truncate mb-1">
+                                                        <div class="flex gap-1">
+                                                            <div class="relative overflow-hidden">
+                                                                <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
+                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf2')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            </div>
+                                                            <div class="relative overflow-hidden">
+                                                                <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
+                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb2')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                     <button type="button" @click="removeItem('highlights', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                         <i class="fa-solid fa-xmark text-[10px]"></i>
@@ -451,8 +479,10 @@
                     icon: h.icon || 'fa-solid fa-star', 
                     title: h.title || '', 
                     desc: h.desc || '', 
-                    pdf_path: h.pdf_path || '',
-                    pdf_thumbnail: h.pdf_thumbnail || ''
+                    pdf1_path: h.pdf1_path || h.pdf_path || '',
+                    pdf1_thumb: h.pdf1_thumb || h.pdf_thumbnail || '',
+                    pdf2_path: h.pdf2_path || '',
+                    pdf2_thumb: h.pdf2_thumb || ''
                 })),
                 pricing: @json($event->builder_content['pricing'] ?? []),
                 venue: {
@@ -465,7 +495,7 @@
                 resources: @json($event->builder_content['resources'] ?? []),
             },
             addItem(section) {
-                if (section === 'highlights') this.content.highlights.push({ icon: 'fa-solid fa-star', title: '', desc: '', pdf_path: '', pdf_thumbnail: '' });
+                if (section === 'highlights') this.content.highlights.push({ icon: 'fa-solid fa-star', title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf2_path: '', pdf2_thumb: '' });
                 if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '' });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });
@@ -497,10 +527,14 @@
                             if(!this.content.resources[index].title) this.content.resources[index].title = data.name;
                         } else if (type === 'resources_thumb') {
                             this.content.resources[index].thumbnail = data.path;
-                        } else if (type === 'highlights_pdf') {
-                            this.content.highlights[index].pdf_path = data.path;
-                        } else if (type === 'highlights_thumb') {
-                            this.content.highlights[index].pdf_thumbnail = data.path;
+                        } else if (type === 'highlights_pdf1') {
+                            this.content.highlights[index].pdf1_path = data.path;
+                        } else if (type === 'highlights_thumb1') {
+                            this.content.highlights[index].pdf1_thumb = data.path;
+                        } else if (type === 'highlights_pdf2') {
+                            this.content.highlights[index].pdf2_path = data.path;
+                        } else if (type === 'highlights_thumb2') {
+                            this.content.highlights[index].pdf2_thumb = data.path;
                         }
                     }
                 } catch (e) {
