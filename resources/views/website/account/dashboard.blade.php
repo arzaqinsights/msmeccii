@@ -63,8 +63,8 @@
                                         <div class="text-2xl font-black text-slate-900">₹{{ number_format($sub->total_amount_paid, 2) }}</div>
                                         @if($sub->total_amount_paid > 0)
                                             <span class="inline-block mt-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded
-                                                {{ $sub->payment_status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
-                                                {{ $sub->payment_status }}
+                                                {{ $sub->payment_status === 'completed' ? 'bg-green-100 text-green-700' : ($sub->payment_status === 'awaiting_verification' ? 'bg-amber-100 text-amber-700' : 'bg-yellow-100 text-yellow-700') }}">
+                                                {{ str_replace('_', ' ', $sub->payment_status) }}
                                             </span>
                                         @endif
                                     </div>
@@ -91,9 +91,16 @@
                                     </div>
                                     
                                     <div class="md:w-48 flex items-end">
-                                        <a href="{{ route('admin.invoice.download', $sub->id) }}" class="w-full bg-slate-900 hover:bg-black text-white text-[10px] font-black uppercase tracking-widest py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
-                                            <i class="fa-solid fa-file-pdf"></i> Official Invoice
-                                        </a>
+                                        @if($sub->payment_status === 'completed' || $sub->total_amount_paid == 0)
+                                            <a href="{{ route('invoice.download', $sub->id) }}" class="w-full bg-slate-900 hover:bg-black text-white text-[10px] font-black uppercase tracking-widest py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
+                                                <i class="fa-solid fa-file-pdf"></i> Official Invoice
+                                            </a>
+                                        @else
+                                            <div class="w-full bg-slate-100 text-slate-400 text-[9px] font-black uppercase tracking-widest py-3 px-4 rounded-xl border border-slate-200 text-center flex flex-col gap-1">
+                                                <i class="fa-solid fa-hourglass-half"></i>
+                                                <span>Awaiting Verification</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 

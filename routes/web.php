@@ -102,6 +102,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/security', [AccountController::class, 'security'])->name('security');
         Route::put('/security', [AccountController::class, 'updateSecurity'])->name('security.update');
     });
+
+    Route::get('invoice/{submission}/download', [\App\Http\Controllers\InvoiceController::class, 'download'])->name('invoice.download');
 });
 
 // -------------------------------------------------------------
@@ -141,7 +143,6 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'show'])->name('submissions.show');
     Route::post('submissions/{submission}/mark-as-paid', [\App\Http\Controllers\Admin\SubmissionController::class, 'markAsPaid'])->name('submissions.mark-as-paid');
     Route::delete('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'destroy'])->name('submissions.destroy');
-    Route::get('invoice/{submission}/download', [\App\Http\Controllers\InvoiceController::class, 'download'])->name('invoice.download');
     
     // Growth & Stats Management
     Route::resource('growth', \App\Http\Controllers\Admin\GrowthRecordController::class);

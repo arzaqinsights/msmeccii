@@ -43,10 +43,21 @@
                 <a href="{{ route('account.dashboard') }}" class="flex-1 bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 px-6 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
                     <i class="fa-solid fa-user-gear"></i> Go to Dashboard
                 </a>
-                <a href="{{ route('admin.invoice.download', $submission->id) }}" class="flex-1 bg-slate-900 hover:bg-black text-white font-black py-4 px-6 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-invoice"></i> Download Invoice
-                </a>
+                @if($submission->payment_status === 'completed' || $submission->total_amount_paid == 0)
+                    <a href="{{ route('invoice.download', $submission->id) }}" class="flex-1 bg-slate-900 hover:bg-black text-white font-black py-4 px-6 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-invoice"></i> Download Invoice
+                    </a>
+                @endif
             </div>
+
+            @if($submission->payment_method === 'manual' && $submission->payment_status !== 'completed')
+                <div class="mt-8 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3 text-left">
+                    <i class="fa-solid fa-circle-info text-amber-500 mt-1"></i>
+                    <p class="text-[10px] font-bold text-amber-800 leading-relaxed uppercase tracking-tight">
+                        Manual Verification Required: <span class="font-black">Your invoice will be available for download in your Account Dashboard once our team verifies your bank transfer receipt.</span>
+                    </p>
+                </div>
+            @endif
             
             <p class="mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
                 <i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> SSL SECURED SYSTEM
