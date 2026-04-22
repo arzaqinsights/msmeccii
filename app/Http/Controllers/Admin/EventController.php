@@ -47,7 +47,7 @@ class EventController extends Controller
     public function uploadAttachment(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|max:20480', // 20MB max
+            'file' => 'required|file|max:51200', // 50MB max
         ]);
 
         if ($request->hasFile('file')) {
