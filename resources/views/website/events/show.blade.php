@@ -165,11 +165,16 @@
                             <div class="animate-on-scroll">
                                 <!-- Highlight Header (Conditional) -->
                                 @if(($hl['title'] && $hl['title'] !== '') || ($hl['desc'] && $hl['desc'] !== ''))
-                                    <div class="mb-8 p-8 bg-slate-900 rounded-2xl text-white shadow-2xl relative overflow-hidden group">
-                                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-primary/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                                    <div class="mb-8 p-10 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden group">
+                                        <div class="absolute top-0 right-0 w-40 h-40 bg-brand-primary/5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                                         <div class="relative z-10">
-                                            <h4 class="text-2xl font-black uppercase tracking-tight mb-2">{{ $hl['title'] }}</h4>
-                                            <p class="text-sm font-medium text-slate-400 leading-relaxed max-w-2xl">{{ $hl['desc'] }}</p>
+                                            <h4 class="text-2xl font-black uppercase tracking-tight text-slate-900 mb-4 flex items-center gap-3">
+                                                <span class="w-1.5 h-8 bg-brand-primary rounded-full"></span>
+                                                {{ $hl['title'] }}
+                                            </h4>
+                                            <div class="text-sm font-bold text-slate-500 leading-loose max-w-3xl prose-sm">
+                                                {!! nl2br(e($hl['desc'])) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 @endif
