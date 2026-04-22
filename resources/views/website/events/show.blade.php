@@ -44,7 +44,7 @@
             </div>
 
             @if($event->show_timer)
-                <div class="mt-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 inline-block shadow-2xl">
+                <div class="mt-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 inline-block shadow-2xl">
                     <div x-data="{
                         target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
                         now: new Date().getTime(),
@@ -75,7 +75,7 @@
             
             <!-- Left Sticky Sidebar (ElitePlus Style) -->
             <aside class="w-full lg:w-1/4 sticky top-32 z-30">
-                <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
+                <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
                     <div class="bg-slate-900 p-6">
                         <h4 class="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
                              <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span> Quick Navigation
@@ -119,7 +119,7 @@
                 </div>
 
                 <!-- Contact Box -->
-                <div class="mt-6 bg-linear-to-br from-brand-primary to-brand-primary-light rounded-3xl p-6 text-white shadow-xl shadow-brand-primary/20">
+                <div class="mt-6 bg-linear-to-br from-brand-primary to-brand-primary-light rounded-2xl p-6 text-white shadow-xl shadow-brand-primary/20">
                     <h5 class="text-[10px] font-black uppercase tracking-widest mb-4 border-b border-white/20 pb-2">Queries & Support</h5>
                     <div class="space-y-3">
                         <div class="flex items-center gap-3 text-xs font-bold">
@@ -138,7 +138,7 @@
             <main class="w-full lg:w-3/4 space-y-16">
                 
                 <!-- About Section -->
-                <div id="about" class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100 animate-on-scroll">
+                <div id="about" class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 animate-on-scroll">
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
                             <i class="fa-solid fa-circle-info text-brand-primary text-xl"></i>
@@ -165,7 +165,7 @@
                             <div class="animate-on-scroll">
                                 <!-- Highlight Header (Conditional) -->
                                 @if(($hl['title'] && $hl['title'] !== '') || ($hl['desc'] && $hl['desc'] !== ''))
-                                    <div class="mb-8 p-8 bg-slate-900 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+                                    <div class="mb-8 p-8 bg-slate-900 rounded-2xl text-white shadow-2xl relative overflow-hidden group">
                                         <div class="absolute top-0 right-0 w-32 h-32 bg-brand-primary/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
                                         <div class="relative z-10">
                                             <h4 class="text-2xl font-black uppercase tracking-tight mb-2">{{ $hl['title'] }}</h4>
@@ -178,7 +178,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <!-- PDF 1 Card -->
                                     @if(isset($hl['pdf1_path']) && $hl['pdf1_path'])
-                                        <div class="group bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                                        <div class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
                                             <div class="aspect-video bg-slate-50 rounded-2xl mb-5 overflow-hidden border border-slate-100 relative">
                                                 @if(isset($hl['pdf1_thumb']) && $hl['pdf1_thumb'])
                                                     <img src="{{ asset($hl['pdf1_thumb']) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
@@ -207,7 +207,7 @@
 
                                     <!-- PDF 2 Card -->
                                     @if(isset($hl['pdf2_path']) && $hl['pdf2_path'])
-                                        <div class="group bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                                        <div class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
                                             <div class="aspect-video bg-slate-50 rounded-2xl mb-5 overflow-hidden border border-slate-100 relative">
                                                 @if(isset($hl['pdf2_thumb']) && $hl['pdf2_thumb'])
                                                     <img src="{{ asset($hl['pdf2_thumb']) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
@@ -273,7 +273,7 @@
 
                 <!-- Venue Section -->
                 @if(isset($event->builder_content['venue']['name']) && $event->builder_content['venue']['name'])
-                <div id="venue" class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
+                <div id="venue" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 animate-on-scroll">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-12">
                             <i class="fa-solid fa-map-location-dot text-4xl text-brand-primary mb-6 block"></i>
@@ -285,12 +285,16 @@
                                 Navigate on Maps <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </div>
-                        <div class="min-h-[300px] bg-slate-100">
-                             @if(isset($event->builder_content['venue']['map_url']) && str_contains($event->builder_content['venue']['map_url'], 'google.com/maps/embed'))
-                                <iframe src="{{ $event->builder_content['venue']['map_url'] }}" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+                        <div class="h-full bg-slate-100 relative min-h-[400px]">
+                             @if(isset($event->builder_content['venue']['image']) && $event->builder_content['venue']['image'])
+                                <img src="{{ asset($event->builder_content['venue']['image']) }}" class="w-full h-full object-cover">
                              @else
-                                <div class="w-full h-full flex items-center justify-center bg-slate-800 text-white italic text-xs">
-                                    Map visualization coming soon.
+                                <div class="w-full h-full flex items-center justify-center bg-slate-900 overflow-hidden relative group">
+                                    <div class="absolute inset-0 bg-brand-primary opacity-10 blur-3xl"></div>
+                                    <div class="relative z-10 text-center p-8">
+                                        <i class="fa-solid fa-building-circle-arrow-right text-6xl text-brand-primary mb-4 opacity-20"></i>
+                                        <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Venue Visual Pending</p>
+                                    </div>
                                 </div>
                              @endif
                         </div>

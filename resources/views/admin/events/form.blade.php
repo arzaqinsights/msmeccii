@@ -270,20 +270,43 @@
 
                     <!-- Venue Tab -->
                     <div x-show="activeTab === 'venue'" class="space-y-6">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Venue Visual Name</label>
-                            <input type="text" name="builder_content[venue][name]" x-model="content.venue.name" 
-                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full Address & Details</label>
-                            <textarea name="builder_content[venue][address]" x-model="content.venue.address" rows="3"
-                                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Google Maps Embed URL / Link</label>
-                            <input type="text" name="builder_content[venue][map_url]" x-model="content.venue.map_url" placeholder="https://www.google.com/maps/embed?pb=..."
-                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-mono text-xs text-slate-500">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Venue Name</label>
+                                    <input type="text" name="builder_content[venue][name]" x-model="content.venue.name" placeholder="e.g. Pragati Maidan, New Delhi"
+                                           class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Full Address & Details</label>
+                                    <textarea name="builder_content[venue][address]" x-model="content.venue.address" rows="3"
+                                              class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Venue Visual Image</label>
+                                <div class="relative aspect-video rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 overflow-hidden flex items-center justify-center group">
+                                    <template x-if="content.venue.image">
+                                        <img :src="content.venue.image" class="w-full h-full object-cover">
+                                    </template>
+                                    <template x-if="!content.venue.image">
+                                        <div class="text-center">
+                                            <i class="fa-solid fa-building-circle-check text-4xl text-slate-200 mb-2"></i>
+                                            <p class="text-[10px] font-bold text-slate-400">Click to upload Venue Photo</p>
+                                        </div>
+                                    </template>
+                                    <input type="file" @change="uploadPartnerLogo($event, null, 'venue_image')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                    <input type="hidden" name="builder_content[venue][image]" x-model="content.venue.image">
+                                    
+                                    <template x-if="content.venue.image">
+                                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <button type="button" @click="content.venue.image = ''" class="bg-white text-red-600 px-4 py-2 rounded-full text-[10px] font-black uppercase shadow-xl">
+                                                Remove Photo
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -496,7 +519,7 @@
                 venue: {
                     name: @json($event->builder_content['venue']['name'] ?? ''),
                     address: @json($event->builder_content['venue']['address'] ?? ''),
-                    map_url: @json($event->builder_content['venue']['map_url'] ?? ''),
+                    image: @json($event->builder_content['venue']['image'] ?? ''),
                 },
                 partners: @json($event->builder_content['partners'] ?? []),
                 faq: @json($event->builder_content['faq'] ?? []),
@@ -543,6 +566,8 @@
                             this.content.highlights[index].pdf2_path = data.path;
                         } else if (type === 'highlights_thumb2') {
                             this.content.highlights[index].pdf2_thumb = data.path;
+                        } else if (type === 'venue_image') {
+                            this.content.venue.image = data.path;
                         }
                     }
                 } catch (e) {
