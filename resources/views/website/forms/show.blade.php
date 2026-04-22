@@ -117,7 +117,7 @@
             <div class="space-y-6">
                 <template x-for="field in fields" :key="field.field_identifier">
                     
-                    <div x-show="isFieldVisible(field)" x-transition.opacity duration.500ms>
+                    <div x-show="field.type !== 'hidden_price' && isFieldVisible(field)" x-transition.opacity duration.500ms>
                         <label class="block text-xs font-bold text-slate-500 mb-2">
                             <span x-text="field.label"></span>
                             <span x-show="field.is_required" class="text-red-500 ml-1">*</span>
@@ -165,25 +165,32 @@
             </div>
 
             <!-- Pre-Checkout Injector (Monetization Engine) -->
-            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-brand-primary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
                 <!-- BG Pattern -->
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                 
-                <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 relative z-10">Application Ledger</h4>
+                <h4 class="text-xs font-black uppercase tracking-widest text-white/50 mb-4 relative z-10">Application Ledger</h4>
                 
-                <div class="space-y-2 relative z-10 border-b border-slate-700 pb-4 mb-4">
-                    <div class="flex justify-between items-center text-sm font-medium">
-                        <span class="text-slate-300">Total Subtotal</span>
+                <div class="space-y-3 relative z-10 border-b border-white/10 pb-4 mb-4">
+                    <template x-for="item in priceBreakdown" :key="item.label">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-white/70" x-text="item.label"></span>
+                            <span class="font-bold">₹<span x-text="item.amount.toFixed(2)"></span></span>
+                        </div>
+                    </template>
+                    
+                    <div class="pt-2 mt-2 border-t border-white/5 flex justify-between items-center text-sm font-medium">
+                        <span class="text-white/80">Total Subtotal</span>
                         <span>₹<span x-text="subtotal.toFixed(2)"></span></span>
                     </div>
                     <div class="flex justify-between items-center text-sm font-medium">
-                        <span class="text-slate-300">Taxes & Processing</span>
+                        <span class="text-white/80">Taxes & Processing</span>
                         <span>₹<span x-text="totalTax.toFixed(2)"></span></span>
                     </div>
                 </div>
                 
                 <div class="flex justify-between items-end relative z-10">
-                    <span class="text-sm font-black text-slate-400 uppercase tracking-widest">Amount Due</span>
+                    <span class="text-sm font-black text-white/50 uppercase tracking-widest">Amount Due</span>
                     <span class="text-3xl font-black">₹<span x-text="totalCalculated.toFixed(2)"></span></span>
                 </div>
             </div>
@@ -285,13 +292,15 @@
             get subtotal() {
                 let total = 0;
                 this.fields.forEach(f => {
-                    if (this.isFieldVisible(f) && this.formData[f.field_identifier] !== '') {
-                        if (f.type === 'dropdown') {
+                    if (this.isFieldVisible(f)) {
+                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
                             const opts = this.getFieldOptions(f);
                             const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
                             if (selected && selected.price) total += parseFloat(selected.price);
-                        } else if (f.base_amount && parseFloat(f.base_amount) > 0) {
-                            total += parseFloat(f.base_amount);
+                        } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
+                            if (f.base_amount && parseFloat(f.base_amount) > 0) {
+                                total += parseFloat(f.base_amount);
+                            }
                         }
                     }
                 });
@@ -301,15 +310,17 @@
             get totalTax() {
                 let tax = 0;
                 this.fields.forEach(f => {
-                    if (this.isFieldVisible(f) && this.formData[f.field_identifier] !== '') {
-                        if (f.type === 'dropdown') {
+                    if (this.isFieldVisible(f)) {
+                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
                             const opts = this.getFieldOptions(f);
                             const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
                             if (selected && selected.price && selected.tax) {
                                 tax += parseFloat(selected.price) * (parseFloat(selected.tax) / 100);
                             }
-                        } else if (f.base_amount && parseFloat(f.base_amount) > 0 && f.tax_percentage && parseFloat(f.tax_percentage) > 0) {
-                            tax += parseFloat(f.base_amount) * (parseFloat(f.tax_percentage) / 100);
+                        } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
+                            if (f.base_amount && parseFloat(f.base_amount) > 0 && f.tax_percentage && parseFloat(f.tax_percentage) > 0) {
+                                tax += parseFloat(f.base_amount) * (parseFloat(f.tax_percentage) / 100);
+                            }
                         }
                     }
                 });
@@ -318,6 +329,34 @@
 
             get totalCalculated() {
                 return this.subtotal + this.totalTax;
+            },
+
+            get priceBreakdown() {
+                let breakdown = [];
+                this.fields.forEach(f => {
+                    if (this.isFieldVisible(f)) {
+                        let amount = 0;
+                        let label = f.label;
+                        
+                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
+                            const opts = this.getFieldOptions(f);
+                            const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
+                            if (selected && selected.price) {
+                                amount = parseFloat(selected.price);
+                                label = `${f.label}: ${selected.label}`;
+                            }
+                        } else if (f.type === 'hidden_price' || this.formData[f.field_identifier] !== '') {
+                            if (f.base_amount && parseFloat(f.base_amount) > 0) {
+                                amount = parseFloat(f.base_amount);
+                            }
+                        }
+                        
+                        if (amount > 0) {
+                            breakdown.push({ label: label, amount: amount });
+                        }
+                    }
+                });
+                return breakdown;
             },
 
             async submitForm(e) {

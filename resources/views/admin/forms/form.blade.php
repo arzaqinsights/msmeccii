@@ -132,8 +132,11 @@
                     <button type="button" @click="addField('dropdown')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
                         + Dropdown Options
                     </button>
-                    <button type="button" @click="addField('file')" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded border border-emerald-500/50 shadow-sm">
+                    <button type="button" @click="addField('file')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
                         + File Upload
+                    </button>
+                    <button type="button" @click="addField('hidden_price')" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded border border-emerald-500/50 shadow-sm">
+                        + Fixed Charge (Hidden)
                     </button>
                 </div>
             </div>
@@ -200,11 +203,30 @@
                                                class="w-full text-sm font-bold text-slate-900 border border-slate-200 rounded-lg p-2.5 focus:border-emerald-500 outline-none">
                                     </div>
 
-                                    <template x-if="field.type !== 'file'">
+                                    <template x-if="field.type !== 'file' && field.type !== 'hidden_price'">
                                         <div class="md:col-span-2">
                                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Placeholder Text</label>
                                             <input type="text" x-model="field.placeholder" placeholder="Type here..." 
                                                    class="w-full text-sm font-medium text-slate-600 border border-slate-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
+                                        </div>
+                                    </template>
+
+                                    <template x-if="field.type === 'hidden_price'">
+                                        <div class="md:col-span-2 bg-emerald-50 p-4 rounded-xl border border-emerald-100 grid grid-cols-2 gap-4">
+                                            <div class="col-span-2">
+                                                <h4 class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-2"><i class="fa-solid fa-money-bill-wave"></i> Fixed Price Configuration</h4>
+                                                <p class="text-[10px] text-emerald-700 font-medium opacity-70">This field will NOT be visible to the user, but its price will be added to the total automatically.</p>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Amount (₹)</label>
+                                                <input type="number" x-model="field.base_amount" placeholder="0" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-emerald-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Tax (%)</label>
+                                                <input type="number" x-model="field.tax_percentage" placeholder="0" 
+                                                       class="w-full text-sm font-bold text-slate-900 border border-emerald-200 rounded-lg p-2 focus:border-emerald-500 outline-none">
+                                            </div>
                                         </div>
                                     </template>
                                     
@@ -470,10 +492,6 @@
             prepareSubmit() {
                 // Transfer options_list into options property for dropdowns
                 this.fields.forEach(f => {
-                    // Pricing is now strictly option-based for dropdowns
-                    f.base_amount = null;
-                    f.tax_percentage = null;
-                    
                     if (f.type === 'dropdown') {
                         if (f.depends_on && f.dependency_mode === 'options') {
                             // Map dynamic cascading options
@@ -482,6 +500,10 @@
                         } else {
                             f.options = f.options_list;
                         }
+                    } else if (f.type !== 'hidden_price') {
+                        // Pricing is strictly option-based or hidden_price based
+                        f.base_amount = null;
+                        f.tax_percentage = null;
                     }
                 });
                 this.fieldsJson = JSON.stringify(this.fields);
