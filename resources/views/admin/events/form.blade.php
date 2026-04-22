@@ -130,89 +130,93 @@
                         <div class="grid grid-cols-1 gap-4">
                             <template x-for="(item, index) in content.highlights" :key="index">
                                 <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 relative group">
-                                    <div class="grid grid-cols-1 gap-4">
-                                        <div class="md:col-span-4">
+                                    <div class="space-y-4">
+                                        <!-- Title -->
+                                        <div>
                                             <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Highlight Title</label>
                                             <input type="text" :name="'builder_content[highlights]['+index+'][title]'" x-model="item.title"
-                                                   class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold">
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Brief Description</label>
-                                            <textarea :name="'builder_content[highlights]['+index+'][desc]'" x-model="item.desc" rows="2"
-                                                      class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs"></textarea>
-                                        </div>
-                                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
-                                        <!-- PDF Slot 1 -->
-                                        <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                                            <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Slot 1</label>
-                                            <div class="space-y-2">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-12 h-12 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
-                                                        <template x-if="item.pdf1_thumb">
-                                                            <img :src="item.pdf1_thumb" class="w-full h-full object-cover">
-                                                        </template>
-                                                        <template x-if="!item.pdf1_thumb">
-                                                            <i class="fa-solid fa-file-pdf text-slate-200 text-lg"></i>
-                                                        </template>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_name]'" x-model="item.pdf1_name" placeholder="Document Name (e.g. Brochure)"
-                                                               class="w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-[10px] font-bold text-slate-700 mb-1 outline-none focus:border-brand-primary">
-                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_path]'" x-model="item.pdf1_path" readonly placeholder="No file"
-                                                               class="w-full bg-slate-50 border-0 text-[8px] font-mono truncate mb-1">
-                                                        <div class="flex gap-1">
-                                                            <div class="relative overflow-hidden">
-                                                                <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
-                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf1')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                            </div>
-                                                            <div class="relative overflow-hidden">
-                                                                <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
-                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb1')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                            </div>
-                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf1_thumb]'" x-model="item.pdf1_thumb">
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                   class="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs font-bold outline-none focus:border-brand-primary">
                                         </div>
 
-                                        <!-- PDF Slot 2 -->
-                                        <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                                            <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Slot 2</label>
-                                            <div class="space-y-2">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-12 h-12 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
-                                                        <template x-if="item.pdf2_thumb">
-                                                            <img :src="item.pdf2_thumb" class="w-full h-full object-cover">
-                                                        </template>
-                                                        <template x-if="!item.pdf2_thumb">
-                                                            <i class="fa-solid fa-file-pdf text-slate-200 text-lg"></i>
-                                                        </template>
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_name]'" x-model="item.pdf2_name" placeholder="Document Name (e.g. Schedule)"
-                                                               class="w-full bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-[10px] font-bold text-slate-700 mb-1 outline-none focus:border-brand-primary">
-                                                        <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_path]'" x-model="item.pdf2_path" readonly placeholder="No file"
-                                                               class="w-full bg-slate-50 border-0 text-[8px] font-mono truncate mb-1">
-                                                        <div class="flex gap-1">
-                                                            <div class="relative overflow-hidden">
-                                                                <button type="button" class="bg-red-50 text-red-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-red-100">File</button>
-                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf2')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                            </div>
-                                                            <div class="relative overflow-hidden">
-                                                                <button type="button" class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
-                                                                <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb2')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                            </div>
-                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf2_thumb]'" x-model="item.pdf2_thumb">
+                                        <!-- Description -->
+                                        <div>
+                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Brief Description (Optional)</label>
+                                            <textarea :name="'builder_content[highlights]['+index+'][desc]'" x-model="item.desc" rows="2"
+                                                      class="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs outline-none focus:border-brand-primary"></textarea>
+                                        </div>
+
+                                        <!-- PDF Section -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                            <!-- PDF Slot 1 -->
+                                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+                                                <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Attachment 01</label>
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <div class="w-14 h-14 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                                                            <template x-if="item.pdf1_thumb">
+                                                                <img :src="item.pdf1_thumb" class="w-full h-full object-cover">
+                                                            </template>
+                                                            <template x-if="!item.pdf1_thumb">
+                                                                <i class="fa-solid fa-file-pdf text-slate-200 text-xl"></i>
+                                                            </template>
                                                         </div>
+                                                        <div class="flex-1 min-w-0 space-y-2">
+                                                            <input type="text" :name="'builder_content[highlights]['+index+'][pdf1_name]'" x-model="item.pdf1_name" placeholder="Document Label"
+                                                                   class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2 text-[10px] font-bold outline-none focus:border-brand-primary">
+                                                            <div class="flex gap-2">
+                                                                <div class="relative flex-1">
+                                                                    <button type="button" class="w-full bg-red-50 text-red-600 px-3 py-1.5 rounded text-[8px] font-black uppercase border border-red-100">Upload PDF</button>
+                                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf1')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                                </div>
+                                                                <div class="relative flex-1">
+                                                                    <button type="button" class="w-full bg-blue-50 text-blue-600 px-3 py-1.5 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
+                                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb1')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf1_path]'" x-model="item.pdf1_path">
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf1_thumb]'" x-model="item.pdf1_thumb">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- PDF Slot 2 -->
+                                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+                                                <label class="block text-[8px] font-black text-slate-400 uppercase mb-2">PDF Attachment 02</label>
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <div class="w-14 h-14 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                                                            <template x-if="item.pdf2_thumb">
+                                                                <img :src="item.pdf2_thumb" class="w-full h-full object-cover">
+                                                            </template>
+                                                            <template x-if="!item.pdf2_thumb">
+                                                                <i class="fa-solid fa-file-pdf text-slate-200 text-xl"></i>
+                                                            </template>
+                                                        </div>
+                                                        <div class="flex-1 min-w-0 space-y-2">
+                                                            <input type="text" :name="'builder_content[highlights]['+index+'][pdf2_name]'" x-model="item.pdf2_name" placeholder="Document Label"
+                                                                   class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2 text-[10px] font-bold outline-none focus:border-brand-primary">
+                                                            <div class="flex gap-2">
+                                                                <div class="relative flex-1">
+                                                                    <button type="button" class="w-full bg-red-50 text-red-600 px-3 py-1.5 rounded text-[8px] font-black uppercase border border-red-100">Upload PDF</button>
+                                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_pdf2')" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                                </div>
+                                                                <div class="relative flex-1">
+                                                                    <button type="button" class="w-full bg-blue-50 text-blue-600 px-3 py-1.5 rounded text-[8px] font-black uppercase border border-blue-100">Thumb</button>
+                                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'highlights_thumb2')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf2_path]'" x-model="item.pdf2_path">
+                                                            <input type="hidden" :name="'builder_content[highlights]['+index+'][pdf2_thumb]'" x-model="item.pdf2_thumb">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <button type="button" @click="removeItem('highlights', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                                    </button>
                                     </div>
                                     </div>
                                     <button type="button" @click="removeItem('highlights', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
