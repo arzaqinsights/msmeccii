@@ -7,6 +7,6 @@ export const options = {
 };
 
 export default function () {
-  http.get('https://msmeccii.in');
+  http.get('https://xodry.com');
   sleep(1);
 }

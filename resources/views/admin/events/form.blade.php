@@ -360,6 +360,13 @@
                                         <input type="hidden" :name="'builder_content[partners]['+index+'][logo]'" x-model="item.logo">
                                     </div>
 
+                                    <div class="mt-3 pt-3 border-t border-slate-50">
+                                        <label class="flex items-center justify-center gap-2 cursor-pointer">
+                                            <input type="checkbox" :name="'builder_content[partners]['+index+'][is_pending]'" x-model="item.is_pending" class="w-3 h-3 text-purple-600 rounded">
+                                            <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Under Confirmation</span>
+                                        </label>
+                                    </div>
+
                                     <button type="button" @click="removeItem('partners', index)" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity translate-x-1/2 -translate-y-1/2 shadow-lg">
                                         <i class="fa-solid fa-xmark text-[8px]"></i>
                                     </button>
@@ -544,14 +551,18 @@
                     address: @json($event->builder_content['venue']['address'] ?? ''),
                     image: @json($event->builder_content['venue']['image'] ?? ''),
                 },
-                partners: @json($event->builder_content['partners'] ?? []),
+                partners: @json($event->builder_content['partners'] ?? []).map(p => ({
+                    name: p.name || '',
+                    logo: p.logo || '',
+                    is_pending: !!p.is_pending
+                })),
                 faq: @json($event->builder_content['faq'] ?? []),
                 resources: @json($event->builder_content['resources'] ?? []),
             },
             addItem(section) {
                 if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf1_name: '', pdf2_path: '', pdf2_thumb: '', pdf2_name: '' });
                 if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
-                if (section === 'partners') this.content.partners.push({ name: '', logo: '' });
+                if (section === 'partners') this.content.partners.push({ name: '', logo: '', is_pending: false });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });
                 if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
             },

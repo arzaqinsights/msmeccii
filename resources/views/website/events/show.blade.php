@@ -105,10 +105,10 @@
                                     ['id' => 'about', 'label' => 'About Summit', 'icon' => 'fa-info-circle'],
                                     ['id' => 'highlights', 'label' => 'Why Join?', 'icon' => 'fa-star'],
                                     ['id' => 'pricing', 'label' => 'Registration', 'icon' => 'fa-ticket'],
-                                    ['id' => 'partners', 'label' => 'Sponsors', 'icon' => 'fa-handshake'],
                                     ['id' => 'faq', 'label' => 'FAQ', 'icon' => 'fa-question-circle'],
                                     ['id' => 'resources', 'label' => 'Resources', 'icon' => 'fa-folder-open'],
                                     ['id' => 'venue', 'label' => 'Venue Info', 'icon' => 'fa-map-marker-alt'],
+                                    ['id' => 'partners', 'label' => 'Sponsors', 'icon' => 'fa-handshake'],
                                     
                                 ];
                             @endphp
@@ -291,22 +291,7 @@
                 @endif
 
 
-                <!-- Sponsors Section -->
-                @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
-                <div id="partners" class="scroll-mt-36 bg-white rounded-2xl p-12 shadow-sm border border-slate-100 animate-on-scroll">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
-                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        @foreach($event->builder_content['partners'] as $partner)
-                            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex items-center justify-center h-28 group hover:-translate-y-1 transition-all">
-                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-full max-w-full grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
+
 
                 <!-- FAQ Section -->
                 @if(isset($event->builder_content['faq']) && count($event->builder_content['faq']) > 0)
@@ -409,6 +394,26 @@
                                 </div>
                              @endif
                         </div>
+                    </div>
+                </div>
+                @endif
+                
+                <!-- Sponsors Section -->
+                @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
+                <div id="partners" class="scroll-mt-36 bg-white rounded-2xl p-12 shadow-sm border border-slate-100 animate-on-scroll">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        @foreach($event->builder_content['partners'] as $partner)
+                            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col items-center justify-center h-auto min-h-32 group hover:-translate-y-1 transition-all">
+                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-20 max-w-full grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 {{ isset($partner['is_pending']) && $partner['is_pending'] ? 'blur-[1px]' : '' }}">
+                                @if(isset($partner['is_pending']) && $partner['is_pending'])
+                                    <span class="mt-2 px-2 py-0.5 bg-amber-100 text-amber-700 text-[8px] font-black uppercase tracking-widest rounded-full border border-amber-200">Under Confirmation</span>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 @endif
