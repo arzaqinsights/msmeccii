@@ -351,8 +351,11 @@
                                             <i class="fa-solid fa-image text-slate-200 text-2xl"></i>
                                         </template>
                                     </div>
-                                    <input type="text" :name="'builder_content[partners]['+index+'][name]'" x-model="item.name" placeholder="Logo Name"
-                                           class="w-full bg-slate-50 border-0 text-[10px] font-black uppercase tracking-widest text-center outline-none">
+                                    <div class="mt-2 text-left">
+                                        <label class="block text-[8px] font-black text-slate-400 uppercase mb-1 tracking-widest text-center">Partner Name</label>
+                                        <input type="text" :name="'builder_content[partners]['+index+'][name]'" x-model="item.name" placeholder="Enter Company Name"
+                                               class="w-full bg-slate-50 border border-slate-100 rounded-lg p-2 text-[10px] font-black uppercase tracking-widest text-center outline-none focus:border-brand-primary">
+                                    </div>
                                     
                                     <div class="mt-2 relative">
                                         <button type="button" class="text-[9px] font-black text-blue-600 uppercase">Upload Logo</button>
