@@ -400,23 +400,35 @@
                 
                 <!-- Sponsors Section -->
                 @if(isset($event->builder_content['partners']) && count($event->builder_content['partners']) > 0)
-                <div id="partners" class="scroll-mt-36 bg-white rounded-2xl p-12 shadow-sm border border-slate-100 animate-on-scroll">
-                    <div class="text-center mb-12">
+                <div id="partners" class="scroll-mt-36 bg-white rounded-2xl py-16 shadow-sm border border-slate-100 animate-on-scroll overflow-hidden">
+                    <div class="text-center mb-12 container">
                         <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        @foreach($event->builder_content['partners'] as $partner)
-                            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col items-center justify-center h-auto min-h-32 group hover:-translate-y-1 transition-all">
-                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-20 max-w-full transition-all duration-500">
-                                @if(isset($partner['name']) && $partner['name'])
-                                    <p class="mt-3 text-[9px] font-black text-slate-900 uppercase tracking-widest text-center group-hover:text-brand-primary transition-colors">{{ $partner['name'] }}</p>
-                                @endif
-                                @if(isset($partner['is_pending']) && $partner['is_pending'])
-                                    <span class="mt-2 px-2 py-0.5 bg-amber-100 text-amber-700 text-[8px] font-black uppercase tracking-widest rounded-full border border-amber-200">Under Confirmation</span>
-                                @endif
-                            </div>
-                        @endforeach
+                    
+                    <div class="relative mt-10">
+                        <!-- Gradient Overlays for smooth fade -->
+                        <div class="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-white to-transparent z-10"></div>
+                        <div class="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-white to-transparent z-10"></div>
+                        
+                        <div class="flex gap-8 items-center animate-logo-slide whitespace-nowrap">
+                            @php 
+                                // Duplicate the partners array to create a seamless loop
+                                $slidingPartners = array_merge($event->builder_content['partners'], $event->builder_content['partners']); 
+                            @endphp
+                            
+                            @foreach($slidingPartners as $partner)
+                                <div class="flex-none bg-white rounded-3xl p-8 border border-slate-50 shadow-xs flex flex-col items-center justify-center h-auto min-h-40 w-64 group transition-all">
+                                    <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-24 max-w-full object-contain transition-all duration-500">
+                                    @if(isset($partner['name']) && $partner['name'])
+                                        <p class="mt-4 text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] text-center group-hover:text-brand-primary transition-colors">{{ $partner['name'] }}</p>
+                                    @endif
+                                    @if(isset($partner['is_pending']) && $partner['is_pending'])
+                                        <span class="mt-2 px-3 py-1 bg-amber-100 text-amber-700 text-[8px] font-black uppercase tracking-widest rounded-full border border-amber-200">Under Confirmation</span>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -429,5 +441,18 @@
 <style>
     html { scroll-behavior: smooth; }
     [x-cloak] { display: none !important; }
+
+    @keyframes logo-slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-logo-slide {
+        display: flex;
+        width: max-content;
+        animation: logo-slide 40s linear infinite;
+    }
+    .animate-logo-slide:hover {
+        animation-play-state: paused;
+    }
 </style>
 @endsection
