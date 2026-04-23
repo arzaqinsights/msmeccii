@@ -345,7 +345,7 @@
                                 <div class="bg-white border border-slate-100 rounded-xl p-4 text-center relative group shadow-sm transition-all hover:border-brand-primary">
                                     <div class="h-20 flex items-center justify-center mb-3">
                                         <template x-if="item.logo">
-                                            <img :src="item.logo" class="max-h-full max-w-full grayscale group-hover:grayscale-0 transition-all">
+                                            <img :src="item.logo" class="max-h-full max-w-full transition-all">
                                         </template>
                                         <template x-if="!item.logo">
                                             <i class="fa-solid fa-image text-slate-200 text-2xl"></i>
