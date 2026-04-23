@@ -52,6 +52,17 @@ class PageController extends Controller
             $cat->cover = \App\Models\Gallery::find($cat->latest_id)->image_path;
         }
 
+        // Apply Custom Ordering
+        $site = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        $savedOrder = isset($site['gallery_category_order']) ? json_decode($site['gallery_category_order'], true) : [];
+        
+        if (!empty($savedOrder)) {
+            $categories = $categories->sortBy(function($cat) use ($savedOrder) {
+                $pos = array_search($cat->category, $savedOrder);
+                return $pos === false ? 999 : $pos;
+            })->values();
+        }
+
         return view('website.gallery.index', compact('categories'));
     }
 

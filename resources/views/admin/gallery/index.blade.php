@@ -183,8 +183,80 @@
         </div>
     </div>
 
-    <!-- Albums Grid -->
-    <h3 class="text-xl font-black text-slate-800 pt-4"><i class="fa-solid fa-images mr-2"></i> Photo Albums</h3>
+    <!-- Albums Grid Header -->
+    <div class="flex items-center justify-between pt-4" x-data="{ showOrderModal: false }">
+        <h3 class="text-xl font-black text-slate-800"><i class="fa-solid fa-images mr-2"></i> Photo Albums</h3>
+        
+        <button @click="showOrderModal = true" class="bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest shadow-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-sort"></i> Reorder Albums
+        </button>
+
+        <!-- Reorder Modal -->
+        <div x-show="showOrderModal" x-transition.opacity class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <div @click.away="showOrderModal = false" class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden" x-data="galleryOrdering()">
+                <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <h4 class="text-lg font-black text-slate-900 uppercase tracking-widest">Set Album Order</h4>
+                    <button @click="showOrderModal = false" class="text-slate-400 hover:text-slate-900 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Use arrows to prioritize categories on the website</p>
+                    
+                    <form action="{{ route('admin.gallery.save-order') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="category_order" :value="JSON.stringify(items)">
+                        
+                        <div class="space-y-2 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
+                            <template x-for="(cat, index) in items" :key="cat">
+                                <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-100 rounded-xl group hover:border-indigo-500/30 transition-all">
+                                    <div class="flex items-center gap-4">
+                                        <span class="w-8 h-8 rounded-lg bg-white border border-slate-100 flex items-center justify-center text-[10px] font-black text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-100" x-text="index + 1"></span>
+                                        <span class="text-sm font-bold text-slate-700" x-text="cat"></span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <button type="button" @click="moveUp(index)" :disabled="index === 0" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-indigo-600 disabled:opacity-30">
+                                            <i class="fa-solid fa-arrow-up text-xs"></i>
+                                        </button>
+                                        <button type="button" @click="moveDown(index)" :disabled="index === items.length - 1" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-indigo-600 disabled:opacity-30">
+                                            <i class="fa-solid fa-arrow-down text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="mt-8 flex gap-3">
+                            <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-2xl uppercase tracking-widest text-xs transition-all shadow-lg shadow-indigo-200">Save New Order</button>
+                            <button type="button" @click="showOrderModal = false" class="px-8 bg-slate-100 hover:bg-slate-200 text-slate-600 font-black py-4 rounded-2xl uppercase tracking-widest text-xs transition-all">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function galleryOrdering() {
+            return {
+                items: @json($categories->pluck('category')->toArray()),
+                moveUp(index) {
+                    if (index > 0) {
+                        let temp = this.items[index];
+                        this.items[index] = this.items[index - 1];
+                        this.items[index - 1] = temp;
+                        this.items = [...this.items];
+                    }
+                },
+                moveDown(index) {
+                    if (index < this.items.length - 1) {
+                        let temp = this.items[index];
+                        this.items[index] = this.items[index + 1];
+                        this.items[index + 1] = temp;
+                        this.items = [...this.items];
+                    }
+                }
+            }
+        }
+    </script>
     
     @if($categories->count() > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

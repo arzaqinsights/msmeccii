@@ -21,6 +21,17 @@ class GalleryController extends Controller
             $cat->cover = Gallery::find($cat->latest_id)->image_path;
         }
 
+        // Apply Custom Ordering from Site Settings
+        $site = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        $savedOrder = isset($site['gallery_category_order']) ? json_decode($site['gallery_category_order'], true) : [];
+        
+        if (!empty($savedOrder)) {
+            $categories = $categories->sortBy(function($cat) use ($savedOrder) {
+                $pos = array_search($cat->category, $savedOrder);
+                return $pos === false ? 999 : $pos;
+            })->values();
+        }
+
         // Just existing names for datalist
         $existingCategories = Gallery::distinct()->pluck('category');
 
@@ -95,6 +106,20 @@ class GalleryController extends Controller
         Gallery::where('category', $oldCategory)->update(['category' => $newCategory]);
 
         return back()->with('success', "Category renamed from '$oldCategory' to '$newCategory' successfully.");
+    }
+
+    public function saveOrder(Request $request)
+    {
+        $request->validate([
+            'category_order' => 'required|string',
+        ]);
+
+        \App\Models\SiteSetting::updateOrCreate(
+            ['key' => 'gallery_category_order'],
+            ['value' => $request->category_order]
+        );
+
+        return back()->with('success', 'Gallery category order updated successfully.');
     }
     public function destroy($id)
     {
