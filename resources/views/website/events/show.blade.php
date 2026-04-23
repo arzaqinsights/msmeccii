@@ -405,7 +405,7 @@
                         <h2 class="text-3xl font-black text-slate-900 mb-2">Our <span class="text-brand-primary">Partners</span></h2>
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Supported by global industry leaders</p>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach($event->builder_content['partners'] as $partner)
                             <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col items-center justify-center h-auto min-h-32 group hover:-translate-y-1 transition-all">
                                 <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-20 max-w-full transition-all duration-500">
