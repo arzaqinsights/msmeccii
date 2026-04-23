@@ -408,7 +408,7 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                         @foreach($event->builder_content['partners'] as $partner)
                             <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col items-center justify-center h-auto min-h-32 group hover:-translate-y-1 transition-all">
-                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-20 max-w-full transition-all duration-500 {{ isset($partner['is_pending']) && $partner['is_pending'] ? 'blur-[1px]' : '' }}">
+                                <img src="{{ asset($partner['logo']) }}" alt="{{ $partner['name'] }}" class="max-h-20 max-w-full transition-all duration-500">
                                 @if(isset($partner['name']) && $partner['name'])
                                     <p class="mt-3 text-[9px] font-black text-slate-900 uppercase tracking-widest text-center group-hover:text-brand-primary transition-colors">{{ $partner['name'] }}</p>
                                 @endif
