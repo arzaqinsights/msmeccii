@@ -9,19 +9,16 @@
         <!-- Section Header -->
         <div class="text-left flex flex-col md:flex-row items-center justify-between mb-20 animate-on-scroll">
             <div>
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary border border-brand-primary/20 mb-6">
-                    <i class="fa-solid fa-shield text-white text-xs"></i>
-                    <span class="text-white text-xs font-bold tracking-widest uppercase">Why Choose Us</span>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-100 mb-6 shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-brand-primary text-xs"></i>
+                    <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">The MSMECCII Advantage</span>
                 </div>
-                <h2 class="text-4xl max-w-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-                    Why <span class="text-brand-primary">100K+</span> Enterprises Trust <span
-                        class="text-brand-accent">MSMECCII</span>
+                <h2 class="text-4xl max-w-3xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+                    Why <span class="text-brand-primary">100K+</span> Enterprises Trust <span class="text-brand-accent">MSMECCII</span>
                 </h2>
             </div>
-            <p class="text-slate-500 max-w-2xl font-semibold text-lg leading-relaxed">
-                Connect, grow, and transform with India's most powerful business ecosystem. We provide the tools,
-                network, and recognition your enterprise needs to scale globally.
+            <p class="text-slate-500 max-w-2xl font-medium text-lg leading-relaxed">
+                Connect, grow, and transform with India's most powerful business ecosystem. We provide the tools, network, and recognition your enterprise needs to scale globally.
             </p>
         </div>
 
@@ -103,12 +100,12 @@
         <div class="space-y-8">
             {{-- Unified Card Style Functions --}}
             @php
-                $bigCardClass = "lg:col-span-3 rounded-2xl p-10 bg-brand-primary border border-white/10 hover:shadow-2xl hover:shadow-brand-primary/20 transition-all group animate-on-scroll relative overflow-hidden";
-                $smallCardClass = "rounded-2xl p-8 bg-brand-primary border border-white/10 hover:shadow-xl transition-all animate-on-scroll flex flex-col justify-between relative overflow-hidden";
-                $numberCircle = "absolute -top-2 -right-2 w-16 h-16 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white font-black text-xl backdrop-blur-sm group-hover:bg-white group-hover:text-brand-primary transition-all";
-                $iconBox = "w-16 h-16 shrink-0 rounded-2xl bg-white shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform mb-6";
-                $titleClass = "text-xl md:text-2xl font-black text-white mb-4";
-                $descClass = "text-slate-200 font-medium leading-relaxed mb-6";
+                $bigCardClass = "lg:col-span-3 rounded-2xl p-10 bg-gradient-to-br from-slate-900 to-brand-primary-dark border border-white/5 hover:border-brand-accent/30 hover:shadow-2xl hover:shadow-brand-primary/20 transition-all group animate-on-scroll relative overflow-hidden";
+                $smallCardClass = "rounded-2xl p-8 bg-brand-primary border border-white/5 hover:border-brand-accent/30 hover:shadow-xl transition-all animate-on-scroll flex flex-col justify-between relative overflow-hidden";
+                $numberCircle = "absolute -top-2 -right-2 w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white font-black text-xl backdrop-blur-md group-hover:bg-brand-accent group-hover:text-brand-primary transition-all";
+                $iconBox = "w-16 h-16 shrink-0 rounded-2xl bg-white shadow-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-6";
+                $titleClass = "text-xl md:text-3xl font-black text-white mb-4 leading-tight group-hover:text-brand-accent transition-colors";
+                $descClass = "text-slate-300 font-medium leading-relaxed mb-6 group-hover:text-white transition-colors";
             @endphp
 
             {{-- Row 1: 1 (Big) + 2 (Small) --}}

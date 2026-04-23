@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\Event;
+use App\Models\Gallery;
 use App\Models\SiteSetting;
 
 class HomeController extends Controller
@@ -31,9 +33,15 @@ class HomeController extends Controller
 
         $sectorSettings = SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
 
-        // Growth Stats for Home (Conference trajectory)
-        $delegates = \App\Models\GrowthRecord::where('group', 'conference')->where('category', 'delegates')->orderBy('year')->get();
+        // Gallery preview for home (8 latest images)
+        $galleryImages = Gallery::latest()->limit(8)->get();
 
-        return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings', 'delegates'));
+        // Latest blog articles for home (3 published)
+        $latestArticles = Article::where('is_published', true)->latest('published_at')->limit(3)->get();
+
+        // Hero Sliders
+        $sliders = \App\Models\HomeSlider::where('is_active', true)->orderBy('order')->get();
+
+        return view('website.home.index', compact('upcomingEvents', 'popupEvent', 'sectorSettings', 'galleryImages', 'latestArticles', 'sliders'));
     }
 }

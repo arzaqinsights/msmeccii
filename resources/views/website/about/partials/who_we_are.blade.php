@@ -53,13 +53,33 @@
 
             <!-- Image Area -->
             <div class="w-full lg:w-1/2 relative group animate-on-scroll delay-100">
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[600px]">
-                    <img src="{{ asset('images/about/globe.webp') }}" alt="MSMECCII Global Network" class="w-full scale-135 h-full object-cover group-hover:scale-150 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-brand-primary/10 group-hover:bg-transparent transition-all duration-500"></div>
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl h-[550px]">
+                    <img src="{{ asset('images/about/who-we-are.png') }}" alt="MSMECCII Global Network" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                    <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-700"></div>
+                    
+                    <!-- Stats overlay -->
+                    <div class="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
+                        <div class="flex items-center justify-around text-white">
+                            <div class="text-center">
+                                <span class="block text-2xl font-black text-brand-accent">5+</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Years Impact</span>
+                            </div>
+                            <div class="w-px h-10 bg-white/20"></div>
+                            <div class="text-center">
+                                <span class="block text-2xl font-black text-brand-accent">50+</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Industries</span>
+                            </div>
+                            <div class="w-px h-10 bg-white/20"></div>
+                            <div class="text-center">
+                                <span class="block text-2xl font-black text-brand-accent">40+</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Countries</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Floating decorative element -->
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] bg-repeat -z-10 rounded-full"></div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-accent/10 rounded-full blur-2xl -z-10"></div>
             </div>
 
         </div>

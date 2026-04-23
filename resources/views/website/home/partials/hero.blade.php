@@ -1,5 +1,5 @@
 @php
-    $imageSrc = [
+    $defaultImages = [
         'images/home/slide-0.jpeg',
         'images/home/award-1.jpeg',
         'images/home/slide-1.webp',
@@ -14,19 +14,22 @@
         'images/home/slide-10.webp',
         'images/home/slide-11.webp',
         'images/home/slide-12.webp',
-    ]
+    ];
+
+    $slides = $sliders->count() > 0 
+        ? $sliders->pluck('image_path')->toArray() 
+        : $defaultImages;
 @endphp
 <!-- Dynamic Hero Slider Section -->
 <section class="relative h-[90vh] min-h-[600px] w-full bg-slate-900 border-b-4 border-accent">
     <!-- Swiper Container -->
     <div class="swiper hero-swiper h-full w-full absolute inset-0">
         <div class="swiper-wrapper">
-            <!-- Slide 1 -->
-            @foreach ($imageSrc as $image)
+            @foreach ($slides as $image)
                 <div class="swiper-slide relative">
                     <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
                     </div>
-                    <img src="{{ asset($image) }}" alt="Global Tex Trade Fair" class="w-full h-full object-cover">
+                    <img src="{{ asset($image) }}" alt="MSMECCII Slider" class="w-full h-full object-cover">
                 </div>
             @endforeach
         </div>

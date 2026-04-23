@@ -3,11 +3,9 @@
     <!-- Background Decor -->
     <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-[120px] -mr-96 -mt-96">
     </div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px] -ml-64 -mb-64">
-    </div>
 
     <div class="container relative z-10">
-        <div class="mb-20 animate-on-scroll">
+        <div class="mb-16 animate-on-scroll">
             <!-- Section Header -->
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
                 <div class="max-w-3xl">
@@ -16,7 +14,7 @@
                         <span class="w-1.5 h-1.5 rounded-full bg-brand-light animate-pulse"></span>
                         <span class="text-white text-xs font-bold uppercase">Core Pillars</span>
                     </div>
-                    <h2 class="text-4xl md:text-6xl font-black text-brand-primary leading-[1.1] mb-6">
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-primary leading-[1.1] mb-6">
                         Our Specialized <br> Service <span class="text-brand-accent">Framework</span>
                     </h2>
                 </div>
@@ -41,9 +39,9 @@
             </p>
         </div>
 
-        <!-- Services Grid -->
+        <!-- Services Grid — Top 3 -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-@php
+            @php
                 $services = [
                     [
                         'slug' => 'strategic-promotion',
@@ -97,16 +95,16 @@
             @endphp
 
             @foreach($services as $idx => $svc)
-                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-white rounded-3xl block overflow-visible border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-primary/20 transition-all duration-500 animate-on-scroll"
+                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-white rounded-2xl block overflow-visible border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-primary/20 transition-all duration-500 animate-on-scroll"
                     style="transition-delay: {{ $idx * 100 }}ms">
                     
                     <!-- Card Top: Image -->
-                    <div class="h-56 relative overflow-hidden rounded-t-[1.5rem]">
+                    <div class="h-56 relative overflow-hidden rounded-t-2xl">
                         <img src="{{ asset($svc['image']) }}" alt="{{ $svc['title'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
                     </div>
 
-                    <!-- Floating Icon - Fixed z-index & positioning -->
+                    <!-- Floating Icon -->
                     <div class="absolute top-[200px] left-8 w-14 h-14 bg-white rounded-2xl shadow-xl flex items-center justify-center text-brand-primary z-20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-brand-primary group-hover:text-white border border-slate-100">
                         <i class="fa-solid fa-{{ $svc['icon'] }} text-xl"></i>
                     </div>
@@ -129,14 +127,14 @@
                         </div>
                     </div>
 
-                    <!-- Subtle Decorative Background (Hidden initially) -->
-                    <div class="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/[0.02] pointer-events-none transition-colors duration-500 rounded-3xl"></div>
+                    <!-- Subtle Decorative Background -->
+                    <div class="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/[0.02] pointer-events-none transition-colors duration-500 rounded-2xl"></div>
                 </a>
             @endforeach
         </div>
 
-        <!-- Section Footer -->
-        <div class="mt-20 p-8 rounded-2xl bg-brand-primary text-white relative overflow-hidden animate-on-scroll">
+        <!-- Section Footer with View All CTA -->
+        <div class="mt-16 p-8 rounded-2xl bg-brand-primary text-white relative overflow-hidden animate-on-scroll">
             <div
                 class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
             </div>
@@ -146,8 +144,8 @@
                         <i class="fa-solid fa-handshake-angle text-3xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-bold">Ready to Elevate Your Business?</h4>
-                        <p class="text-white/60 text-sm">Join the largest chamber of commerce for MSMEs in India.</p>
+                        <h4 class="text-xl font-bold">Explore All Our Core Services</h4>
+                        <p class="text-white/60 text-sm">6 specialized pillars designed to accelerate your business growth.</p>
                     </div>
                 </div>
                 <a href="{{ route('register') }}"

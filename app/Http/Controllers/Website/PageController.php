@@ -23,7 +23,10 @@ class PageController extends Controller
 
     public function about()
     {
-        return view('website.about.what_is');
+        // Growth Stats (moved from home page)
+        $delegates = \App\Models\GrowthRecord::where('group', 'conference')->where('category', 'delegates')->orderBy('year')->get();
+
+        return view('website.about.what_is', compact('delegates'));
     }
 
     public function chairman()

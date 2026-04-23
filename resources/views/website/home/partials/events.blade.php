@@ -22,7 +22,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($upcomingEvents as $event)
-                    <div class="group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 animate-on-scroll" style="transition-delay: {{ $loop->index * 100 }}ms">
+                    <div class="group relative aspect-4/6 md:aspect-4/5 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 animate-on-scroll" style="transition-delay: {{ $loop->index * 100 }}ms">
                         <!-- Background Image -->
                         <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" 
                              alt="{{ $event->title }}"
@@ -59,7 +59,7 @@
                             </p>
                             
                             <!-- Date & Time (Now under title) -->
-                            <div class="flex items-center justify-between gap-4 mb-3 border-l-2 border-brand-accent/40 pl-4 ml-1">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3 border-l-2 border-brand-accent/40 pl-4 ml-1">
                                 <div class="flex flex-col">
                                     <span class="text-base font-black text-white uppercase tracking-widest leading-none mb-1">
                                         @if ($event->event_date)

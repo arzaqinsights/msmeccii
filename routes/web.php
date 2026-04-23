@@ -139,6 +139,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::post('articles/upload-image', [\App\Http\Controllers\Admin\ArticleController::class, 'uploadImage'])->name('articles.upload-image');
     Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class);
 
+    // Home Slider Management
+    Route::post('sliders/update-order', [\App\Http\Controllers\Admin\HomeSliderController::class, 'updateOrder'])->name('sliders.update-order');
+    Route::resource('sliders', \App\Http\Controllers\Admin\HomeSliderController::class)->only(['index', 'store', 'update', 'destroy']);
+
     // Admin Submissions Management
     Route::get('submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'index'])->name('submissions.index');
     Route::get('submissions/{submission}', [\App\Http\Controllers\Admin\SubmissionController::class, 'show'])->name('submissions.show');

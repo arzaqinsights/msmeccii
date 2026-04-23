@@ -38,7 +38,7 @@
 
                 <!-- W -->
                 <div class="bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 text-center transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll delay-200">
-                    <div class="w-16 h-16 mx-auto bg-blue-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-16 h-16 mx-auto bg-brand-primary-dark rounded-full flex items-center justify-center mb-4 shadow-lg">
                         <span class="text-3xl font-black text-white">W</span>
                     </div>
                     <h4 class="text-xl font-bold text-slate-800 mb-2">Work-Life</h4>
@@ -47,7 +47,7 @@
 
                 <!-- E -->
                 <div class="bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 text-center transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll delay-300 md:mt-12">
-                    <div class="w-16 h-16 mx-auto bg-purple-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                    <div class="w-16 h-16 mx-auto bg-brand-primary rounded-full flex items-center justify-center mb-4 shadow-lg">
                         <span class="text-3xl font-black text-white">E</span>
                     </div>
                     <h4 class="text-xl font-bold text-slate-800 mb-2">Excellence</h4>
@@ -56,8 +56,8 @@
 
                 <!-- R -->
                 <div class="bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 text-center transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll delay-400">
-                    <div class="w-16 h-16 mx-auto bg-red-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
-                        <span class="text-3xl font-black text-white">R</span>
+                    <div class="w-16 h-16 mx-auto bg-brand-accent rounded-full flex items-center justify-center mb-4 shadow-lg">
+                        <span class="text-3xl font-black text-brand-primary">R</span>
                     </div>
                     <h4 class="text-xl font-bold text-slate-800 mb-2">Respect</h4>
                     <p class="text-sm text-slate-500">Operating with absolute integrity and honoring every individual.</p>

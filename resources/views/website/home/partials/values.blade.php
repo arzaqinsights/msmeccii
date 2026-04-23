@@ -40,7 +40,7 @@
                     'desc' => 'Creativity and modern thinking at our soul.',
                     'image' => 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-1 lg:row-span-1',
-                    'accent' => 'amber-500'
+                    'accent' => 'brand-accent'
                 ],
                 [
                     'id' => '03',
@@ -48,7 +48,7 @@
                     'desc' => 'Eco-friendly industrial growth.',
                     'image' => 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-1 lg:row-span-1',
-                    'accent' => 'emerald-500'
+                    'accent' => 'brand-accent'
                 ],
                 [
                     'id' => '04',
@@ -56,7 +56,7 @@
                     'desc' => 'Strong partnerships among industries and government for shared success.',
                     'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-1 lg:row-span-2',
-                    'accent' => 'indigo-500'
+                    'accent' => 'brand-primary'
                 ],
                 [
                     'id' => '05',
@@ -64,7 +64,7 @@
                     'desc' => 'Striving for perfection in every platform we deliver.',
                     'image' => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-2 lg:row-span-1',
-                    'accent' => 'white'
+                    'accent' => 'brand-accent'
                 ],
                 [
                     'id' => '06',
@@ -72,7 +72,7 @@
                     'desc' => 'Supporting MSMEs and startups with resources for rapid growth.',
                     'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-1 lg:row-span-1',
-                    'accent' => 'orange-500'
+                    'accent' => 'brand-primary'
                 ],
                 [
                     'id' => '07',
@@ -80,7 +80,7 @@
                     'desc' => 'Fostering diversity and equal opportunity across all sectors.',
                     'image' => 'https://images.unsplash.com/photo-1740065592719-052d3e5ec6fb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aW5jbHVzaXZpdHl8ZW58MHx8MHx8fDI%3D',
                     'size' => 'lg:col-span-1 lg:row-span-1',
-                    'accent' => 'rose-500'
+                    'accent' => 'brand-accent'
                 ],
                 [
                     'id' => '08',
@@ -88,7 +88,7 @@
                     'desc' => 'Inspiring visionary leadership to drive transformation.',
                     'image' => 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-2 lg:row-span-1',
-                    'accent' => 'violet-500'
+                    'accent' => 'brand-primary'
                 ],
                 [
                     'id' => '09',
@@ -96,7 +96,7 @@
                     'desc' => 'Measurable outcomes for all our stakeholders.',
                     'image' => 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-1 lg:row-span-1',
-                    'accent' => 'cyan-500'
+                    'accent' => 'brand-primary'
                 ],
                 [
                     'id' => '10',
@@ -104,14 +104,14 @@
                     'desc' => 'International best practices for Indian businesses.',
                     'image' => 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200',
                     'size' => 'lg:col-span-3 lg:row-span-1',
-                    'accent' => 'blue-500'
+                    'accent' => 'brand-accent'
                 ],
             ];
         @endphp
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px]">
             @foreach ($values as $idx => $v)
-                <div class="{{ $v['size'] }} group relative rounded-3xl overflow-hidden animate-on-scroll"
+                <div class="{{ $v['size'] }} group relative rounded-2xl overflow-hidden animate-on-scroll"
                     style="transition-delay: {{ $idx * 100 }}ms">
                     <!-- Background Image with Zoom -->
                     <img src="{{ $v['image'] }}" alt="{{ $v['title'] }}"
@@ -148,7 +148,7 @@
 
                     <!-- Border Glow -->
                     <div
-                        class="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-3xl transition-colors duration-500">
+                        class="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-2xl transition-colors duration-500">
                     </div>
                 </div>
             @endforeach

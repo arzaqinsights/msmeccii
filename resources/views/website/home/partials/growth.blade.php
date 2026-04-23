@@ -38,7 +38,7 @@
             <!-- Right Content (Dynamic Staircase) -->
             <div class="w-full lg:w-2/3 relative group">
                 <!-- Decorative Grid behind bars -->
-                <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:40px_40px] rounded-[50px] -m-8"></div>
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:40px_40px] rounded-2xl -m-8"></div>
                 
                 <div class="relative bg-white/40 backdrop-blur-sm border border-white rounded-2xl p-8 md:p-12 shadow-2xl shadow-brand-primary/5">
                     <div class="flex items-end justify-center gap-2 md:gap-5" style="min-height: 400px;">

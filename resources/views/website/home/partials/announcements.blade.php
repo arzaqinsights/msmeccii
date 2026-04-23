@@ -6,7 +6,7 @@
     </div>
 
     <div class="container relative z-10">
-        <div class="flex flex-col lg:flex-row items-center justify-between gap-12 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 lg:p-14 shadow-2xl animate-on-scroll">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-12 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 lg:p-14 shadow-2xl animate-on-scroll">
             
             <div class="w-full lg:w-2/3">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white font-bold text-sm tracking-wider uppercase mb-6 shadow-sm">

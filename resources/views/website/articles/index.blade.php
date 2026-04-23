@@ -7,7 +7,7 @@
         <div class="absolute top-0 right-1/4 w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[100px]"></div>
     </div>
     
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="relative z-10 container px-6 lg:px-8">
         <div class="max-w-3xl">
             <span class="inline-block py-1 px-3 rounded-full bg-brand-primary/20 text-brand-light text-xs font-black uppercase tracking-widest mb-6 border border-brand-primary/30">News & Insights</span>
             <h1 class="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6">
@@ -22,11 +22,11 @@
 
 <!-- Blog Grid -->
 <section class="py-24 bg-slate-50 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="container px-6 lg:px-8 relative z-10">
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($articles as $article)
-                <article class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_25px_-5px_rgba(0,0,0,0.05)] border border-slate-100 group transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 flex flex-col">
+                <article class="bg-white rounded-2xl overflow-hidden shadow-[0_4px_25px_-5px_rgba(0,0,0,0.05)] border group transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 flex flex-col">
                     <a href="{{ route('blog.show', $article->slug) }}" class="block relative h-64 overflow-hidden">
                         <img src="{{ $article->thumbnail_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         @if($article->category)
@@ -64,7 +64,7 @@
                     </div>
                 </article>
             @empty
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fa-regular fa-folder-open text-3xl text-slate-300"></i>
                     </div>
