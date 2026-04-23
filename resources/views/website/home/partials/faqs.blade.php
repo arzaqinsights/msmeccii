@@ -87,7 +87,7 @@
             <!-- Right Sticky Sidebar Image & CTA -->
             <div class="w-full lg:w-5/12 sticky top-32 z-30 hidden lg:block self-start">
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl group w-full h-[calc(100vh-10rem)] max-h-[700px] min-h-[500px]">
-                    <img src="{{ asset('images/faq_sticky_image.png') }}" onerror="this.src='{{ asset('images/about-2.webp') }}'" alt="MSMECCII Support FAQ" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                    <img src="{{ asset('images/faq-bg.png') }}" alt="MSMECCII Support FAQ" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
                     <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
                     
                     <div class="absolute bottom-0 left-0 right-0 p-10">

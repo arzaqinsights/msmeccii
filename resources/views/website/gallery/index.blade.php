@@ -8,7 +8,7 @@
     <section class="relative pt-32 pb-24 bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-900 to-black"></div>
         <div class="absolute inset-0 opacity-20"
-            style="background-image: url('{{ asset('images/about-1.webp') }}'); background-size: cover; background-position: center;">
+            style="background-image: url('{{ asset('images/gallery-hero.png') }}'); background-size: cover; background-position: center;">
         </div>
 
         <div class="container relative z-10 text-center">
@@ -25,7 +25,7 @@
     <section class="py-20 bg-slate-50 min-h-[50vh]">
         <div class="container">
             @if($categories->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     @foreach($categories as $category)
                         <a href="{{ route('gallery.show', base64_encode($category->category)) }}" class="group block relative rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 bg-white">
                             <div class="aspect-[4/3] w-full relative overflow-hidden bg-slate-200">

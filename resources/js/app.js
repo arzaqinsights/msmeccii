@@ -2,14 +2,17 @@ import './bootstrap';
 import "@hotwired/turbo";
 import Alpine from 'alpinejs';
 import intersect from '@alpinejs/intersect';
+import collapse from '@alpinejs/collapse';
 
-// Register Alpine plugins
+// Register Alpine plugins immediately
 Alpine.plugin(intersect);
+Alpine.plugin(collapse);
 
 // Make Alpine available globally
 window.Alpine = Alpine;
+console.log('MSMECCII App JS v1.3 loaded - Alpine Collapse registered EARLY');
 
-// Start Alpine — it will auto-detect x-data on initial load
+// Start Alpine
 Alpine.start();
 
 /**
@@ -26,6 +29,35 @@ document.addEventListener('turbo:load', () => {
             Alpine.initTree(el);
         }
     });
+
+    // Performance: Native Lazy Loading for all images except the first few
+    const images = document.querySelectorAll('img:not([loading])');
+    images.forEach((img, index) => {
+        if (index > 3) { // Skip first 4 images to prioritize above-the-fold content
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+
+    // Performance: Smooth Reveal for images
+    function revealImage(img) {
+        if (img.complete) {
+            img.classList.remove('opacity-0');
+            return;
+        }
+        img.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+        img.addEventListener('load', () => {
+            img.classList.remove('opacity-0');
+        }, { once: true });
+        img.addEventListener('error', () => {
+            img.classList.remove('opacity-0');
+        }, { once: true });
+        
+        // Fallback for weird browser behavior (safety)
+        setTimeout(() => img.classList.remove('opacity-0'), 3000);
+    }
+
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    lazyImages.forEach(revealImage);
 
     // Scroll Animations — Intersection Observer
     const animatedElements = document.querySelectorAll('.animate-on-scroll:not(.visible)');
