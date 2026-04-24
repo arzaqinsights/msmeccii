@@ -35,6 +35,7 @@ class TeamMemberController extends Controller
 
         $member = new TeamMember();
         $member->team_page_id = $team_page->id;
+        $member->group_name = $request->group_name;
         $member->name = $request->name;
         $member->company_name = $request->company_name;
         $member->designation = $request->designation;
@@ -62,6 +63,7 @@ class TeamMemberController extends Controller
             'designation' => 'required|string|max:255',
         ]);
 
+        $member->group_name = $request->group_name;
         $member->name = $request->name;
         $member->company_name = $request->company_name;
         $member->designation = $request->designation;

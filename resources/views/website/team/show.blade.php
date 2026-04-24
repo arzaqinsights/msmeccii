@@ -37,47 +37,64 @@
             </div>
             @endif
 
-            <!-- Members Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($members as $member)
-                <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border border-slate-100 flex flex-col h-full">
-                    <div class="relative h-80 w-full overflow-hidden shrink-0">
-                        @if($member->image)
-                            <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover bg-slate-300 group-hover:scale-110 transition-transform duration-700">
-                        @else
-                            <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
-                                <i class="fa-solid fa-user text-6xl"></i>
-                            </div>
-                        @endif
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+            <!-- Members Grid (Grouped) -->
+            @php
+                $groupedMembers = $members->groupBy(function($item) {
+                    return $item->group_name ?: 'Members';
+                });
+            @endphp
+
+            @foreach($groupedMembers as $groupName => $group)
+                @if($groupName !== 'Members' || $groupedMembers->count() > 1)
+                    <div class="mb-12 mt-16 first:mt-0 animate-on-scroll">
+                        <h3 class="text-3xl font-black text-slate-800 flex items-center gap-4">
+                            {{ $groupName }}
+                            <span class="flex-grow h-px bg-slate-200"></span>
+                        </h3>
                     </div>
-                    <div class="p-6 text-center flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-1">{{ $member->name }}</h3>
-                            <p class="text-brand-primary font-semibold text-sm mb-4 uppercase tracking-wider">{{ $member->designation }}</p>
-                            @if($member->company_name)
-                                <p class="text-slate-400 text-xs font-bold mb-3">{{ $member->company_name }}</p>
+                @endif
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 last:mb-0">
+                    @foreach($group as $member)
+                    <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border border-slate-100 flex flex-col h-full">
+                        <div class="relative h-80 w-full overflow-hidden shrink-0">
+                            @if($member->image)
+                                <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover bg-slate-300 group-hover:scale-110 transition-transform duration-700">
+                            @else
+                                <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
+                                    <i class="fa-solid fa-user text-6xl"></i>
+                                </div>
                             @endif
-                            <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                                {{ $member->description }}
-                            </p>
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                         </div>
-                        
-                        @if($member->social_links)
-                        <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
-                            @foreach($member->social_links as $platform => $url)
-                                @if($url)
-                                <a href="{{ $url }}" target="_blank" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors">
-                                    <i class="fa-brands fa-{{ $platform }} text-sm"></i>
-                                </a>
+                        <div class="p-6 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900 mb-1">{{ $member->name }}</h3>
+                                <p class="text-brand-primary font-semibold text-sm mb-4 uppercase tracking-wider">{{ $member->designation }}</p>
+                                @if($member->company_name)
+                                    <p class="text-slate-400 text-[10px] font-black uppercase mb-3">{{ $member->company_name }}</p>
                                 @endif
-                            @endforeach
+                                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                                    {{ $member->description }}
+                                </p>
+                            </div>
+                            
+                            @if($member->social_links)
+                            <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
+                                @foreach($member->social_links as $platform => $url)
+                                    @if($url)
+                                    <a href="{{ $url }}" target="_blank" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-brand-primary hover:text-white transition-colors">
+                                        <i class="fa-brands fa-{{ $platform }} text-sm"></i>
+                                    </a>
+                                    @endif
+                                @endforeach
+                            </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
     </section>
 

@@ -30,14 +30,21 @@
                             <input type="text" name="name" value="{{ old('name', $member->name) }}" required placeholder="e.g. Dr. Indrajit Ghosh" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
                         </div>
                         <div>
-                            <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Designation</label>
-                            <input type="text" name="designation" value="{{ old('designation', $member->designation) }}" required placeholder="e.g. Global Chairman & MD" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                            <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Group / Category (Optional)</label>
+                            <input type="text" name="group_name" value="{{ old('group_name', $member->group_name) }}" placeholder="e.g. Founders, Employees, Directors" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                            <p class="text-[10px] text-slate-400 mt-1 font-bold">Use this to group members on the page.</p>
                         </div>
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Company Name (Optional)</label>
-                        <input type="text" name="company_name" value="{{ old('company_name', $member->company_name) }}" placeholder="e.g. MSME Chamber of Commerce" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Designation</label>
+                            <input type="text" name="designation" value="{{ old('designation', $member->designation) }}" required placeholder="e.g. Global Chairman & MD" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Company Name (Optional)</label>
+                            <input type="text" name="company_name" value="{{ old('company_name', $member->company_name) }}" placeholder="e.g. MSME Chamber of Commerce" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                        </div>
                     </div>
 
                     <div>

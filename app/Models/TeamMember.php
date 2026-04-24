@@ -8,6 +8,7 @@ class TeamMember extends Model
 {
     protected $fillable = [
         'team_page_id', 
+        'group_name',
         'name', 
         'image', 
         'company_name', 

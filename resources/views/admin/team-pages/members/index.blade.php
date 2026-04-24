@@ -27,6 +27,7 @@
                 <tr>
                     <th class="px-6 py-4 w-16 text-center">#</th>
                     <th class="px-6 py-4">Member Info</th>
+                    <th class="px-6 py-4">Group / Category</th>
                     <th class="px-6 py-4">Designation</th>
                     <th class="px-6 py-4">Social Links</th>
                     <th class="px-6 py-4 text-right">Actions</th>
@@ -56,6 +57,13 @@
                                     @endif
                                 </div>
                             </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            @if($member->group_name)
+                                <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">{{ $member->group_name }}</span>
+                            @else
+                                <span class="text-slate-400 italic text-xs">Default</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <span class="font-bold text-indigo-600">{{ $member->designation }}</span>
