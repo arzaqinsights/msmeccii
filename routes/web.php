@@ -151,4 +151,12 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     
     // Growth & Stats Management
     Route::resource('growth', \App\Http\Controllers\Admin\GrowthRecordController::class);
+
+    // Team & Person Pages
+    Route::resource('team-pages', \App\Http\Controllers\Admin\TeamPageController::class);
+    Route::prefix('team-pages/{team_page}')->name('team-pages.')->group(function () {
+        Route::resource('members', \App\Http\Controllers\Admin\TeamMemberController::class);
+    });
 });
+
+Route::get('/about/{slug}', [PageController::class, 'teamPage'])->name('about.team_page');

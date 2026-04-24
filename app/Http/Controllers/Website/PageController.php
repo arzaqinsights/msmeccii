@@ -90,4 +90,11 @@ class PageController extends Controller
     {
         return view('website.join.index');
     }
+
+    public function teamPage($slug)
+    {
+        $page = \App\Models\TeamPage::where('slug', $slug)->where('status', true)->firstOrFail();
+        $members = $page->members()->orderBy('order')->get();
+        return view('website.team.show', compact('page', 'members'));
+    }
 }

@@ -54,83 +54,65 @@
 
 <body class="font-sans text-gray-800 bg-white antialiased">
 
-
-
-    <!-- Header Navigation -->
+    <!-- Header Navigation
     <div class="bg-brand-light hidden md:block">
         <div class="flex py-1.5 container items-center justify-between">
             <div class="flex items-center gap-5">
-                @foreach(['phone_1', 'phone_2', 'phone_3'] as $pk)
-                    @if($site[$pk] ?? false)
-                        <a href="tel:{{ $site[$pk] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    @if($site['phone_1'] ?? false)
+                        <a href="tel:{{ $site['phone_1'] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
                             <i class="fa-solid fa-phone text-brand-primary text-xs"></i>
-                            <span class="text-brand-primary text-xs font-medium">{{ $site[$pk] }}</span>
+                            <span class="text-brand-primary text-xs font-medium">{{ $site['phone_1'] }}</span>
                         </a>
                     @endif
-                @endforeach
-                @foreach(['email_1', 'email_2'] as $ek)
-                    @if($site[$ek] ?? false)
-                        <a href="mailto:{{ $site[$ek] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    @if($site['email_1'] ?? false)
+                        <a href="mailto:{{ $site['email_1'] }}" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
                             <i class="fa-solid fa-envelope text-brand-primary text-xs"></i>
-                            <span class="text-brand-primary text-xs font-medium">{{ strtoupper($site[$ek]) }}</span>
+                            <span class="text-brand-primary text-xs font-medium">{{ $site['email_1'] }}</span>
                         </a>
                     @endif
-                @endforeach
             </div>
             <div class="flex items-center gap-3">
                 @if($site['facebook_url'] ?? false)
                     <a href="{{ $site['facebook_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-facebook-f text-brand-primary text-[10px] hover:text-white"></i>
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-facebook-f"></i>
                     </a>
                 @endif
                 @if($site['twitter_url'] ?? false)
                     <a href="{{ $site['twitter_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-twitter text-brand-primary text-[10px]"></i>
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-twitter"></i>
                     </a>
                 @endif
                 @if($site['instagram_url'] ?? false)
                     <a href="{{ $site['instagram_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-instagram text-brand-primary text-[10px]"></i>
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-instagram"></i>
                     </a>
                 @endif
                 @if($site['linkedin_url'] ?? false)
                     <a href="{{ $site['linkedin_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-linkedin-in text-brand-primary text-[10px]"></i>
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-linkedin-in"></i>
                     </a>
                 @endif
                 @if($site['youtube_url'] ?? false)
                     <a href="{{ $site['youtube_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-youtube text-brand-primary text-[10px]"></i>
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-youtube"></i>
                     </a>
                 @endif
                 @if($site['whatsapp_url'] ?? false)
                     <a href="{{ $site['whatsapp_url'] }}" target="_blank"
-                        class="w-7 h-7 rounded-full bg-brand-primary/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all">
-                        <i class="fa-brands fa-whatsapp text-brand-primary text-[10px]"></i>
-                    </a>
-                @endif
-                <div class="w-px h-5 bg-brand-primary/20 mx-1"></div>
-                @if (!Auth::check())
-                    <a href="{{ route('login') }}"
-                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
-                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> LOGIN
-                    </a>
-                @else
-                    <a href="{{ route('dashboard') }}"
-                        class="flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:opacity-80 transition-opacity">
-                        <i class="fa-solid fa-user text-brand-primary text-[10px]"></i> DASHBOARD
+                        class="text-brand-primary hover:text-brand-accent transition-colors duration-300">
+                        <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 @endif
             </div>
         </div>
-    </div>
-    <header class="sticky top-0 bg-brand-primary z-50 transition-all duration-300" x-data="{ megaOpen: false }">
-        <!-- Top Bar -->
+    </div> -->
+
+    <header x-data="{ scrolled: false, megaOpen: false }" x-on:scroll.window="scrolled = window.pageYOffset > 50" :class="(scrolled || megaOpen) ? 'bg-linear-to-r from-brand-primary to-brand-primary-dark shadow-xl' : ''" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
 
         <!-- Main Nav -->
         <div class="px-4 container">
@@ -139,9 +121,9 @@
                 <div class="shrink-0 flex items-center">
                     <a href="/" class="flex items-center gap-2">
                         <img src="{{ asset('images/logo/logo.png') }}" alt="MSMECCII Logo"
-                            class="h-12 md:h-14 w-auto shrink-0 object-contain">
+                            class="h-14 w-auto shrink-0 object-contain">
                         <span
-                            class="text-4xl xl:text-5xl hidden md:block font-black text-brand-light hover:text-white/90 transition-colors uppercase">MSMECCII</span>
+                            class="text-5xl hidden md:block font-black text-brand-light hover:text-white/90 transition-colors uppercase">MSMECCII</span>
                     </a>
                 </div>
 
@@ -153,14 +135,20 @@
                             'active' => '/'
                         ],
                         [
-                            'name' => 'ABOUt',
+                            'name' => 'ABOUT',
                             'route' => 'about.what_is',
                             'active' => 'about',
-                            'sub_menu' => [
+                            'sub_menu' => array_merge([
                                 ['name' => 'What is MSMECCII', 'route' => 'about.what_is', 'active' => 'about/what-is-msmeccii'],
                                 ['name' => 'Global Chairman', 'route' => 'about.chairman', 'active' => 'about/chairman'],
-                                ['name' => 'Core Leadership', 'route' => 'about.leadership', 'active' => 'about/leadership'],
-                            ]
+                            ], \App\Models\TeamPage::where('status', true)->orderBy('order')->get()->map(function($page) {
+                                return [
+                                    'name' => $page->title,
+                                    'route' => 'about.team_page',
+                                    'slug' => $page->slug,
+                                    'active' => 'about/' . $page->slug
+                                ];
+                            })->toArray())
                         ],
                         [
                             'name' => 'JOIN US',
@@ -207,7 +195,7 @@
                             {{-- MEGA MENU trigger only --}}
                             <div class="relative" @mouseenter="megaOpen = true" @mouseleave="megaOpen = false">
                                 <button onclick="event.preventDefault()"
-                                    class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
+                                    class="flex items-center gap-1.5 text-[13px] font-semibold hover:text-brand-accent transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'text-brand-accent' : 'text-brand-light' }}">
                                     {{ $m['name'] }}
                                     <i class="fa-solid fa-chevron-down text-[9px] opacity-70 transition-transform"
                                         :class="megaOpen ? 'rotate-180' : ''"></i>
@@ -217,7 +205,7 @@
                             {{-- Regular Dropdown --}}
                             <div class="relative group">
                                 <button onclick="event.preventDefault()"
-                                    class="flex items-center gap-1.5 text-[13px] font-semibold text-brand-light hover:text-white transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">
+                                    class="flex items-center gap-1.5 text-[13px] font-semibold hover:text-brand-accent transition-colors uppercase relative py-2 {{ request()->is($m['active'] . '*') ? 'text-brand-accent' : 'text-brand-light' }}">
                                     {{ $m['name'] }}
                                     <i
                                         class="fa-solid fa-chevron-down text-[9px] opacity-70 group-hover:rotate-180 transition-transform"></i>
@@ -237,23 +225,23 @@
                             </div>
                         @else
                             <a href="{{ route($m['route']) }}"
-                                class="text-[13px] font-semibold relative text-brand-light hover:text-white transition-colors uppercase py-2 {{ request()->is($m['active']) ? 'after:content-[\'\'] after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-brand-light after:rounded-full' : '' }}">{{ $m['name'] }}</a>
+                                class="text-sm font-semibold relative hover:text-brand-accent transition-colors uppercase py-2 {{ request()->is($m['active']) ? 'text-brand-accent' : 'text-brand-light' }}">{{ $m['name'] }}</a>
                         @endif
                     @endforeach
-                </nav>
 
-                <!-- CTA Button -->
-                <div class="hidden lg:flex items-center">
-                    <a href="{{ route('register') }}"
-                        class="bg-brand-light text-brand-primary px-5 py-2.5 rounded-lg font-bold text-sm transition-all shadow-sm hover:shadow-md hover:bg-white">
-                        Register Now
-                    </a>
-                </div>
+                    <!-- CTA Button -->
+                    <div class="hidden lg:flex items-center">
+                        <a href="{{ route('register') }}"
+                            class="bg-brand-light text-brand-primary px-5 py-2.5 rounded-sm font-bold text-sm transition-all shadow-sm hover:shadow-md hover:bg-white">
+                            Login/Register
+                        </a>
+                    </div>
+                </nav>
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center">
                     <button id="menu-btn" onclick="toggleMobileMenu()"
-                        class="text-brand-light text-2xl cursor-pointer w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
+                        class="text-brand-light text-3xl cursor-pointer flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                 </div>
@@ -262,7 +250,7 @@
 
         {{-- MEGA MENU PANEL (outside nav, full-width under header) --}}
         <div class="mega-panel hidden lg:block" x-show="megaOpen" @mouseenter="megaOpen = true"
-            @mouseleave="megaOpen = false" x-transition:enter="transition ease-out duration-200"
+            @mouseleave.debounce.300ms="megaOpen = false" x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-2" style="display: none;">
@@ -284,7 +272,7 @@
                                 // Split exactly 15 items per vertical list
                                 $chunks = array_chunk(config('sectors.sectors'), 14);
                             @endphp
-                            
+
                             @foreach($chunks as $chunk)
                                 <div class="flex flex-col gap-1">
                                     @foreach($chunk as $sector)
@@ -309,10 +297,10 @@
             x-data="{ openSub: null }">
             <!-- Mobile Header -->
             <div class="p-5 flex justify-between items-center bg-brand-primary sticky top-0 z-10">
-                <span class="text-white font-black text-lg tracking-wider">MENU</span>
+                <span class="text-white font-black text-xl tracking-wider">MENU</span>
                 <button onclick="closeMenu()"
                     class="text-white w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                    <i class="fa-solid fa-xmark text-3xl"></i>
                 </button>
             </div>
 
@@ -358,7 +346,7 @@
             <div class="p-5">
                 <a href="{{ route('register') }}"
                     class="block w-full text-center bg-brand-primary text-white py-3 rounded-lg font-bold text-sm hover:bg-brand-primary/90 transition-colors">
-                    Register Now
+                    Login / Register
                 </a>
             </div>
         </div>
@@ -524,8 +512,10 @@
                     &copy; {{ date('Y') }} MSME Chamber of Commerce and Industry of India. All rights reserved.
                 </p>
                 <div class="flex gap-6 text-sm text-slate-500">
-                    <a href="{{ route('privacy') }}" class="hover:text-brand-primary transition-colors">Privacy Policy</a>
-                    <a href="{{ route('terms') }}" class="hover:text-brand-primary transition-colors">Terms & Conditions</a>
+                    <a href="{{ route('privacy') }}" class="hover:text-brand-primary transition-colors">Privacy
+                        Policy</a>
+                    <a href="{{ route('terms') }}" class="hover:text-brand-primary transition-colors">Terms &
+                        Conditions</a>
                 </div>
             </div>
 
@@ -562,68 +552,72 @@
     <!-- Floating Help Button -->
     <div x-data="{ open: false }" class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
         <!-- Sub Buttons -->
-        <div x-show="open" 
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 translate-y-10 scale-90"
-             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-             x-transition:leave-end="opacity-0 translate-y-10 scale-90"
-             class="flex flex-col gap-3 mb-2">
-            
+        <div x-show="open" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-10 scale-90"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+            x-transition:leave-end="opacity-0 translate-y-10 scale-90" class="flex flex-col gap-3 mb-2">
+
             <!-- WhatsApp -->
             @if(isset($site['whatsapp_url']) && $site['whatsapp_url'])
-            <a href="{{ $site['whatsapp_url'] }}" target="_blank" 
-               class="group flex items-center gap-3">
-                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">WhatsApp Us</span>
-                <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all hover:scale-110">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                </div>
-            </a>
+                <a href="{{ $site['whatsapp_url'] }}" target="_blank" class="group flex items-center gap-3">
+                    <span
+                        class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">WhatsApp
+                        Us</span>
+                    <div
+                        class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all hover:scale-110">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    </div>
+                </a>
             @endif
 
             <!-- Email -->
             @if(isset($site['email_1']) && $site['email_1'])
-            <a href="mailto:{{ $site['email_1'] }}" 
-               class="group flex items-center gap-3">
-                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Send Email</span>
-                <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-all hover:scale-110">
-                    <i class="fa-solid fa-envelope text-lg"></i>
-                </div>
-            </a>
+                <a href="mailto:{{ $site['email_1'] }}" class="group flex items-center gap-3">
+                    <span
+                        class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Send
+                        Email</span>
+                    <div
+                        class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-all hover:scale-110">
+                        <i class="fa-solid fa-envelope text-lg"></i>
+                    </div>
+                </a>
             @endif
 
             <!-- Phone -->
             @if(isset($site['phone_1']) && $site['phone_1'])
-            <a href="tel:{{ $site['phone_1'] }}" 
-               class="group flex items-center gap-3">
-                <span class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Call Support</span>
-                <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black transition-all hover:scale-110">
-                    <i class="fa-solid fa-phone text-lg"></i>
-                </div>
-            </a>
+                <a href="tel:{{ $site['phone_1'] }}" class="group flex items-center gap-3">
+                    <span
+                        class="bg-white px-3 py-1.5 rounded-lg shadow-xl text-[10px] font-black uppercase tracking-widest text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">Call
+                        Support</span>
+                    <div
+                        class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black transition-all hover:scale-110">
+                        <i class="fa-solid fa-phone text-lg"></i>
+                    </div>
+                </a>
             @endif
         </div>
 
         <!-- Main Toggle Button -->
-        <button @click="open = !open" 
-                :class="open ? 'bg-red-500 scale-90' : 'bg-brand-primary'"
-                class="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 group relative overflow-hidden">
+        <button @click="open = !open" :class="open ? 'bg-red-500 scale-90' : 'bg-brand-primary'"
+            class="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 group relative overflow-hidden">
             <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            
+
             <template x-if="!open">
                 <div class="flex flex-col items-center">
                     <i class="fa-solid fa-headset text-2xl mb-0.5"></i>
                     <span class="text-[8px] font-black uppercase tracking-tighter">Help</span>
                 </div>
             </template>
-            
+
             <template x-if="open">
                 <i class="fa-solid fa-xmark text-2xl"></i>
             </template>
 
             <!-- Pulse Effect (only when closed) -->
-            <div x-show="!open" class="absolute inset-0 rounded-full bg-brand-primary animate-ping opacity-20 -z-10"></div>
+            <div x-show="!open" class="absolute inset-0 rounded-full bg-brand-primary animate-ping opacity-20 -z-10">
+            </div>
         </button>
     </div>
 

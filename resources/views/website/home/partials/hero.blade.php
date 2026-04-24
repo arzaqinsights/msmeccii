@@ -21,7 +21,7 @@
         : $defaultImages;
 @endphp
 <!-- Dynamic Hero Slider Section -->
-<section class="relative h-[90vh] min-h-[600px] w-full bg-slate-900 border-b-4 border-accent">
+<section class="relative h-dvh w-full bg-slate-900 border-b-4 border-accent">
     <!-- Swiper Container -->
     <div class="swiper hero-swiper h-full w-full absolute inset-0">
         <div class="swiper-wrapper">
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Hero Content Overlay -->
-    <div class="absolute inset-0 z-20 flex items-center">
+    <div class="absolute inset-0 z-20 flex items-end pb-10">
         <div class="container w-full">
             <div class="max-w-3xl animate-on-scroll">
                 <!-- <div
@@ -49,15 +49,15 @@
 
                 <h1
                     class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 drop-shadow-lg">
-                    Grow Your Business Faster with India’s Leading MSME Network
+                    Grow Your <span>Business Faster</span> With India’s Leading MSME Network
                 </h1>
 
                 <p class="text-base text-slate-200 mb-8 max-w-2xl leading-relaxed drop-shadow-md flex flex-col gap-4">
                     Join a powerful network of entrepreneurs, industry leaders, and innovators.
                     Get access to awards, business opportunities, and national-level recognition. <br>
-                    <span class="text-accent font-semibold text-xl">Knowledge & Awareness Programs • Growth & Business Opportunities •  Networking & Industry Connect • Recognition & Awards</span>
+                    <!-- <span class="text-accent font-semibold text-md">Knowledge & Awareness Programs • Growth & Business Opportunities •  Networking & Industry Connect • Recognition & Awards</span> -->
                 </p>
-
+<!-- 
                 <div class="flex flex-col sm:flex-row gap-4 mb-4">
                     <a href="#"
                         class="bg-brand-accent hover:bg-white text-slate-900 px-8 py-4 rounded-md font-bold text-lg text-center transition-all shadow-lg hover:shadow-accent/50">
@@ -67,7 +67,7 @@
                         class="bg-transparent border-2 border-white/60 hover:border-white hover:bg-white/10 text-white px-8 py-4 rounded-md font-bold text-lg text-center transition-all">
                         Upcoming Events
                     </a>
-                </div>
+                </div> -->
 
                 <div class="mt-8 flex gap-8 border-t border-white/20 pt-6">
                     <div class="flex flex-col">
@@ -77,6 +77,14 @@
                     <div class="flex flex-col border-l border-white/20 pl-8">
                         <span class="text-3xl font-bold text-white">2019</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Established Year</span>
+                    </div>
+                    <div class="flex flex-col border-l border-white/20 pl-8">
+                        <span class="text-3xl font-bold text-white">{{ count(config('sectors.sectors')) }}</span>
+                        <span class="text-sm text-slate-300 font-medium tracking-wide">Sectors</span>
+                    </div>
+                    <div class="flex flex-col border-l border-white/20 pl-8">
+                        <span class="text-3xl font-bold text-white">30+</span>
+                        <span class="text-sm text-slate-300 font-medium tracking-wide">Countries</span>
                     </div>
                 </div>
             </div>

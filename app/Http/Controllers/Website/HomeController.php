@@ -14,16 +14,8 @@ class HomeController extends Controller
     {
         $upcomingEvents = Event::where('status', 'published')
             ->where('event_date', '>=', now())
-            ->orderBy('event_date', 'asc')
-            ->limit(3)
+            ->orderBy('event_date', 'desc')
             ->get();
-
-        if ($upcomingEvents->count() < 1) {
-            $upcomingEvents = Event::where('status', 'published')
-                ->latest()
-                ->limit(3)
-                ->get();
-        }
 
         $popupEvent = Event::where('status', 'published')
             ->where('show_as_popup', true)
