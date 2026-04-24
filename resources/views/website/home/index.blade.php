@@ -5,12 +5,10 @@
     @include('website.home.partials.events')
     @include('website.home.partials.about')
     @include('website.home.partials.services')
-    @include('website.home.partials.impact')
     @include('website.home.partials.awards')
     @include('website.home.partials.sectors')
     @include('website.home.partials.gallery_preview')
     @include('website.home.partials.blog_preview')
     @include('website.home.partials.faqs')
-    @include('website.home.partials.cta')
     @include('website.home.partials.popup')
 @endsection

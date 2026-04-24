@@ -26,7 +26,7 @@ class HomeController extends Controller
         $sectorSettings = SiteSetting::whereIn('key', ['sector_home_count', 'sector_home_layout'])->pluck('value', 'key')->toArray();
 
         // Gallery preview for home (8 latest images)
-        $galleryImages = Gallery::latest()->limit(8)->get();
+        $galleryImages = Gallery::latest()->limit(7)->get();
 
         // Latest blog articles for home (3 published)
         $latestArticles = Article::where('is_published', true)->latest('published_at')->limit(3)->get();

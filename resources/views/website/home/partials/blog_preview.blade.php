@@ -6,12 +6,12 @@
     <div class="container relative z-10">
         <!-- Section Header -->
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-14 animate-on-scroll">
-            <div class="max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
+            <div class="max-w-3xl">
+                <!-- <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
                     <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
                     <span class="text-brand-primary text-xs font-bold tracking-widest uppercase">Latest Insights</span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+                </div> -->
+                <h2 class="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-900 leading-tight mb-4">
                     News & <span class="text-brand-primary">Articles</span>
                 </h2>
                 <p class="text-slate-500 text-lg font-medium leading-relaxed">
@@ -19,7 +19,7 @@
                 </p>
             </div>
             <a href="{{ route('blog.index') }}"
-               class="inline-flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold text-sm uppercase tracking-widest shadow-lg hover:shadow-brand-primary/30 hover:bg-brand-primary/90 transition-all group shrink-0">
+               class="inline-flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-md font-bold text-sm uppercase tracking-widest transition-all group shrink-0">
                 All Articles
                 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -28,10 +28,10 @@
         <!-- Blog Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($latestArticles as $article)
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 group transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col animate-on-scroll"
+                <article class="bg-white rounded-lg overflow-hidden shadow-sm border border-slate-100 group transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col animate-on-scroll"
                          style="transition-delay: {{ $loop->index * 120 }}ms">
                     <!-- Thumbnail -->
-                    <a href="{{ route('blog.show', $article->slug) }}" class="block relative h-56 overflow-hidden">
+                    <a href="{{ route('blog.show', $article->slug) }}" class="block relative h-74 overflow-hidden">
                         <img src="{{ $article->thumbnail_url }}"
                              alt="{{ $article->title }}"
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -83,7 +83,7 @@
         <!-- Mobile CTA -->
         <div class="md:hidden mt-10 text-center">
             <a href="{{ route('blog.index') }}"
-               class="inline-flex items-center justify-center w-full px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold text-sm uppercase tracking-widest shadow-lg">
+               class="inline-flex items-center justify-center w-full px-8 py-4 bg-brand-primary text-white rounded-md font-bold text-sm uppercase tracking-widest">
                 View All Articles <i class="fa-solid fa-arrow-right ml-2"></i>
             </a>
         </div>

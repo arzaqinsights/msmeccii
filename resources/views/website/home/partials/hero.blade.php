@@ -34,7 +34,7 @@
             @endforeach
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination mb-8!"></div>
+        <div class="swiper-pagination mb-1!"></div>
     </div>
 
     <!-- Hero Content Overlay -->
@@ -69,7 +69,7 @@
                     </a>
                 </div> -->
 
-                <div class="mt-8 flex gap-8 border-t border-white/20 pt-6">
+                <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-white/20 pt-6">
                     <div class="flex flex-col">
                         <span class="text-3xl font-bold text-white">100,000+</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Enterprises Reached</span>
@@ -78,7 +78,7 @@
                         <span class="text-3xl font-bold text-white">2019</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Established Year</span>
                     </div>
-                    <div class="flex flex-col border-l border-white/20 pl-8">
+                    <div class="flex flex-col md:border-l border-white/20 md:pl-8">
                         <span class="text-3xl font-bold text-white">{{ count(config('sectors.sectors')) }}</span>
                         <span class="text-sm text-slate-300 font-medium tracking-wide">Sectors</span>
                     </div>

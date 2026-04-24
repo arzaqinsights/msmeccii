@@ -1,85 +1,168 @@
 @if(isset($upcomingEvents) && $upcomingEvents->count() > 0)
-    <section class="py-24 bg-white relative overflow-hidden">
+    <section class="py-20 bg-brand-light relative overflow-hidden">
+        <!-- Abstract Decorative SVGs -->
+        <div class="absolute top-0 right-0 opacity-10 pointer-events-none -translate-y-1/2 translate-x-1/4">
+            <svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="400" cy="400" r="400" fill="url(#event_grad_1)" />
+                <defs>
+                    <radialGradient id="event_grad_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(400 400) rotate(90) scale(400)">
+                        <stop stop-color="#E11D48" stop-opacity="0.3" />
+                        <stop offset="1" stop-color="#E11D48" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+
         <div class="container relative z-10">
-            <!-- Section Header -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6 animate-on-scroll">
-                <div class="max-w-2xl">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/5 border border-rose-500/10 mb-4">
-                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-                        <span class="text-slate-900 text-[10px] font-black tracking-widest uppercase">Upcoming Events</span>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
-                        Global Summit <span class="text-brand-primary">Events</span>
-                    </h2>
-                    <p class="text-slate-600 mt-4">Join us for the most anticipated business events of the year. Connect with industry leaders, discover new opportunities, and be part of the conversation that matters.</p>
-                </div>
-                <div class="hidden md:block text-right">
-                    <a href="{{ route('events.index') }}" class="text-sm font-semibold text-white bg-brand-primary p-4 rounded-md transition-all">
-                        View All Events <i class="fa-solid fa-arrow-right-long ml-2"></i>
-                    </a>
-                </div>
-            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-20 items-start">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($upcomingEvents as $event)
-                    <div class="group relative aspect-4/6 md:aspect-4/5 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 animate-on-scroll" style="transition-delay: {{ $loop->index * 100 }}ms">
-                        <!-- Background Image -->
-                        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" 
-                             alt="{{ $event->title }}"
-                             class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
-                        
-                        <!-- Rich Gradient Overlay (Taller gradient for more text at bottom) -->
-                        <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/80 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
-
-                        <!-- Status Badge (Top Right) -->
-                        <div class="absolute top-5 right-5 z-20">
-                            <span class="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full">
-                                {{ $event->design_style === 'featured' ? 'Featured' : 'Summit' }}
+                <!-- Left Sidebar: Context & Stats -->
+                <div class="lg:col-span-4 lg:sticky lg:top-32 space-y-10 animate-on-scroll pb-2">
+                    <div>
+                        <div
+                            class="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white border border-slate-200 shadow-sm mb-6">
+                            <span class="relative flex h-3 w-3">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-primary"></span>
                             </span>
+                            <span class="text-slate-900 text-xs font-black tracking-widest uppercase">Upcoming Events</span>
                         </div>
 
-                        <!-- Content Info (All at bottom) -->
-                        <div class="absolute transition-all duration-500 bottom-0 left-0 right-0 p-8 z-20">
-                            <a href="{{ route('events.show', $event->slug) }}" class="block">
-                                <h3 class="text-2xl font-black text-white leading-tight mb-2 group-hover:text-brand-accent transition-colors duration-300">
-                                    {{ $event->title }}
-                                </h3>
-                            </a>
+                        <h2
+                            class="text-4xl md:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+                            Join the <span class="text-brand-primary">Global</span> Movement
+                        </h2>
 
-                            @if($event->short_description)
-                                <p class="text-white/80 text-sm font-medium leading-relaxed mb-4 line-clamp-2">
-                                    {{ $event->short_description }}
-                                </p>
-                            @endif
+                        <p class="text-slate-500 text-lg leading-relaxed font-medium">
+                            Experience world-class summits designed to empower MSMEs. Connect with policy makers, industry
+                            leaders, and global investors in one unified platform.
+                        </p>
+                    </div>
 
-                            <!-- Location (Now under title and date) -->
-                            <p class="text-slate-300 text-sm font-bold uppercase tracking-wider mb-6 flex items-center gap-2">
-                                <i class="fa-solid fa-location-dot text-brand-accent/60"></i>
-                                {{ $event->location ?: 'New Delhi, India' }}
-                            </p>
-                            
-                            <!-- Date & Time (Now under title) -->
-                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3 border-l-2 border-brand-accent/40 pl-4 ml-1">
-                                <div class="flex flex-col">
-                                    <span class="text-base font-black text-white uppercase tracking-widest leading-none mb-1">
-                                        @if ($event->event_date)
-                                            {{ $event->event_date->format('d') }} @if($event->end_date && $event->event_date->format('Y-m-d') !== $event->end_date->format('Y-m-d')) - {{ $event->end_date->format('d M Y') }} @endif
-                                            @else
-                                            {{ $event->event_date->format('d M, Y') }}
-                                        @endif
+                    <!-- Statistics Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="bg-white p-6 rounded-md border border-slate-200 shadow-sm group hover:border-brand-primary/20 transition-colors">
+                            <div
+                                class="text-3xl font-black text-slate-900 mb-1 group-hover:text-brand-primary transition-colors">
+                                {{ $upcomingEvents->count() }}+</div>
+                            <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Upcoming Events
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-6 flex items-center justify-center rounded-md border border-slate-200 shadow-sm group hover:border-brand-primary/20 transition-colors">
+                            <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Join Our Events to
+                                grow your business &amp; network</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex items-center gap-4">
+                        <a href="{{ route('events.index') }}"
+                            class="inline-flex items-center justify-center gap-4 w-full sm:w-auto shrink-0 bg-brand-primary text-white px-10 py-5 rounded-md font-black text-sm uppercase tracking-widest transition-all group">
+                            View All Events
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                        <!-- <a href="{{ route('contact') }}"
+                            class="inline-flex items-center gap-4 bg-brand-primary text-white px-10 py-5 rounded-md font-black text-sm uppercase tracking-widest transition-all shadow-xl hover:shadow-brand-primary/40 group">
+                            Contact
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </a> -->
+                    </div>
+                </div>
+
+                <!-- Right Column: Event Cards -->
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-10">
+                    @foreach($upcomingEvents->take(2) as $event)
+                        <div class="group bg-white rounded-lg overflow-hidden border shadow-sm hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 animate-on-scroll flex flex-col h-full"
+                            style="transition-delay: {{ $loop->index * 150 }}ms">
+
+                            <!-- Image Area -->
+                            <div class="relative h-64 overflow-hidden shrink-0">
+                                <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}"
+                                    alt="{{ $event->title }}"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
+
+                                <!-- Category Badge -->
+                                <div class="absolute top-4 right-4 z-20">
+                                    <span
+                                        class="bg-slate-900/90 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest px-4 py-2 rounded-lg border border-white/10">
+                                        {{ $event->design_style === 'featured' ? '★ Featured' : 'Summit' }}
                                     </span>
-                                    <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">{{ $event->event_date->format('h:i A') }} Onwards</span>
                                 </div>
-                                <!-- Bottom Action -->
-                                <div class="flex items-center justify-between transition-opacity duration-500">
-                                    <a href="{{ route('events.show', $event->slug) }}" class="inline-flex items-center gap-2 text-black text-xs bg-brand-accent pr-4 pl-6 py-3 rounded-full font-black uppercase tracking-widest transition-all">
-                                        View Details <i class="fa-solid fa-arrow-right-long"></i>
+                            </div>
+
+                            <!-- Details Area -->
+                            <div class="p-6 flex flex-col grow">
+                                <a href="{{ route('events.show', $event->slug) }}" class="block mb-4 grow">
+                                    <h3
+                                        class="text-2xl font-black text-slate-900 leading-tight group-hover:text-brand-primary transition-colors line-clamp-2">
+                                        {{ $event->title }}
+                                    </h3>
+                                </a>
+
+                                @if($event->short_description)
+                                    <p class="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-2 font-medium">
+                                        {{ $event->short_description }}
+                                    </p>
+                                @endif
+
+                                <!-- Structured Info (Date & Time Together) -->
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="flex items-center gap-4 group/item">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white transition-colors border border-slate-100 shrink-0">
+                                            <i class="fa-regular fa-calendar-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">
+                                                Event Schedule</p>
+                                            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                                <span
+                                                    class="text-sm font-black text-slate-800 uppercase tracking-wider">@if($event->end_date)
+                                                        {{ $event->event_date->format('d') }} -
+                                                        {{ $event->end_date->format('d M, Y') }}
+                                                        {{ $event->event_date->format('h:i A') }}
+                                                    @else
+                                                        {{ $event->event_date->format('d M, Y h:i A') }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4 group/item">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white transition-colors border border-slate-100 shrink-0">
+                                            <i class="fa-solid fa-location-dot text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">
+                                                Event Venue</p>
+                                            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider"> {{
+                                                $event->location ?: 'New Delhi, India' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Footer -->
+                                <div class="mt-10 flex items-center justify-between gap-4">
+                                    <a href="{{ route('events.show', $event->slug) }}"
+                                        class="grow bg-brand-accent hover:bg-brand-primary text-black hover:text-white text-center py-3 border rounded-md text-sm font-black uppercase tracking-widest transition-all">
+                                        Register Now
+                                    </a>
+                                    <a href="{{ route('events.show', $event->slug) }}"
+                                        class="w-11 h-11 rounded-md border flex items-center justify-center text-slate-400 hover:border-brand-primary hover:text-brand-primary transition-all">
+                                        <i class="fa-solid fa-arrow-right-long"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>

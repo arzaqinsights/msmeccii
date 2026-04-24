@@ -1,5 +1,5 @@
 <!-- Impact Numbers -->
-<section class="relative py-16 mt-10 bg-brand-primary overflow-hidden">
+<section class="relative py-10 mt-10 bg-brand-primary overflow-hidden">
     <!-- Decorative -->
     <div
         class="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIvPjwvc3ZnPg==')] bg-repeat">
@@ -30,27 +30,27 @@
             ">
 
             <div class="animate-on-scroll">
-                <div class="text-5xl md:text-8xl font-black text-brand-light mb-2 tabular-nums">
+                <div class="text-5xl md:text-7xl font-black text-brand-light mb-2 tabular-nums">
                     <span id="count-enterprises">0</span><span class="text-brand-accent">K</span>
                 </div>
                 <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Enterprises Reached</p>
             </div>
 
             <div class="animate-on-scroll delay-100">
-                <div class="text-5xl md:text-8xl font-black text-brand-light mb-2 tabular-nums">
+                <div class="text-5xl md:text-7xl font-black text-brand-light mb-2 tabular-nums">
                     <span id="count-sectors">0</span><span class="text-brand-accent">+</span>
                 </div>
                 <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Industry Sectors</p>
             </div>
 
             <div class="animate-on-scroll delay-200">
-                <div class="text-5xl md:text-8xl font-black text-brand-light mb-2 tabular-nums">
+                <div class="text-5xl md:text-7xl font-black text-brand-light mb-2 tabular-nums">
                     <span id="count-countries">0</span><span class="text-brand-accent">+</span>
                 </div>
                 <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Countries Reached</p>
             </div>
             <div class="animate-on-scroll delay-200">
-                <div class="text-5xl md:text-8xl font-black text-brand-light mb-2 tabular-nums">
+                <div class="text-5xl md:text-7xl font-black text-brand-light mb-2 tabular-nums">
                     <span id="count-guest">0</span><span class="text-brand-accent">+</span>
                 </div>
                 <p class="text-slate-400 text-sm font-semibold uppercase tracking-widest">Guest of Honour</p>

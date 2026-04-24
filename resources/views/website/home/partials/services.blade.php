@@ -1,5 +1,5 @@
 <!-- MSMECCII Core Pillars of Service -->
-<section class="py-24 bg-slate-50 relative overflow-hidden">
+<section class="py-20 bg-slate-50 relative overflow-hidden">
     <!-- Background Decor -->
     <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-[120px] -mr-96 -mt-96">
     </div>
@@ -9,34 +9,46 @@
             <!-- Section Header -->
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
                 <div class="max-w-3xl">
-                    <div
+                    <!-- <div
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary border shadow-sm mb-6">
                         <span class="w-1.5 h-1.5 rounded-full bg-brand-light animate-pulse"></span>
                         <span class="text-white text-xs font-bold uppercase">Core Pillars</span>
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-black text-brand-primary leading-[1.1] mb-6">
-                        Our Specialized <br> Service <span class="text-brand-accent">Framework</span>
+                    </div> -->
+                    <h2 class="text-4xl md:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.1] mb-6">
+                        Our Specialized <br> Service <span class="text-brand-primary">Framework</span>
                     </h2>
+                    <p class="text-slate-500 text-lg leading-relaxed font-medium">
+                        Empowering MSMEs through strategic initiatives, industry advocacy, and growth-driven solutions designed
+                        to foster global competitiveness.
+                    </p>
                 </div>
 
-                <div class="hidden lg:block">
-                    <div class="flex items-center gap-4 p-6 bg-white rounded-2xl border">
+                <div class="hidden lg:flex flex-col gap-4">
+                    <div class="flex items-center gap-4 p-6 bg-white rounded-md border">
                         <div
-                            class="w-12 h-12 bg-brand-primary rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            class="w-12 h-12 bg-brand-primary rounded-md flex items-center justify-center text-white shadow-lg">
                             <i class="fa-solid fa-users-gear text-xl"></i>
                         </div>
                         <div>
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Industry Support
                             </p>
-                            <p class="text-sm font-bold text-slate-900">Registered Members 5000+</p>
+                            <p class="text-sm font-bold text-slate-900">Members 5000+</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-6 bg-white rounded-md border">
+                        <div
+                            class="w-12 h-12 bg-brand-primary rounded-md flex items-center justify-center text-white shadow-lg">
+                            <i class="fa-solid fa-globe text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                Global Presence
+                            </p>
+                            <p class="text-sm font-bold text-slate-900">30+ Countries</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <p class="text-slate-500 text-lg leading-relaxed font-medium">
-                Empowering MSMEs through strategic initiatives, industry advocacy, and growth-driven solutions designed
-                to foster global competitiveness.
-            </p>
         </div>
 
         <!-- Services Grid — Top 3 -->
@@ -95,17 +107,17 @@
             @endphp
 
             @foreach($services as $idx => $svc)
-                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-white rounded-2xl block overflow-visible border border-slate-200 shadow-sm hover:shadow-2xl hover:border-brand-primary/20 transition-all duration-500 animate-on-scroll"
+                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-white rounded-lg block overflow-visible border transition-all duration-500 animate-on-scroll"
                     style="transition-delay: {{ $idx * 100 }}ms">
                     
                     <!-- Card Top: Image -->
-                    <div class="h-56 relative overflow-hidden rounded-t-2xl">
+                    <div class="h-56 relative overflow-hidden rounded-t-lg">
                         <img src="{{ asset($svc['image']) }}" alt="{{ $svc['title'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
                     </div>
 
                     <!-- Floating Icon -->
-                    <div class="absolute top-[200px] left-8 w-14 h-14 bg-white rounded-2xl shadow-xl flex items-center justify-center text-brand-primary z-20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-brand-primary group-hover:text-white border border-slate-100">
+                    <div class="absolute top-[200px] left-8 w-14 h-14 bg-white rounded-md flex items-center justify-center text-brand-primary z-20 transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-brand-primary group-hover:text-white border border-slate-100">
                         <i class="fa-solid fa-{{ $svc['icon'] }} text-xl"></i>
                     </div>
 
@@ -119,7 +131,7 @@
                         </p>
 
                         <!-- Action Marker -->
-                        <div class="flex items-center justify-between border-t pt-6 border-slate-100">
+                        <div class="flex items-center justify-between border-t pt-6">
                             <span class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-brand-primary transition-colors">
                                 View Service <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-2"></i>
                             </span>
@@ -134,7 +146,7 @@
         </div>
 
         <!-- Section Footer with View All CTA -->
-        <div class="mt-16 p-8 rounded-2xl bg-brand-primary text-white relative overflow-hidden animate-on-scroll">
+        <div class="mt-16 p-8 rounded-lg bg-brand-primary text-white relative overflow-hidden animate-on-scroll">
             <div
                 class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
             </div>
@@ -149,7 +161,7 @@
                     </div>
                 </div>
                 <a href="{{ route('register') }}"
-                    class="px-10 py-5 bg-brand-accent text-brand-primary font-black uppercase text-sm tracking-widest rounded-full hover:bg-white hover:text-brand-primary transition-all shadow-xl">
+                    class="px-10 py-5 bg-brand-accent text-brand-primary font-black uppercase text-sm tracking-widest rounded-full hover:bg-white hover:text-brand-primary transition-all">
                     Get Started Now
                 </a>
             </div>

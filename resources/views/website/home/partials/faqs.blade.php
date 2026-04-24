@@ -48,8 +48,8 @@
                 <!-- FAQ Accordion List -->
                 <div class="space-y-4 animate-on-scroll">
                     @foreach($faqs as $item)
-                        <div class="group border border-slate-200 bg-white rounded-2xl overflow-hidden transition-all duration-300 h-fit shadow-xs hover:shadow-md" 
-                             :class="active === {{ $item['id'] }} ? 'border-brand-primary shadow-md' : 'hover:border-slate-300'">
+                        <div class="group border border-slate-300 bg-white rounded-md overflow-hidden transition-all duration-300 h-fit" 
+                             :class="active === {{ $item['id'] }} ? 'border-brand-primary' : 'hover:border-slate-300'">
                             
                             <button class="w-full flex items-center justify-between p-5 md:p-6 text-left outline-none" 
                                     @click="active === {{ $item['id'] }} ? active = null : active = {{ $item['id'] }}">
@@ -86,7 +86,7 @@
 
             <!-- Right Sticky Sidebar Image & CTA -->
             <div class="w-full lg:w-5/12 sticky top-32 z-30 hidden lg:block self-start">
-                <div class="relative rounded-2xl overflow-hidden shadow-2xl group w-full h-[calc(100vh-10rem)] max-h-[700px] min-h-[500px]">
+                <div class="relative rounded-lg overflow-hidden shadow-2xl group w-full h-[calc(100vh-10rem)] max-h-[700px] min-h-[500px]">
                     <img src="{{ asset('images/faq-bg.png') }}" alt="MSMECCII Support FAQ" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
                     <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
                     
@@ -104,7 +104,7 @@
                             If you still have queries or need customized support, our dedicated team is here to assist you round the clock.
                         </p>
                         
-                        <a href="{{ route('contact') }}" class="w-full relative overflow-hidden inline-flex items-center justify-center px-8 py-4 bg-slate-800 hover:bg-brand-accent text-white hover:text-slate-900 border border-slate-600 hover:border-transparent rounded-2xl font-black text-sm transition-all shadow-xl group/btn uppercase tracking-widest">
+                        <a href="{{ route('contact') }}" class="w-full relative overflow-hidden inline-flex items-center justify-center px-8 py-4 bg-slate-800 hover:bg-brand-accent text-white hover:text-slate-900 border border-slate-600 hover:border-transparent rounded-md font-black text-sm transition-all shadow-xl group/btn uppercase tracking-widest">
                             <span class="relative z-10 flex items-center justify-center">
                                 Contact Support Team
                                 <i class="fa-solid fa-arrow-right ml-3 group-hover/btn:translate-x-1 transition-transform"></i>

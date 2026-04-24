@@ -116,7 +116,10 @@
         </div>
     </div> -->
 
-    <header x-data="{ scrolled: false, megaOpen: false }" x-on:scroll.window="scrolled = window.pageYOffset > 50" :class="(scrolled || megaOpen) ? 'bg-linear-to-r from-brand-primary to-brand-primary-dark shadow-xl' : ''" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    @php
+    $isHome = request()->routeIs('home');
+    @endphp
+    <header x-data="{ scrolled: false, megaOpen: false }" x-on:scroll.window="scrolled = window.pageYOffset > 50" :class="(scrolled || megaOpen) ? 'bg-linear-to-r from-brand-primary to-brand-primary-dark shadow-xl' : ''" class="{{ $isHome ? '' : 'bg-linear-to-r from-brand-primary to-brand-primary-dark' }} fixed top-0 left-0 w-full z-50 transition-all duration-300">
 
         <!-- Main Nav -->
         <div class="px-4 container">
@@ -365,7 +368,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-brand-light text-slate-500 pt-20 pb-0">
+    <footer class="bg-brand-primary text-white pt-20 pb-0">
         <div class="container">
 
             <!-- Top Row -->
@@ -375,48 +378,48 @@
                 <div>
                     <div class="flex items-center gap-3 mb-6">
                         <img src="{{ asset('images/logo/logo.png') }}" alt="MSMECCII Logo"
-                            class="h-12 w-auto object-contain bg-brand-primary p-1.5 rounded-lg">
-                        <span class="text-4xl font-black tracking-wider text-brand-primary">MSMECCII</span>
+                            class="h-14 w-auto object-contain bg-brand-light p-1.5 rounded-md">
+                        <span class="text-5xl font-black tracking-wider text-brand-light">MSMECCII</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed mb-6 text-sm">
+                    <p class="text-slate-200 leading-relaxed mb-6 text-sm">
                         A global business network and NGO established in 2019, dedicated to furthering the interests of
                         MSMEs through innovation, training, awards, and policy advocacy.
                     </p>
                     <div class="flex gap-3">
                         @if($site['facebook_url'] ?? false)
                             <a href="{{ $site['facebook_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-facebook-f text-sm"></i>
+                                class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-facebook-f text-lg"></i>
                             </a>
                         @endif
                         @if($site['twitter_url'] ?? false)
                             <a href="{{ $site['twitter_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-twitter text-sm"></i>
+                                class="w-10 h-10 rounded-md bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-twitter text-lg"></i>
                             </a>
                         @endif
                         @if($site['linkedin_url'] ?? false)
                             <a href="{{ $site['linkedin_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-linkedin-in text-sm"></i>
+                                class="w-10 h-10 rounded-md bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
                             </a>
                         @endif
                         @if($site['instagram_url'] ?? false)
                             <a href="{{ $site['instagram_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-instagram text-sm"></i>
+                                class="w-10 h-10 rounded-md bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-instagram text-lg"></i>
                             </a>
                         @endif
                         @if($site['youtube_url'] ?? false)
                             <a href="{{ $site['youtube_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-youtube text-sm"></i>
+                                class="w-10 h-10 rounded-md bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-youtube text-lg"></i>
                             </a>
                         @endif
                         @if($site['whatsapp_url'] ?? false)
                             <a href="{{ $site['whatsapp_url'] }}" target="_blank"
-                                class="w-9 h-9 rounded-lg bg-brand-primary hover:bg-brand-primary flex items-center justify-center text-slate-100 hover:text-white transition-all">
-                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                class="w-10 h-10 rounded-md bg-white flex items-center justify-center text-black hover:text-brand-primary transition-all">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
                             </a>
                         @endif
                     </div>
@@ -424,73 +427,73 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Quick Links</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-light uppercase tracking-widest">Quick Links</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('about.what_is') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> About MSMECCII
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> About MSMECCII
                             </a></li>
                         <li><a href="{{ route('sectors.index') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Focused Sectors
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Focused Sectors
                             </a></li>
                         <li><a href="{{ route('join.index') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Join / Membership
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Join / Membership
                             </a></li>
                         <li><a href="{{ route('about.leadership') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Core Leadership
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Core Leadership
                             </a></li>
                     </ul>
                 </div>
 
                 <!-- Activities -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Activities</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-light uppercase tracking-widest">Activities</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('events.index') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Events & Awards
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Events & Awards
                             </a></li>
                         <li><a href="{{ route('register') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Register Now
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Register Now
                             </a></li>
                         <li><a href="{{ route('about.chairman') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Chairman's Message
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Chairman's Message
                             </a></li>
                         <li><a href="{{ route('sectors.index') }}"
-                                class="text-slate-600 hover:text-brand-primary transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-primary/50"></span> Trade & Expo
+                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Trade & Expo
                             </a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h3 class="text-sm font-bold mb-6 text-brand-primary uppercase tracking-widest">Contact Us</h3>
+                    <h3 class="text-sm font-bold mb-6 text-brand-light uppercase tracking-widest">Contact Us</h3>
                     <ul class="space-y-4">
                         @if($site['address'] ?? false)
                             <li class="flex items-start gap-3">
                                 <div
-                                    class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                                    <i class="fa-solid fa-location-dot text-brand-primary text-sm"></i>
+                                    class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-location-dot text-brand-light text-sm"></i>
                                 </div>
                                 <span
-                                    class="text-slate-400 text-sm leading-relaxed">{!! nl2br(e($site['address'])) !!}</span>
+                                    class="text-slate-100 text-sm leading-relaxed">{!! nl2br(e($site['address'])) !!}</span>
                             </li>
                         @endif
                         @foreach(['phone_1', 'phone_2', 'phone_3'] as $pk)
                             @if($site[$pk] ?? false)
                                 <li class="flex items-center gap-3">
                                     <div
-                                        class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
-                                        <i class="fa-solid fa-phone text-brand-primary text-sm"></i>
+                                        class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-phone text-brand-light text-sm"></i>
                                     </div>
                                     <a href="tel:{{ $site[$pk] }}"
-                                        class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$pk] }}</a>
+                                        class="text-slate-100 hover:text-white transition-colors text-sm">{{ $site[$pk] }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -498,11 +501,11 @@
                             @if($site[$ek] ?? false)
                                 <li class="flex items-center gap-3">
                                     <div
-                                        class="w-9 h-9 rounded-lg bg-brand-primary/20 flex items-center justify-center shrink-0">
-                                        <i class="fa-solid fa-envelope text-brand-primary text-sm"></i>
+                                        class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-envelope text-brand-light text-sm"></i>
                                     </div>
                                     <a href="mailto:{{ $site[$ek] }}"
-                                        class="text-slate-400 hover:text-white transition-colors text-sm">{{ $site[$ek] }}</a>
+                                        class="text-slate-100 hover:text-white transition-colors text-sm">{{ $site[$ek] }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -511,11 +514,11 @@
             </div>
 
             <!-- Bottom Bar -->
-            <div class="border-t border-slate-300 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-slate-500 text-sm">
+            <div class="border-t border-slate-200 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-200 text-sm">
                     &copy; {{ date('Y') }} MSME Chamber of Commerce and Industry of India. All rights reserved.
                 </p>
-                <div class="flex gap-6 text-sm text-slate-500">
+                <div class="flex gap-6 text-sm text-slate-200">
                     <a href="{{ route('privacy') }}" class="hover:text-brand-primary transition-colors">Privacy
                         Policy</a>
                     <a href="{{ route('terms') }}" class="hover:text-brand-primary transition-colors">Terms &
