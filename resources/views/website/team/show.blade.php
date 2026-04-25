@@ -54,10 +54,10 @@
                     </div>
                 @endif
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 last:mb-0">
+                <div class="grid grid-cols-1 gap-8 mb-20 last:mb-0">
                     @foreach($group as $member)
-                    <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border border-slate-100 flex items-center gap-6 h-full">
-                        <div class="relative h-80 w-full overflow-hidden shrink-0">
+                    <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border border-slate-100 flex items-center gap-8 h-full">
+                        <div class="relative h-120 w-1/3 overflow-hidden shrink-0">
                             @if($member->image)
                                 <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover bg-slate-300 group-hover:scale-110 transition-transform duration-700">
                             @else
