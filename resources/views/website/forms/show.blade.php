@@ -1,5 +1,37 @@
 @extends('layouts.website')
 
+@push('meta')
+    @if($form->og_title)
+        <meta property="og:title" content="{{ $form->og_title }}">
+        <meta name="twitter:title" content="{{ $form->og_title }}">
+    @else
+        <meta property="og:title" content="{{ $form->name }}">
+        <meta name="twitter:title" content="{{ $form->name }}">
+    @endif
+
+    @if($form->og_description)
+        <meta property="og:description" content="{{ $form->og_description }}">
+        <meta name="twitter:description" content="{{ $form->og_description }}">
+    @else
+        <meta property="og:description" content="{{ $form->description }}">
+        <meta name="twitter:description" content="{{ $form->description }}">
+    @endif
+
+    @if($form->og_image)
+        <meta property="og:image" content="{{ asset($form->og_image) }}">
+        <meta name="twitter:image" content="{{ asset($form->og_image) }}">
+    @else
+        @if($form->thumbnail)
+            <meta property="og:image" content="{{ asset($form->thumbnail) }}">
+            <meta name="twitter:image" content="{{ asset($form->thumbnail) }}">
+        @endif
+    @endif
+
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+@endpush
+
 @section('content')
 <!-- Force Load Razorpay if yield fails -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async onload="console.log('Razorpay Loaded Successfully')"></script>

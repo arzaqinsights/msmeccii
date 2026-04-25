@@ -50,6 +50,9 @@ class FormController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'submit_button_text' => 'nullable|string|max:100',
+            'og_title' => 'nullable|string|max:255',
+            'og_description' => 'nullable|string',
+            'og_image' => 'nullable|image|max:2048',
         ]);
 
         $form->name = $request->name;
@@ -62,6 +65,8 @@ class FormController extends Controller
         $form->invoice_details = $request->invoice_details;
         $form->invoice_terms = $request->invoice_terms;
         $form->invoice_template_id = $request->invoice_template_id;
+        $form->og_title = $request->og_title;
+        $form->og_description = $request->og_description;
         
         // Process Main Thumbnail
         if ($request->hasFile('thumbnail')) {
@@ -77,6 +82,14 @@ class FormController extends Controller
             $filename = time() . '_inv_logo_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/forms'), $filename);
             $form->invoice_logo = '/uploads/forms/' . $filename;
+        }
+
+        // Process OG Image
+        if ($request->hasFile('og_image')) {
+            $file = $request->file('og_image');
+            $filename = time() . '_og_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/forms'), $filename);
+            $form->og_image = '/uploads/forms/' . $filename;
         }
 
         $form->save();

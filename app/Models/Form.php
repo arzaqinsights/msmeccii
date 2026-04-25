@@ -21,7 +21,10 @@ class Form extends Model
         'invoice_details',
         'invoice_logo',
         'invoice_terms',
-        'invoice_template_id'
+        'invoice_template_id',
+        'og_title',
+        'og_description',
+        'og_image'
     ];
 
     protected $casts = [

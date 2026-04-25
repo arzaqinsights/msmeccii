@@ -105,6 +105,38 @@
                     </div>
                 </div>
 
+                <!-- Social Sharing / SEO -->
+                <div class="pt-4 border-t border-slate-100 bg-rose-50/30 p-4 rounded-xl border border-rose-100 mt-4">
+                    <h4 class="text-xs font-black text-rose-600 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes"></i> Social Sharing (SEO)
+                    </h4>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">OG Title</label>
+                            <input type="text" name="og_title" value="{{ old('og_title', $form->og_title) }}" placeholder="e.g., Register for Global Summit"
+                                   class="w-full bg-white border border-slate-200 rounded-lg p-2.5 outline-none focus:border-rose-500 font-bold text-slate-900 text-xs">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">OG Description</label>
+                            <textarea name="og_description" rows="2" placeholder="Brief summary for social media..."
+                                      class="w-full bg-white border border-slate-200 rounded-lg p-2.5 outline-none focus:border-rose-500 font-medium text-slate-900 text-xs resize-none">{{ old('og_description', $form->og_description) }}</textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">OG Sharing Image (1200x630)</label>
+                            @if($form->og_image)
+                                <div class="mb-2 rounded-lg overflow-hidden border border-slate-200 shadow-sm relative group">
+                                    <img src="{{ asset($form->og_image) }}" alt="OG Preview" class="w-full h-20 object-cover">
+                                </div>
+                            @endif
+                            <input type="file" name="og_image" accept="image/*"
+                                   class="w-full bg-white border border-slate-200 focus:border-rose-500 p-1.5 rounded-lg outline-none font-bold text-slate-900 transition-all text-[10px] file:mr-3 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-semibold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="pt-4 border-t border-slate-100">
                     <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl transition-all shadow-lg text-center drop-shadow-sm flex justify-center items-center gap-2">
                         <i class="fa-solid fa-microchip"></i> Save Advanced Form Concept

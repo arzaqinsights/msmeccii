@@ -8,6 +8,9 @@
     <meta name="description"
         content="@yield('meta_description', 'MSMECCII - The global MSME Chamber of Commerce and Industry of India. Supporting 50,000+ enterprises across 26+ sectors.')">
 
+    @stack('meta')
+
+
     <!-- DNS Prefetch & Preconnect for speed -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
