@@ -74,7 +74,7 @@
                                 @if($member->company_name)
                                     <p class="text-slate-400 text-[10px] font-black uppercase mb-3">{{ $member->company_name }}</p>
                                 @endif
-                                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                                <p class="text-slate-500 text-base leading-relaxed mb-4">
                                     {{ $member->description }}
                                 </p>
                             </div>
