@@ -4,6 +4,7 @@
     @include('website.home.partials.hero')
     @include('website.home.partials.events')
     @include('website.home.partials.about')
+    @include('website.home.partials.excellence')
     @include('website.home.partials.services')
     @include('website.home.partials.awards')
     @include('website.home.partials.sectors')

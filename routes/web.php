@@ -57,6 +57,7 @@ Route::get('/news', [PageController::class, 'news'])->name('news');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{category}', [PageController::class, 'galleryShow'])->name('gallery.show');
 Route::get('/growth', [\App\Http\Controllers\Website\GrowthController::class, 'index'])->name('growth');
+Route::get('/wall-of-excellence', [\App\Http\Controllers\Website\ExcellenceController::class, 'index'])->name('excellence.index');
 
 // Blog & Articles
 Route::prefix('blog')->name('blog.')->group(function () {
@@ -151,6 +152,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     
     // Growth & Stats Management
     Route::resource('growth', \App\Http\Controllers\Admin\GrowthRecordController::class);
+
+    // Wall of Excellence
+    Route::resource('excellence', \App\Http\Controllers\Admin\ExcellenceAwardController::class);
 
     // Team & Person Pages
     Route::resource('team-pages', \App\Http\Controllers\Admin\TeamPageController::class);

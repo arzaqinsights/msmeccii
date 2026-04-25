@@ -83,6 +83,11 @@
                 <i class="fa-solid fa-file-invoice w-5 text-center"></i>
                 <span class="font-bold">Invoice Designer</span>
             </a>
+            
+            <a href="{{ route('admin.excellence.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.excellence.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                <i class="fa-solid fa-award w-5 text-center"></i>
+                <span class="font-bold">Wall of Excellence</span>
+            </a>
 
             <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 ml-2 mt-6">CRM / Community</div>
             <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.users.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">

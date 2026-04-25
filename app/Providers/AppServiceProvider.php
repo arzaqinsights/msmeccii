@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
                         ['name' => 'What is MSMECCII', 'route' => 'about.what_is', 'active' => 'about/what-is-msmeccii'],
                         ['name' => 'Global Chairman', 'route' => 'about.chairman', 'active' => 'about/chairman'],
                         ['name' => 'Core Leadership', 'route' => 'about.leadership', 'active' => 'about/leadership'],
+                        ['name' => 'Wall of Excellence', 'route' => 'excellence.index', 'active' => 'wall-of-excellence'],
                     ]
                 ],
                 [
