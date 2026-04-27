@@ -16,7 +16,9 @@ class ExcellenceAwardController extends Controller
 
     public function create()
     {
-        return view('admin.excellence.form', ['award' => new ExcellenceAward()]);
+        $award = new ExcellenceAward();
+        $award->order = (ExcellenceAward::max('order') ?? 0) + 1;
+        return view('admin.excellence.form', ['award' => $award]);
     }
 
     public function store(Request $request)

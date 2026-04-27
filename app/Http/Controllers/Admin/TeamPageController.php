@@ -17,7 +17,9 @@ class TeamPageController extends Controller
 
     public function create()
     {
-        return view('admin.team-pages.form', ['page' => new TeamPage()]);
+        $page = new TeamPage();
+        $page->order = (TeamPage::max('order') ?? 0) + 1;
+        return view('admin.team-pages.form', ['page' => $page]);
     }
 
     public function store(Request $request)

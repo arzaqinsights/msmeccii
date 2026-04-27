@@ -17,7 +17,9 @@ class TeamMemberController extends Controller
 
     public function create(TeamPage $team_page)
     {
-        return view('admin.team-pages.members.form', ['team_page' => $team_page, 'member' => new TeamMember()]);
+        $member = new TeamMember();
+        $member->order = ($team_page->members()->max('order') ?? 0) + 1;
+        return view('admin.team-pages.members.form', ['team_page' => $team_page, 'member' => $member]);
     }
 
     public function edit(TeamPage $team_page, TeamMember $member)

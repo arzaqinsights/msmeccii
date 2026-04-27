@@ -108,7 +108,7 @@
                                class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-2">Website (Optional)</label>
+                        <label class="block text-xs font-bold text-slate-500 mb-2">Website</label>
                         <input type="text" name="website" placeholder="e.g. www.example.com" value="{{ old('website', auth()->check() ? auth()->user()->website : '') }}" 
                                class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <label class="block text-xs font-bold text-slate-500 mb-2">GSTIN (Optional)</label>
+                    <label class="block text-xs font-bold text-slate-500 mb-2">GSTIN</label>
                     <input type="text" name="gstin" placeholder="e.g. 07AAAAA0000A1Z5" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
                            class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                 </div>
