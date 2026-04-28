@@ -50,8 +50,8 @@
                             <div class="flex items-center justify-between gap-4 mb-3 border-l-2 border-brand-accent/40 pl-4 ml-1">
                                 <div class="flex flex-col">
                                     <span class="text-base font-black text-white uppercase tracking-widest leading-none mb-1">
-                                        @if ($event->event_date)
-                                            {{ $event->event_date->format('d') }} @if($event->end_date && $event->event_date->format('Y-m-d') !== $event->end_date->format('Y-m-d')) - {{ $event->end_date->format('d M Y') }} @endif
+                                        @if ($event->end_date)
+                                            {{ $event->event_date->format('d M,') }} - {{ $event->end_date->format('d M, Y') }}
                                             @else
                                             {{ $event->event_date->format('d M, Y') }}
                                         @endif
