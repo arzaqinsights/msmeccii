@@ -51,9 +51,9 @@
                                 <div class="flex flex-col">
                                     <span class="text-base font-black text-white uppercase tracking-widest leading-none mb-1">
                                         @if ($event->end_date)
-                                            {{ $event->event_date->format('d') }} - {{ $event->end_date->format('d M, Y') }}
+                                            {{ $event->event_date->format('d') }} - {{ $event->end_date->format('d M Y') }}
                                             @else
-                                            {{ $event->event_date->format('d M, Y') }}
+                                            {{ $event->event_date->format('d M Y') }}
                                         @endif
                                     </span>
                                     <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">{{ $event->event_date->format('h:i A') }} Onwards</span>
