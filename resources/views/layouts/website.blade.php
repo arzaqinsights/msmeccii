@@ -57,6 +57,8 @@
             gtag('config', '{{ config('services.google.analytics_id') }}');
         </script>
     @endif
+
+    <script id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/bfa5e1a8b8328405286aaebf5/35d901f961084419576fcf66c.js");</script>
 </head>
 
 <body class="font-sans text-gray-800 bg-white antialiased">
@@ -120,9 +122,11 @@
     </div> -->
 
     @php
-    $isHome = request()->routeIs('home');
+        $isHome = request()->routeIs('home');
     @endphp
-    <header x-data="{ scrolled: false, megaOpen: false }" x-on:scroll.window="scrolled = window.pageYOffset > 50" :class="(scrolled || megaOpen) ? 'bg-linear-to-r from-brand-primary to-brand-primary-dark shadow-xl' : ''" class="{{ $isHome ? '' : 'bg-linear-to-r from-brand-primary to-brand-primary-dark' }} fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <header x-data="{ scrolled: false, megaOpen: false }" x-on:scroll.window="scrolled = window.pageYOffset > 50"
+        :class="(scrolled || megaOpen) ? 'bg-linear-to-r from-brand-primary to-brand-primary-dark shadow-xl' : ''"
+        class="{{ $isHome ? '' : 'bg-linear-to-r from-brand-primary to-brand-primary-dark' }} fixed top-0 left-0 w-full z-50 transition-all duration-300">
 
         <!-- Main Nav -->
         <div class="px-4 container">
@@ -151,7 +155,7 @@
                             'sub_menu' => array_merge([
                                 ['name' => 'What is MSMECCII', 'route' => 'about.what_is', 'active' => 'about/what-is-msmeccii'],
                                 ['name' => 'Global Chairman', 'route' => 'about.chairman', 'active' => 'about/chairman'],
-                            ], \App\Models\TeamPage::where('status', true)->orderBy('order')->get()->map(function($page) {
+                            ], \App\Models\TeamPage::where('status', true)->orderBy('order')->get()->map(function ($page) {
                                 return [
                                     'name' => $page->title,
                                     'route' => 'about.team_page',
@@ -491,8 +495,7 @@
                         @foreach(['phone_1', 'phone_2', 'phone_3'] as $pk)
                             @if($site[$pk] ?? false)
                                 <li class="flex items-center gap-3">
-                                    <div
-                                        class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
+                                    <div class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-phone text-brand-light text-sm"></i>
                                     </div>
                                     <a href="tel:{{ $site[$pk] }}"
@@ -503,8 +506,7 @@
                         @foreach(['email_1', 'email_2'] as $ek)
                             @if($site[$ek] ?? false)
                                 <li class="flex items-center gap-3">
-                                    <div
-                                        class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
+                                    <div class="w-9 h-9 rounded-md bg-brand-light/20 flex items-center justify-center shrink-0">
                                         <i class="fa-solid fa-envelope text-brand-light text-sm"></i>
                                     </div>
                                     <a href="mailto:{{ $site[$ek] }}"
