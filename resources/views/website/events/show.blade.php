@@ -91,7 +91,7 @@
         <div class="flex flex-col lg:flex-row gap-12 items-start relative">
             
             <!-- Left Sticky Sidebar (ElitePlus Style) -->
-            <aside class="w-full lg:w-1/4 sticky top-32 z-30">
+            <aside class="w-full hidden lg:block lg:w-1/4 sticky top-32 z-30">
                 <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
                     <div class="bg-slate-900 p-6">
                         <h4 class="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
