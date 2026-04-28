@@ -13,8 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $upcomingEvents = Event::where('status', 'published')
-            ->where('event_date', '>=', now())
-            ->orderBy('event_date', 'desc')
+            ->orderBy('event_date', 'asc')
             ->get();
 
         $popupEvent = Event::where('status', 'published')
