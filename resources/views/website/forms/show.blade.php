@@ -387,13 +387,35 @@
                 if (field.depends_on_value === '__MAPPED__' && typeof field.options === 'object' && field.options !== null) {
                     const parentValue = this.formData[field.depends_on];
                     if (parentValue && field.options[parentValue]) {
-                        return field.options[parentValue].map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
+                        let opts = field.options[parentValue];
+                        if (typeof opts === 'object' && !Array.isArray(opts)) opts = Object.values(opts);
+                        return opts.map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
                     }
                     return [];
                 }
                 
-                if (Array.isArray(field.options)) {
-                    return field.options.map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
+                let opts = field.options;
+                
+                // If it was stored as a JSON string, parse it
+                if (typeof opts === 'string') {
+                    try {
+                        opts = JSON.parse(opts);
+                    } catch(e) {
+                        if (opts.trim() !== '') {
+                            opts = opts.split(',').map(s => s.trim());
+                        } else {
+                            opts = [];
+                        }
+                    }
+                }
+                
+                // If it became an object (e.g. {0: {label:...}}), convert to array
+                if (typeof opts === 'object' && opts !== null && !Array.isArray(opts)) {
+                    opts = Object.values(opts);
+                }
+
+                if (Array.isArray(opts)) {
+                    return opts.map(o => typeof o === 'string' ? {label: o, price: 0, tax: 0} : o);
                 }
                 return [];
             },

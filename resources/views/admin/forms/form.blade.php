@@ -501,9 +501,17 @@
                 field.options = ''; 
                 field.depends_on_value = '';
             } else {
-                // Advanced Options parsing for non-mapped fields (dropdowns)
-                if (Array.isArray(field.options)) {
-                    field.options_list = field.options.map(opt => {
+                // Advanced Options parsing for non-mapped fields (dropdowns, events)
+                let parsedOpts = field.options;
+                if (typeof parsedOpts === 'string') {
+                    try { parsedOpts = JSON.parse(parsedOpts); } catch(e) {}
+                }
+                if (typeof parsedOpts === 'object' && parsedOpts !== null && !Array.isArray(parsedOpts)) {
+                    parsedOpts = Object.values(parsedOpts);
+                }
+
+                if (Array.isArray(parsedOpts)) {
+                    field.options_list = parsedOpts.map(opt => {
                         if (typeof opt === 'string') return { label: opt, price: null, tax: null };
                         return { label: opt.label || '', price: opt.price || null, tax: opt.tax || null };
                     });
