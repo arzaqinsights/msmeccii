@@ -171,8 +171,8 @@
                                       class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none placeholder:text-slate-300 placeholder:font-medium"></textarea>
                         </template>
 
-                        <!-- Dropdown -->
-                        <template x-if="field.type === 'dropdown'">
+                        <!-- Dropdown / Event -->
+                        <template x-if="field.type === 'dropdown' || field.type === 'event'">
                             <select :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                     @change="handleFieldChange(field.field_identifier)"
                                     :required="field.is_required && isFieldVisible(field)"
@@ -403,7 +403,7 @@
                 let total = 0;
                 this.fields.forEach(f => {
                     if (this.isFieldVisible(f)) {
-                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
+                        if ((f.type === 'dropdown' || f.type === 'event') && this.formData[f.field_identifier] !== '') {
                             const opts = this.getFieldOptions(f);
                             const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
                             if (selected && selected.price) total += parseFloat(selected.price);
@@ -425,7 +425,7 @@
                 let tax = 0;
                 this.fields.forEach(f => {
                     if (this.isFieldVisible(f)) {
-                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
+                        if ((f.type === 'dropdown' || f.type === 'event') && this.formData[f.field_identifier] !== '') {
                             const opts = this.getFieldOptions(f);
                             const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
                             if (selected && selected.price && selected.tax) {
@@ -456,7 +456,7 @@
                         let amount = 0;
                         let label = f.label;
                         
-                        if (f.type === 'dropdown' && this.formData[f.field_identifier] !== '') {
+                        if ((f.type === 'dropdown' || f.type === 'event') && this.formData[f.field_identifier] !== '') {
                             const opts = this.getFieldOptions(f);
                             const selected = opts.find(o => o.label === this.formData[f.field_identifier]);
                             if (selected && selected.price) {

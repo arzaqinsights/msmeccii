@@ -18,7 +18,8 @@ class FormController extends Controller
     {
         $form = new Form();
         $invoiceTemplates = \App\Models\InvoiceTemplate::all();
-        return view('admin.forms.form', compact('form', 'invoiceTemplates'));
+        $events = \App\Models\Event::where('status', 'published')->select('id', 'title')->get();
+        return view('admin.forms.form', compact('form', 'invoiceTemplates', 'events'));
     }
 
     public function store(Request $request)
@@ -30,7 +31,8 @@ class FormController extends Controller
     {
         $form->load('fields');
         $invoiceTemplates = \App\Models\InvoiceTemplate::all();
-        return view('admin.forms.form', compact('form', 'invoiceTemplates'));
+        $events = \App\Models\Event::where('status', 'published')->select('id', 'title')->get();
+        return view('admin.forms.form', compact('form', 'invoiceTemplates', 'events'));
     }
 
     public function update(Request $request, Form $form)

@@ -170,6 +170,9 @@
                     <button type="button" @click="addField('file')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-slate-700">
                         + File Upload
                     </button>
+                    <button type="button" @click="addField('event')" class="text-[11px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded shadow-sm border border-indigo-500/50">
+                        + Event Selection
+                    </button>
                     <button type="button" @click="addField('hidden_price')" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 rounded border border-emerald-500/50 shadow-sm">
                         + Fixed Charge (Hidden)
                     </button>
@@ -202,7 +205,7 @@
                                     
                                     <!-- Badges -->
                                     <div class="flex gap-1 ml-2">
-                                        <template x-if="field.type === 'dropdown' && field.options_list.some(o => o.price > 0)">
+                                        <template x-if="(field.type === 'dropdown' || field.type === 'event') && field.options_list.some(o => o.price > 0)">
                                             <span class="bg-emerald-500 text-white font-bold text-[9px] px-1.5 rounded uppercase shadow-sm">
                                                 <i class="fa-solid fa-sack-dollar text-[8px]"></i> Pricing Active
                                             </span>
@@ -298,6 +301,51 @@
                                             
                                             <div x-show="field.options_list.length === 0" class="text-[10px] text-slate-400 font-medium italic mt-1">
                                                 No options defined. Click "+ Add Option" to begin.
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <template x-if="field.type === 'event'">
+                                        <div class="md:col-span-2 space-y-3">
+                                            <div class="flex justify-between items-end mb-2">
+                                                <label class="block text-[10px] font-bold text-indigo-600 uppercase tracking-wider"><i class="fa-solid fa-calendar"></i> Link Events & Pricing</label>
+                                            </div>
+                                            
+                                            <div class="flex gap-2">
+                                                <select x-ref="'eventSelector' + index" class="flex-1 text-xs font-bold text-slate-700 border border-slate-200 rounded-lg p-2.5 outline-none focus:border-indigo-500 cursor-pointer">
+                                                    <option value="">-- Choose Published Event to Add --</option>
+                                                    <template x-for="ev in availableEvents" :key="ev.id">
+                                                        <option :value="ev.title" x-text="ev.title"></option>
+                                                    </template>
+                                                </select>
+                                                <button type="button" @click="addEventOption(field, $refs['eventSelector' + index].value); $refs['eventSelector' + index].value='';" class="text-[10px] bg-indigo-100 text-indigo-700 font-black px-4 py-2 rounded-lg uppercase hover:bg-indigo-200 border border-indigo-200">
+                                                    + Add Event
+                                                </button>
+                                            </div>
+
+                                            <div class="space-y-2 mt-3">
+                                                <template x-for="(opt, oIdx) in field.options_list" :key="oIdx">
+                                                    <div class="flex gap-2 items-center bg-indigo-50/30 p-2 rounded-lg border border-indigo-100">
+                                                        <div class="flex-1 px-2 text-xs font-bold text-indigo-900 truncate" x-text="opt.label"></div>
+                                                        <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                            <span class="text-[10px] font-bold text-slate-400">₹</span>
+                                                            <input type="number" x-model="opt.price" placeholder="Fee" 
+                                                                   class="w-16 text-xs font-bold text-slate-700 outline-none">
+                                                        </div>
+                                                        <div class="flex items-center gap-1 bg-white border border-slate-200 rounded px-1.5 py-1">
+                                                            <input type="number" x-model="opt.tax" placeholder="Tax" 
+                                                                   class="w-10 text-xs font-bold text-slate-700 outline-none">
+                                                            <span class="text-[10px] font-bold text-slate-400">%</span>
+                                                        </div>
+                                                        <button type="button" @click="removeOption(field, oIdx)" class="text-red-400 hover:text-red-600 p-1 ml-1">
+                                                            <i class="fa-solid fa-xmark text-[10px]"></i>
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            
+                                            <div x-show="field.options_list.length === 0" class="text-[10px] text-slate-400 font-medium italic mt-1">
+                                                No events added yet. Select an event above and click "+ Add Event".
                                             </div>
                                         </div>
                                     </template>
@@ -474,6 +522,7 @@
         return {
             fields: initialFields,
             fieldsJson: '',
+            availableEvents: @json($events ?? []),
             
             generateUUID() {
                 return 'f_' + Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -503,6 +552,13 @@
             addOption(field) {
                 if (!field.options_list) field.options_list = [];
                 field.options_list.push({ label: '', price: null, tax: null });
+            },
+            addEventOption(field, title) {
+                if (!title) return;
+                if (!field.options_list) field.options_list = [];
+                // check if already added
+                if (field.options_list.some(o => o.label === title)) return;
+                field.options_list.push({ label: title, price: null, tax: null });
             },
             removeOption(field, index) {
                 field.options_list.splice(index, 1);
@@ -550,7 +606,7 @@
             getParentOptions(parentId) {
                 if(!parentId) return [];
                 let parent = this.fields.find(f => f.id === parentId);
-                if(parent && parent.type === 'dropdown') {
+                if(parent && (parent.type === 'dropdown' || parent.type === 'event')) {
                     // Check if parent has options_list (objects) or legacy comma string
                     if (parent.options_list && parent.options_list.length > 0) {
                         return parent.options_list.map(o => o.label).filter(l => l && l.trim() !== '');
@@ -565,7 +621,7 @@
             prepareSubmit() {
                 // Transfer options_list into options property for dropdowns
                 this.fields.forEach(f => {
-                    if (f.type === 'dropdown') {
+                    if (f.type === 'dropdown' || f.type === 'event') {
                         if (f.depends_on && f.dependency_mode === 'options') {
                             // Map dynamic cascading options
                             f.depends_on_value = '__MAPPED__';
