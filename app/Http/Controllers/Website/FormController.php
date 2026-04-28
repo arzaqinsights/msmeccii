@@ -17,10 +17,13 @@ class FormController extends Controller
     {
         $form = Form::where('slug', $slug)
             ->where('status', 'published')
-            ->with(['fields' => function($q) {
-                $q->orderBy('order', 'asc');
-            }])
+            ->with([
+                'fields' => function ($q) {
+                    $q->orderBy('order', 'asc');
+                }
+            ])
             ->firstOrFail();
+        $events = \App\Models\Event::where('status', 'published')->select('id', 'title')->get();
 
         return view('website.forms.show', compact('form'));
     }
@@ -62,7 +65,7 @@ class FormController extends Controller
                     'country' => $request->country,
                     'gstin' => $request->gstin,
                     'website' => $request->website,
-                    'password' => Hash::make(Str::random(16)), 
+                    'password' => Hash::make(Str::random(16)),
                     'role' => 'user'
                 ]);
             }
@@ -93,7 +96,7 @@ class FormController extends Controller
         // Secure Server-Side Dependency & Price verification
         foreach ($form->fields as $field) {
             $identifier = $field->field_identifier;
-            
+
             // Check if field value was submitted
             $submittedValue = $dynamicData[$identifier] ?? null;
 
@@ -143,16 +146,16 @@ class FormController extends Controller
                         }
                     } else {
                         // Standard field-level pricing
-                        if ((float)$field->base_amount > 0) {
+                        if ((float) $field->base_amount > 0) {
                             $fieldBase = (float) $field->base_amount;
-                            
+
                             // NEW: Multiply price by quantity for number/range fields
                             if ($field->type === 'number') {
                                 $qty = (float) ($submittedValue ?: 0);
                                 $fieldBase = $fieldBase * $qty;
                             }
 
-                            $fieldTax = (float)$field->tax_percentage > 0 ? ($fieldBase * ((float)$field->tax_percentage / 100)) : 0;
+                            $fieldTax = (float) $field->tax_percentage > 0 ? ($fieldBase * ((float) $field->tax_percentage / 100)) : 0;
                         }
                     }
 
@@ -189,7 +192,7 @@ class FormController extends Controller
         }
 
         $paymentMethod = $request->input('payment_method', 'gateway');
-        
+
         $submission = Submission::create([
             'user_id' => $user->id,
             'form_id' => $form->id,
@@ -211,16 +214,16 @@ class FormController extends Controller
             try {
                 $api = new \Razorpay\Api\Api($keyId, $keySecret);
                 $orderData = [
-                    'receipt'         => 'rcpt_' . $submission->id,
-                    'amount'          => round($grandTotal * 100), // in paise
-                    'currency'        => 'INR',
-                    'notes'           => [
+                    'receipt' => 'rcpt_' . $submission->id,
+                    'amount' => round($grandTotal * 100), // in paise
+                    'currency' => 'INR',
+                    'notes' => [
                         'submission_id' => $submission->id,
-                        'form_name'     => $form->name
+                        'form_name' => $form->name
                     ]
                 ];
                 $razorpayOrder = $api->order->create($orderData);
-                
+
                 // Create internal payment record
                 \App\Models\Payment::create([
                     'user_id' => $user->id,
