@@ -306,19 +306,19 @@
                                     </template>
 
                                     <template x-if="field.type === 'event'">
-                                        <div class="md:col-span-2 space-y-3">
+                                        <div class="md:col-span-2 space-y-3" x-data="{ selectedEvent: '' }">
                                             <div class="flex justify-between items-end mb-2">
                                                 <label class="block text-[10px] font-bold text-indigo-600 uppercase tracking-wider"><i class="fa-solid fa-calendar"></i> Link Events & Pricing</label>
                                             </div>
                                             
                                             <div class="flex gap-2">
-                                                <select x-ref="'eventSelector' + index" class="flex-1 text-xs font-bold text-slate-700 border border-slate-200 rounded-lg p-2.5 outline-none focus:border-indigo-500 cursor-pointer">
+                                                <select x-model="selectedEvent" class="flex-1 text-xs font-bold text-slate-700 border border-slate-200 rounded-lg p-2.5 outline-none focus:border-indigo-500 cursor-pointer">
                                                     <option value="">-- Choose Published Event to Add --</option>
                                                     <template x-for="ev in availableEvents" :key="ev.id">
                                                         <option :value="ev.title" x-text="ev.title"></option>
                                                     </template>
                                                 </select>
-                                                <button type="button" @click="addEventOption(field, $refs['eventSelector' + index].value); $refs['eventSelector' + index].value='';" class="text-[10px] bg-indigo-100 text-indigo-700 font-black px-4 py-2 rounded-lg uppercase hover:bg-indigo-200 border border-indigo-200">
+                                                <button type="button" @click="addEventOption(field, selectedEvent); selectedEvent='';" class="text-[10px] bg-indigo-100 text-indigo-700 font-black px-4 py-2 rounded-lg uppercase hover:bg-indigo-200 border border-indigo-200">
                                                     + Add Event
                                                 </button>
                                             </div>
