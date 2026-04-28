@@ -3,83 +3,121 @@
 @section('title', 'Global Summits & Business Events | MSMECCII')
 
 @section('content')
-<section class="pt-40 pb-24 bg-slate-50 relative overflow-hidden">
-    <div class="container relative z-10">
-        <div class="max-w-3xl mb-16 animate-on-scroll">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
-                <i class="fa-solid fa-calendar-days text-brand-primary text-xs"></i>
-                <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">Official Event Calendar</span>
+    <section class="pt-40 pb-24 bg-slate-50 relative overflow-hidden">
+        <div class="container relative z-10">
+            <div class="max-w-3xl mb-16 animate-on-scroll">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-6">
+                    <i class="fa-solid fa-calendar-days text-brand-primary text-xs"></i>
+                    <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">Official Event
+                        Calendar</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
+                    Upcoming <span class="text-brand-primary">Global Summits</span>
+                </h1>
             </div>
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
-                Upcoming <span class="text-brand-primary">Global Summits</span>
-            </h1>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @forelse($events as $event)
-                <div class="group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 animate-on-scroll">
-                    <!-- Background Image -->
-                    <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" 
-                         alt="{{ $event->title }}"
-                         class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
-                    
-                    <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($events as $event)
+                        <div class="group bg-white rounded-lg overflow-hidden border shadow-sm hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 animate-on-scroll flex flex-col h-full"
+                            style="transition-delay: {{ $loop->index * 150 }}ms">
 
-                    <!-- Content Info (All at bottom) -->
-                        <div class="absolute transition-all duration-500 bottom-0 left-0 right-0 p-8 z-20">
-                            <a href="{{ route('events.show', $event->slug) }}" class="block">
-                                <h3 class="text-2xl font-black text-white leading-tight mb-2 group-hover:text-brand-accent transition-colors duration-300">
-                                    {{ $event->title }}
-                                </h3>
-                            </a>
+                            <!-- Image Area -->
+                            <div class="relative h-64 overflow-hidden shrink-0">
+                                <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}"
+                                    alt="{{ $event->title }}"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
 
-                            @if($event->short_description)
-                                <p class="text-white/80 text-sm font-medium leading-relaxed mb-4 line-clamp-2">
-                                    {{ $event->short_description }}
-                                </p>
-                            @endif
-
-                            <!-- Location (Now under title and date) -->
-                            <p class="text-slate-300 text-sm font-bold uppercase tracking-wider mb-6 flex items-center gap-2">
-                                <i class="fa-solid fa-location-dot text-brand-accent/60"></i>
-                                {{ $event->location ?: 'New Delhi, India' }}
-                            </p>
-                            
-                            <!-- Date & Time (Now under title) -->
-                            <div class="flex items-center justify-between gap-4 mb-3 border-l-2 border-brand-accent/40 pl-4 ml-1">
-                                <div class="flex flex-col">
-                                    <span class="text-base font-black text-white uppercase tracking-widest leading-none mb-1">
-                                        @if ($event->end_date)
-                                            {{ $event->event_date->format('d') }} - {{ $event->end_date->format('d M Y') }}
-                                            @else
-                                            {{ $event->event_date->format('d M Y') }}
-                                        @endif
+                                <!-- Category Badge -->
+                                <div class="absolute top-4 right-4 z-20">
+                                    <span
+                                        class="bg-slate-900/90 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest px-4 py-2 rounded-lg border border-white/10">
+                                        {{ $event->design_style === 'featured' ? '★ Featured' : 'Summit' }}
                                     </span>
-                                    <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">{{ $event->event_date->format('h:i A') }} Onwards</span>
                                 </div>
-                                <!-- Bottom Action -->
-                                <div class="flex items-center justify-between transition-opacity duration-500">
-                                    <a href="{{ route('events.show', $event->slug) }}" class="inline-flex items-center gap-2 text-black text-xs bg-brand-accent pr-4 pl-6 py-3 rounded-full font-black uppercase tracking-widest transition-all">
-                                        View Details <i class="fa-solid fa-arrow-right-long"></i>
+                            </div>
+
+                            <!-- Details Area -->
+                            <div class="p-6 flex flex-col grow">
+                                <a href="{{ route('events.show', $event->slug) }}" class="block mb-4 grow">
+                                    <h3
+                                        class="text-2xl font-black text-slate-900 leading-tight group-hover:text-brand-primary transition-colors line-clamp-2">
+                                        {{ $event->title }}
+                                    </h3>
+                                </a>
+
+                                @if($event->short_description)
+                                    <p class="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-2 font-medium">
+                                        {{ $event->short_description }}
+                                    </p>
+                                @endif
+
+                                <!-- Structured Info (Date & Time Together) -->
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="flex items-center gap-4 group/item">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white transition-colors border border-slate-100 shrink-0">
+                                            <i class="fa-regular fa-calendar-check text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">
+                                                Event Schedule</p>
+                                            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                                <span
+                                                    class="text-sm font-black text-slate-800 uppercase tracking-wider">@if($event->end_date)
+                                                        {{ $event->event_date->format('d') }} -
+                                                        {{ $event->end_date->format('d M, Y') }}
+                                                        {{ $event->event_date->format('h:i A') }}
+                                                    @else
+                                                        {{ $event->event_date->format('d M, Y h:i A') }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4 group/item">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white transition-colors border border-slate-100 shrink-0">
+                                            <i class="fa-solid fa-location-dot text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">
+                                                Event Venue</p>
+                                            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider"> {{
+                    $event->location ?: 'New Delhi, India' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Footer -->
+                                <div class="mt-10 flex items-center justify-between gap-4">
+                                    <a href="{{ route('events.show', $event->slug) }}"
+                                        class="grow bg-brand-accent hover:bg-brand-primary text-black hover:text-white text-center py-3 border rounded-md text-sm font-black uppercase tracking-widest transition-all">
+                                        Register Now
+                                    </a>
+                                    <a href="{{ route('events.show', $event->slug) }}"
+                                        class="w-11 h-11 rounded-md border flex items-center justify-center text-slate-400 hover:border-brand-primary hover:text-brand-primary transition-all">
+                                        <i class="fa-solid fa-arrow-right-long"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                </div>
-            @empty
-                <div class="col-span-full py-24 text-center">
-                    <i class="fa-solid fa-calendar-circle-exclamation text-slate-200 text-6xl mb-6 block"></i>
-                    <h3 class="text-2xl font-black text-slate-400">No Upcoming Events Found</h3>
-                </div>
-            @endforelse
-        </div>
-
-        @if($events->hasPages())
-            <div class="mt-16 flex justify-center">
-                {{ $events->links() }}
+                @empty
+                    <div class="col-span-full py-24 text-center">
+                        <i class="fa-solid fa-calendar-circle-exclamation text-slate-200 text-6xl mb-6 block"></i>
+                        <h3 class="text-2xl font-black text-slate-400">No Upcoming Events Found</h3>
+                    </div>
+                @endforelse
             </div>
-        @endif
-    </div>
-</section>
+
+            @if($events->hasPages())
+                <div class="mt-16 flex justify-center">
+                    {{ $events->links() }}
+                </div>
+            @endif
+        </div>
+    </section>
 @endsection
