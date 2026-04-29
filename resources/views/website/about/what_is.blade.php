@@ -27,7 +27,6 @@
 
     <!-- Modular sections -->
     @include('website.about.partials.who_we_are')
-    @include('website.about.partials.impact_stats')
 
     {{-- Moved from Home Page --}}
     @include('website.home.partials.why_choose')
@@ -38,8 +37,6 @@
     @include('website.about.partials.mission_vision')
     @include('website.about.partials.core_values')
 
-    {{-- Moved from Home Page --}}
-    @include('website.home.partials.membership')
 
     {{-- Leadership CTA --}}
     <section class="py-24 bg-brand-primary-dark relative overflow-hidden">

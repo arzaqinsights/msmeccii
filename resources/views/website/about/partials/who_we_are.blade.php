@@ -61,17 +61,17 @@
                     <div class="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
                         <div class="flex items-center justify-around text-white">
                             <div class="text-center">
-                                <span class="block text-2xl font-black text-brand-accent">5+</span>
+                                <span class="block text-2xl font-black text-brand-accent">7+</span>
                                 <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Years Impact</span>
                             </div>
                             <div class="w-px h-10 bg-white/20"></div>
                             <div class="text-center">
-                                <span class="block text-2xl font-black text-brand-accent">50+</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Industries</span>
+                                <span class="block text-2xl font-black text-brand-accent">{{ count(config('sectors.sectors')) }}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Sectors</span>
                             </div>
                             <div class="w-px h-10 bg-white/20"></div>
                             <div class="text-center">
-                                <span class="block text-2xl font-black text-brand-accent">40+</span>
+                                <span class="block text-2xl font-black text-brand-accent">30+</span>
                                 <span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Countries</span>
                             </div>
                         </div>
