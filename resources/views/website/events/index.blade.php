@@ -23,7 +23,7 @@
                             style="transition-delay: {{ $loop->index * 150 }}ms">
 
                             <!-- Image Area -->
-                            <div class="relative h-64 overflow-hidden shrink-0">
+                            <div class="relative aspect-video overflow-hidden shrink-0">
                                 <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}"
                                     alt="{{ $event->title }}"
                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
