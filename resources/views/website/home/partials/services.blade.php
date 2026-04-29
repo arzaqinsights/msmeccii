@@ -107,7 +107,7 @@
             @endphp
 
             @foreach($services as $idx => $svc)
-                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-white rounded-lg block overflow-visible border transition-all duration-500 animate-on-scroll"
+                <a href="{{ url('services/'.$svc['slug']) }}" class="group relative bg-brand-primary/10 rounded-lg block overflow-visible transition-all duration-500 animate-on-scroll"
                     style="transition-delay: {{ $idx * 100 }}ms">
                     
                     <!-- Card Top: Image -->
@@ -131,7 +131,7 @@
                         </p>
 
                         <!-- Action Marker -->
-                        <div class="flex items-center justify-between border-t pt-6">
+                        <div class="flex items-center justify-between border-t border-brand-primary/20 pt-6">
                             <span class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-brand-primary transition-colors">
                                 View Service <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-2"></i>
                             </span>
