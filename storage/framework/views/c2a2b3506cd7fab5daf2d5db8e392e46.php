@@ -127,18 +127,18 @@
                             <?php echo e($svc['title']); ?>
 
                         </h3>
-                        <p class="text-slate-500 leading-relaxed text-sm font-medium mb-8">
+                        <p class="text-slate-500 leading-relaxed text-sm font-medium mb-4">
                             <?php echo e($svc['desc']); ?>
 
                         </p>
 
                         <!-- Action Marker -->
-                        <div class="flex items-center justify-between border-t border-brand-primary/20 pt-6">
+                        <!-- <div class="flex items-center justify-between border-t border-brand-primary/20 pt-6">
                             <span class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-brand-primary transition-colors">
                                 View Service <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-2"></i>
                             </span>
                             <span class="text-[10px] font-black text-slate-200 uppercase tracking-tighter group-hover:text-brand-primary/20 transition-colors">CORE // 0<?php echo e($idx + 1); ?></span>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Subtle Decorative Background -->

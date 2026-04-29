@@ -23,15 +23,15 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div class="bg-brand-primary/10 rounded-md p-4">
+                    <div class="bg-brand-primary/10 rounded-md p-4 border">
                         <div class="text-3xl font-black text-brand-primary mb-1"><?php echo e(count(config('sectors.sectors'))); ?>+</div>
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Industry Sectors</p>
                     </div>
-                    <div class="bg-brand-primary/10 rounded-md p-4">
+                    <div class="bg-brand-primary/10 rounded-md p-4 border">
                         <div class="text-3xl font-black text-brand-primary mb-1">2300+</div>
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Award Categories</p>
                     </div>
-                    <div class="bg-brand-primary/10 rounded-md p-4">
+                    <div class="bg-brand-primary/10 rounded-md p-4 border">
                         <div class="text-3xl font-black text-brand-primary mb-1">350+</div>
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Past Awardees</p>
                     </div>
