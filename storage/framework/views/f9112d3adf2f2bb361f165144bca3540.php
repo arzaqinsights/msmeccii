@@ -1,8 +1,6 @@
-@extends('layouts.website')
+<?php $__env->startSection('title', 'Global Chairman | MSME Chamber of Commerce and Industry of India'); ?>
 
-@section('title', 'Global Chairman | MSME Chamber of Commerce and Industry of India')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Hero Banner -->
     <section class="relative h-[40vh] min-h-[300px] w-full bg-slate-900 flex items-center justify-center overflow-hidden border-b-4 border-brand-primary">
         <div class="absolute inset-0 z-0 opacity-40">
@@ -27,7 +25,7 @@
                     
                     <!-- Chairman Image Area -->
                     <div class="w-full lg:w-2/5 relative animate-on-scroll">
-                        <img src="{{ asset('images/home/chairman.jpg') }}" alt="Dr. Indrajit Ghosh" class="w-full h-full min-h-[400px] lg:min-h-[800px] object-cover bg-slate-300">
+                        <img src="<?php echo e(asset('images/home/chairman.jpg')); ?>" alt="Dr. Indrajit Ghosh" class="w-full h-full min-h-[400px] lg:min-h-[800px] object-cover bg-slate-300">
                         <!-- <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/40 to-transparent lg:bg-linear-to-r lg:from-transparent lg:via-slate-900/20 lg:to-slate-900/80 hidden lg:block"></div>
                         <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/40 to-transparent lg:hidden"></div> -->
                     </div>
@@ -93,4 +91,6 @@
         </div>
     </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.website', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\msmeccii\resources\views/website/about/chairman.blade.php ENDPATH**/ ?>
