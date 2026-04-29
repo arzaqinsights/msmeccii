@@ -1,4 +1,4 @@
-<section class="py-24 bg-white relative overflow-hidden">
+<section class="pt-24 bg-white relative overflow-hidden">
     <div class="container relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-16">
             
