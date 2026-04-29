@@ -47,7 +47,7 @@
             @foreach($groupedMembers as $groupName => $group)
                 @if($groupName !== 'Members' || $groupedMembers->count() > 1)
                     <div class="mb-12 mt-16 first:mt-0 animate-on-scroll">
-                        <h3 class="text-3xl font-black text-slate-800 flex items-center gap-4">
+                        <h3 class="text-5xl font-black text-slate-800 flex items-center gap-4">
                             {{ $groupName }}
                             <span class="flex-grow h-px bg-slate-200"></span>
                         </h3>
