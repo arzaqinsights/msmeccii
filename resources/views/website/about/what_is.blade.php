@@ -37,37 +37,7 @@
     @include('website.about.partials.mission_vision')
     @include('website.about.partials.core_values')
 
-
-    {{-- Leadership CTA --}}
-    <section class="py-24 bg-brand-primary-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-accent rounded-full blur-[120px] -mr-96 -mt-96"></div>
-            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-white rounded-full blur-[100px] -ml-64 -mb-64"></div>
-        </div>
-        <div class="container relative z-10 text-center animate-on-scroll">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
-                <i class="fa-solid fa-crown text-brand-accent text-xs"></i>
-                <span class="text-white text-[10px] font-black tracking-widest uppercase">The Visionaries</span>
-            </div>
-            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                Guided by <span class="text-brand-accent italic">Global</span> Leadership
-            </h2>
-            <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-12 font-medium">
-                Our organization is steered by visionaries with decades of global expertise, including Padma Shri & Padma Bhushan awardees.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="{{ route('about.chairman') }}" class="group relative px-12 py-5 bg-brand-accent text-brand-primary rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-brand-accent/20 hover:scale-105 transition-all overflow-hidden">
-                    <span class="relative z-10 flex items-center gap-2">
-                        Meet the Chairman
-                        <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
-                    </span>
-                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                </a>
-                <a href="{{ route('about.leadership') }}" class="px-12 py-5 bg-white/5 border-2 border-white/20 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white hover:text-brand-primary hover:border-white transition-all">
-                    Full Leadership Team
-                </a>
-            </div>
-        </div>
-    </section>
+    {{-- Moved from Home Page --}}
+    @include('website.home.partials.membership')
 
 @endsection
