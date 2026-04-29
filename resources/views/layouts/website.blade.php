@@ -448,10 +448,7 @@
                                 class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
                                 <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Join / Membership
                             </a></li>
-                        <li><a href="{{ route('about.leadership') }}"
-                                class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
-                                <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Core Leadership
-                            </a></li>
+                        
                     </ul>
                 </div>
 
