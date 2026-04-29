@@ -9,19 +9,19 @@
             <div class="w-full lg:w-1/2 relative group animate-on-scroll">
                 <div class="relative overflow-hidden flex flex-col gap-4">
                     <img src="{{ asset('images/home/growth.jpeg') }}" alt="About MSMECCII"
-                        class="w-full md:h-[320px] object-cover rounded-lg" loading="lazy">
+                        class="w-full md:h-[330px] object-cover rounded-lg" loading="lazy">
                     <!-- <div class="absolute inset-0 bg-brand-primary/20 group-hover:bg-transparent transition-all duration-500"></div> -->
                     <img src="{{ asset('images/home/award-1.jpeg') }}" alt="About MSMECCII"
                         class="w-full md:h-[300px] object-cover object-top rounded-lg" loading="lazy">
                 </div>
 
                 <!-- Floating Badge -->
-                <div
+                <!-- <div
                     class="absolute -bottom-6 md:-right-6 right-2 bg-brand-primary text-white p-6 rounded-md shadow-2xl z-20 animate-on-scroll delay-200">
                     <p class="text-4xl font-black text-brand-accent mb-1">7+ Years</p>
                     <p class="text-xs font-bold tracking-widest uppercase text-white/70">Relentless Services <br> to the
                         Industreis</p>
-                </div>
+                </div> -->
             </div>
 
             <!-- Content Area -->
