@@ -214,7 +214,7 @@
                             {!! nl2br(e($event->builder_content['about']['description'] ?? $event->description)) !!}
                         </div>
 
-                        <!-- 4-Step Process -->
+                        <!-- 4-Step Process
                         <div class="mt-12 border-t border-slate-100 pt-8">
                             <h4 class="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 text-center">How It Works</h4>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -235,7 +235,7 @@
                                     <p class="text-xs font-bold text-brand-primary">Award Ceremony</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Highlights Section -->
