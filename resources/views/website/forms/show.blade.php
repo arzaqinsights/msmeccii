@@ -60,46 +60,22 @@
     <div class="container max-w-3xl mx-auto">
         
         <form action="{{ route('join.forms.store', $form->slug) }}" method="POST" enctype="multipart/form-data" 
-              class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-200"
+              class="bg-white p-8 md:p-12 rounded-lg shadow-xl border border-slate-200"
               x-data="formEngine()" @submit.prevent="submitForm">
             @csrf
             
-            <!-- Stepper Progress -->
-            <div class="mb-10 relative">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-100 rounded-full z-0"></div>
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-brand-primary rounded-full z-0 transition-all duration-500" :style="'width: ' + ((step - 1) / 2 * 100) + '%'"></div>
-                
-                <div class="relative z-10 flex justify-between">
-                    <div class="flex flex-col items-center group cursor-pointer" @click="if(step > 1) step = 1">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 1 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">1</div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 1 ? 'text-brand-primary' : 'text-slate-400'">Profile</span>
-                    </div>
-                    <div class="flex flex-col items-center group cursor-pointer" @click="if(step > 2) step = 2">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 2 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">2</div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 2 ? 'text-brand-primary' : 'text-slate-400'">Address</span>
-                    </div>
-                    <div class="flex flex-col items-center group cursor-pointer">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 3 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">3</div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 3 ? 'text-brand-primary' : 'text-slate-400'">Nomination</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 1: Profile -->
-            <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" class="pb-4">
-                <div class="mb-8">
-                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-user-shield text-brand-primary"></i> Primary Identification
-                    </h3>
-                    <p class="text-sm font-bold text-slate-500">Please provide your personal and professional details.</p>
-                </div>
+            <!-- Standard Authentication Block -->
+            <div class="pb-8 border-b border-slate-100">
+                <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-brand-primary"></i> Primary Identification
+                </h3>
                 
                 @if(!auth()->check())
-                    <div class="bg-blue-50 border border-blue-100 text-blue-700 p-4 rounded-xl text-sm font-medium mb-6">
+                    <div class="bg-blue-50 border border-blue-100 text-blue-700 p-4 rounded-lg text-sm font-medium mb-6">
                         <i class="fa-solid fa-circle-info mr-1"></i> Submitting this form will automatically create your MSMECCII digital profile.
                     </div>
                 @else
-                    <div class="bg-emerald-50 border border-emerald-100 text-emerald-700 p-4 rounded-xl text-sm font-bold mb-6 flex items-center gap-2">
+                    <div class="bg-emerald-50 border border-emerald-100 text-emerald-700 p-4 rounded-lg text-sm font-bold mb-6 flex items-center gap-2">
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=10b981&color=fff" class="w-8 h-8 rounded-full border border-emerald-200">
                         Logged in as {{ auth()->user()->name }}
                     </div>
@@ -109,101 +85,68 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Full Name <span class="text-red-500">*</span></label>
                         <input type="text" name="first_name" placeholder="e.g. Indrajit Ghosh" value="{{ old('first_name', auth()->check() ? auth()->user()->name : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Email Address <span class="text-red-500">*</span></label>
                         <input type="email" name="email" placeholder="e.g. [EMAIL_ADDRESS]" value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Phone Number <span class="text-red-500">*</span></label>
                         <input type="text" name="phone_number" placeholder="e.g. 9876543210" value="{{ old('phone_number', auth()->check() ? auth()->user()->phone_number : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Company Name <span class="text-red-500">*</span></label>
                         <input type="text" name="company_name" placeholder="e.g. ABC Pvt. Ltd." value="{{ old('company_name', auth()->check() ? auth()->user()->company_name : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Designation <span class="text-red-500">*</span></label>
                         <input type="text" name="designation" placeholder="e.g. CEO" value="{{ old('designation', auth()->check() ? auth()->user()->designation : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Website</label>
                         <input type="text" name="website" placeholder="e.g. www.example.com" value="{{ old('website', auth()->check() ? auth()->user()->website : '') }}" 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                 </div>
 
-                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end">
-                    <button type="button" @click="nextStep(1)" class="bg-slate-900 hover:bg-brand-primary text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg flex items-center gap-3">
-                        Continue to Address <i class="fa-solid fa-arrow-right-long text-sm"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STEP 2: Address -->
-            <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" class="pb-4">
-                <div class="mb-8">
-                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-map-location-dot text-brand-primary"></i> Office / Company Location
-                    </h3>
-                    <p class="text-sm font-bold text-slate-500">Where is your primary business located?</p>
-                </div>
-
-                <div class="mt-2">
+                <div class="mt-6">
                     <label class="block text-xs font-bold text-slate-500 mb-2">Full Office/Company Address <span class="text-red-500">*</span></label>
                     <textarea name="address" rows="2" required 
-                              class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
+                              class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">City <span class="text-red-500">*</span></label>
                         <input type="text" name="city" placeholder="e.g. Kolkata" value="{{ old('city', auth()->check() ? auth()->user()->city : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Pin Code <span class="text-red-500">*</span></label>
                         <input type="text" name="pincode" placeholder="e.g. 700001" value="{{ old('pincode', auth()->check() ? auth()->user()->pincode : '') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-2">Country <span class="text-red-500">*</span></label>
                         <input type="text" name="country" placeholder="e.g. India" value="{{ old('country', auth()->check() ? auth()->user()->country : 'India') }}" required 
-                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
+                               class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                     </div>
                 </div>
 
                 <div class="mt-6">
                     <label class="block text-xs font-bold text-slate-500 mb-2">GSTIN</label>
                     <input type="text" name="gstin" placeholder="e.g. 07AAAAA0000A1Z5" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
-                           class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
-                </div>
-                </div>
-                
-                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center">
-                    <button type="button" @click="step = 1" class="text-slate-500 hover:text-slate-900 font-bold px-4 py-2 flex items-center gap-2 transition-colors">
-                        <i class="fa-solid fa-arrow-left-long"></i> Back
-                    </button>
-                    <button type="button" @click="nextStep(2)" class="bg-slate-900 hover:bg-brand-primary text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg flex items-center gap-3">
-                        Continue to Nomination <i class="fa-solid fa-arrow-right-long text-sm"></i>
-                    </button>
+                           class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                 </div>
             </div>
 
-            <!-- STEP 3: Nomination & Payment -->
-            <div x-show="step === 3" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
-                <div class="mb-8 border-b border-slate-100 pb-6">
-                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-award text-brand-primary"></i> Nomination Category
-                    </h3>
-                    <p class="text-sm font-bold text-slate-500">Select your award category to complete your application.</p>
-                </div>
-                <div class="space-y-6">
+            <!-- Dynamic Logic Block -->
+            <div class="space-y-6">
                 <template x-for="field in fields" :key="field.field_identifier">
                     
                     <div x-show="field.type !== 'hidden_price' && isFieldVisible(field)" x-transition.opacity duration.500ms>
@@ -217,7 +160,7 @@
                             <input type="text" :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                    @input="handleFieldChange(field.field_identifier)"
                                    :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)"
-                                   class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md placeholder:text-slate-300 placeholder:font-medium">
+                                   class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold transition-all shadow-sm focus:shadow-md placeholder:text-slate-300 placeholder:font-medium">
                         </template>
 
                         <!-- Textarea -->
@@ -225,7 +168,7 @@
                             <textarea :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                       @input="handleFieldChange(field.field_identifier)"
                                       :placeholder="field.placeholder" :required="field.is_required && isFieldVisible(field)" rows="4"
-                                      class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none placeholder:text-slate-300 placeholder:font-medium"></textarea>
+                                      class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-medium transition-all shadow-sm focus:shadow-md resize-none placeholder:text-slate-300 placeholder:font-medium"></textarea>
                         </template>
 
                         <!-- Dropdown / Event -->
@@ -233,7 +176,7 @@
                             <select :name="'dynamic_fields[' + field.field_identifier + ']'" x-model="formData[field.field_identifier]"
                                     @change="handleFieldChange(field.field_identifier)"
                                     :required="field.is_required && isFieldVisible(field)"
-                                    class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold bg-white transition-all shadow-sm focus:shadow-md cursor-pointer border-r-8 border-r-transparent">
+                                    class="w-full border border-slate-200 rounded-lg p-3 focus:border-brand-primary outline-none text-slate-900 font-bold bg-white transition-all shadow-sm focus:shadow-md cursor-pointer border-r-8 border-r-transparent">
                                 <option value="" disabled selected>-- Select an option --</option>
                                 <template x-for="option in getFieldOptions(field)" :key="option.label">
                                     <option :value="option.label" x-text="option.label"></option>
@@ -245,12 +188,12 @@
                         <template x-if="field.type === 'file'">
                             <input type="file" :name="'dynamic_fields[' + field.field_identifier + ']'" 
                                    :required="field.is_required && isFieldVisible(field)"
-                                   class="w-full border border-slate-200 focus:border-brand-primary p-3 rounded-xl outline-none font-bold text-slate-900 transition-all text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer shadow-sm">
+                                   class="w-full border border-slate-200 focus:border-brand-primary p-3 rounded-lg outline-none font-bold text-slate-900 transition-all text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer shadow-sm">
                         </template>
 
                         <!-- Number Input (Converted to Range) -->
                         <template x-if="field.type === 'number'">
-                            <div class="space-y-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100 shadow-sm">
+                            <div class="space-y-4 bg-slate-50/50 p-4 rounded-lg border border-slate-100 shadow-sm">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Select Value</span>
                                     <div class="bg-brand-primary text-white px-3 py-1 rounded-full text-sm font-black shadow-lg shadow-brand-primary/20">
@@ -275,7 +218,7 @@
             </div>
 
             <!-- Pre-Checkout Injector (Monetization Engine) -->
-            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-brand-primary rounded-2xl p-6 text-white relative overflow-hidden">
+            <div x-show="totalCalculated > 0" x-transition class="mt-10 bg-brand-primary rounded-lg p-6 text-white relative overflow-hidden">
                 <!-- BG Pattern -->
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                 
@@ -306,7 +249,7 @@
             </div>
 
             <!-- Bank Details for Manual Payment -->
-            <div x-show="isManualPayment" x-transition class="mt-8 p-8 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl">
+            <div x-show="isManualPayment" x-transition class="mt-8 p-8 bg-slate-50 border-2 border-dashed border-slate-200 rounded-lg">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
                         <i class="fa-solid fa-building-columns text-brand-primary"></i>
@@ -348,7 +291,7 @@
                     @endif
                 </div>
                 
-                <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
+                <div class="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-100 flex gap-3">
                     <i class="fa-solid fa-circle-exclamation text-amber-500 mt-1"></i>
                     <p class="text-[10px] font-bold text-amber-800 leading-relaxed">
                         After submission, please share the transaction receipt with our team at {{ $site['email_1'] ?? 'support@msmeccii.com' }} or WhatsApp at +91 9810690843 for verification.
@@ -356,18 +299,48 @@
                 </div>
             </div>
 
-            <div class="mt-10 pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center gap-4">
-                <button type="button" @click="step = 2" class="w-full md:w-auto order-2 md:order-1 text-slate-500 hover:text-slate-900 font-bold px-6 py-4 rounded-xl border border-slate-200 hover:bg-slate-50 flex items-center justify-center gap-2 transition-colors">
-                    <i class="fa-solid fa-arrow-left-long"></i> Back
-                </button>
-                <button type="button" @click="validateAndSubmit" :disabled="loading" class="w-full order-1 md:order-2 flex-1 bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
+            <!-- Secure Text / Trust Signals -->
+            <div class="mt-8 pt-6 border-t border-slate-100">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left bg-slate-50 p-5 rounded-lg border border-slate-100">
+                    <div class="flex items-center gap-3 text-slate-700">
+                        <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-lock text-brand-primary"></i>
+                        </div>
+                        <div class="text-xs">
+                            <span class="font-black block text-slate-900 uppercase tracking-widest">Secure Application</span>
+                            <span class="text-slate-500 font-bold">256-bit SSL Encrypted</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:block w-px h-8 bg-slate-200 mx-2"></div>
+                    <div class="flex items-center gap-3 text-slate-700">
+                        <div class="w-10 h-10 bg-emerald-500/10 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                        </div>
+                        <div class="text-xs">
+                            <span class="font-black block text-slate-900 uppercase tracking-widest">Verified Portal</span>
+                            <span class="text-slate-500 font-bold">Official MSMECCII Server</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-slate-100">
+                <input type="hidden" name="payment_method" :value="isManualPayment ? 'manual' : 'gateway'">
+                <button type="submit" :disabled="loading" class="w-full bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-lg transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
                     <template x-if="loading">
                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                     </template>
                     <span x-text="loading ? 'Processing...' : (isManualPayment ? 'Submit Application' : '{{ $form->submit_button_text }}')"></span>
                     <i x-show="!loading" class="fa-solid fa-arrow-right-long text-sm"></i>
                 </button>
-            </div>
+
+                <!-- WhatsApp CTA -->
+                <div class="mt-6 text-center">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Prefer to Talk First?</p>
+                    <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($form->name) }}%20nomination." target="_blank" class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-8 bg-[#25D366] hover:bg-[#20b858] text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-green-500/20">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Apply via WhatsApp
+                    </a>
+                </div>
             </div>
 
         </form>
@@ -382,7 +355,6 @@
         return {
             fields: rawFields,
             formData: {},
-            step: 1,
             loading: false,
             gatewayLimit: {{ (float)($site['payment_gateway_limit'] ?? 500000) }},
             
@@ -402,64 +374,6 @@
                     let script = document.createElement('script');
                     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
                     document.head.appendChild(script);
-                }
-            },
-
-            nextStep(currentStep) {
-                // Validate current step
-                let isValid = true;
-                const container = this.$el.querySelector(`[x-show="step === ${currentStep}"]`);
-                if (container) {
-                    const inputs = container.querySelectorAll('input[required], select[required], textarea[required]');
-                    inputs.forEach(input => {
-                        if (!input.value.trim() && input.offsetParent !== null) {
-                            isValid = false;
-                            input.classList.add('border-red-500', 'ring-1', 'ring-red-500');
-                            // Listen once for input to remove red border
-                            input.addEventListener('input', () => {
-                                input.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
-                            }, { once: true });
-                        }
-                    });
-                }
-
-                if (isValid) {
-                    this.step = currentStep + 1;
-                    window.scrollTo({ top: this.$el.offsetTop - 100, behavior: 'smooth' });
-                } else {
-                    alert('Please fill in all required fields before proceeding.');
-                }
-            },
-
-            validateAndSubmit(e) {
-                let isValid = true;
-                const container = this.$el.querySelector(`[x-show="step === 3"]`);
-                if (container) {
-                    const inputs = container.querySelectorAll('input[required], select[required], textarea[required]');
-                    inputs.forEach(input => {
-                        if (!input.value.trim() && input.offsetParent !== null) {
-                            isValid = false;
-                            input.classList.add('border-red-500', 'ring-1', 'ring-red-500');
-                            input.addEventListener('input', () => {
-                                input.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
-                            }, { once: true });
-                        }
-                    });
-                }
-                
-                if(isValid) {
-                    const formElement = this.$el;
-                    // Inject a hidden input to preserve payment_method before submitting manually
-                    const manualPaymentInput = document.createElement('input');
-                    manualPaymentInput.type = 'hidden';
-                    manualPaymentInput.name = 'payment_method';
-                    manualPaymentInput.value = this.isManualPayment ? 'manual' : 'gateway';
-                    formElement.appendChild(manualPaymentInput);
-
-                    const eventFake = { target: formElement, preventDefault: () => {} };
-                    this.submitForm(eventFake);
-                } else {
-                    alert('Please complete all required fields.');
                 }
             },
 
