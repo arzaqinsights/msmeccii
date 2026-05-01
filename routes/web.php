@@ -139,6 +139,11 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::post('gallery/update-category', [\App\Http\Controllers\Admin\GalleryController::class, 'updateCategory'])->name('gallery.update-category');
     Route::resource('gallery', \App\Http\Controllers\Admin\GalleryController::class)->only(['index', 'store', 'show', 'destroy']);
 
+    // Content File Manager
+    Route::get('file-manager', [\App\Http\Controllers\Admin\FileManagerController::class, 'index'])->name('file-manager.index');
+    Route::post('file-manager', [\App\Http\Controllers\Admin\FileManagerController::class, 'store'])->name('file-manager.store');
+    Route::delete('file-manager', [\App\Http\Controllers\Admin\FileManagerController::class, 'destroy'])->name('file-manager.destroy');
+
     // Articles & Blog Builder
     Route::post('articles/upload-image', [\App\Http\Controllers\Admin\ArticleController::class, 'uploadImage'])->name('articles.upload-image');
     Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class);

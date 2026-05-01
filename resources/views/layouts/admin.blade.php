@@ -54,6 +54,11 @@
                 <span class="font-bold">Media Gallery</span>
             </a>
 
+            <a href="{{ route('admin.file-manager.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.file-manager.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                <i class="fa-solid fa-folder-open w-5 text-center"></i>
+                <span class="font-bold">File Manager</span>
+            </a>
+
             <a href="{{ route('admin.sliders.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.sliders.*') ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
                 <i class="fa-solid fa-layer-group w-5 text-center"></i>
                 <span class="font-bold">Home Sliders</span>
