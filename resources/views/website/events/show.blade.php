@@ -15,69 +15,84 @@
 <!-- Hero Section -->
 <section class="relative min-h-[60vh] flex items-center pt-32 pb-24 overflow-hidden bg-slate-900">
     <div class="absolute inset-0 z-0">
-        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover scale-105 blur-sm opacity-30">
-        <div class="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-800/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-slate-900"></div>
     </div>
 
     <div class="container relative z-10">
-        <div class="max-w-4xl animate-on-scroll">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-accent mb-6">
-                <i class="fa-solid fa-trophy text-brand-accent text-xs"></i>
-                <span class="text-brand-accent text-[10px] font-black tracking-widest uppercase">Government Recognized • 350+ Awardees</span>
-            </div>
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             
-            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-                {{ $event->title }}
-            </h1>
-            
-            <p class="text-lg text-slate-200 mb-8 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                Get nationally recognized for your business excellence. Join 350+ award-winning MSMEs across 26+ sectors. Backed by Padma Shri & Padma Bhushan advisory board members.
-            </p>
+            <!-- Left Side Details -->
+            <div class="w-full lg:w-1/2 animate-on-scroll">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-accent mb-6">
+                    <i class="fa-solid fa-trophy text-brand-accent text-xs"></i>
+                    <span class="text-brand-accent text-[10px] font-black tracking-widest uppercase">Government Recognized • 350+ Awardees</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+                    {{ $event->title }}
+                </h1>
+                
+                <p class="text-lg text-slate-300 mb-8 max-w-xl font-medium leading-relaxed">
+                    Get nationally recognized for your business excellence. Join 350+ award-winning MSMEs across 26+ sectors. Backed by Padma Shri & Padma Bhushan advisory board members.
+                </p>
 
-            <div class="flex flex-wrap gap-6 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
-                        <i class="fa-regular fa-clock text-brand-accent text-xl"></i>
+                <div class="flex flex-wrap gap-6 items-center mb-10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
+                            <i class="fa-regular fa-clock text-brand-accent text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Start Date</span>
+                            <span class="block text-sm font-bold text-white">{{ $event->event_date->format('d M, Y | h:i A') }}</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Start Date</span>
-                        <span class="block text-sm font-bold text-white">{{ $event->event_date->format('d M, Y | h:i A') }}</span>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
+                            <i class="fa-solid fa-location-dot text-brand-accent text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Location</span>
+                            <span class="block text-sm font-bold text-white">{{ $event->location ?: 'New Delhi, India' }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-xl">
-                        <i class="fa-solid fa-location-dot text-brand-accent text-xl"></i>
+                @if($event->show_timer)
+                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 inline-block shadow-2xl w-full max-w-md">
+                        <div class="text-[10px] font-black text-brand-accent uppercase tracking-widest mb-3"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Nominations Closing Soon</div>
+                        <div x-data="{
+                            target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
+                            now: new Date().getTime(),
+                            get t() { return Math.max(0, this.target - this.now); },
+                            get d() { return Math.floor(this.t / (1000*60*60*24)); },
+                            get h() { return Math.floor((this.t % (1000*60*60*24)) / (1000*60*60)); },
+                            get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
+                            get s() { return Math.floor((this.t % (1000*60)) / 1000); }
+                        }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex justify-between text-center">
+                            <div><span class="block text-3xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
+                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div><span class="block text-3xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
+                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div><span class="block text-3xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
+                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div><span class="block text-3xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                        </div>
                     </div>
-                    <div>
-                        <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Location</span>
-                        <span class="block text-sm font-bold text-white">{{ $event->location ?: 'New Delhi, India' }}</span>
-                    </div>
+                @endif
+            </div>
+
+            <!-- Right Side Image -->
+            <div class="w-full lg:w-1/2 animate-on-scroll relative mt-12 lg:mt-0">
+                <!-- Background decorative glow -->
+                <div class="absolute inset-0 bg-brand-primary/20 rounded-2xl blur-3xl transform scale-105 translate-y-4"></div>
+                
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
+                    <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-auto lg:h-[500px] object-cover hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none"></div>
                 </div>
             </div>
 
-            @if($event->show_timer)
-                <div class="mt-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 inline-block shadow-2xl">
-                    <div class="text-[10px] font-black text-brand-accent uppercase tracking-widest mb-3"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Nominations Closing Soon</div>
-                    <div x-data="{
-                        target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
-                        now: new Date().getTime(),
-                        get t() { return Math.max(0, this.target - this.now); },
-                        get d() { return Math.floor(this.t / (1000*60*60*24)); },
-                        get h() { return Math.floor((this.t % (1000*60*60*24)) / (1000*60*60)); },
-                        get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
-                        get s() { return Math.floor((this.t % (1000*60)) / 1000); }
-                    }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex gap-6 text-center">
-                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
-                        <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
-                        <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
-                        <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </section>
@@ -163,19 +178,23 @@
                     </div>
                 </div>
 
-                <!-- Contact Box / WhatsApp CTA -->
-                <div class="mt-6 bg-green-500 rounded-lg p-6 text-white shadow-lg shadow-green-500/20 text-center">
-                    <h5 class="text-[10px] font-black uppercase tracking-widest mb-3 opacity-90">Prefer to Talk First?</h5>
-                    <p class="text-xs mb-4">Our team can guide you through the nomination process.</p>
-                    <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($event->title) }}%20nomination." target="_blank" class="inline-flex items-center justify-center gap-2 w-full bg-white text-green-600 hover:bg-slate-50 py-3 rounded-lg font-bold text-sm transition-colors">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Apply via WhatsApp
-                    </a>
+                <!-- Contact Box / WhatsApp & Call CTA -->
+                <div class="mt-6 bg-slate-100 rounded-lg p-6 shadow-sm border border-slate-200 text-center">
+                    <h5 class="text-[10px] font-black text-slate-800 uppercase tracking-widest mb-3">Prefer to Talk First?</h5>
+                    <p class="text-xs text-slate-600 mb-4 font-medium">Our team can guide you through the nomination process.</p>
+                    <div class="space-y-3">
+                        <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($event->title) }}%20nomination." target="_blank" class="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white hover:bg-[#1ebe5b] py-3 rounded-lg font-bold text-sm transition-colors shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Apply via WhatsApp
+                        </a>
+                        <a href="tel:+919810690843" class="flex items-center justify-center gap-2 w-full bg-slate-900 text-white hover:bg-black py-3 rounded-lg font-bold text-sm transition-colors shadow-sm">
+                            <i class="fa-solid fa-phone"></i> Call Us Now
+                        </a>
+                    </div>
                 </div>
             </aside>
 
             <!-- Main Content Sections -->
             <main class="w-full lg:w-3/4 space-y-12">
-                <!-- <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-auto object-cover rounded-lg shadow-sm border border-slate-100 animate-on-scroll"> -->
                 
                 <!-- About Section -->
                 <div id="about" class="scroll-mt-36 bg-white rounded-lg p-8 md:p-10 shadow-sm border border-slate-100 animate-on-scroll">
@@ -562,7 +581,7 @@
 <div x-data="leadCapture()" x-init="init()" x-cloak>
     <!-- Backdrop -->
     <div x-show="open" x-transition.opacity.duration.500ms
-         class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+         class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 pb-20"> <!-- Added pb-20 to avoid overlap with mobile bottom bar -->
         
         <!-- Modal Container -->
         <div x-show="open" 
@@ -727,6 +746,16 @@ document.addEventListener('alpine:init', () => {
 });
 </script>
 @endif
+
+<!-- Mobile Sticky Contact Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t border-slate-200 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-40 lg:hidden flex gap-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+    <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($event->title) }}%20nomination." target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-3.5 rounded-lg font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-sm hover:bg-[#1ebe5b] transition-colors">
+        <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+    </a>
+    <a href="tel:+919810690843" class="flex-1 bg-slate-900 text-white text-center py-3.5 rounded-lg font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-sm hover:bg-black transition-colors">
+        <i class="fa-solid fa-phone text-sm"></i> Call Us
+    </a>
+</div>
 
 <style>
     html { scroll-behavior: smooth; }
