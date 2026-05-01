@@ -76,7 +76,7 @@
 
                 @if($event->show_timer)
                 <div class="text-[10px] md:text-base w-full text-left lg:text-lg font-black text-brand-light uppercase tracking-widest"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Event Starts in</div>
-                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block shadow-2xl w-full">
+                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block w-full">
                         <div x-data="{
                             target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
                             now: new Date().getTime(),
