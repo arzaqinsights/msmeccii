@@ -75,8 +75,8 @@
                </div>
 
                 @if($event->show_timer)
+                <div class="text-[10px] md:text-base lg:text-lg font-black text-brand-light uppercase tracking-widest mb-4 md:mb-8 lg:mb-12"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Event Starts in</div>
                     <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block shadow-2xl w-full">
-                        <div class="text-[10px] md:text-base lg:text-lg font-black text-brand-light uppercase tracking-widest mb-4 md:mb-8 lg:mb-12"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Nominations Closing Soon</div>
                         <div x-data="{
                             target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
                             now: new Date().getTime(),
@@ -87,11 +87,11 @@
                             get s() { return Math.floor((this.t % (1000*60)) / 1000); }
                         }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex justify-between text-center">
                             <div><span class="flex-1 justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="d">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Days</span></div>
-                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div class="w-px h-20 bg-white/10 my-auto"></div>
                             <div><span class="flex-1 justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="h">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
-                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div class="w-px h-20 bg-white/10 my-auto"></div>
                             <div><span class="flex-1 justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="m">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Min</span></div>
-                            <div class="w-px h-10 bg-white/10 my-auto"></div>
+                            <div class="w-px h-20 bg-white/10 my-auto"></div>
                             <div><span class="flex-1 justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="s">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
                         </div>
                     </div>
