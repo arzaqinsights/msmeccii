@@ -124,7 +124,7 @@
 
                 <!-- Left Sticky Sidebar (ElitePlus Style) -->
                 <aside class="w-full hidden lg:block lg:w-1/4 sticky top-32 z-30">
-                    <div class="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
+                    <div class="bg-white rounded-lg border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
                         <div class="bg-slate-900 p-6">
                             <h4 class="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
                                  <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span> Quick Navigation
@@ -162,7 +162,7 @@
                                     @if($showItem)
                                         <a href="#{{ $item['id'] }}" 
                                            @click="activeSection = '{{ $item['id'] }}'"
-                                           :class="activeSection === '{{ $item['id'] }}' ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/20' : 'text-slate-600 hover:bg-slate-50'"
+                                           :class="activeSection === '{{ $item['id'] }}' ? 'bg-brand-primary text-white' : 'text-slate-600 hover:bg-slate-50'"
                                            class="flex items-center justify-between p-4 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all">
                                             <span class="flex items-center gap-3">
                                                 <i class="fa-solid {{ $item['icon'] }} w-4 text-[12px]"></i>
