@@ -257,7 +257,7 @@
                                         <!-- <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div> -->
                                         
                                         <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                            <div class="w-24 h-auto overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
+                                            <div class="w-full h-auto overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
                                                 @if(!empty($guest['photo']))
                                                     <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                                 @else
