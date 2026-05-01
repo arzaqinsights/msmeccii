@@ -56,8 +56,8 @@
 
                 <div class="grid grid-cols-1 gap-8 mb-20 last:mb-0">
                     @foreach($group as $member)
-                    <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border flex items-center gap-8 h-full">
-                        <div class="relative h-auto w-1/3 overflow-hidden shrink-0">
+                    <div class="group bg-slate-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 animate-on-scroll border flex flex-col items-center md:flex-row gap-8 h-full">
+                        <div class="relative h-auto w-full md:w-1/3 overflow-hidden shrink-0">
                             @if($member->image)
                                 <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover bg-slate-300 group-hover:scale-110 transition-transform duration-700">
                             @else
