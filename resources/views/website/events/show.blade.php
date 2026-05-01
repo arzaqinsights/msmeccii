@@ -253,11 +253,11 @@
                             @if(count($fullGuests) > 0)
                             <div class="space-y-6 mb-8">
                                 @foreach($fullGuests as $guest)
-                                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 border border-slate-700 relative overflow-hidden group">
+                                    <div class="bg-brand-primary/10 rounded-lg p-6 md:p-10 border border-slate-700 relative overflow-hidden group">
                                         <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
                                         
                                         <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                            <div class="w-24 aspect-9/14 overflow-hidden md:w-40 shrink-0 rounded-lg overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
+                                            <div class="w-24 aspect-9/14 overflow-hidden md:w-40 shrink-0 rounded-lg border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
                                                 @if(!empty($guest['photo']))
                                                     <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                                 @else
@@ -270,7 +270,7 @@
                                                     <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
                                                 </div>
                                                 <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
-                                                <p class="text-brand-accent font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
+                                                <p class="text-brand-primary font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
                                                 
                                                 @if(!empty($guest['about']))
                                                     <div class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
@@ -287,8 +287,8 @@
                             @if(count($portraitGuests) > 0)
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 @foreach($portraitGuests as $guest)
-                                    <div class="bg-brand-primary/10 overflow-hidden rounded-lg p-3 text-center hover:shadow-md transition-shadow relative overflow-hidden group">
-                                        <div class="w-full aspect-9/14 mx-auto rounded-lg overflow-hidden mb-4 group-hover:scale-105 transition-transform">
+                                    <div class="bg-brand-primary/10 overflow-hidden rounded-lg p-3 text-center hover:shadow-md transition-shadow relative group">
+                                        <div class="w-full aspect-9/14 mx-auto rounded-lg overflow-hidden mb-4 transition-transform">
                                             @if(!empty($guest['photo']))
                                                 <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                             @else
