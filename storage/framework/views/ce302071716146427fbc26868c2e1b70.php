@@ -1,0 +1,286 @@
+<!-- Why Choose MSMECCII -->
+<section class="py-24 bg-white relative overflow-hidden">
+    <!-- Background Decor -->
+    <div class="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-3xl opacity-50">
+    </div>
+    <div class="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl opacity-50"></div>
+
+    <div class="container relative z-10">
+        <!-- Section Header -->
+        <div class="text-left flex flex-col md:flex-row items-center justify-between mb-20 animate-on-scroll">
+            <div>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-100 mb-6 shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-brand-primary text-xs"></i>
+                    <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">The MSMECCII Advantage</span>
+                </div>
+                <h2 class="text-4xl max-w-3xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+                    Why <span class="text-brand-primary">100K+</span> Enterprises Trust <span class="text-brand-accent">MSMECCII</span>
+                </h2>
+            </div>
+            <p class="text-slate-500 max-w-2xl font-medium text-lg leading-relaxed">
+                Connect, grow, and transform with India's most powerful business ecosystem. We provide the tools, network, and recognition your enterprise needs to scale globally.
+            </p>
+        </div>
+
+        <?php
+            $reasons = [
+                [
+                    'icon' => 'fa-solid fa-network-wired',
+                    'color' => 'text-blue-600',
+                    'title' => 'Strong National & Global Business Network',
+                    'desc' => 'Connects businesses across India and globally, enabling partnerships, collaborations, and market expansion through a powerful ecosystem of industry leaders and experts.',
+                    'points' => ['Global Partnerships', 'Industry Collaborations', 'Expert Network']
+                ],
+                [
+                    'icon' => 'fa-solid fa-building-shield',
+                    'color' => 'text-amber-600',
+                    'title' => 'Trusted Representation',
+                    'desc' => 'Acts as a bridge between businesses and government bodies for policy support.'
+                ],
+                [
+                    'icon' => 'fa-solid fa-chart-line',
+                    'color' => 'text-green-600',
+                    'title' => 'End-to-End Business Growth Platform',
+                    'desc' => 'From startups to corporates, we provide comprehensive support tools for modernization.',
+                    'points' => [
+                        'Funding & Financial Access',
+                        'Market Expansion & Exports',
+                        'Digital Transformation',
+                        'Skill Development & Training'
+                    ]
+                ],
+                [
+                    'icon' => 'fa-solid fa-microphone-lines',
+                    'color' => 'text-purple-600',
+                    'title' => 'High-Impact Events',
+                    'desc' => 'Large-scale conferences and summits in recycling, EV, and renewable energy.'
+                ],
+                [
+                    'icon' => 'fa-solid fa-medal',
+                    'color' => 'text-indigo-600',
+                    'title' => 'Recognition & Credibility Through Awards',
+                    'desc' => 'Prestigious national awards help businesses build brand credibility, industry reputation, and leadership positioning across India.',
+                    'points' => ['Brand Credibility', 'Industry Reputation', 'Leadership Positioning']
+                ],
+                [
+                    'icon' => 'fa-solid fa-user-tie',
+                    'color' => 'text-slate-700',
+                    'title' => 'Global Advisory Board',
+                    'desc' => 'Guided by Padma Shri, Padma Bhushan, and global experts for mentorship.'
+                ],
+                [
+                    'icon' => 'fa-solid fa-layer-group',
+                    'color' => 'text-rose-600',
+                    'title' => 'Multi-Sector Expertise (50+ Industries)',
+                    'desc' => 'From manufacturing to sustainability, we operate across diverse sectors—making it a one-stop platform for cross-industry innovation.',
+                    'points' => ['Cross-Industry Growth', 'Industry Innovation', 'Operational Expertise']
+                ],
+                [
+                    'icon' => 'fa-solid fa-rocket',
+                    'color' => 'text-orange-600',
+                    'title' => 'Focus on MSMEs',
+                    'desc' => 'Empowering MSMEs with knowledge, networking, and opportunities.'
+                ],
+                [
+                    'icon' => 'fa-solid fa-certificate',
+                    'color' => 'text-cyan-600',
+                    'title' => 'Global Partnerships & Certifications',
+                    'desc' => 'Collaborations with international organizations help Indian industries upgrade to world-class standards and expand into international markets.',
+                    'points' => ['World-Class Standards', 'Export Certifications', 'Global Market Entry']
+                ],
+                [
+                    'icon' => 'fa-solid fa-leaf',
+                    'color' => 'text-green-600',
+                    'title' => 'Sustainability Impact',
+                    'desc' => 'Promoting circular economy, women empowerment, and social initiatives.'
+                ],
+            ];
+        ?>
+
+        <div class="space-y-8">
+            
+            <?php
+                $bigCardClass = "lg:col-span-3 rounded-2xl p-10 bg-gradient-to-br from-slate-900 to-brand-primary-dark border border-white/5 hover:border-brand-accent/30 hover:shadow-2xl hover:shadow-brand-primary/20 transition-all group animate-on-scroll relative overflow-hidden";
+                $smallCardClass = "rounded-2xl p-8 bg-brand-primary border border-white/5 hover:border-brand-accent/30 hover:shadow-xl transition-all animate-on-scroll flex flex-col justify-between relative overflow-hidden";
+                $numberCircle = "absolute -top-2 -right-2 w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white font-black text-xl backdrop-blur-md group-hover:bg-brand-accent group-hover:text-brand-primary transition-all";
+                $iconBox = "w-16 h-16 shrink-0 rounded-2xl bg-white shadow-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-6";
+                $titleClass = "text-xl md:text-3xl font-black text-white mb-4 leading-tight group-hover:text-brand-accent transition-colors";
+                $descClass = "text-slate-300 font-medium leading-relaxed mb-6 group-hover:text-white transition-colors";
+            ?>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="<?php echo e($bigCardClass); ?>">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="<?php echo e($iconBox); ?>">
+                            <i class="<?php echo e($reasons[0]['icon']); ?> <?php echo e($reasons[0]['color']); ?> text-2xl"></i>
+                    </div>
+                        <div>
+                            <h3 class="<?php echo e($titleClass); ?>"><?php echo e($reasons[0]['title']); ?></h3>
+                            <p class="<?php echo e($descClass); ?>"><?php echo e($reasons[0]['desc']); ?></p>
+                            <div class="flex flex-wrap gap-2">
+                            <?php $__currentLoopData = $reasons[0]['points']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $point): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span
+                                        class="px-3 py-1 bg-white/10 rounded-lg text-[10px] font-bold text-white border border-white/5 uppercase tracking-tighter italic">
+                                    <?php echo e($point); ?>
+
+                                </span>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="<?php echo e($smallCardClass); ?>">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="<?php echo e($reasons[1]['icon']); ?> <?php echo e($reasons[1]['color']); ?> text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight"><?php echo e($reasons[1]['title']); ?></h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed"><?php echo e($reasons[1]['desc']); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="<?php echo e($bigCardClass); ?> lg:order-2">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="<?php echo e($iconBox); ?>">
+                            <i class="<?php echo e($reasons[2]['icon']); ?> <?php echo e($reasons[2]['color']); ?> text-2xl"></i>
+                    </div>
+                        <div>
+                            <h3 class="<?php echo e($titleClass); ?>"><?php echo e($reasons[2]['title']); ?></h3>
+                            <p class="<?php echo e($descClass); ?>"><?php echo e($reasons[2]['desc']); ?></p>
+                            <div class="grid grid-cols-2 gap-3">
+                        <?php $__currentLoopData = $reasons[2]['points']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $point): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="flex items-center gap-2 bg-white/5 p-2 rounded-xl border border-white/5">
+                                        <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                                        <span
+                                            class="text-[10px] font-bold text-slate-100 uppercase italic"><?php echo e($point); ?></span>
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="<?php echo e($smallCardClass); ?> lg:order-1">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="<?php echo e($reasons[3]['icon']); ?> <?php echo e($reasons[3]['color']); ?> text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight"><?php echo e($reasons[3]['title']); ?></h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed"><?php echo e($reasons[3]['desc']); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="<?php echo e($bigCardClass); ?>">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="<?php echo e($iconBox); ?>">
+                            <i class="<?php echo e($reasons[4]['icon']); ?> <?php echo e($reasons[4]['color']); ?> text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="<?php echo e($titleClass); ?>"><?php echo e($reasons[4]['title']); ?></h3>
+                            <p class="<?php echo e($descClass); ?>"><?php echo e($reasons[4]['desc']); ?></p>
+                            <div class="flex flex-wrap gap-2">
+                                <?php $__currentLoopData = $reasons[4]['points']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $point): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span
+                                        class="px-3 py-1 bg-emerald-500 text-white rounded-lg text-[10px] font-black uppercase tracking-tighter italic">
+                                        <?php echo e($point); ?>
+
+                                    </span>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="<?php echo e($smallCardClass); ?>">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="<?php echo e($reasons[5]['icon']); ?> <?php echo e($reasons[5]['color']); ?> text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight"><?php echo e($reasons[5]['title']); ?></h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed"><?php echo e($reasons[5]['desc']); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="<?php echo e($bigCardClass); ?> lg:order-2">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="<?php echo e($iconBox); ?>">
+                            <i class="<?php echo e($reasons[6]['icon']); ?> <?php echo e($reasons[6]['color']); ?> text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="<?php echo e($titleClass); ?>"><?php echo e($reasons[6]['title']); ?></h3>
+                            <p class="<?php echo e($descClass); ?>"><?php echo e($reasons[6]['desc']); ?></p>
+                            <div class="flex flex-wrap gap-2">
+                                <?php $__currentLoopData = $reasons[6]['points']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $point): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span
+                                        class="px-3 py-1 bg-white/10 rounded-lg text-[10px] font-bold text-white border border-white/5 italic">
+                                        # <?php echo e($point); ?>
+
+                                    </span>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                <div class="<?php echo e($smallCardClass); ?> lg:order-1">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="<?php echo e($reasons[7]['icon']); ?> <?php echo e($reasons[7]['color']); ?> text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight"><?php echo e($reasons[7]['title']); ?></h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed"><?php echo e($reasons[7]['desc']); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="<?php echo e($bigCardClass); ?>">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="<?php echo e($iconBox); ?>">
+                            <i class="<?php echo e($reasons[8]['icon']); ?> <?php echo e($reasons[8]['color']); ?> text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="<?php echo e($titleClass); ?>"><?php echo e($reasons[8]['title']); ?></h3>
+                            <p class="<?php echo e($descClass); ?>"><?php echo e($reasons[8]['desc']); ?></p>
+                            <div class="flex flex-wrap gap-2">
+                                <?php $__currentLoopData = $reasons[8]['points']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $point): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div
+                                        class="flex items-center gap-1 px-2 py-1 bg-white/10 text-white rounded-lg text-[9px] font-black uppercase italic tracking-tighter">
+                                        <i class="fa-solid fa-star text-amber-400"></i> <?php echo e($point); ?>
+
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="<?php echo e($smallCardClass); ?>">
+                    <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
+                        <i class="<?php echo e($reasons[9]['icon']); ?> <?php echo e($reasons[9]['color']); ?> text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-2 leading-tight"><?php echo e($reasons[9]['title']); ?></h3>
+                        <p class="text-xs text-slate-300 font-medium leading-relaxed"><?php echo e($reasons[9]['desc']); ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Powerful Closing Statement -->
+        <div class="mt-14 p-10 rounded-2xl relative overflow-hidden text-center animate-on-scroll">
+            <p class="relative z-10 text-3xl md:text-6xl font-black text-brand-primary leading-tight mx-auto">
+                "MSMECCII is not just a chamber—it is a growth partner, global connector, and catalyst for India's
+                industrial transformation."
+                </p>
+        </div>
+
+    </div>
+</section><?php /**PATH C:\laragon\www\msmeccii\resources\views/website/home/partials/why_choose.blade.php ENDPATH**/ ?>

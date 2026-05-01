@@ -1,4 +1,4 @@
-@php
+<?php
     // Fetch specifically for popup regardless of date if needed for testing, 
     // but usually we want active/upcoming events.
     // For now, ensuring we have the latest published popup event.
@@ -6,9 +6,9 @@
         ->where('show_as_popup', true)
         ->latest()
         ->first();
-@endphp
+?>
 
-@if(isset($popupEvent) && $popupEvent)
+<?php if(isset($popupEvent) && $popupEvent): ?>
     <div id="event-popup-container" class="fixed inset-0 z-9999 items-center justify-center p-4 sm:p-6" style="display: none;">
         <!-- Backdrop -->
         <div id="popup-backdrop" class="absolute inset-0 bg-slate-900/90 transition-opacity duration-500 opacity-0 cursor-pointer"></div>
@@ -23,18 +23,18 @@
 
             <!-- Left Side: Image -->
             <div class="w-auto h-auto relative overflow-hidden bg-slate-100">
-                @if($popupEvent->image)
-                    <img src="{{ asset($popupEvent->image) }}" class="w-auto h-auto object-cover">
-                @else
+                <?php if($popupEvent->image): ?>
+                    <img src="<?php echo e(asset($popupEvent->image)); ?>" class="w-auto h-auto object-cover">
+                <?php else: ?>
                     <div class="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-accent"></div>
-                @endif
+                <?php endif; ?>
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent md:hidden"></div>
                 
-                @if($popupEvent->design_style === 'featured')
+                <?php if($popupEvent->design_style === 'featured'): ?>
                     <div class="absolute top-2 left-2 bg-brand-primary text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
                         <i class="fa-solid fa-star mr-1"></i> Featured Event
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
 
             <!-- Right Side: Content -->
@@ -45,11 +45,13 @@
                 </div>
 
                 <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight tracking-tight">
-                    {{ $popupEvent->title }}
+                    <?php echo e($popupEvent->title); ?>
+
                 </h2>
 
                 <p class="text-slate-500 font-medium mb-8 line-clamp-3">
-                    {{ $popupEvent->short_description ?: ($popupEvent->description ?: 'Join us for this exclusive event. Network with industry experts and discover new growth opportunities.') }}
+                    <?php echo e($popupEvent->short_description ?: ($popupEvent->description ?: 'Join us for this exclusive event. Network with industry experts and discover new growth opportunities.')); ?>
+
                 </p>
 
                 <div class="space-y-4 mb-10">
@@ -60,18 +62,20 @@
                         <div>
                             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">Date & Time</p>
                             <p class="text-sm font-black">
-                                @if($popupEvent->end_date)
-                                    {{ $popupEvent->event_date->format('d') }} - {{ $popupEvent->end_date->format('d M, Y') }}
-                                @else
-                                    {{ $popupEvent->event_date->format('d M, Y') }}
-                                @endif
+                                <?php if($popupEvent->end_date): ?>
+                                    <?php echo e($popupEvent->event_date->format('d')); ?> - <?php echo e($popupEvent->end_date->format('d M, Y')); ?>
+
+                                <?php else: ?>
+                                    <?php echo e($popupEvent->event_date->format('d M, Y')); ?>
+
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('events.show', $popupEvent->slug) }}" class="flex-1 bg-brand-primary hover:bg-brand-primary-light text-white text-center py-4 rounded-2xl font-black shadow-xl shadow-brand-primary/20 transition-all transform hover:-translate-y-1">
+                    <a href="<?php echo e(route('events.show', $popupEvent->slug)); ?>" class="flex-1 bg-brand-primary hover:bg-brand-primary-light text-white text-center py-4 rounded-2xl font-black shadow-xl shadow-brand-primary/20 transition-all transform hover:-translate-y-1">
                         View Details
                     </a>
                     <button id="later-popup-btn" class="flex-1 hidden bg-slate-100 hover:bg-slate-200 text-slate-900 text-center py-4 rounded-2xl font-black transition-all">
@@ -84,7 +88,7 @@
 
     <script>
         (function() {
-            const popupId = '{{ $popupEvent->id }}';
+            const popupId = '<?php echo e($popupEvent->id); ?>';
             const storageKey = 'msmeccii_popup_seen_' + popupId;
 
             function initPopup() {
@@ -148,4 +152,5 @@
             document.addEventListener('turbo:render', initPopup);
         })();
     </script>
-@endif
+<?php endif; ?>
+<?php /**PATH C:\laragon\www\msmeccii\resources\views/website/home/partials/popup.blade.php ENDPATH**/ ?>
