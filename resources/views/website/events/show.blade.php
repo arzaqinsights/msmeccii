@@ -124,7 +124,7 @@
 
                 <!-- Left Sticky Sidebar (ElitePlus Style) -->
                 <aside class="w-full hidden lg:block lg:w-1/4 sticky top-32 z-30">
-                    <div class="bg-white rounded-lg border border-slate-100 overflow-hidden transform transition-all hover:scale-[1.02]">
+                    <div class="bg-white rounded-lg border overflow-hidden transform transition-all hover:scale-[1.02]">
                         <div class="bg-slate-900 p-6">
                             <h4 class="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
                                  <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span> Quick Navigation
@@ -168,7 +168,7 @@
                                                 <i class="fa-solid {{ $item['icon'] }} w-4 text-[12px]"></i>
                                                 {{ $item['label'] }}
                                             </span>
-                                            <i class="fa-solid fa-chevron-right text-[8px] opacity-30"></i>
+                                            <i class="fa-solid fa-chevron-right text-[8px]"></i>
                                         </a>
                                     @endif
                                 @endforeach
