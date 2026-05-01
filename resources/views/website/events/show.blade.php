@@ -15,8 +15,8 @@
 <!-- Hero Section -->
 <section class="relative min-h-[60vh] flex items-center pt-32 pb-24 overflow-hidden bg-slate-900">
     <div class="absolute inset-0 z-0">
-        <!-- <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover"> -->
-        <div class="absolute inset-0 bg-linear-to-r from-slate-900 to-slate-800 "></div>
+        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover scale-105 blur-sm opacity-30">
+        <div class="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-800/50 to-transparent"></div>
     </div>
 
     <div class="container relative z-10">
@@ -175,7 +175,7 @@
 
             <!-- Main Content Sections -->
             <main class="w-full lg:w-3/4 space-y-12">
-                <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-auto object-cover rounded-lg shadow-sm border border-slate-100 animate-on-scroll">
+                <!-- <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-auto object-cover rounded-lg shadow-sm border border-slate-100 animate-on-scroll"> -->
                 
                 <!-- About Section -->
                 <div id="about" class="scroll-mt-36 bg-white rounded-lg p-8 md:p-10 shadow-sm border border-slate-100 animate-on-scroll">
