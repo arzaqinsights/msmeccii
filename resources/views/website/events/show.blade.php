@@ -257,7 +257,7 @@
                                         <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
                                         
                                         <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                            <div class="w-24 h-auto md:w-40 shrink-0 rounded-2xl overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
+                                            <div class="w-24 aspect-9/16 md:w-40 shrink-0 rounded-lg overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
                                                 @if(!empty($guest['photo']))
                                                     <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                                 @else
@@ -288,7 +288,7 @@
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 @foreach($portraitGuests as $guest)
                                     <div class="bg-white rounded-lg p-6 border border-slate-100 text-center hover:shadow-md transition-shadow relative overflow-hidden group">
-                                        <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-4 border-slate-50 shadow-sm bg-slate-100 mb-4 group-hover:scale-105 transition-transform">
+                                        <div class="w-20 aspect-9/16 mx-auto rounded-lg overflow-hidden border-4 border-slate-50 shadow-sm bg-slate-100 mb-4 group-hover:scale-105 transition-transform">
                                             @if(!empty($guest['photo']))
                                                 <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                             @else
