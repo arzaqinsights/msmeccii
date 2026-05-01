@@ -287,7 +287,7 @@
                             @if(count($portraitGuests) > 0)
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 @foreach($portraitGuests as $guest)
-                                    <div class="bg-brand-primary/10 rounded-lg p-6 text-center hover:shadow-md transition-shadow relative overflow-hidden group">
+                                    <div class="bg-brand-primary/10 rounded-lg p-3 text-center hover:shadow-md transition-shadow relative overflow-hidden group">
                                         <div class="w-full aspect-9/16 mx-auto rounded-lg overflow-hidden mb-4 group-hover:scale-105 transition-transform">
                                             @if(!empty($guest['photo']))
                                                 <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
