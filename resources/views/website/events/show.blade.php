@@ -556,6 +556,177 @@
     </div>
 </div>
 
+@if(!auth()->check())
+<!-- Delayed Lead Capture Modal -->
+<div x-data="leadCapture()" x-init="init()" x-cloak>
+    <!-- Backdrop -->
+    <div x-show="open" x-transition.opacity.duration.500ms
+         class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        
+        <!-- Modal Container -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-500"
+             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+             class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden relative">
+            
+            <!-- Close Button (Subtle to discourage closing) -->
+            <button @click="open = false" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors z-10">
+                <i class="fa-solid fa-times text-lg"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="bg-slate-900 p-8 text-center relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10">
+                    <div class="w-16 h-16 bg-brand-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/30 shadow-[0_0_15px_rgba(var(--color-brand-primary),0.5)]">
+                        <i class="fa-solid fa-award text-2xl text-brand-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-2">Check Your Eligibility</h3>
+                    <p class="text-xs font-medium text-slate-300">Only 10% of applicants reach the jury round. Let's see if your profile qualifies.</p>
+                </div>
+            </div>
+
+            <!-- Form Progress -->
+            <div class="h-1 w-full bg-slate-100">
+                <div class="h-full bg-brand-primary transition-all duration-500" :style="'width: ' + ((step / 4) * 100) + '%'"></div>
+            </div>
+
+            <!-- Form Body -->
+            <div class="p-8">
+                <form @submit.prevent="submitLead" class="space-y-6">
+                    
+                    <!-- Step 1: Name -->
+                    <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                        <label class="block text-sm font-black text-slate-800 mb-3">1. What is your full name?</label>
+                        <input type="text" x-model="formData.name" placeholder="e.g. Indrajit Ghosh" class="w-full border-2 border-slate-200 rounded-xl p-4 focus:border-brand-primary focus:ring-0 outline-none font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-medium transition-all" @keydown.enter.prevent="nextStep(1)">
+                        <button type="button" @click="nextStep(1)" class="w-full mt-6 bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl transition-all shadow-lg text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                            Continue <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Company -->
+                    <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                        <label class="block text-sm font-black text-slate-800 mb-3">2. Which organization do you represent?</label>
+                        <input type="text" x-model="formData.company_name" placeholder="e.g. ABC Pvt. Ltd." class="w-full border-2 border-slate-200 rounded-xl p-4 focus:border-brand-primary focus:ring-0 outline-none font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-medium transition-all" @keydown.enter.prevent="nextStep(2)">
+                        <button type="button" @click="nextStep(2)" class="w-full mt-6 bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl transition-all shadow-lg text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                            Continue <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 3: Phone -->
+                    <div x-show="step === 3" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                        <label class="block text-sm font-black text-slate-800 mb-3">3. Where can our nomination team reach you?</label>
+                        <input type="tel" x-model="formData.phone_number" placeholder="e.g. +91 9876543210" class="w-full border-2 border-slate-200 rounded-xl p-4 focus:border-brand-primary focus:ring-0 outline-none font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-medium transition-all" @keydown.enter.prevent="nextStep(3)">
+                        <button type="button" @click="nextStep(3)" class="w-full mt-6 bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl transition-all shadow-lg text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                            Continue <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 4: Email & Submit -->
+                    <div x-show="step === 4" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                        <label class="block text-sm font-black text-slate-800 mb-3">4. Where should we send your VIP application link?</label>
+                        <input type="email" x-model="formData.email" placeholder="e.g. you@company.com" class="w-full border-2 border-slate-200 rounded-xl p-4 focus:border-brand-primary focus:ring-0 outline-none font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-medium transition-all" @keydown.enter.prevent="submitLead">
+                        
+                        <div class="mt-4 flex items-center gap-2 justify-center text-[10px] font-bold text-slate-400 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                            <i class="fa-solid fa-lock text-emerald-500"></i> We respect your privacy. 100% Secure.
+                        </div>
+
+                        <button type="submit" :disabled="loading" class="w-full mt-6 bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-brand-primary/30 text-sm uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50">
+                            <i x-show="loading" class="fa-solid fa-circle-notch fa-spin"></i>
+                            <span x-text="loading ? 'Processing...' : 'Lock My Spot & Continue'"></span>
+                            <i x-show="!loading" class="fa-solid fa-bolt"></i>
+                        </button>
+                    </div>
+
+                    <!-- Success State -->
+                    <div x-show="step === 5" style="display: none;" class="text-center py-4" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+                        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-check text-2xl text-emerald-500"></i>
+                        </div>
+                        <h4 class="text-lg font-black text-slate-900 mb-2">Profile Created!</h4>
+                        <p class="text-xs font-medium text-slate-500 mb-6">Your details have been saved securely. You can now proceed to the nomination form.</p>
+                        <a href="{{ $event->builder_content['about']['registration_url'] ?? url('join') }}" class="inline-block w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-xl transition-all shadow-lg text-sm uppercase tracking-widest">
+                            Go to Nomination Form
+                        </a>
+                    </div>
+                </form>
+            </div>
+            
+            <div x-show="step < 5" class="bg-slate-50 px-8 py-4 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-slate-400">
+                <button type="button" @click="step--" x-show="step > 1" class="hover:text-slate-600 transition-colors">&larr; Back</button>
+                <span x-show="step === 1"></span>
+                <span>Step <span x-text="step"></span> of 4</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('leadCapture', () => ({
+        open: false,
+        step: 1,
+        loading: false,
+        formData: {
+            name: '',
+            company_name: '',
+            phone_number: '',
+            email: '',
+            _token: '{{ csrf_token() }}'
+        },
+        init() {
+            // Check if we've already shown it in this session to prevent annoyance
+            if (!sessionStorage.getItem('leadCaptured')) {
+                setTimeout(() => {
+                    this.open = true;
+                }, 7000); // 7 second delay
+            }
+        },
+        nextStep(currentStep) {
+            // Simple Validation
+            if (currentStep === 1 && this.formData.name.length < 2) return alert('Please enter your full name.');
+            if (currentStep === 2 && this.formData.company_name.length < 2) return alert('Please enter your company name.');
+            if (currentStep === 3 && this.formData.phone_number.length < 6) return alert('Please enter a valid phone number.');
+            
+            this.step = currentStep + 1;
+        },
+        async submitLead() {
+            if (this.formData.email.length < 5 || !this.formData.email.includes('@')) return alert('Please enter a valid email.');
+            
+            this.loading = true;
+            try {
+                const response = await fetch('{{ route("quick.lead") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.formData._token
+                    },
+                    body: JSON.stringify(this.formData)
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    this.step = 5;
+                    sessionStorage.setItem('leadCaptured', 'true');
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Connection error. Please try again later.');
+            } finally {
+                this.loading = false;
+            }
+        }
+    }));
+});
+</script>
+@endif
+
 <style>
     html { scroll-behavior: smooth; }
     [x-cloak] { display: none !important; }

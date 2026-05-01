@@ -336,11 +336,11 @@
                 </div>
 
                 <!-- Secure Text / Trust Signals -->
-                <div class="mt-8 pt-6 border-t border-slate-100">
+                <div class="mt-8 pt-6 border-t border-slate-200">
                     <div
-                        class="flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left bg-slate-50 p-5 rounded-lg border border-slate-100">
+                        class="flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left bg-brand-primary/10 p-5 rounded-lg border border-slate-200">
                         <div class="flex items-center gap-3 text-slate-700">
-                            <div class="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center">
+                            <div class="w-10 h-10 bg-brand-primary/20 rounded-full flex items-center justify-center">
                                 <i class="fa-solid fa-lock text-brand-primary"></i>
                             </div>
                             <div class="text-xs">

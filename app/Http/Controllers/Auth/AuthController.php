@@ -75,4 +75,33 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+    public function quickLeadCapture(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'company_name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make(\Illuminate\Support\Str::random(16)),
+                'company_name' => $validated['company_name'],
+                'phone_number' => $validated['phone_number'],
+                'designation' => 'Not Provided',
+                'industry_sector' => 'Not Provided',
+                'membership_status' => 'pending',
+            ]);
+        }
+
+        // Always log them in to make the subsequent form frictionless
+        Auth::login($user);
+
+        return response()->json(['success' => true]);
+    }
 }

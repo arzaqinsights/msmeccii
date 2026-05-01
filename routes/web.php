@@ -71,6 +71,9 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 
 
 
+// Quick Lead Capture
+Route::post('/quick-lead', [AuthController::class, 'quickLeadCapture'])->name('quick.lead');
+
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
