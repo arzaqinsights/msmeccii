@@ -398,9 +398,14 @@
                     <!-- Dynamic Past Gallery Section -->
                     @if(isset($event->builder_content['gallery']) && count($event->builder_content['gallery']) > 0)
                         <div id="gallery" class="scroll-mt-36 bg-slate-50 rounded-lg p-8 md:p-10 shadow-sm border border-slate-100 animate-on-scroll">
-                            <div class="mb-8">
-                                <h2 class="text-3xl font-black text-slate-900 tracking-tight">Past <span class="text-brand-primary">Highlights</span></h2>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Glimpses from previous editions</p>
+                            <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                                <div>
+                                    <h2 class="text-3xl font-black text-slate-900 tracking-tight">Past <span class="text-brand-primary">Highlights</span></h2>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Glimpses from previous editions</p>
+                                </div>
+                                <a href="{{ route('gallery') }}" class="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-brand-primary text-white px-6 py-3 rounded-lg text-xs font-black uppercase tracking-widest transition-all w-full lg:w-auto shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                                    View Full Gallery <i class="fa-solid fa-arrow-right"></i>
+                                </a>
                             </div>
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 @foreach($event->builder_content['gallery'] as $media)
