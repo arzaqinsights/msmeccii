@@ -447,6 +447,106 @@
                             </template>
                         </div>
                     </div>
+
+                    <!-- Gallery Tab -->
+                    <div x-show="activeTab === 'gallery'" class="space-y-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <p class="text-xs font-bold text-slate-400">Add past images or video links.</p>
+                            <button type="button" @click="addItem('gallery')" class="bg-pink-600 text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">
+                                <i class="fa-solid fa-plus mr-1"></i> Add Media
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-for="(item, index) in content.gallery" :key="index">
+                                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 relative group">
+                                    <div class="mb-3">
+                                        <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Media Type</label>
+                                        <select :name="'builder_content[gallery]['+index+'][type]'" x-model="item.type" class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold outline-none">
+                                            <option value="image">Image</option>
+                                            <option value="video">Video (YouTube/Vimeo embed URL)</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Media URL</label>
+                                        <div class="flex gap-2">
+                                            <input type="text" :name="'builder_content[gallery]['+index+'][url]'" x-model="item.url" placeholder="File or Embed URL"
+                                                   class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs outline-none">
+                                            <template x-if="item.type === 'image'">
+                                                <div class="relative overflow-hidden shrink-0">
+                                                    <button type="button" class="bg-emerald-50 text-emerald-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-emerald-100 whitespace-nowrap">Upload</button>
+                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'gallery_image')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3" x-show="item.type === 'video'">
+                                        <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Thumbnail (for video)</label>
+                                        <div class="flex gap-2">
+                                            <input type="text" :name="'builder_content[gallery]['+index+'][thumbnail]'" x-model="item.thumbnail" placeholder="Thumbnail URL"
+                                                   class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs outline-none">
+                                            <div class="relative overflow-hidden shrink-0">
+                                                <button type="button" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-black uppercase border border-blue-100 whitespace-nowrap">Upload</button>
+                                                <input type="file" @change="uploadPartnerLogo($event, index, 'gallery_thumb')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" @click="removeItem('gallery', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Testimonials Tab -->
+                    <div x-show="activeTab === 'testimonials'" class="space-y-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <p class="text-xs font-bold text-slate-400">Add past reviews or testimonials.</p>
+                            <button type="button" @click="addItem('testimonials')" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">
+                                <i class="fa-solid fa-plus mr-1"></i> Add Review
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-for="(item, index) in content.testimonials" :key="index">
+                                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 relative group">
+                                    <div class="flex gap-4 mb-3">
+                                        <div class="w-16 h-16 rounded-full border-2 border-slate-200 bg-white overflow-hidden shrink-0 relative">
+                                            <template x-if="item.avatar">
+                                                <img :src="item.avatar" class="w-full h-full object-cover">
+                                            </template>
+                                            <template x-if="!item.avatar">
+                                                <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                                    <i class="fa-solid fa-user"></i>
+                                                </div>
+                                            </template>
+                                            <input type="file" @change="uploadPartnerLogo($event, index, 'testimonial_avatar')" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="flex-1 space-y-2">
+                                            <div>
+                                                <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Name</label>
+                                                <input type="text" :name="'builder_content[testimonials]['+index+'][name]'" x-model="item.name" placeholder="John Doe"
+                                                       class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold outline-none">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Company / Designation</label>
+                                                <input type="text" :name="'builder_content[testimonials]['+index+'][company]'" x-model="item.company" placeholder="CEO, TechCorp"
+                                                       class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs outline-none">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Review</label>
+                                        <textarea :name="'builder_content[testimonials]['+index+'][review]'" x-model="item.review" rows="3" placeholder="This award changed my business..."
+                                                  class="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs outline-none"></textarea>
+                                    </div>
+                                    <input type="hidden" :name="'builder_content[testimonials]['+index+'][avatar]'" x-model="item.avatar">
+                                    <button type="button" @click="removeItem('testimonials', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -530,6 +630,8 @@
                 { id: 'partners', label: 'Partners' },
                 { id: 'faq', label: 'FAQ' },
                 { id: 'resources', label: 'Resources' },
+                { id: 'gallery', label: 'Gallery' },
+                { id: 'testimonials', label: 'Testimonials' },
             ],
             // Default content structure
             content: {
@@ -561,6 +663,8 @@
                 })),
                 faq: @json($event->builder_content['faq'] ?? []),
                 resources: @json($event->builder_content['resources'] ?? []),
+                gallery: @json($event->builder_content['gallery'] ?? []),
+                testimonials: @json($event->builder_content['testimonials'] ?? []),
             },
             addItem(section) {
                 if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf1_name: '', pdf2_path: '', pdf2_thumb: '', pdf2_name: '' });
@@ -568,6 +672,8 @@
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '', is_pending: false });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });
                 if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
+                if (section === 'gallery') this.content.gallery.push({ type: 'image', url: '', thumbnail: '' });
+                if (section === 'testimonials') this.content.testimonials.push({ name: '', company: '', review: '', avatar: '' });
             },
             removeItem(section, index) {
                 this.content[section].splice(index, 1);
@@ -605,6 +711,12 @@
                             this.content.highlights[index].pdf2_thumb = data.path;
                         } else if (type === 'venue_image') {
                             this.content.venue.image = data.path;
+                        } else if (type === 'gallery_image') {
+                            this.content.gallery[index].url = data.path;
+                        } else if (type === 'gallery_thumb') {
+                            this.content.gallery[index].thumbnail = data.path;
+                        } else if (type === 'testimonial_avatar') {
+                            this.content.testimonials[index].avatar = data.path;
                         }
                     }
                 } catch (e) {

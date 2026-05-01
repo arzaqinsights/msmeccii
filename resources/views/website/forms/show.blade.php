@@ -64,11 +64,35 @@
               x-data="formEngine()" @submit.prevent="submitForm">
             @csrf
             
-            <!-- Standard Authentication Block -->
-            <div class="pb-8 border-b border-slate-100">
-                <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
-                    <i class="fa-solid fa-user-shield text-brand-primary"></i> Primary Identification
-                </h3>
+            <!-- Stepper Progress -->
+            <div class="mb-10 relative">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-100 rounded-full z-0"></div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-brand-primary rounded-full z-0 transition-all duration-500" :style="'width: ' + ((step - 1) / 2 * 100) + '%'"></div>
+                
+                <div class="relative z-10 flex justify-between">
+                    <div class="flex flex-col items-center group cursor-pointer" @click="if(step > 1) step = 1">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 1 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">1</div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 1 ? 'text-brand-primary' : 'text-slate-400'">Profile</span>
+                    </div>
+                    <div class="flex flex-col items-center group cursor-pointer" @click="if(step > 2) step = 2">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 2 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">2</div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 2 ? 'text-brand-primary' : 'text-slate-400'">Address</span>
+                    </div>
+                    <div class="flex flex-col items-center group cursor-pointer">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300" :class="step >= 3 ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'bg-slate-200 text-slate-400 border-2 border-white'">3</div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest mt-2 transition-colors hidden md:block" :class="step >= 3 ? 'text-brand-primary' : 'text-slate-400'">Nomination</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Profile -->
+            <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" class="pb-4">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-brand-primary"></i> Primary Identification
+                    </h3>
+                    <p class="text-sm font-bold text-slate-500">Please provide your personal and professional details.</p>
+                </div>
                 
                 @if(!auth()->check())
                     <div class="bg-blue-50 border border-blue-100 text-blue-700 p-4 rounded-xl text-sm font-medium mb-6">
@@ -114,7 +138,23 @@
                     </div>
                 </div>
 
-                <div class="mt-6">
+                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end">
+                    <button type="button" @click="nextStep(1)" class="bg-slate-900 hover:bg-brand-primary text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg flex items-center gap-3">
+                        Continue to Address <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Address -->
+            <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" class="pb-4">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-brand-primary"></i> Office / Company Location
+                    </h3>
+                    <p class="text-sm font-bold text-slate-500">Where is your primary business located?</p>
+                </div>
+
+                <div class="mt-2">
                     <label class="block text-xs font-bold text-slate-500 mb-2">Full Office/Company Address <span class="text-red-500">*</span></label>
                     <textarea name="address" rows="2" required 
                               class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">{{ old('address', auth()->check() ? auth()->user()->address : '') }}</textarea>
@@ -143,10 +183,27 @@
                     <input type="text" name="gstin" placeholder="e.g. 07AAAAA0000A1Z5" value="{{ old('gstin', auth()->check() ? auth()->user()->gstin : '') }}" 
                            class="w-full border border-slate-200 rounded-xl p-3 focus:border-brand-primary outline-none text-slate-900 font-bold placeholder:text-slate-300 placeholder:font-medium">
                 </div>
+                </div>
+                
+                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center">
+                    <button type="button" @click="step = 1" class="text-slate-500 hover:text-slate-900 font-bold px-4 py-2 flex items-center gap-2 transition-colors">
+                        <i class="fa-solid fa-arrow-left-long"></i> Back
+                    </button>
+                    <button type="button" @click="nextStep(2)" class="bg-slate-900 hover:bg-brand-primary text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg flex items-center gap-3">
+                        Continue to Nomination <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Dynamic Logic Block -->
-            <div class="space-y-6">
+            <!-- STEP 3: Nomination & Payment -->
+            <div x-show="step === 3" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                <div class="mb-8 border-b border-slate-100 pb-6">
+                    <h3 class="text-2xl font-black text-slate-900 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-award text-brand-primary"></i> Nomination Category
+                    </h3>
+                    <p class="text-sm font-bold text-slate-500">Select your award category to complete your application.</p>
+                </div>
+                <div class="space-y-6">
                 <template x-for="field in fields" :key="field.field_identifier">
                     
                     <div x-show="field.type !== 'hidden_price' && isFieldVisible(field)" x-transition.opacity duration.500ms>
@@ -299,15 +356,18 @@
                 </div>
             </div>
 
-            <div class="mt-10 pt-8 border-t border-slate-100">
-                <input type="hidden" name="payment_method" :value="isManualPayment ? 'manual' : 'gateway'">
-                <button type="submit" :disabled="loading" class="w-full bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
+            <div class="mt-10 pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center gap-4">
+                <button type="button" @click="step = 2" class="w-full md:w-auto order-2 md:order-1 text-slate-500 hover:text-slate-900 font-bold px-6 py-4 rounded-xl border border-slate-200 hover:bg-slate-50 flex items-center justify-center gap-2 transition-colors">
+                    <i class="fa-solid fa-arrow-left-long"></i> Back
+                </button>
+                <button type="button" @click="validateAndSubmit" :disabled="loading" class="w-full order-1 md:order-2 flex-1 bg-brand-primary hover:bg-brand-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg text-lg drop-shadow-sm flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-wait">
                     <template x-if="loading">
                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                     </template>
                     <span x-text="loading ? 'Processing...' : (isManualPayment ? 'Submit Application' : '{{ $form->submit_button_text }}')"></span>
                     <i x-show="!loading" class="fa-solid fa-arrow-right-long text-sm"></i>
                 </button>
+            </div>
             </div>
 
         </form>
@@ -322,6 +382,7 @@
         return {
             fields: rawFields,
             formData: {},
+            step: 1,
             loading: false,
             gatewayLimit: {{ (float)($site['payment_gateway_limit'] ?? 500000) }},
             
@@ -341,6 +402,64 @@
                     let script = document.createElement('script');
                     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
                     document.head.appendChild(script);
+                }
+            },
+
+            nextStep(currentStep) {
+                // Validate current step
+                let isValid = true;
+                const container = this.$el.querySelector(`[x-show="step === ${currentStep}"]`);
+                if (container) {
+                    const inputs = container.querySelectorAll('input[required], select[required], textarea[required]');
+                    inputs.forEach(input => {
+                        if (!input.value.trim() && input.offsetParent !== null) {
+                            isValid = false;
+                            input.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+                            // Listen once for input to remove red border
+                            input.addEventListener('input', () => {
+                                input.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+                            }, { once: true });
+                        }
+                    });
+                }
+
+                if (isValid) {
+                    this.step = currentStep + 1;
+                    window.scrollTo({ top: this.$el.offsetTop - 100, behavior: 'smooth' });
+                } else {
+                    alert('Please fill in all required fields before proceeding.');
+                }
+            },
+
+            validateAndSubmit(e) {
+                let isValid = true;
+                const container = this.$el.querySelector(`[x-show="step === 3"]`);
+                if (container) {
+                    const inputs = container.querySelectorAll('input[required], select[required], textarea[required]');
+                    inputs.forEach(input => {
+                        if (!input.value.trim() && input.offsetParent !== null) {
+                            isValid = false;
+                            input.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+                            input.addEventListener('input', () => {
+                                input.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+                            }, { once: true });
+                        }
+                    });
+                }
+                
+                if(isValid) {
+                    const formElement = this.$el;
+                    // Inject a hidden input to preserve payment_method before submitting manually
+                    const manualPaymentInput = document.createElement('input');
+                    manualPaymentInput.type = 'hidden';
+                    manualPaymentInput.name = 'payment_method';
+                    manualPaymentInput.value = this.isManualPayment ? 'manual' : 'gateway';
+                    formElement.appendChild(manualPaymentInput);
+
+                    const eventFake = { target: formElement, preventDefault: () => {} };
+                    this.submitForm(eventFake);
+                } else {
+                    alert('Please complete all required fields.');
                 }
             },
 
