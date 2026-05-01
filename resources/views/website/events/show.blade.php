@@ -15,14 +15,14 @@
 <!-- Hero Section -->
 <section class="relative min-h-[60vh] flex items-center pt-32 pb-24 overflow-hidden bg-slate-900">
     <div class="absolute inset-0 z-0">
-        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900/50 to-transparent"></div>
+        <!-- <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover"> -->
+        <div class="absolute inset-0 bg-linear-to-r from-slate-900 to-slate-800 "></div>
     </div>
 
     <div class="container relative z-10">
         <div class="max-w-4xl animate-on-scroll">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-accent mb-6">
-                <i class="fa-solid fa-shield-check text-brand-accent text-xs"></i>
+                <i class="fa-solid fa-trophy text-brand-accent text-xs"></i>
                 <span class="text-brand-accent text-[10px] font-black tracking-widest uppercase">Government Recognized • 350+ Awardees</span>
             </div>
             
@@ -68,13 +68,13 @@
                         get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
                         get s() { return Math.floor((this.t % (1000*60)) / 1000); }
                     }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex gap-6 text-center">
-                        <div><span class="block text-3xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
+                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
                         <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
+                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
                         <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
+                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
                         <div class="w-px h-10 bg-white/10 my-auto"></div>
-                        <div><span class="block text-3xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                        <div><span class="block text-3xl md:text-5xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
                     </div>
                 </div>
             @endif
@@ -175,6 +175,7 @@
 
             <!-- Main Content Sections -->
             <main class="w-full lg:w-3/4 space-y-12">
+                <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-auto object-cover rounded-lg shadow-sm border border-slate-100 animate-on-scroll">
                 
                 <!-- About Section -->
                 <div id="about" class="scroll-mt-36 bg-white rounded-lg p-8 md:p-10 shadow-sm border border-slate-100 animate-on-scroll">
