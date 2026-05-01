@@ -23,7 +23,7 @@
 
                 <div class="flex flex-col lg:flex-row gap-8 items-center justify-between">
                     <!-- Left Side Details -->
-                    <div class="w-full lg:w-8/12 animate-on-scroll">
+                    <div class="w-full lg:w-1/2 animate-on-scroll">
                         <div
                             class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-accent mb-6">
                             <i class="fa-solid fa-trophy text-brand-accent text-xs"></i>
@@ -75,8 +75,8 @@
                </div>
 
                 @if($event->show_timer)
-                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 inline-block shadow-2xl w-full max-w-md">
-                        <div class="text-[10px] font-black text-brand-accent uppercase tracking-widest mb-3"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Nominations Closing Soon</div>
+                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block shadow-2xl w-full">
+                        <div class="text-[10px] md:text-sm font-black text-brand-accent uppercase tracking-widest mb-3"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Nominations Closing Soon</div>
                         <div x-data="{
                             target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
                             now: new Date().getTime(),
@@ -86,13 +86,13 @@
                             get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
                             get s() { return Math.floor((this.t % (1000*60)) / 1000); }
                         }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex justify-between text-center">
-                            <div><span class="block text-3xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
+                            <div><span class="block text-3xl md:text-4xl lg:text-6xl font-black text-brand-accent" x-text="d">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Days</span></div>
                             <div class="w-px h-10 bg-white/10 my-auto"></div>
-                            <div><span class="block text-3xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
+                            <div><span class="block text-3xl md:text-4xl lg:text-6xl font-black text-brand-accent" x-text="h">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
                             <div class="w-px h-10 bg-white/10 my-auto"></div>
-                            <div><span class="block text-3xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
+                            <div><span class="block text-3xl md:text-4xl lg:text-6xl font-black text-brand-accent" x-text="m">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Min</span></div>
                             <div class="w-px h-10 bg-white/10 my-auto"></div>
-                            <div><span class="block text-3xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                            <div><span class="block text-3xl md:text-4xl lg:text-6xl font-black text-brand-accent" x-text="s">0</span><span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
                         </div>
                     </div>
                 @endif
