@@ -15,15 +15,15 @@
 <!-- Hero Section -->
 <section class="relative min-h-[60vh] flex items-center pt-32 pb-24 overflow-hidden bg-slate-900">
     <div class="absolute inset-0 z-0">
-        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-30 scale-105 blur-sm">
-        <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+        <img src="{{ $event->image ? asset($event->image) : asset('images/event-placeholder.jpg') }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900/50 to-transparent"></div>
     </div>
 
     <div class="container relative z-10">
         <div class="max-w-4xl animate-on-scroll">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-primary/30 mb-6">
-                <i class="fa-solid fa-shield-check text-brand-primary text-xs"></i>
-                <span class="text-brand-primary text-[10px] font-black tracking-widest uppercase">Government Recognized • 350+ Awardees</span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/20 border border-brand-accent mb-6">
+                <i class="fa-solid fa-shield-check text-brand-accent text-xs"></i>
+                <span class="text-brand-accent text-[10px] font-black tracking-widest uppercase">Government Recognized • 350+ Awardees</span>
             </div>
             
             <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
