@@ -247,7 +247,7 @@
                             <div class="space-y-6">
                                 @foreach($event->builder_content['guests'] as $guest)
                                     @if(!empty($guest['name']))
-                                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 shadow-xl border border-slate-700 relative overflow-hidden group">
+                                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 border border-slate-700 relative overflow-hidden group">
                                             <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
                                             
                                             <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
@@ -260,7 +260,7 @@
                                                 </div>
                                                 
                                                 <div class="flex-1 text-center md:text-left">
-                                                    <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest mb-4 shadow-sm">
+                                                    <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest mb-4">
                                                         <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
                                                     </div>
                                                     <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
