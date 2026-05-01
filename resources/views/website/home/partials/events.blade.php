@@ -29,12 +29,9 @@
                             </span>
                             <span class="text-slate-900 text-xs font-black tracking-widest uppercase">Upcoming Events</span>
                         </div>
-
-                        <h2
-                            class="text-4xl md:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+                        <h2 class="text-4xl md:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
                             Join the <span class="text-brand-primary">Global</span> Movement
                         </h2>
-
                         <p class="text-slate-500 text-lg leading-relaxed font-medium">
                             Experience world-class summits designed to empower MSMEs. Connect with policy makers, industry
                             leaders, and global investors in one unified platform.

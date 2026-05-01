@@ -57,8 +57,16 @@
             gtag('config', '{{ config('services.google.analytics_id') }}');
         </script>
     @endif
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "wk5b6320u4");
+    </script>
 
-    <script id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/bfa5e1a8b8328405286aaebf5/35d901f961084419576fcf66c.js");</script>
+    <script
+        id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/bfa5e1a8b8328405286aaebf5/35d901f961084419576fcf66c.js");</script>
 </head>
 
 <body class="font-sans text-gray-800 bg-white antialiased">
@@ -448,7 +456,7 @@
                                 class="text-slate-100 hover:text-white transition-colors flex items-center gap-2 text-sm">
                                 <span class="w-1 h-1 rounded-full bg-brand-light/50"></span> Join / Membership
                             </a></li>
-                        
+
                     </ul>
                 </div>
 
