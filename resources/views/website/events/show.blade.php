@@ -243,40 +243,70 @@
 
                     <!-- Special Guests Section -->
                     @if(isset($event->builder_content['guests']) && count($event->builder_content['guests']) > 0)
+                        @php
+                            $guests = $event->builder_content['guests'];
+                            $fullGuests = array_filter($guests, fn($g) => (!isset($g['display_style']) || $g['display_style'] === 'full') && !empty($g['name']));
+                            $portraitGuests = array_filter($guests, fn($g) => isset($g['display_style']) && $g['display_style'] === 'portrait' && !empty($g['name']));
+                        @endphp
                         <div id="guests" class="scroll-mt-36 animate-on-scroll">
-                            <div class="space-y-6">
-                                @foreach($event->builder_content['guests'] as $guest)
-                                    @if(!empty($guest['name']))
-                                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 border border-slate-700 relative overflow-hidden group">
-                                            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
+                            
+                            @if(count($fullGuests) > 0)
+                            <div class="space-y-6 mb-8">
+                                @foreach($fullGuests as $guest)
+                                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 border border-slate-700 relative overflow-hidden group">
+                                        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
+                                        
+                                        <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
+                                            <div class="w-24 h-auto md:w-40 shrink-0 rounded-2xl overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
+                                                @if(!empty($guest['photo']))
+                                                    <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
+                                                @else
+                                                    <i class="fa-solid fa-user-tie text-5xl text-slate-600"></i>
+                                                @endif
+                                            </div>
                                             
-                                            <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                                <div class="w-24 h-auto md:w-40 shrink-0 rounded-2xl overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
-                                                    @if(!empty($guest['photo']))
-                                                        <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
-                                                    @else
-                                                        <i class="fa-solid fa-user-tie text-5xl text-slate-600"></i>
-                                                    @endif
+                                            <div class="flex-1 text-center md:text-left">
+                                                <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest mb-4">
+                                                    <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
                                                 </div>
+                                                <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
+                                                <p class="text-brand-accent font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
                                                 
-                                                <div class="flex-1 text-center md:text-left">
-                                                    <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest mb-4">
-                                                        <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
+                                                @if(!empty($guest['about']))
+                                                    <div class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
+                                                        {!! nl2br(e($guest['about'])) !!}
                                                     </div>
-                                                    <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
-                                                    <p class="text-brand-accent font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
-                                                    
-                                                    @if(!empty($guest['about']))
-                                                        <div class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
-                                                            {!! nl2br(e($guest['about'])) !!}
-                                                        </div>
-                                                    @endif
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
-                                    @endif
+                                    </div>
                                 @endforeach
                             </div>
+                            @endif
+
+                            @if(count($portraitGuests) > 0)
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                @foreach($portraitGuests as $guest)
+                                    <div class="bg-white rounded-lg p-6 border border-slate-100 text-center hover:shadow-md transition-shadow relative overflow-hidden group">
+                                        <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-4 border-slate-50 shadow-sm bg-slate-100 mb-4 group-hover:scale-105 transition-transform">
+                                            @if(!empty($guest['photo']))
+                                                <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
+                                            @else
+                                                <div class="w-full h-full flex items-center justify-center bg-brand-primary/10 text-brand-primary font-black text-2xl">
+                                                    {{ substr($guest['name'], 0, 1) }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="inline-block px-2 py-0.5 bg-brand-primary/10 rounded-full text-[9px] font-black text-brand-primary uppercase tracking-widest mb-2">
+                                            {{ $guest['title'] ?? 'Special Guest' }}
+                                        </div>
+                                        <h3 class="text-sm font-black text-slate-900 mb-1 leading-tight">{{ $guest['name'] }}</h3>
+                                        <p class="text-[10px] font-bold text-slate-500 leading-tight">{{ $guest['designation'] }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @endif
+                            
                         </div>
                     @endif
 

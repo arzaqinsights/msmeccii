@@ -165,11 +165,21 @@
                                                    class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
                                         </div>
                                     </div>
-                                    
-                                    <div class="mb-6">
-                                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Designation</label>
-                                        <input type="text" :name="'builder_content[guests]['+index+'][designation]'" x-model="item.designation" placeholder="e.g. Honorable Prime Minister of India"
-                                               class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                        <div>
+                                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Designation</label>
+                                            <input type="text" :name="'builder_content[guests]['+index+'][designation]'" x-model="item.designation" placeholder="e.g. Honorable Prime Minister of India"
+                                                   class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Display Style</label>
+                                            <select :name="'builder_content[guests]['+index+'][display_style]'" x-model="item.display_style"
+                                                    class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                                <option value="full">Full Width Highlight</option>
+                                                <option value="portrait">Portrait Short Card</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="mb-6">
@@ -772,7 +782,8 @@
                     name: g.name || '',
                     designation: g.designation || '',
                     about: g.about || '',
-                    photo: g.photo || ''
+                    photo: g.photo || '',
+                    display_style: g.display_style || 'full'
                 })),
                 cta: {
                     heading: @json($event->builder_content['cta']['heading'] ?? ''),
@@ -818,7 +829,7 @@
                 if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
                 if (section === 'gallery') this.content.gallery.push({ type: 'image', url: '', thumbnail: '' });
                 if (section === 'testimonials') this.content.testimonials.push({ name: '', company: '', review: '', avatar: '' });
-                if (section === 'guests') this.content.guests.push({ title: 'Special Guest', name: '', designation: '', about: '', photo: '' });
+                if (section === 'guests') this.content.guests.push({ title: 'Special Guest', name: '', designation: '', about: '', photo: '', display_style: 'full' });
             },
             removeItem(section, index) {
                 this.content[section].splice(index, 1);
