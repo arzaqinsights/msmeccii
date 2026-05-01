@@ -244,9 +244,6 @@
                     <!-- Special Guests Section -->
                     @if(isset($event->builder_content['guests']) && count($event->builder_content['guests']) > 0)
                         <div id="guests" class="scroll-mt-36 animate-on-scroll">
-                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                <i class="fa-solid fa-star text-amber-500"></i> Special Guests
-                            </h4>
                             <div class="space-y-6">
                                 @foreach($event->builder_content['guests'] as $guest)
                                     @if(!empty($guest['name']))
@@ -267,7 +264,7 @@
                                                         <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
                                                     </div>
                                                     <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
-                                                    <p class="text-brand-primary font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
+                                                    <p class="text-brand-accent font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
                                                     
                                                     @if(!empty($guest['about']))
                                                         <div class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
