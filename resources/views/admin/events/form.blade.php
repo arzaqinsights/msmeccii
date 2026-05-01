@@ -140,6 +140,73 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Chief Guest Tab -->
+                    <!-- Special Guests Tab -->
+                    <div x-show="activeTab === 'guests'" class="space-y-4" style="display: none;">
+                        <div class="flex justify-between items-center mb-4">
+                            <p class="text-xs font-bold text-slate-400">Add Chief Guests, Special Guests, etc.</p>
+                            <button type="button" @click="addItem('guests')" class="bg-brand-primary text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">
+                                <i class="fa-solid fa-plus mr-1"></i> Add Guest
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <template x-for="(item, index) in content.guests" :key="index">
+                                <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 relative group">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                        <div>
+                                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Section/Title (e.g. Guest of Honor)</label>
+                                            <input type="text" :name="'builder_content[guests]['+index+'][title]'" x-model="item.title" placeholder="e.g. Chief Guest"
+                                                   class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Full Name</label>
+                                            <input type="text" :name="'builder_content[guests]['+index+'][name]'" x-model="item.name" placeholder="e.g. Shri. Narendra Modi"
+                                                   class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-6">
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Designation</label>
+                                        <input type="text" :name="'builder_content[guests]['+index+'][designation]'" x-model="item.designation" placeholder="e.g. Honorable Prime Minister of India"
+                                               class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                                    </div>
+
+                                    <div class="mb-6">
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">About / Bio (Optional)</label>
+                                        <textarea :name="'builder_content[guests]['+index+'][about]'" x-model="item.about" rows="3" placeholder="Brief bio..."
+                                                  class="w-full bg-white border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium text-slate-900"></textarea>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Profile Photo</label>
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-24 h-24 rounded-full border-4 border-white shadow-lg bg-slate-100 flex items-center justify-center overflow-hidden shrink-0">
+                                                <template x-if="item.photo">
+                                                    <img :src="item.photo" class="w-full h-full object-cover">
+                                                </template>
+                                                <template x-if="!item.photo">
+                                                    <i class="fa-solid fa-user-tie text-3xl text-slate-300"></i>
+                                                </template>
+                                            </div>
+                                            <div class="flex-1">
+                                                <label class="bg-white border border-slate-200 hover:border-purple-500 text-slate-600 hover:text-purple-600 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer transition-all inline-block shadow-sm">
+                                                    <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload Photo
+                                                    <input type="file" @change="uploadPartnerLogo($event, index, 'guest_photo')" accept="image/*" class="hidden">
+                                                </label>
+                                                <p class="text-[9px] font-bold text-slate-400 mt-2 uppercase tracking-widest">Recommended: Square Image (1:1), Max 1MB</p>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" :name="'builder_content[guests]['+index+'][photo]'" x-model="item.photo">
+                                    </div>
+
+                                    <button type="button" @click="removeItem('guests', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
 
                     <!-- CTA Tab -->
                     <div x-show="activeTab === 'cta'" class="space-y-6" style="display: none;">
@@ -690,6 +757,7 @@
                 { id: 'resources', label: 'Resources' },
                 { id: 'gallery', label: 'Gallery' },
                 { id: 'testimonials', label: 'Testimonials' },
+                { id: 'guests', label: 'Special Guests' },
                 { id: 'cta', label: 'Call To Action' },
             ],
             // Default content structure
@@ -699,6 +767,13 @@
                     description: @json($event->builder_content['about']['description'] ?? ''),
                     registration_url: @json($event->builder_content['about']['registration_url'] ?? ''),
                 },
+                guests: @json($event->builder_content['guests'] ?? (isset($event->builder_content['chief_guest']) && !empty($event->builder_content['chief_guest']['name']) ? [$event->builder_content['chief_guest']] : [])).map(g => ({
+                    title: g.title || '',
+                    name: g.name || '',
+                    designation: g.designation || '',
+                    about: g.about || '',
+                    photo: g.photo || ''
+                })),
                 cta: {
                     heading: @json($event->builder_content['cta']['heading'] ?? ''),
                     description: @json($event->builder_content['cta']['description'] ?? ''),
@@ -743,6 +818,7 @@
                 if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
                 if (section === 'gallery') this.content.gallery.push({ type: 'image', url: '', thumbnail: '' });
                 if (section === 'testimonials') this.content.testimonials.push({ name: '', company: '', review: '', avatar: '' });
+                if (section === 'guests') this.content.guests.push({ title: 'Special Guest', name: '', designation: '', about: '', photo: '' });
             },
             removeItem(section, index) {
                 this.content[section].splice(index, 1);
@@ -786,6 +862,8 @@
                             this.content.gallery[index].thumbnail = data.path;
                         } else if (type === 'testimonial_avatar') {
                             this.content.testimonials[index].avatar = data.path;
+                        } else if (type === 'guest_photo') {
+                            this.content.guests[index].photo = data.path;
                         }
                     }
                 } catch (e) {

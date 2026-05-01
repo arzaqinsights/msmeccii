@@ -105,7 +105,7 @@
          x-data="{ 
             activeSection: 'about',
             checkScroll() {
-                const sections = ['about', 'highlights', 'excellence', 'gallery', 'testimonials', 'pricing', 'partners', 'faq', 'resources', 'venue'];
+                const sections = ['about', 'guests', 'highlights', 'excellence', 'gallery', 'testimonials', 'pricing', 'partners', 'faq', 'resources', 'venue'];
                 for (const section of sections) {
                     const el = document.getElementById(section);
                     if (el) {
@@ -135,6 +135,7 @@
                                 @php
                                     $navItems = [
                                         ['id' => 'about', 'label' => 'About Summit', 'icon' => 'fa-info-circle'],
+                                        ['id' => 'guests', 'label' => 'Special Guests', 'icon' => 'fa-star'],
                                         ['id' => 'highlights', 'label' => 'Why Join?', 'icon' => 'fa-star'],
                                         ['id' => 'excellence', 'label' => 'Wall of Excellence', 'icon' => 'fa-crown'],
                                         ['id' => 'gallery', 'label' => 'Past Highlights', 'icon' => 'fa-images'],
@@ -154,6 +155,8 @@
                                             $showItem = $excellenceAwards->count() > 0;
                                         } elseif (in_array($item['id'], ['gallery', 'testimonials'])) {
                                             $showItem = isset($event->builder_content[$item['id']]) && count($event->builder_content[$item['id']]) > 0;
+                                        } elseif ($item['id'] === 'guests') {
+                                            $showItem = isset($event->builder_content['guests']) && count($event->builder_content['guests']) > 0;
                                         } else {
                                             $showItem = isset($event->builder_content[$item['id']]) && (!is_array($event->builder_content[$item['id']]) || count($event->builder_content[$item['id']]) > 0);
                                         }
@@ -237,6 +240,48 @@
                             </div>
                         </div> -->
                     </div>
+
+                    <!-- Special Guests Section -->
+                    @if(isset($event->builder_content['guests']) && count($event->builder_content['guests']) > 0)
+                        <div id="guests" class="scroll-mt-36 animate-on-scroll">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-star text-amber-500"></i> Special Guests
+                            </h4>
+                            <div class="space-y-6">
+                                @foreach($event->builder_content['guests'] as $guest)
+                                    @if(!empty($guest['name']))
+                                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg p-6 md:p-10 shadow-xl border border-slate-700 relative overflow-hidden group">
+                                            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
+                                            
+                                            <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
+                                                <div class="w-24 h-24 md:w-40 md:h-40 shrink-0 rounded-2xl overflow-hidden border-4 border-slate-700 shadow-2xl bg-slate-800 flex items-center justify-center">
+                                                    @if(!empty($guest['photo']))
+                                                        <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
+                                                    @else
+                                                        <i class="fa-solid fa-user-tie text-5xl text-slate-600"></i>
+                                                    @endif
+                                                </div>
+                                                
+                                                <div class="flex-1 text-center md:text-left">
+                                                    <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-[10px] font-black text-amber-400 uppercase tracking-widest mb-4 shadow-sm">
+                                                        <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
+                                                    </div>
+                                                    <h3 class="text-2xl md:text-3xl font-black text-white mb-2">{{ $guest['name'] }}</h3>
+                                                    <p class="text-brand-primary font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
+                                                    
+                                                    @if(!empty($guest['about']))
+                                                        <div class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
+                                                            {!! nl2br(e($guest['about'])) !!}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
 
                     <!-- Highlights Section -->
                     @if(isset($event->builder_content['highlights']) && count($event->builder_content['highlights']) > 0)
