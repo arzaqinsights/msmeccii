@@ -382,11 +382,11 @@
                         <div class="flex flex-col md:flex-row justify-center items-center gap-4">
                             <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($form->name) }}%20nomination."
                                 target="_blank"
-                                class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-8 bg-[#25D366] hover:bg-[#20b858] text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-green-500/20">
+                                class="inline-flex items-center justify-center gap-2 w-full md:w-1/2 px-8 bg-[#25D366] hover:bg-[#20b858] text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-green-500/20">
                                 <i class="fa-brands fa-whatsapp text-lg"></i> Apply via WhatsApp
                             </a>
                             <a href="tel:+919810690843"
-                                class="inline-flex items-center justify-center gap-2 w-full md:w-auto px-8 bg-[#25D366] hover:bg-[#20b858] text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-green-500/20">
+                                class="inline-flex items-center justify-center gap-2 w-full md:w-1/2 px-8 bg-brand-primary hover:bg-brand-primary-dark text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-brand-primary/20">
                                 <i class="fa-solid fa-phone text-lg"></i> Call Us Now
                             </a>
                         </div>
