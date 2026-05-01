@@ -144,6 +144,16 @@
                     <!-- CTA Tab -->
                     <div x-show="activeTab === 'cta'" class="space-y-6" style="display: none;">
                         <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">CTA Heading</label>
+                            <input type="text" name="builder_content[cta][heading]" x-model="content.cta.heading" placeholder="e.g. Ready to Showcase Your Excellence?"
+                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-black text-slate-900">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">CTA Description</label>
+                            <textarea name="builder_content[cta][description]" x-model="content.cta.description" rows="2" placeholder="e.g. Join hundreds of top-tier organizations..."
+                                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium text-slate-900"></textarea>
+                        </div>
+                        <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Call To Action Button Text</label>
                             <input type="text" name="builder_content[cta][btn_text]" x-model="content.cta.btn_text" placeholder="e.g. Register Now"
                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
@@ -661,6 +671,8 @@
                     registration_url: @json($event->builder_content['about']['registration_url'] ?? ''),
                 },
                 cta: {
+                    heading: @json($event->builder_content['cta']['heading'] ?? ''),
+                    description: @json($event->builder_content['cta']['description'] ?? ''),
                     btn_text: @json($event->builder_content['cta']['btn_text'] ?? 'Register Now'),
                     form_url: @json($event->builder_content['cta']['form_url'] ?? ''),
                 },
