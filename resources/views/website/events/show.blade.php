@@ -253,11 +253,11 @@
                             @if(count($fullGuests) > 0)
                             <div class="space-y-6 mb-8">
                                 @foreach($fullGuests as $guest)
-                                    <div class="bg-brand-primary/10 rounded-lg p-6 md:p-10 relative overflow-hidden group">
+                                    <div class="bg-brand-primary/10 rounded-lg p-6 relative overflow-hidden group">
                                         <!-- <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div> -->
                                         
                                         <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                            <div class="w-24 aspect-9/14 overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
+                                            <div class="w-24 h-auto overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
                                                 @if(!empty($guest['photo']))
                                                     <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
                                                 @else
