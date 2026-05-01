@@ -407,15 +407,15 @@
 
                     <!-- Pricing Section (CRO Optimized) -->
                     @if(isset($event->builder_content['pricing']) && count($event->builder_content['pricing']) > 0)
-                        <div id="pricing" class="scroll-mt-36 animate-on-scroll bg-slate-900 rounded-lg p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+                        <div id="pricing" class="scroll-mt-36 animate-on-scroll bg-slate-900 rounded-lg p-8 md:p-12 text-white relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
 
                             <div class="text-center mb-10 relative z-10">
                                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 mb-4 text-[10px] font-black uppercase tracking-widest">
                                     <i class="fa-solid fa-lock text-emerald-400"></i> Secure Checkout
                                 </div>
-                                <h2 class="text-3xl font-black text-white mb-2">Secure Your <span class="text-brand-accent">Nomination</span></h2>
-                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Choose your access level</p>
+                                <h2 class="text-3xl font-black text-white mb-2">{!! $event->builder_content['pricing_header']['heading'] ?? 'Secure Your <span class="text-brand-accent">Nomination</span>' !!}</h2>
+                                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ $event->builder_content['pricing_header']['description'] ?? 'Choose your access level' }}</p>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
@@ -433,8 +433,8 @@
                                         <div class="text-xs text-slate-300 font-medium mb-8 leading-relaxed">
                                             {{ $tier['desc'] }}
                                         </div>
-                                        <a href="{{ $event->builder_content['about']['registration_url'] ?? url('join') }}" target="_blank" class="block w-full bg-brand-accent hover:bg-white text-slate-900 text-center py-3 rounded-lg font-black text-xs uppercase tracking-widest transition-all">
-                                            Apply Now <i class="fa-solid fa-arrow-right ml-1"></i>
+                                        <a href="{{ !empty($tier['form_url']) ? $tier['form_url'] : ($event->builder_content['about']['registration_url'] ?? url('join')) }}" target="_blank" class="block w-full bg-brand-accent hover:bg-white text-slate-900 text-center py-3 rounded-lg font-black text-xs uppercase tracking-widest transition-all">
+                                            {{ !empty($tier['btn_text']) ? $tier['btn_text'] : 'Apply Now' }} <i class="fa-solid fa-arrow-right ml-1"></i>
                                         </a>
                                     </div>
                                 @endforeach

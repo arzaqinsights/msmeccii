@@ -286,6 +286,18 @@
                                 <i class="fa-solid fa-plus mr-1"></i> Add Tier
                             </button>
                         </div>
+                        <div class="space-y-4 mb-6 border-b border-slate-100 pb-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Pricing Section Heading</label>
+                                <input type="text" name="builder_content[pricing_header][heading]" x-model="content.pricing_header.heading" placeholder="e.g. Secure Your Nomination"
+                                       class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-black text-slate-900">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Pricing Section Sub-text</label>
+                                <textarea name="builder_content[pricing_header][description]" x-model="content.pricing_header.description" rows="2" placeholder="e.g. Choose your access level"
+                                          class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-medium text-slate-900"></textarea>
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <template x-for="(item, index) in content.pricing" :key="index">
                                 <div class="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-6 relative group">
@@ -306,10 +318,27 @@
                                                    class="w-full bg-white border border-indigo-200 rounded-lg p-2.5 text-sm font-bold text-slate-500">
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="mb-4">
                                         <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Inclusions / Description</label>
                                         <textarea :name="'builder_content[pricing]['+index+'][desc]'" x-model="item.desc" rows="3" placeholder="e.g. Lunch, Networking, Certification"
                                                   class="w-full bg-white border border-indigo-200 rounded-lg p-2.5 text-xs"></textarea>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Button Text</label>
+                                            <input type="text" :name="'builder_content[pricing]['+index+'][btn_text]'" x-model="item.btn_text" placeholder="e.g. Apply Now"
+                                                   class="w-full bg-white border border-indigo-200 rounded-lg p-2.5 text-xs font-bold">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black text-slate-400 uppercase mb-1">Target Form</label>
+                                            <select :name="'builder_content[pricing]['+index+'][form_url]'" x-model="item.form_url" 
+                                                    class="w-full bg-white border border-indigo-200 rounded-lg p-2.5 text-xs font-bold text-slate-900">
+                                                <option value="">-- Custom Link / Default --</option>
+                                                @foreach($forms ?? [] as $f)
+                                                    <option value="{{ route('join.forms.show', $f->slug) }}">{{ $f->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <button type="button" @click="removeItem('pricing', index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                         <i class="fa-solid fa-xmark text-[10px]"></i>
@@ -687,6 +716,10 @@
                     pdf2_name: h.pdf2_name || ''
                 })),
                 pricing: @json($event->builder_content['pricing'] ?? []),
+                pricing_header: {
+                    heading: @json($event->builder_content['pricing_header']['heading'] ?? ''),
+                    description: @json($event->builder_content['pricing_header']['description'] ?? '')
+                },
                 venue: {
                     name: @json($event->builder_content['venue']['name'] ?? ''),
                     address: @json($event->builder_content['venue']['address'] ?? ''),
@@ -704,7 +737,7 @@
             },
             addItem(section) {
                 if (section === 'highlights') this.content.highlights.push({ title: '', desc: '', pdf1_path: '', pdf1_thumb: '', pdf1_name: '', pdf2_path: '', pdf2_thumb: '', pdf2_name: '' });
-                if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '' });
+                if (section === 'pricing') this.content.pricing.push({ type: 'Standard Delegate', price: '0', currency: 'INR', desc: '', btn_text: 'Apply Now', form_url: '' });
                 if (section === 'partners') this.content.partners.push({ name: '', logo: '', is_pending: false });
                 if (section === 'faq') this.content.faq.push({ q: '', a: '' });
                 if (section === 'resources') this.content.resources.push({ title: '', url: '', thumbnail: '' });
