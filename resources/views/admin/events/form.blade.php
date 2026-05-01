@@ -141,6 +141,25 @@
                         </div>
                     </div>
 
+                    <!-- CTA Tab -->
+                    <div x-show="activeTab === 'cta'" class="space-y-6" style="display: none;">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Call To Action Button Text</label>
+                            <input type="text" name="builder_content[cta][btn_text]" x-model="content.cta.btn_text" placeholder="e.g. Register Now"
+                                   class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1.5 tracking-widest">Select Target Form</label>
+                            <select name="builder_content[cta][form_url]" x-model="content.cta.form_url" 
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-purple-500 font-bold text-slate-900 text-xs">
+                                <option value="">-- Select Form --</option>
+                                @foreach($forms ?? [] as $f)
+                                    <option value="{{ route('join.forms.show', $f->slug) }}">{{ $f->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <!-- Highlights Tab -->
                     <div x-show="activeTab === 'highlights'" class="space-y-4">
                         <div class="flex justify-between items-center mb-4">
@@ -632,6 +651,7 @@
                 { id: 'resources', label: 'Resources' },
                 { id: 'gallery', label: 'Gallery' },
                 { id: 'testimonials', label: 'Testimonials' },
+                { id: 'cta', label: 'Call To Action' },
             ],
             // Default content structure
             content: {
@@ -639,6 +659,10 @@
                     subtitle: @json($event->builder_content['about']['subtitle'] ?? ''),
                     description: @json($event->builder_content['about']['description'] ?? ''),
                     registration_url: @json($event->builder_content['about']['registration_url'] ?? ''),
+                },
+                cta: {
+                    btn_text: @json($event->builder_content['cta']['btn_text'] ?? 'Register Now'),
+                    form_url: @json($event->builder_content['cta']['form_url'] ?? ''),
                 },
                 highlights: @json($event->builder_content['highlights'] ?? []).map(h => ({ 
                     title: h.title || '', 

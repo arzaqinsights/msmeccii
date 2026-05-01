@@ -574,6 +574,23 @@
                         </div>
                     @endif
 
+                    <!-- Dynamic CTA Section -->
+                    @if(isset($event->builder_content['cta']['form_url']) && $event->builder_content['cta']['form_url'])
+                        <div id="cta" class="scroll-mt-36 bg-brand-primary rounded-lg p-10 md:p-16 text-center shadow-2xl border border-brand-primary animate-on-scroll relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
+                            <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32 transition-transform duration-1000 group-hover:scale-150"></div>
+                            
+                            <div class="relative z-10 max-w-2xl mx-auto">
+                                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight mb-6">Ready to Showcase Your Excellence?</h2>
+                                <p class="text-white/80 font-medium mb-10 text-lg">Join hundreds of top-tier organizations. Submit your nomination and secure your spot today.</p>
+                                
+                                <a href="{{ $event->builder_content['cta']['form_url'] }}" class="inline-flex items-center justify-center w-full sm:w-auto gap-3 bg-white text-brand-primary hover:bg-slate-50 px-10 py-5 rounded-lg font-black text-sm uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95">
+                                    {{ $event->builder_content['cta']['btn_text'] ?: 'Register Now' }} <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+
                 </main>
             </div>
         </div>
