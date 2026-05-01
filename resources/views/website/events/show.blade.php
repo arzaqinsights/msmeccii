@@ -75,26 +75,26 @@
                </div>
 
                 @if($event->show_timer)
-                <div class="text-[10px] md:text-base w-full text-left lg:text-lg font-black text-brand-light uppercase tracking-widest"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Event Starts in</div>
-                    <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block w-full">
-                        <div x-data="{
-                            target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
-                            now: new Date().getTime(),
-                            get t() { return Math.max(0, this.target - this.now); },
-                            get d() { return Math.floor(this.t / (1000*60*60*24)); },
-                            get h() { return Math.floor((this.t % (1000*60*60*24)) / (1000*60*60)); },
-                            get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
-                            get s() { return Math.floor((this.t % (1000*60)) / 1000); }
-                        }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex justify-between text-center">
-                            <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="d">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Days</span></div>
-                            <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
-                            <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="h">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
-                            <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
-                            <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="m">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Min</span></div>
-                            <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
-                            <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="s">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                    <div class="text-[10px] md:text-base w-full text-left lg:text-lg font-black text-brand-light uppercase tracking-widest"><i class="fa-solid fa-fire text-orange-500 mr-1"></i> Event Starts in</div>
+                        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-10 inline-block w-full">
+                            <div x-data="{
+                                target: new Date('{{ $event->event_date->format('Y-m-d\TH:i:s') }}').getTime(),
+                                now: new Date().getTime(),
+                                get t() { return Math.max(0, this.target - this.now); },
+                                get d() { return Math.floor(this.t / (1000*60*60*24)); },
+                                get h() { return Math.floor((this.t % (1000*60*60*24)) / (1000*60*60)); },
+                                get m() { return Math.floor((this.t % (1000*60*60)) / (1000*60)); },
+                                get s() { return Math.floor((this.t % (1000*60)) / 1000); }
+                            }" x-init="setInterval(() => now = new Date().getTime(), 1000)" class="flex justify-between text-center">
+                                <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="d">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Days</span></div>
+                                <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
+                                <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="h">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Hrs</span></div>
+                                <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
+                                <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="m">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Min</span></div>
+                                <div class="w-px h-10 md:h-15 lg:h-20 bg-white/10 my-auto"></div>
+                                <div><span class="flex-1 flex flex-col md:flex-row md:justify-center items-center text-3xl md:text-5xl lg:text-8xl font-black text-brand-light" x-text="s">0</span><span class="text-xs md:text-base lg:text-lg font-black text-slate-500 uppercase tracking-widest">Sec</span></div>
+                            </div>
                         </div>
-                    </div>
                 @endif
             </div>
         </div>
@@ -249,64 +249,64 @@
                             $portraitGuests = array_filter($guests, fn($g) => isset($g['display_style']) && $g['display_style'] === 'portrait' && !empty($g['name']));
                         @endphp
                         <div id="guests" class="scroll-mt-36 animate-on-scroll">
-                            
+
                             @if(count($fullGuests) > 0)
-                            <div class="space-y-6 mb-8">
-                                @foreach($fullGuests as $guest)
-                                    <div class="bg-brand-primary/10 rounded-lg p-6 relative overflow-hidden group">
-                                        <!-- <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div> -->
-                                        
-                                        <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
-                                            <div class="w-full h-auto overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
-                                                @if(!empty($guest['photo']))
-                                                    <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
-                                                @else
-                                                    <i class="fa-solid fa-user-tie text-5xl text-slate-800"></i>
-                                                @endif
-                                            </div>
-                                            
-                                            <div class="flex-1 text-center md:text-left">
-                                                <div class="inline-block px-3 py-1 bg-brand-primary/10 border border-brand-primary rounded-full text-[10px] font-black text-brand-primary uppercase tracking-widest mb-4">
-                                                    <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
+                                <div class="space-y-6 mb-8">
+                                    @foreach($fullGuests as $guest)
+                                        <div class="bg-brand-primary/10 rounded-lg p-6 relative overflow-hidden group">
+                                            <!-- <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div> -->
+
+                                            <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
+                                                <div class="w-full h-auto overflow-hidden md:w-40 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center">
+                                                    @if(!empty($guest['photo']))
+                                                        <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
+                                                    @else
+                                                        <i class="fa-solid fa-user-tie text-5xl text-slate-800"></i>
+                                                    @endif
                                                 </div>
-                                                <h3 class="text-2xl md:text-3xl font-black text-black mb-2">{{ $guest['name'] }}</h3>
-                                                <p class="text-brand-primary font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
-                                                
-                                                @if(!empty($guest['about']))
-                                                    <div class="text-slate-800 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
-                                                        {!! nl2br(e($guest['about'])) !!}
+
+                                                <div class="flex-1 text-center md:text-left">
+                                                    <div class="inline-block px-3 py-1 bg-brand-primary/10 border border-brand-primary rounded-full text-[10px] font-black text-brand-primary uppercase tracking-widest mb-4">
+                                                        <i class="fa-solid fa-star mr-1"></i> {{ $guest['title'] ?? 'Special Guest' }}
                                                     </div>
-                                                @endif
+                                                    <h3 class="text-2xl md:text-3xl font-black text-black mb-2">{{ $guest['name'] }}</h3>
+                                                    <p class="text-brand-primary font-bold text-sm mb-4">{{ $guest['designation'] }}</p>
+
+                                                    @if(!empty($guest['about']))
+                                                        <div class="text-slate-800 text-xs md:text-sm font-medium leading-relaxed prose prose-invert max-w-none">
+                                                            {!! nl2br(e($guest['about'])) !!}
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
                             @endif
 
                             @if(count($portraitGuests) > 0)
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                @foreach($portraitGuests as $guest)
-                                    <div class="bg-brand-primary/10 overflow-hidden rounded-lg p-3 text-center hover:shadow-md transition-shadow relative group">
-                                        <div class="w-full aspect-9/14 mx-auto rounded-lg overflow-hidden mb-4 transition-transform">
-                                            @if(!empty($guest['photo']))
-                                                <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
-                                            @else
-                                                <div class="w-full h-full flex items-center justify-center bg-brand-primary/10 text-brand-primary font-black text-2xl">
-                                                    {{ substr($guest['name'], 0, 1) }}
-                                                </div>
-                                            @endif
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    @foreach($portraitGuests as $guest)
+                                        <div class="bg-brand-primary/10 overflow-hidden rounded-lg p-3 text-center hover:shadow-md transition-shadow relative group">
+                                            <div class="w-full aspect-9/14 mx-auto rounded-lg overflow-hidden mb-4 transition-transform">
+                                                @if(!empty($guest['photo']))
+                                                    <img src="{{ asset($guest['photo']) }}" alt="{{ $guest['name'] }}" class="w-full h-full object-cover">
+                                                @else
+                                                    <div class="w-full h-full flex items-center justify-center bg-brand-primary/10 text-brand-primary font-black text-2xl">
+                                                        {{ substr($guest['name'], 0, 1) }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="inline-block px-2 py-0.5 bg-brand-primary/10 rounded-full text-[9px] font-black text-brand-primary uppercase tracking-widest mb-2">
+                                                {{ $guest['title'] ?? 'Special Guest' }}
+                                            </div>
+                                            <h3 class="text-sm font-black text-slate-900 mb-1 leading-tight">{{ $guest['name'] }}</h3>
+                                            <p class="text-[10px] font-bold text-slate-500 leading-tight">{{ $guest['designation'] }}</p>
                                         </div>
-                                        <div class="inline-block px-2 py-0.5 bg-brand-primary/10 rounded-full text-[9px] font-black text-brand-primary uppercase tracking-widest mb-2">
-                                            {{ $guest['title'] ?? 'Special Guest' }}
-                                        </div>
-                                        <h3 class="text-sm font-black text-slate-900 mb-1 leading-tight">{{ $guest['name'] }}</h3>
-                                        <p class="text-[10px] font-bold text-slate-500 leading-tight">{{ $guest['designation'] }}</p>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
                             @endif
-                            
+
                         </div>
                     @endif
 
@@ -437,7 +437,7 @@
                                     View Full Gallery <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 @foreach($event->builder_content['gallery'] as $media)
                                     <div class="relative aspect-video rounded-lg overflow-hidden border border-slate-200 group">
                                         @if(isset($media['type']) && $media['type'] === 'video')
@@ -656,31 +656,34 @@
                         <div id="cta" class="scroll-mt-36 bg-brand-primary rounded-lg p-10 md:p-16 text-center border border-brand-primary animate-on-scroll relative overflow-hidden group">
                             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150"></div>
                             <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32 transition-transform duration-1000 group-hover:scale-150"></div>
-                            
+
                             <div class="relative z-10 max-w-2xl mx-auto">
                                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight mb-6">{{ $event->builder_content['cta']['heading'] ?? 'Ready to Showcase Your Excellence?' }}</h2>
                                 <p class="text-white/80 font-medium mb-10 text-lg">{{ $event->builder_content['cta']['description'] ?? 'Join hundreds of top-tier organizations. Submit your nomination and secure your spot today.' }}</p>
-                                
+
                                 <a href="{{ $event->builder_content['cta']['form_url'] }}" class="inline-flex items-center justify-center w-full sm:w-auto gap-3 bg-white text-brand-primary hover:bg-slate-50 px-10 py-5 rounded-lg font-black text-sm uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95">
                                     {{ $event->builder_content['cta']['btn_text'] ?: 'Register Now' }} <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
                     @endif
+                    <!-- Contact Box / WhatsApp & Call CTA -->
+                    <div class="mt-6 bg-slate-100 rounded-lg lg:hidden p-6 shadow-sm border border-slate-200 text-center">
+                        <h5 class="text-[10px] font-black text-slate-800 uppercase tracking-widest mb-3">Prefer to Talk First?</h5>
+                        <p class="text-xs text-slate-600 mb-4 font-medium">Our team can guide you through the nomination process.</p>
+                        <div class="space-y-3">
+                            <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($event->title) }}%20nomination." target="_blank" class="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white hover:bg-[#1ebe5b] py-3 rounded-lg font-bold text-sm transition-colors shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Apply via WhatsApp
+                            </a>
+                            <a href="tel:+919810690843" class="flex items-center justify-center gap-2 w-full bg-slate-900 text-white hover:bg-black py-3 rounded-lg font-bold text-sm transition-colors shadow-sm">
+                                <i class="fa-solid fa-phone"></i> Call Us Now
+                            </a>
+                        </div>
+                    </div>
 
                 </main>
             </div>
         </div>
-    </div>
-
-    <!-- Mobile Sticky Contact Bar -->
-    <div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t border-slate-200 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] z-40 lg:hidden flex gap-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
-        <a href="https://wa.me/919810690843?text=Hi,%20I'm%20interested%20in%20the%20{{ urlencode($event->title) }}%20nomination." target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-3.5 rounded-lg font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-sm hover:bg-[#1ebe5b] transition-colors">
-            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
-        </a>
-        <a href="tel:+919810690843" class="flex-1 bg-slate-900 text-white text-center py-3.5 rounded-lg font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-sm hover:bg-black transition-colors">
-            <i class="fa-solid fa-phone text-sm"></i> Call Us
-        </a>
     </div>
 
     <style>
