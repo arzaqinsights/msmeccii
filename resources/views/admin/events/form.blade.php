@@ -92,9 +92,9 @@
 
             <!-- EVENT BUILDER -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-slate-900 p-4 flex items-center justify-between">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest"><i class="fa-solid fa-layer-group text-purple-400 mr-2"></i> Event Content Builder</h3>
-                    <div class="flex bg-white/10 p-1 rounded-lg">
+                <div class="bg-slate-900 p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest shrink-0"><i class="fa-solid fa-layer-group text-purple-400 mr-2"></i> Event Content Builder</h3>
+                    <div class="flex flex-wrap gap-1 bg-white/10 p-1 rounded-lg">
                         <template x-for="tab in tabs">
                             <button type="button" @click="activeTab = tab.id" 
                                     :class="activeTab === tab.id ? 'bg-white text-slate-900' : 'text-white/60 hover:text-white'"
