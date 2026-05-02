@@ -101,13 +101,13 @@
                                     <div class="space-y-4 pt-4 border-t border-slate-800">
                                         <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Text Formatting</label>
                                         <div class="flex flex-wrap gap-2">
-                                            <button @click="document.execCommand('bold')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Bold">
+                                            <button @mousedown.prevent @click="document.execCommand('bold')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Bold">
                                                 <i class="fa-solid fa-bold text-xs"></i>
                                             </button>
-                                            <button @click="document.execCommand('italic')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Italic">
+                                            <button @mousedown.prevent @click="document.execCommand('italic')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Italic">
                                                 <i class="fa-solid fa-italic text-xs"></i>
                                             </button>
-                                            <button @click="document.execCommand('underline')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Underline">
+                                            <button @mousedown.prevent @click="document.execCommand('underline')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Underline">
                                                 <i class="fa-solid fa-underline text-xs"></i>
                                             </button>
                                             <div class="flex items-center gap-1 bg-slate-800 rounded p-1">
