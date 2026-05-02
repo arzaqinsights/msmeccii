@@ -91,10 +91,19 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Email Verification Routes
-    Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
+    // OTP Verification
+    Route::get('verify-otp', [\App\Http\Controllers\Auth\OtpController::class, 'showVerify'])->name('otp.verify');
+    Route::post('verify-otp', [\App\Http\Controllers\Auth\OtpController::class, 'verify'])->name('otp.verify.post');
+    Route::post('resend-otp', [\App\Http\Controllers\Auth\OtpController::class, 'resend'])->name('otp.resend');
+
+    // Password Setup for auto-created users
+    Route::get('password/setup', [\App\Http\Controllers\Website\AccountController::class, 'showPasswordSetup'])->name('password.setup');
+    Route::post('password/setup', [\App\Http\Controllers\Website\AccountController::class, 'updatePasswordSetup'])->name('password.setup.update');
+
+    // Email Verification Routes (Standard Laravel compatibility)
+    Route::get('/email/verify', [\App\Http\Controllers\Auth\OtpController::class, 'showVerify'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
 
@@ -132,6 +141,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');
     Route::post('events/upload-attachment', [\App\Http\Controllers\Admin\EventController::class, 'uploadAttachment'])->name('events.upload-attachment');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
+    Route::get('users/{user}/details', [\App\Http\Controllers\Admin\UserController::class, 'details'])->name('users.details');
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
 
     // Gallery Management

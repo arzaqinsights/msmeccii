@@ -114,6 +114,12 @@ class InvoiceTemplateController extends Controller
             'signature_text' => 'Authorized Signatory',
             'show_metadata' => true,
             'logo_url' => null,
+            'logo_position' => 'left',
+            'logo_width' => 120,
+            'text_color_main' => '#0f172a',
+            'text_color_sub' => '#64748b',
+            'font_size_title' => 24,
+            'font_size_body' => 12,
         ];
     }
 }

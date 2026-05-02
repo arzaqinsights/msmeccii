@@ -14,7 +14,32 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.submissions.manual-store') }}" method="POST" class="space-y-8">
+    <form action="{{ route('admin.submissions.manual-store') }}" method="POST" class="space-y-8" 
+          x-data="{ 
+            userMode: 'existing', 
+            selectedUser: '', 
+            details: {
+                company_name: '',
+                designation: '',
+                gstin: '',
+                industry_sector: '',
+                address: ''
+            },
+            async fetchUserDetails() {
+                if(!this.selectedUser) return;
+                try {
+                    const resp = await fetch(`/admin/users/${this.selectedUser}/details`);
+                    const data = await resp.json();
+                    this.details.company_name = data.company_name || '';
+                    this.details.designation = data.designation || '';
+                    this.details.gstin = data.gstin || '';
+                    this.details.industry_sector = data.industry_sector || '';
+                    this.details.address = data.address || '';
+                } catch(e) {
+                    console.error('Failed to fetch user details', e);
+                }
+            }
+          }">
         @csrf
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
@@ -23,7 +48,7 @@
                     <i class="fa-solid fa-user text-brand-primary"></i> User & Design
                 </h3>
             </div>
-            <div class="p-6" x-data="{ userMode: 'existing' }">
+            <div class="p-6">
                 <!-- Template Selection -->
                 <div class="mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-100">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Invoice Branding Template</label>
@@ -38,13 +63,13 @@
 
                 <div class="mb-6 flex gap-4">
                     <button type="button" @click="userMode = 'existing'" :class="userMode === 'existing' ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'" class="px-4 py-2 rounded-lg text-xs font-bold transition">Existing User</button>
-                    <button type="button" @click="userMode = 'new'" :class="userMode === 'new' ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'" class="px-4 py-2 rounded-lg text-xs font-bold transition">Create New User</button>
+                    <button type="button" @click="userMode = 'new'; details = {company_name:'', designation:'', gstin:'', industry_sector:'', address:''}" :class="userMode === 'new' ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'" class="px-4 py-2 rounded-lg text-xs font-bold transition">Create New User</button>
                 </div>
 
                 <div x-show="userMode === 'existing'" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Select Existing User</label>
-                        <select name="user_id" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        <select name="user_id" x-model="selectedUser" @change="fetchUserDetails()" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
                             <option value="">-- Choose User --</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
@@ -77,28 +102,28 @@
                     </div>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-slate-100">
-                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Additional Details (for Invoice)</h4>
+                <div class="mt-8 pt-6 border-t border-slate-100" x-show="userMode === 'new' || selectedUser">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Invoice Branding & Details</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">Company Name</label>
-                            <input type="text" name="company_name" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. MSME Solutions Pvt Ltd">
+                            <input type="text" name="company_name" x-model="details.company_name" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. MSME Solutions Pvt Ltd">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">Designation</label>
-                            <input type="text" name="designation" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Director">
+                            <input type="text" name="designation" x-model="details.designation" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Director">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">GSTIN</label>
-                            <input type="text" name="gstin" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. 07AAAAA0000A1Z5">
+                            <input type="text" name="gstin" x-model="details.gstin" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. 07AAAAA0000A1Z5">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">Industry Sector</label>
-                            <input type="text" name="industry_sector" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Manufacturing">
+                            <input type="text" name="industry_sector" x-model="details.industry_sector" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Manufacturing">
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-bold text-slate-700 mb-2">Full Address</label>
-                            <input type="text" name="address" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="Street, City, State, ZIP">
+                            <input type="text" name="address" x-model="details.address" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="Street, City, State, ZIP">
                         </div>
                     </div>
                 </div>

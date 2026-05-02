@@ -135,6 +135,47 @@
                 <div>
                     <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Footer Copyright/Note</label>
                     <input type="text" name="config[footer_text]" x-model="config.footer_text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 text-xs">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Position</label>
+                        <select name="config[logo_position]" x-model="config.logo_position" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-xs">
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Width (px)</label>
+                        <input type="number" name="config[logo_width]" x-model="config.logo_width" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Main Text Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" name="config[text_color_main]" x-model="config.text_color_main" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
+                            <input type="text" x-model="config.text_color_main" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Sub Text Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" name="config[text_color_sub]" x-model="config.text_color_sub" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
+                            <input type="text" x-model="config.text_color_sub" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Title Font Size (pt)</label>
+                        <input type="number" name="config[font_size_title]" x-model="config.font_size_title" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Body Font Size (pt)</label>
+                        <input type="number" name="config[font_size_body]" x-model="config.font_size_body" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
                 </div>
             </div>
 
@@ -197,23 +238,31 @@
         </div>
         
         <div class="bg-slate-200 p-8 rounded-b-2xl overflow-auto max-h-[850px] border border-slate-300 shadow-inner">
-            <div class="bg-white shadow-2xl mx-auto p-10 min-h-[700px] w-full" style="font-family: Arial, sans-serif; color: #334155;">
-                <div class="flex justify-between items-start mb-8 border-b-2 pb-6" :style="{ borderBottomColor: config.primary_color + '20' }">
-                    <div>
-                        <template x-if="config.logo_url">
-                            <img :src="config.logo_url" class="h-12 w-auto mb-2">
+            <div class="bg-white shadow-2xl mx-auto p-10 min-h-[700px] w-full" :style="{ fontFamily: config.font_family + ', sans-serif', color: config.text_color_main, fontSize: config.font_size_body + 'pt' }">
+                <div class="flex mb-8 border-b-2 pb-6" :class="{ 'justify-between': config.logo_position === 'left', 'flex-col items-center text-center': config.logo_position === 'center', 'flex-row-reverse justify-between': config.logo_position === 'right' }" :style="{ borderBottomColor: config.primary_color + '20' }">
+                    <div :class="{ 'text-left': config.logo_position === 'left', 'text-center': config.logo_position === 'center', 'text-right': config.logo_position === 'right' }">
+                        <template x-if="config.show_logo">
+                            <div>
+                                <template x-if="config.logo_url">
+                                    <img :src="config.logo_url" :style="{ width: config.logo_width + 'px' }" class="h-auto mb-2">
+                                </template>
+                                <template x-if="!config.logo_url">
+                                    <div class="font-black mb-2 uppercase" :style="{ fontSize: (config.font_size_title * 0.8) + 'pt', color: config.text_color_main }">MSME<span :style="{ color: config.primary_color }">CCII</span></div>
+                                </template>
+                            </div>
                         </template>
-                        <template x-if="!config.logo_url">
-                            <div class="text-2xl font-black text-slate-900 mb-2 uppercase">MSME<span :style="{ color: config.primary_color }">CCII</span></div>
-                        </template>
-                        <h1 class="text-xl font-black uppercase tracking-tight m-0" :style="{ color: config.primary_color }" x-text="config.type === 'tax' ? 'Tax Invoice' : (config.type === 'normal' ? 'Payment Receipt' : 'Proforma Invoice')"></h1>
-                        <p class="text-[10px] font-bold text-slate-400 mt-1">#INV-2024-000123</p>
+                        <h1 class="font-black uppercase tracking-tight m-0" :style="{ color: config.primary_color, fontSize: config.font_size_title + 'pt' }" x-text="config.type === 'tax' ? 'Tax Invoice' : (config.type === 'normal' ? 'Payment Receipt' : 'Proforma Invoice')"></h1>
+                        <p class="font-bold mt-1" :style="{ fontSize: (config.font_size_body * 0.8) + 'pt', color: config.text_color_sub }">#INV-2024-000123</p>
                     </div>
-                    <div class="text-right">
-                        <div class="text-xs font-black text-slate-900" x-text="config.company_name"></div>
-                        <div class="text-[10px] text-slate-500 whitespace-pre-wrap leading-relaxed mt-1" x-text="config.address"></div>
-                        <template x-if="config.type === 'tax' && config.gstin">
-                            <div class="text-[9px] font-black text-slate-400 mt-1 uppercase" x-text="'GSTIN: ' + config.gstin"></div>
+                    <div :class="{ 'text-right': config.logo_position === 'left', 'text-center mt-4': config.logo_position === 'center', 'text-left': config.logo_position === 'right' }">
+                        <template x-if="config.show_company_name">
+                            <div class="font-black" :style="{ fontSize: config.font_size_body + 'pt', color: config.text_color_main }" x-text="config.company_name"></div>
+                        </template>
+                        <template x-if="config.show_address">
+                            <div class="whitespace-pre-wrap leading-relaxed mt-1" :style="{ fontSize: (config.font_size_body * 0.75) + 'pt', color: config.text_color_sub }" x-text="config.address"></div>
+                        </template>
+                        <template x-if="config.show_gstin && config.gstin">
+                            <div class="font-black mt-1 uppercase" :style="{ fontSize: (config.font_size_body * 0.7) + 'pt', color: config.text_color_sub }" x-text="'GSTIN: ' + config.gstin"></div>
                         </template>
                     </div>
                 </div>

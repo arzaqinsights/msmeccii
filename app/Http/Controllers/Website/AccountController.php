@@ -64,4 +64,27 @@ class AccountController extends Controller
 
         return back()->with('success', 'Security password updated successfully.');
     }
+
+    public function showPasswordSetup()
+    {
+        if (!Auth::user()->requires_password_setup) {
+            return redirect()->route('dashboard');
+        }
+        return view('website.account.password_setup');
+    }
+
+    public function updatePasswordSetup(\Illuminate\Http\Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+        $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        $user->requires_password_setup = false;
+        $user->email_verified_at = now(); // Automatically verify email when they set password
+        $user->save();
+
+        return redirect()->route('dashboard')->with('success', 'Account secured and password set successfully.');
+    }
 }

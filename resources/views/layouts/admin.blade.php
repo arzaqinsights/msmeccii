@@ -147,10 +147,17 @@
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     View Live Site
                 </a>
-                <div class="h-10 w-10 bg-brand-primary/10 text-brand-primary rounded-full flex items-center justify-center font-black relative cursor-pointer border border-brand-primary/30 shadow-sm">
+                <div class="h-10 w-10 bg-brand-primary/10 text-brand-primary rounded-full flex items-center justify-center font-black relative border border-brand-primary/30 shadow-sm">
                     {{ substr(Auth::user()->name, 0, 1) }}
                     <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                 </div>
+                
+                <form method="POST" action="{{ route('logout') }}" class="ml-2">
+                    @csrf
+                    <button type="submit" class="h-10 w-10 flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition-all border border-red-100 shadow-sm" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </form>
             </div>
         </header>
 

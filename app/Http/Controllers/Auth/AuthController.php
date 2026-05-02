@@ -59,13 +59,15 @@ class AuthController extends Controller
             'phone_number' => $validated['phone_number'],
             'industry_sector' => $validated['industry_sector'],
             'membership_status' => 'pending',
+            'otp_code' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
+            'otp_expires_at' => now()->addMinutes(10),
         ]);
 
-        // event(new Registered($user));
+        $user->notify(new \App\Notifications\SendOtpNotification($user->otp_code));
 
         Auth::login($user);
 
-        return back()->with('success', 'Registration successful. Please wait for admin approval.');
+        return redirect()->route('otp.verify')->with('success', 'Registration successful. Please verify your email with the OTP sent.');
     }
 
     public function logout(Request $request)

@@ -7,30 +7,51 @@
         @page { margin: 0; }
         body { 
             font-family: '{{ $invoiceConfig['font_family'] ?? 'Helvetica' }}', sans-serif; 
-            color: #1e293b; 
-            line-height: 1.6; 
             margin: 0; 
-            padding: 0; 
-            background: #ffffff;
+            padding: 40px; 
+            color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
+            font-size: {{ $invoiceConfig['font_size_body'] ?? 12 }}pt;
+            line-height: 1.4;
         }
-        .invoice-container { padding: 40px; }
-        .header-stripe { height: 8px; background: {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; width: 100%; }
-        
-        .header { margin-bottom: 40px; }
-        .logo { float: left; }
-        .logo img { height: 60px; }
-        .logo-text { font-size: 28px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: -1px; }
+        .header { 
+            margin-bottom: 40px; 
+            border-bottom: 2px solid {{ $invoiceConfig['primary_color'] ?? '#10b981' }}20; 
+            padding-bottom: 20px;
+            display: table;
+            width: 100%;
+        }
+        .header-cell {
+            display: table-cell;
+            vertical-align: top;
+        }
+        .logo img { 
+            width: {{ $invoiceConfig['logo_width'] ?? 120 }}px; 
+            height: auto; 
+        }
+        .logo-text { 
+            font-size: {{ ($invoiceConfig['font_size_title'] ?? 24) * 0.8 }}pt; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+        }
         .logo-text span { color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; }
         
-        .title-box { float: right; text-align: right; }
-        .title-box h1 { margin: 0; font-size: 32px; color: #0f172a; font-weight: 900; text-transform: uppercase; }
-        .title-box p { margin: 5px 0 0; font-weight: 800; color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; font-size: 14px; }
+        .title-box h1 { 
+            font-size: {{ $invoiceConfig['font_size_title'] ?? 24 }}pt; 
+            color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; 
+            margin: 0; 
+            text-transform: uppercase;
+        }
+        .title-box p { 
+            font-size: {{ ($invoiceConfig['font_size_body'] ?? 12) * 0.8 }}pt; 
+            color: {{ $invoiceConfig['text_color_sub'] ?? '#64748b' }}; 
+            margin: 5px 0 0; 
+            font-weight: bold;
+        }
         
-        .info-grid { width: 100%; margin-bottom: 40px; clear: both; border-top: 1px solid #f1f5f9; padding-top: 30px; }
-        .info-grid td { vertical-align: top; width: 33.33%; }
-        .info-label { font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
-        .info-value { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-        .info-sub { font-size: 11px; color: #64748b; font-weight: 500; }
+        .info-sub { 
+            color: {{ $invoiceConfig['text_color_sub'] ?? '#64748b' }}; 
+            font-size: {{ ($invoiceConfig['font_size_body'] ?? 12) * 0.8 }}pt; 
+        }
         
         table.items { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
         table.items th { 
@@ -88,30 +109,29 @@
 <body>
     <div class="header-stripe"></div>
     <div class="invoice-container">
-        <div class="header clearfix">
-            <div class="logo">
-                @if($invoiceConfig['show_logo'] ?? true)
-                    @php
-                        $logoPath = null;
-                        if(isset($invoiceConfig['logo_url'])) {
-                            $logoPath = public_path(str_replace('/storage/', 'storage/', $invoiceConfig['logo_url']));
-                        } elseif(isset($form) && $form->invoice_logo) {
-                            $logoPath = public_path($form->invoice_logo);
-                        }
-                    @endphp
-
-                    @if($logoPath && file_exists($logoPath))
-                        <img src="{{ $logoPath }}">
-                    @else
-                        <div class="logo-text">MSME<span>CCII</span></div>
-                    @endif
-                @endif
-            </div>
-
-            <div class="title-box">
-                <h1>INVOICE</h1>
-                <p>#{{ $submission->manual_invoice_number ?? $submission->invoice_number }}</p>
-            </div>
+        <div class="header">
+            @if(($invoiceConfig['logo_position'] ?? 'left') === 'left')
+                <div class="header-cell logo">
+                    @include('pdf.partials.logo')
+                </div>
+                <div class="header-cell title-box" style="text-align: right;">
+                    @include('pdf.partials.title')
+                </div>
+            @elseif(($invoiceConfig['logo_position'] ?? 'left') === 'center')
+                <div class="header-cell" style="text-align: center; width: 100%;">
+                    @include('pdf.partials.logo')
+                    <div style="margin-top: 10px;">
+                        @include('pdf.partials.title')
+                    </div>
+                </div>
+            @else
+                <div class="header-cell title-box" style="text-align: left;">
+                    @include('pdf.partials.title')
+                </div>
+                <div class="header-cell logo" style="text-align: right;">
+                    @include('pdf.partials.logo')
+                </div>
+            @endif
         </div>
 
         <table class="info-grid">

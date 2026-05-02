@@ -18,7 +18,7 @@ class ForcePasswordSetup
         if (auth()->check() && auth()->user()->requires_password_setup) {
             // Avoid infinite loop
             if (!$request->is('password/*') && !$request->is('logout')) {
-                return redirect()->route('password.request')->with('info', 'Please verify your email and set a new password to continue.');
+                return redirect()->route('password.setup')->with('info', 'Please set a permanent password for your account to continue.');
             }
         }
 
