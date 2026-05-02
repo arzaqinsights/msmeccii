@@ -29,7 +29,9 @@
                 <div class="swiper-slide relative">
                     <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
                     </div>
-                    <img src="{{ asset($image) }}" alt="MSMECCII Slider" class="w-full h-full object-cover">
+                    <img src="{{ asset($image) }}" alt="MSMECCII Slider" 
+                         class="w-full h-full object-cover transform scale-110 transition-transform duration-[10000ms] ease-linear group-active:scale-100"
+                         data-swiper-parallax="20%">
                 </div>
             @endforeach
         </div>

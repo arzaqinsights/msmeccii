@@ -80,7 +80,10 @@ document.addEventListener('turbo:load', () => {
     if (document.querySelector('.hero-swiper')) {
         new Swiper('.hero-swiper', {
             loop: true,
-            effect: 'fade',
+            effect: 'slide',
+            speed: 1200,
+            parallax: true,
+            grabCursor: true,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
@@ -112,7 +115,7 @@ document.addEventListener('turbo:load', () => {
                 1280: { slidesPerView: 3 }
             },
             autoplay: {
-                delay: 3000,
+                delay: 2000,
                 disableOnInteraction: false,
             }
         });
