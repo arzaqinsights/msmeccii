@@ -285,15 +285,15 @@
                 <div class="space-y-4">
                     <p class="text-xs text-slate-500 font-medium leading-relaxed">These tags pull information from your **Global Settings** or the **Template Config**. Use them to show your company identity.</p>
                     <div class="bg-slate-50 rounded-2xl border border-slate-100 divide-y divide-slate-100 overflow-hidden">
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ company_name }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} company_name {{ '}}' }}')">
                             <code class="text-[10px] font-black text-brand-primary bg-white px-2 py-1 rounded-lg border border-slate-200">@{{ company_name }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">Company Legal Name</span>
                         </div>
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ company_address }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} company_address {{ '}}' }}')">
                             <code class="text-[10px] font-black text-brand-primary bg-white px-2 py-1 rounded-lg border border-slate-200">@{{ company_address }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">Registered Office Address</span>
                         </div>
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ company_gstin }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} company_gstin {{ '}}' }}')">
                             <code class="text-[10px] font-black text-brand-primary bg-white px-2 py-1 rounded-lg border border-slate-200">@{{ company_gstin }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">GST Registration Number</span>
                         </div>
@@ -312,15 +312,15 @@
                 <div class="space-y-4">
                     <p class="text-xs text-slate-500 font-medium leading-relaxed">These tags are replaced automatically with the details of the **User** receiving the invoice.</p>
                     <div class="bg-emerald-50/30 rounded-2xl border border-emerald-100 divide-y divide-emerald-100 overflow-hidden">
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ user_name }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} user_name {{ '}}' }}')">
                             <code class="text-[10px] font-black text-emerald-600 bg-white px-2 py-1 rounded-lg border border-emerald-100">@{{ user_name }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">Client's Full Name</span>
                         </div>
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ user_address }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} user_address {{ '}}' }}')">
                             <code class="text-[10px] font-black text-emerald-600 bg-white px-2 py-1 rounded-lg border border-emerald-100">@{{ user_address }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">Billing Address</span>
                         </div>
-                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ user_email }}')">
+                        <div class="p-4 flex justify-between items-center group cursor-pointer hover:bg-white transition" @click="copyVar('{{ '{{' }} user_email {{ '}}' }}')">
                             <code class="text-[10px] font-black text-emerald-600 bg-white px-2 py-1 rounded-lg border border-emerald-100">@{{ user_email }}</code>
                             <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-700">Registered Email ID</span>
                         </div>
