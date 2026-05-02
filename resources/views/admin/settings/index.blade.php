@@ -4,9 +4,50 @@
 
 @section('content')
 
-    <form action="{{ route('admin.settings.bulk-update') }}" method="POST">
+    <form action="{{ route('admin.settings.bulk-update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        <div class="mb-8 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 bg-slate-50">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-brand-primary"></i> Branding & Assets
+                </h3>
+            </div>
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Site Logo -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-slate-700">Main Site Logo</label>
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        @if(isset($site['logo']))
+                            <div class="h-16 w-32 flex items-center justify-center bg-white rounded-lg border border-slate-200 p-2">
+                                <img src="{{ $site['logo'] }}" class="max-h-full max-w-full object-contain">
+                            </div>
+                        @endif
+                        <div class="flex-1">
+                            <input type="file" name="settings[logo]" class="text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20">
+                            <p class="text-[10px] text-slate-400 mt-2 font-bold italic">PNG/SVG recommended for header.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Default Signature -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-slate-700">Global Authorized Signature</label>
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        @if(isset($site['signature']))
+                            <div class="h-16 w-32 flex items-center justify-center bg-white rounded-lg border border-slate-200 p-2">
+                                <img src="{{ $site['signature'] }}" class="max-h-full max-w-full object-contain">
+                            </div>
+                        @endif
+                        <div class="flex-1">
+                            <input type="file" name="settings[signature]" class="text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20">
+                            <p class="text-[10px] text-slate-400 mt-2 font-bold italic">Used as fallback in invoices if not specified in template.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 

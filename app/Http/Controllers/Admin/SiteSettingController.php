@@ -21,6 +21,17 @@ class SiteSettingController extends Controller
     {
         $settings = $request->input('settings', []);
 
+        // Handle File Uploads
+        if ($request->hasFile('settings')) {
+            $files = $request->file('settings');
+            foreach ($files as $key => $file) {
+                if ($file->isValid()) {
+                    $path = $file->store('uploads/site', 'public');
+                    $settings[$key] = '/storage/' . $path;
+                }
+            }
+        }
+
         foreach ($settings as $key => $value) {
             SiteSetting::updateOrCreate(
                 ['key' => $key],

@@ -14,7 +14,7 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.submissions.manual-store') }}" method="POST" class="space-y-8" 
+    <form action="{{ route('admin.submissions.manual-store') }}" method="POST" enctype="multipart/form-data" class="space-y-8" 
           x-data="{ 
             userMode: 'existing', 
             selectedUser: '', 
@@ -161,11 +161,16 @@
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-6">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="send_email" value="1" checked class="w-5 h-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
                             <span class="text-sm font-bold text-slate-600">Email Invoice to User</span>
                         </label>
+
+                        <div class="flex-1 max-w-xs">
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Custom Signature (Optional)</label>
+                            <input type="file" name="signature" class="w-full text-[10px] text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20">
+                        </div>
                     </div>
                     <div class="text-right">
                         <p class="text-xs text-slate-400 font-bold uppercase mb-1">Grand Total</p>

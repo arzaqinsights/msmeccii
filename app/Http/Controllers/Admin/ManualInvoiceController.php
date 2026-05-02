@@ -38,6 +38,7 @@ class ManualInvoiceController extends Controller
             'items.*.description' => 'required|string',
             'items.*.amount' => 'required|numeric|min:0',
             'payment_status' => 'required|string',
+            'signature' => 'nullable|image|max:2048',
         ]);
 
         $userId = $request->user_id;
@@ -71,6 +72,12 @@ class ManualInvoiceController extends Controller
         $total = collect($request->items)->sum('amount');
         $invoiceNumber = 'MAN-' . date('Ymd') . '-' . strtoupper(\Illuminate\Support\Str::random(4));
 
+        $data = [];
+        if ($request->hasFile('signature')) {
+            $path = $request->file('signature')->store('uploads/invoices', 'public');
+            $data['signature_url'] = '/storage/' . $path;
+        }
+
         $submission = Submission::create([
             'user_id' => $userId,
             'invoice_template_id' => $request->invoice_template_id,
@@ -78,7 +85,7 @@ class ManualInvoiceController extends Controller
             'total_amount_paid' => $total,
             'payment_status' => $request->payment_status,
             'manual_invoice_number' => $invoiceNumber,
-            'data' => [], 
+            'data' => $data, 
         ]);
 
         if ($request->has('send_email')) {
@@ -93,13 +100,21 @@ class ManualInvoiceController extends Controller
         $submission->load(['user', 'invoiceTemplate']);
         
         $template = $submission->invoiceTemplate ?? InvoiceTemplate::where('is_default', true)->first();
+        $globalSettings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        
         $invoiceConfig = array_merge([
             'type' => 'tax',
             'company_name' => 'MSME Chamber of Commerce & Industry',
             'address' => "India's MSME Headquarters\nNew Delhi, India",
             'primary_color' => '#10b981',
             'font_family' => 'Helvetica',
+            'signature_url' => $globalSettings['signature'] ?? null,
         ], $template ? $template->config : []);
+
+        // Override with submission specific data if exists
+        if(isset($submission->data['signature_url'])) {
+            $invoiceConfig['signature_url'] = $submission->data['signature_url'];
+        }
 
         $pdf = Pdf::loadView('pdf.invoice', [
             'submission'    => $submission,
