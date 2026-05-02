@@ -16,8 +16,8 @@
         'images/home/slide-12.webp',
     ];
 
-    $slides = $sliders->count() > 0 
-        ? $sliders->pluck('image_path')->toArray() 
+    $slides = $sliders->count() > 0
+        ? $sliders->pluck('image_path')->toArray()
         : $defaultImages;
 @endphp
 <!-- Dynamic Hero Slider Section -->
@@ -27,11 +27,8 @@
         <div class="swiper-wrapper">
             @foreach ($slides as $image)
                 <div class="swiper-slide relative">
-                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10">
-                    </div>
-                    <img src="{{ asset($image) }}" alt="MSMECCII Slider" 
-                         class="w-full h-full object-cover transform scale-110 transition-transform duration-[10000ms] ease-linear group-active:scale-100"
-                         data-swiper-parallax="20%">
+                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10"></div>
+                    <img src="{{ asset($image) }}" alt="MSMECCII Slider" class="swiper-lazy w-full h-full object-cover">
                 </div>
             @endforeach
         </div>
@@ -59,7 +56,7 @@
                     Get access to awards, business opportunities, and national-level recognition. <br>
                     <!-- <span class="text-accent font-semibold text-md">Knowledge & Awareness Programs • Growth & Business Opportunities •  Networking & Industry Connect • Recognition & Awards</span> -->
                 </p>
-<!-- 
+                <!-- 
                 <div class="flex flex-col sm:flex-row gap-4 mb-4">
                     <a href="#"
                         class="bg-brand-accent hover:bg-white text-slate-900 px-8 py-4 rounded-md font-bold text-lg text-center transition-all shadow-lg hover:shadow-accent/50">

@@ -77,15 +77,13 @@ document.addEventListener('turbo:load', () => {
     }
 
     // Hero Swiper
-    if (document.querySelector('.hero-swiper')) {
-        new Swiper('.hero-swiper', {
+    if (document.querySelector(".hero-swiper")) {
+        new Swiper(".hero-swiper", {
             loop: true,
-            effect: 'slide',
-            speed: 1200,
-            parallax: true,
-            grabCursor: true,
+            effect: "slide",
+            speed: 1000,
             autoplay: {
-                delay: 5000,
+                delay: 2000,
                 disableOnInteraction: false,
             },
             pagination: {

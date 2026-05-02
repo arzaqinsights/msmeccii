@@ -193,12 +193,12 @@
                             'sub_menu' => config('sectors.sectors')
                         ],
                         [
-                            'name' => 'EVENTS & AWARDS',
+                            'name' => 'EVENTS',
                             'route' => 'events.index',
                             'active' => 'events'
                         ],
                         [
-                            'name' => 'BLOG & NEWS',
+                            'name' => 'BLOGS',
                             'route' => 'blog.index',
                             'active' => 'blog'
                         ],
