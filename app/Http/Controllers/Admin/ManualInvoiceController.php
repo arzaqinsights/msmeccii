@@ -150,7 +150,7 @@ class ManualInvoiceController extends Controller
                         ['width' => '60%', 'blocks' => []],
                         [
                             'width' => '40%',
-                            'blocks' => [['type' => 'text', 'content' => "<strong>Total Amount:</strong>\n<span style='font-size:18pt; color:#10b981;'>₹ {{ total }}</span>", 'align' => 'right']]
+                            'blocks' => [['type' => 'text', 'content' => "<strong>Total Amount:</strong>\n<span style='font-size:18pt; color:#10b981;'>&#x20B9; {{ total }}</span>", 'align' => 'right']]
                         ]
                     ]
                 ]
