@@ -7,13 +7,16 @@
 <div class="mb-6 flex justify-between items-end">
     <div>
         <h2 class="text-2xl font-black text-slate-900 line-clamp-1">Submission &mdash; {{ $submission->user->name ?? 'Guest' }}</h2>
-        <p class="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest"><i class="fa-solid fa-file-contract mr-1"></i> Form: {{ $submission->form->name }}</p>
+        <p class="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">
+            <i class="fa-solid fa-file-contract mr-1"></i> 
+            Source: {{ $submission->form->name ?? 'Manual Invoice' }}
+        </p>
     </div>
     <div class="flex gap-2">
         <a href="{{ route('invoice.download', $submission->id) }}" class="bg-slate-900 border border-slate-800 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-lg flex items-center gap-2 hover:bg-black transition-all">
             <i class="fa-solid fa-file-pdf"></i> Download Invoice
         </a>
-        <a href="{{ route('admin.forms.submissions', $submission->form_id) }}" class="text-slate-500 hover:text-slate-800 font-bold text-xs bg-white border border-slate-200 py-2.5 px-4 rounded-xl flex items-center gap-2">
+        <a href="{{ $submission->form_id ? route('admin.forms.submissions', $submission->form_id) : route('admin.submissions.index') }}" class="text-slate-500 hover:text-slate-800 font-bold text-xs bg-white border border-slate-200 py-2.5 px-4 rounded-xl flex items-center gap-2">
             <i class="fa-solid fa-arrow-left"></i> Back to Leads
         </a>
     </div>
@@ -23,39 +26,70 @@
     
     <!-- Left: Payload & Form Data -->
     <div class="xl:col-span-2 space-y-6">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
-                <h3 class="text-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                    <i class="fa-solid fa-database text-brand-primary"></i> Captured Intelligence
-                </h3>
-            </div>
-            
-            <div class="p-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    @foreach($submission->data as $id => $value)
-                        @php
-                            $field = $submission->form->fields->where('field_identifier', $id)->first();
-                        @endphp
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                                {{ $field->label ?? 'Unknown Field ('.$id.')' }}
-                            </label>
-                            <div class="text-sm font-bold text-slate-800 break-words bg-slate-50 p-3 rounded-xl border border-slate-100 min-h-[44px] flex items-center">
-                                @if(is_array($value))
-                                    {{ implode(', ', $value) }}
-                                @elseif(Str::startsWith($value, '/uploads/'))
-                                    <a href="{{ asset($value) }}" target="_blank" class="text-brand-primary hover:underline flex items-center gap-2">
-                                        <i class="fa-solid fa-file-arrow-down"></i> View Attachment
-                                    </a>
-                                @else
-                                    {{ $value ?: 'Null' }}
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+        @if($submission->items)
+            <!-- Manual Invoice Items -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-brand-primary"></i> Invoice Items
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <table class="w-full text-left">
+                        <thead class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                            <tr>
+                                <th class="pb-3">Description</th>
+                                <th class="pb-3 text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            @foreach($submission->items as $item)
+                                <tr>
+                                    <td class="py-4 text-sm font-bold text-slate-800">{{ $item['description'] }}</td>
+                                    <td class="py-4 text-sm font-black text-slate-900 text-right">₹{{ number_format($item['amount'], 2) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+        @endif
+
+        @if($submission->data && count($submission->data) > 0)
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-database text-brand-primary"></i> Captured Intelligence
+                    </h3>
+                </div>
+                
+                <div class="p-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        @foreach($submission->data as $id => $value)
+                            @php
+                                $field = $submission->form ? $submission->form->fields->where('field_identifier', $id)->first() : null;
+                            @endphp
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                                    {{ $field->label ?? $id }}
+                                </label>
+                                <div class="text-sm font-bold text-slate-800 break-words bg-slate-50 p-3 rounded-xl border border-slate-100 min-h-[44px] flex items-center">
+                                    @if(is_array($value))
+                                        {{ implode(', ', $value) }}
+                                    @elseif(is_string($value) && Str::startsWith($value, '/uploads/'))
+                                        <a href="{{ asset($value) }}" target="_blank" class="text-brand-primary hover:underline flex items-center gap-2">
+                                            <i class="fa-solid fa-file-arrow-down"></i> View Attachment
+                                        </a>
+                                    @else
+                                        {{ $value ?: 'N/A' }}
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 
     <!-- Right: Payment & Status -->
