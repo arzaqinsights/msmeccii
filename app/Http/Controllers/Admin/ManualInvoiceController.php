@@ -69,10 +69,19 @@ class ManualInvoiceController extends Controller
             $user->update($request->only(['company_name', 'designation', 'gstin', 'address', 'industry_sector', 'phone_number']));
         }
 
-        $total = collect($request->items)->sum('amount');
+        $subtotal = collect($request->items)->sum('amount');
+        $taxPercent = $request->input('tax_percent', 0);
+        $taxAmount = $subtotal * ($taxPercent / 100);
+        $total = $subtotal + $taxAmount;
+        
         $invoiceNumber = 'MAN-' . date('Ymd') . '-' . strtoupper(\Illuminate\Support\Str::random(4));
 
-        $data = [];
+        $data = [
+            'tax_label' => $request->input('tax_label', 'Tax'),
+            'tax_percent' => $taxPercent,
+            'tax_amount' => $taxAmount,
+            'subtotal' => $subtotal
+        ];
         if ($request->hasFile('signature')) {
             $path = $request->file('signature')->store('uploads/invoices', 'public');
             $data['signature_url'] = '/storage/' . $path;

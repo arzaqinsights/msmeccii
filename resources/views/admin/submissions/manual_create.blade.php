@@ -183,21 +183,37 @@
                     </template>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
-                    <div class="flex items-center gap-6">
+                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap justify-between items-end gap-6" x-data="{ taxPercent: 0, taxLabel: 'GST' }">
+                    <div class="flex flex-wrap items-center gap-6 flex-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="send_email" value="1" checked class="w-5 h-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
                             <span class="text-sm font-bold text-slate-600">Email Invoice to User</span>
                         </label>
 
-                        <div class="flex-1 max-w-xs">
+                        <div class="w-48">
                             <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Custom Signature (Optional)</label>
                             <input type="file" name="signature" class="w-full text-[10px] text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20">
                         </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-24">
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Tax Label</label>
+                                <input type="text" name="tax_label" x-model="taxLabel" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs font-bold outline-none focus:border-brand-primary">
+                            </div>
+                            <div class="w-24">
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Tax %</label>
+                                <input type="number" name="tax_percent" x-model="taxPercent" step="0.01" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs font-bold outline-none focus:border-brand-primary">
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-right">
+
+                    <div class="text-right space-y-2">
+                        <div class="flex justify-end gap-8 text-[10px] font-black text-slate-400 uppercase">
+                            <span>Subtotal: ₹ <span x-text="items.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0).toFixed(2)"></span></span>
+                            <span><span x-text="taxLabel"></span> (<span x-text="taxPercent"></span>%): ₹ <span x-text="(items.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0) * (taxPercent/100)).toFixed(2)"></span></span>
+                        </div>
                         <p class="text-xs text-slate-400 font-bold uppercase mb-1">Grand Total</p>
-                        <h4 class="text-3xl font-black text-slate-900">₹ <span x-text="items.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0).toLocaleString()"></span></h4>
+                        <h4 class="text-4xl font-black text-slate-900">₹ <span x-text="(items.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0) * (1 + taxPercent/100)).toLocaleString(undefined, {minimumFractionDigits: 2})"></span></h4>
                     </div>
                 </div>
             </div>

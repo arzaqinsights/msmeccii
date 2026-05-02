@@ -120,6 +120,20 @@
                                 <td style="text-align: right; font-size: 11px; font-weight: 700;">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
                             </tr>
                         @endif
+                        @if(isset($submission->data['tax_amount']) && $submission->data['tax_amount'] > 0)
+                            <tr>
+                                <td style="text-align: right; font-size: 10px; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
+                                <td style="text-align: right; font-size: 11px; font-weight: 700; padding-top: 20px;">₹ {{ number_format($submission->data['subtotal'], 2) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; font-size: 10px; font-weight: 700; color: #64748b;">{{ $submission->data['tax_label'] }} ({{ $submission->data['tax_percent'] }}%)</td>
+                                <td style="text-align: right; font-size: 11px; font-weight: 700;">₹ {{ number_format($submission->data['tax_amount'], 2) }}</td>
+                            </tr>
+                        @endif
+                        <tr style="border-top: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
+                            <td style="text-align: right; font-size: 12px; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
+                            <td style="text-align: right; font-size: 16px; font-weight: 900; padding-top: 10px; color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
+                        </tr>
                     </tbody>
                 </table>
             @endif

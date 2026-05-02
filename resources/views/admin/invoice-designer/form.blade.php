@@ -355,16 +355,16 @@ function invoiceBuilder(initialConfig) {
         config: initialConfig,
         selected: null, // { row, col, block }
         variables: [
-            { tag: '{{ company_name }}', label: 'Our Company' },
-            { tag: '{{ company_address }}', label: 'Our Address' },
-            { tag: '{{ company_gstin }}', label: 'Our GSTIN' },
-            { tag: '{{ user_name }}', label: 'Client Name' },
-            { tag: '{{ user_address }}', label: 'Client Address' },
-            { tag: '{{ user_email }}', label: 'Client Email' },
-            { tag: '{{ invoice_no }}', label: 'Invoice #' },
-            { tag: '{{ date }}', label: 'Billing Date' },
-            { tag: '{{ total }}', label: 'Grand Total' },
-            { tag: '{{ status }}', label: 'Payment Status' },
+            { tag: '@{{ company_name }}', label: 'Our Company' },
+            { tag: '@{{ company_address }}', label: 'Our Address' },
+            { tag: '@{{ company_gstin }}', label: 'Our GSTIN' },
+            { tag: '@{{ user_name }}', label: 'Client Name' },
+            { tag: '@{{ user_address }}', label: 'Client Address' },
+            { tag: '@{{ user_email }}', label: 'Client Email' },
+            { tag: '@{{ invoice_no }}', label: 'Invoice #' },
+            { tag: '@{{ date }}', label: 'Billing Date' },
+            { tag: '@{{ total }}', label: 'Grand Total' },
+            { tag: '@{{ status }}', label: 'Payment Status' },
         ],
         
         get selectedRow() {
