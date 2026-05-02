@@ -4,31 +4,35 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Invoice - {{ $submission->manual_invoice_number ?? $submission->id }}</title>
     <style>
-        @page { margin: 0; }
+        @page { 
+            size: A4; 
+            margin: 0; 
+        }
         body { 
             font-family: 'DejaVu Sans', 'Helvetica', sans-serif; 
             margin: 0; 
-            padding: 40px; 
+            padding: 1.5cm; 
             color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
-            font-size: {{ $invoiceConfig['font_size_body'] ?? 11 }}pt;
-            line-height: 1.5;
+            font-size: {{ $invoiceConfig['font_size_body'] ?? 10 }}pt;
+            line-height: 1.3;
         }
-        .row-container { width: 100%; margin-bottom: 10px; }
-        .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-        .col-cell { vertical-align: top; padding: 5px; }
+        .row-container { width: 100%; clear: both; }
+        .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: none; }
+        .col-cell { vertical-align: top; padding: 0 5px; border: none; }
         
-        .items-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DejaVu Sans', sans-serif; }
-        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; }
-        .items-table th { padding: 12px; font-size: 10px; text-transform: uppercase; font-weight: 900; }
-        .items-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
+        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
+        .items-table th { padding: 8px 10px; font-size: 9pt; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
+        .items-table td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; }
         
         .currency::before {
             content: "\20B9 ";
             font-family: 'DejaVu Sans', sans-serif;
         }
         
+        .block-wrapper { margin-bottom: 2px; }
         .text-block p { margin: 0; padding: 0; }
-        .text-block h1 { margin: 0; padding: 0; line-height: 1.2; }
+        .text-block h1 { margin: 0; padding: 0; line-height: 1.1; }
         
         img { max-width: 100%; height: auto; }
         
@@ -155,17 +159,17 @@
 
                         @if($taxAmount > 0)
                             <tr>
-                                <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: bold; color: {{ $footerColor }}; padding-top: 20px;" class="currency">{{ number_format($subtotal, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ ($footerSize ?? 10) - 1 }}pt; font-weight: 700; color: #64748b; font-family: 'DejaVu Sans', sans-serif !important;">Subtotal</td>
+                                <td style="text-align: right; font-size: {{ $footerSize ?? 10 }}pt; font-weight: bold; color: {{ $footerColor }}; font-family: 'DejaVu Sans', sans-serif !important;" class="currency">{{ number_format($subtotal, 2) }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b;">{{ $taxLabel }} ({{ $taxPercent }}%)</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: bold; color: {{ $footerColor }};" class="currency">{{ number_format($taxAmount, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ ($footerSize ?? 10) - 1 }}pt; font-weight: 700; color: #64748b; font-family: 'DejaVu Sans', sans-serif !important;">{{ $taxLabel }} ({{ $taxPercent }}%)</td>
+                                <td style="text-align: right; font-size: {{ $footerSize ?? 10 }}pt; font-weight: bold; color: {{ $footerColor }}; font-family: 'DejaVu Sans', sans-serif !important;" class="currency">{{ number_format($taxAmount, 2) }}</td>
                             </tr>
                         @endif
-                        <tr style="border-top: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
-                            <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
-                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: bold; padding-top: 10px; color: {{ $footerColor }};" class="currency">{{ number_format($submission->total_amount_paid, 2) }}</td>
+                        <tr style="background-color: #f8fafc;">
+                            <td style="text-align: right; font-size: {{ $footerSize ?? 10 }}pt; font-weight: 900; text-transform: uppercase; font-family: 'DejaVu Sans', sans-serif !important;">Total Amount</td>
+                            <td style="text-align: right; font-size: {{ ($footerSize ?? 10) + 3 }}pt; font-weight: bold; color: {{ $footerColor }}; font-family: 'DejaVu Sans', sans-serif !important;" class="currency">{{ number_format($submission->total_amount_paid, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
