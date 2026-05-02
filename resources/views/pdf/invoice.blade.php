@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Invoice - {{ $submission->manual_invoice_number ?? $submission->id }}</title>
     <style>
         @page { margin: 0; }
         body { 
-            font-family: '{{ $invoiceConfig['font_family'] ?? 'Helvetica' }}', sans-serif; 
+            font-family: 'DejaVu Sans', 'Helvetica', sans-serif; 
             margin: 0; 
             padding: 40px; 
             color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
@@ -58,7 +58,7 @@
             '{{ subtotal }}' => number_format($submission->data['subtotal'] ?? $submission->total_amount_paid, 2),
             '{{ tax_amount }}' => number_format($submission->data['tax_amount'] ?? 0, 2),
             '{{ tax_label }}' => $submission->data['tax_label'] ?? 'Tax',
-            '{{ status }}' => strtoupper($submission->payment_status),
+            '{{ status }}' => (strtoupper($submission->payment_status) === 'COMPLETED' ? 'PAID' : strtoupper($submission->payment_status)),
         ];
 
         $renderText = function($content) use ($vars) {
@@ -124,7 +124,7 @@
                             @foreach($submission->items as $item)
                                 <tr>
                                     <td style="font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '600' }};">{{ $item['description'] }}</td>
-                                    <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">₹ {{ number_format($item['amount'], 2) }}</td>
+                                    <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">&#8377; {{ number_format($item['amount'], 2) }}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -132,7 +132,7 @@
                                 <td style="font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '600' }};">
                                     {{ $form->name ?? 'Standard Service' }}
                                 </td>
-                                <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">&#8377; {{ number_format($submission->total_amount_paid, 2) }}</td>
                             </tr>
                         @endif
 
@@ -150,16 +150,16 @@
                         @if($taxAmount > 0)
                             <tr>
                                 <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }}; padding-top: 20px;">₹ {{ number_format($subtotal, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }}; padding-top: 20px;">&#8377; {{ number_format($subtotal, 2) }}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b;">{{ $taxLabel }} ({{ $taxPercent }}%)</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }};">₹ {{ number_format($taxAmount, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }};">&#8377; {{ number_format($taxAmount, 2) }}</td>
                             </tr>
                         @endif
                         <tr style="border-top: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
                             <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
-                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: {{ $footerWeight }}; padding-top: 10px; color: {{ $footerColor }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
+                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: {{ $footerWeight }}; padding-top: 10px; color: {{ $footerColor }};">&#8377; {{ number_format($submission->total_amount_paid, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
