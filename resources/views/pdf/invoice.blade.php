@@ -117,8 +117,14 @@
                 <td>
                     <div class="info-label">Customer Info</div>
                     <div class="info-value">{{ $user->name }}</div>
+                    @if($user->designation)
+                        <div class="info-sub"><strong>{{ $user->designation }}</strong></div>
+                    @endif
                     @if($user->company_name)
                         <div class="info-sub">{{ $user->company_name }}</div>
+                    @endif
+                    @if($user->address)
+                        <div class="info-sub" style="margin-top: 3px; font-style: italic;">{{ $user->address }}</div>
                     @endif
                     <div class="info-sub">{{ $user->email }}</div>
                     <div class="info-sub">{{ $user->phone_number }}</div>

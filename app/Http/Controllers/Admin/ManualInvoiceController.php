@@ -27,6 +27,11 @@ class ManualInvoiceController extends Controller
             'new_user_name' => 'nullable|required_without:user_id|string|max:255',
             'new_user_email' => 'nullable|required_without:user_id|email|max:255',
             'new_user_phone' => 'nullable|string|max:20',
+            'company_name' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'gstin' => 'nullable|string|max:20',
+            'address' => 'nullable|string',
+            'industry_sector' => 'nullable|string|max:255',
             'items' => 'required|array|min:1',
             'items.*.description' => 'required|string',
             'items.*.amount' => 'required|numeric|min:0',
@@ -35,12 +40,17 @@ class ManualInvoiceController extends Controller
 
         $userId = $request->user_id;
 
-        // Create new user if not selected
+        // Create or Update user
         if (!$userId) {
             $user = User::create([
                 'name' => $request->new_user_name,
                 'email' => $request->new_user_email,
                 'phone_number' => $request->new_user_phone,
+                'company_name' => $request->company_name,
+                'designation' => $request->designation,
+                'gstin' => $request->gstin,
+                'address' => $request->address,
+                'industry_sector' => $request->industry_sector,
                 'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(16)),
                 'role' => 'user',
                 'requires_password_setup' => true
@@ -52,6 +62,8 @@ class ManualInvoiceController extends Controller
             $user->notify(new \App\Notifications\WelcomeAndSetupPassword($token));
         } else {
             $user = User::find($userId);
+            // Update details if provided
+            $user->update($request->only(['company_name', 'designation', 'gstin', 'address', 'industry_sector', 'phone_number']));
         }
 
         $total = collect($request->items)->sum('amount');

@@ -64,6 +64,32 @@
                         <input type="text" name="new_user_phone" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. +91 9876543210">
                     </div>
                 </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Additional Details (for Invoice)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Company Name</label>
+                            <input type="text" name="company_name" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. MSME Solutions Pvt Ltd">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Designation</label>
+                            <input type="text" name="designation" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Director">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">GSTIN</label>
+                            <input type="text" name="gstin" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. 07AAAAA0000A1Z5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Industry Sector</label>
+                            <input type="text" name="industry_sector" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="e.g. Manufacturing">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Full Address</label>
+                            <input type="text" name="address" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="Street, City, State, ZIP">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
