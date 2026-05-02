@@ -102,8 +102,8 @@
                     </div>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-slate-100" x-show="userMode === 'new' || selectedUser">
-                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Invoice Branding & Details</h4>
+                <div class="mt-8 pt-6 border-t border-slate-100" x-show="userMode === 'new'">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">New User Details & Branding</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">Company Name</label>
@@ -124,6 +124,29 @@
                         <div class="md:col-span-2">
                             <label class="block text-sm font-bold text-slate-700 mb-2">Full Address</label>
                             <input type="text" name="address" x-model="details.address" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary" placeholder="Street, City, State, ZIP">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Existing User Summary Card -->
+                <div class="mt-8 pt-6 border-t border-slate-100" x-show="userMode === 'existing' && selectedUser">
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 flex items-start gap-4">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-emerald-600 shadow-sm">
+                            <i class="fa-solid fa-id-card-clip text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-black text-emerald-900 uppercase tracking-wide">User Profile Linked</h4>
+                            <p class="text-xs text-emerald-700 mt-1 font-medium">Invoice will be generated using the saved details for this user (Company, GSTIN, Address, etc.).</p>
+                            <div class="mt-4 grid grid-cols-2 gap-4">
+                                <div class="bg-white/50 p-2 rounded-lg">
+                                    <span class="text-[9px] font-black text-slate-400 uppercase block">Company</span>
+                                    <span class="text-[11px] font-bold text-slate-700" x-text="details.company_name || 'N/A'"></span>
+                                </div>
+                                <div class="bg-white/50 p-2 rounded-lg">
+                                    <span class="text-[9px] font-black text-slate-400 uppercase block">GSTIN</span>
+                                    <span class="text-[11px] font-bold text-slate-700" x-text="details.gstin || 'N/A'"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
