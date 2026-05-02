@@ -130,7 +130,7 @@ class ManualInvoiceController extends Controller
                 ],
                 [
                     'type' => 'row',
-                    'spacing_top' => 30,
+                    'spacing_top' => 15,
                     'columns' => [
                         [
                             'width' => '50%',
@@ -142,10 +142,10 @@ class ManualInvoiceController extends Controller
                         ]
                     ]
                 ],
-                ['type' => 'items_table', 'spacing_top' => 40],
+                ['type' => 'items_table', 'spacing_top' => 20],
                 [
                     'type' => 'row',
-                    'spacing_top' => 40,
+                    'spacing_top' => 20,
                     'columns' => [
                         ['width' => '60%', 'blocks' => []],
                         [

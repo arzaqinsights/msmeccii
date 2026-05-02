@@ -11,27 +11,27 @@
         body { 
             font-family: 'DejaVu Sans', 'Helvetica', sans-serif; 
             margin: 0; 
-            padding: 1.5cm; 
+            padding: 1cm; 
             color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
             font-size: {{ $invoiceConfig['font_size_body'] ?? 10 }}pt;
-            line-height: 1.3;
         }
+        div, p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
         .row-container { width: 100%; clear: both; }
         .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: none; }
-        .col-cell { vertical-align: top; padding: 0 5px; border: none; }
+        .col-cell { vertical-align: top; padding: 0; border: none; }
         
-        .items-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
         .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
-        .items-table th { padding: 8px 10px; font-size: 9pt; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
-        .items-table td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; }
+        .items-table th { padding: 4px 8px; font-size: 8.5pt; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
+        .items-table td { padding: 4px 8px; border: 1px solid #e2e8f0; }
         
         .currency::before {
             content: "\20B9 ";
             font-family: 'DejaVu Sans', sans-serif;
         }
         
-        .block-wrapper { margin-bottom: 2px; }
-        .text-block p { margin: 0; padding: 0; }
+        .block-wrapper { margin-bottom: 0; padding: 0; }
+        .text-block p { margin: 0; padding: 0; line-height: 1.2; }
         .text-block h1 { margin: 0; padding: 0; line-height: 1.1; }
         
         img { max-width: 100%; height: auto; }
@@ -94,16 +94,16 @@
     @endphp
 
     @foreach($invoiceConfig['blocks'] ?? [] as $row)
-        <div class="row-container" style="margin-top: {{ $row['spacing_top'] ?? 0 }}px;">
+        <div class="row-container" style="margin-top: {{ $row['spacing_top'] ?? 0 }}px; margin-bottom: {{ $row['spacing_bottom'] ?? 0 }}px;">
             @if($row['type'] === 'row')
                 <table class="row-table">
                     <tr>
                         @foreach($row['columns'] ?? [] as $col)
                             <td class="col-cell" style="width: {{ $col['width'] ?? '100%' }};">
                                 @foreach($col['blocks'] ?? [] as $block)
-                                    <div class="block-wrapper" style="margin-bottom: 10px;">
+                                    <div class="block-wrapper">
                                         @if($block['type'] === 'text')
-                                            <div class="text-block" style="text-align: {{ $block['align'] ?? 'left' }}; color: {{ $block['color'] ?? 'inherit' }}; font-size: {{ $block['size'] ?? 11 }}pt; font-weight: {{ $block['weight'] ?? 'normal' }};">
+                                            <div class="text-block" style="text-align: {{ $block['align'] ?? 'left' }}; color: {{ $block['color'] ?? 'inherit' }}; font-size: {{ $block['size'] ?? 11 }}pt; font-weight: {{ $block['weight'] ?? 'normal' }}; line-height: {{ $block['line_height'] ?? 1.2 }};">
                                                 {!! $renderText($block['content'] ?? '') !!}
                                             </div>
                                         @elseif($block['type'] === 'image')

@@ -83,10 +83,17 @@
 
                 <div class="space-y-6">
                     <div class="space-y-3">
-                        <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Top Spacing</label>
-                        <input type="range" x-model="selectedRow.spacing_top" @input="saveHistory()" min="0" max="150" step="5" class="w-full accent-emerald-500">
+                        <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Top Spacing (px)</label>
+                        <input type="range" x-model="selectedRow.spacing_top" @input="saveHistory()" min="0" max="150" step="1" class="w-full accent-emerald-500">
                         <div class="flex justify-between text-[9px] font-black text-slate-600">
                             <span x-text="(selectedRow.spacing_top || 0) + 'px'"></span>
+                        </div>
+                    </div>
+                    <div class="space-y-3 border-t border-slate-800 pt-4">
+                        <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Bottom Spacing (px)</label>
+                        <input type="range" x-model="selectedRow.spacing_bottom" @input="saveHistory()" min="0" max="150" step="1" class="w-full accent-emerald-500">
+                        <div class="flex justify-between text-[9px] font-black text-slate-600">
+                            <span x-text="(selectedRow.spacing_bottom || 0) + 'px'"></span>
                         </div>
                     </div>
 
@@ -117,10 +124,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-2 gap-3">
+                                    <div class="grid grid-cols-3 gap-3">
                                         <div>
                                             <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Size (pt)</label>
                                             <input type="number" x-model="selectedBlock.size" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Height</label>
+                                            <input type="number" x-model="selectedBlock.line_height" step="0.1" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
                                         </div>
                                         <div>
                                             <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Align</label>
@@ -290,7 +301,7 @@
                     <template x-for="(row, rowIndex) in config.blocks" :key="row.id">
                         <div class="relative group p-1 rounded-lg transition-all" 
                              :class="{ 'hover:bg-slate-50': row.type === 'row' }"
-                             :style="{ marginTop: (row.spacing_top || 0) + 'px' }">
+                             :style="{ marginTop: (row.spacing_top || 0) + 'px', marginBottom: (row.spacing_bottom || 0) + 'px' }">
                             
                             <!-- Row Controls -->
                             <div class="absolute -left-10 top-0 opacity-0 group-hover:opacity-100 transition-all flex flex-col gap-1">
@@ -313,7 +324,7 @@
                                                          :class="isSelected(rowIndex, colIndex, blockIndex) ? 'ring-1 ring-brand-primary p-2 bg-white shadow-sm' : 'hover:bg-white/80 p-2'">
                                                         
                                                         <template x-if="block.type === 'text'">
-                                                            <div :style="{ textAlign: block.align || 'left', color: block.color || 'inherit', fontSize: (block.size || 11) + 'pt', fontWeight: block.weight || 'normal' }" 
+                                                            <div :style="{ textAlign: block.align || 'left', color: block.color || 'inherit', fontSize: (block.size || 11) + 'pt', fontWeight: block.weight || 'normal', lineHeight: block.line_height || 1.2 }" 
                                                                  class="outline-none focus:ring-1 focus:ring-brand-primary/20 rounded p-1 transition-all"
                                                                  contenteditable="true"
                                                                  @input="block.content = $event.target.innerHTML; saveHistory()"
