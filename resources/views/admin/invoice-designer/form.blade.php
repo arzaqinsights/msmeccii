@@ -156,25 +156,76 @@
 
                     <template x-if="selectedRow && selectedRow.type === 'items_table'">
                         <div class="space-y-6 pt-6 border-t border-slate-800">
-                            <h4 class="text-[9px] font-black text-slate-500 uppercase">Table & Tax Settings</h4>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Tax Label</label>
-                                    <input type="text" x-model="selectedRow.tax_label" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Tax (%)</label>
-                                    <input type="number" x-model="selectedRow.tax_percent" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
+                            <h4 class="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Table & Tax Settings</h4>
+                            
+                            <!-- Header Styles -->
+                            <div class="space-y-3">
+                                <label class="block text-[9px] font-black text-slate-500 uppercase">Header Style</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">BG Color</label>
+                                        <input type="color" x-model="selectedRow.header_bg" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Text Color</label>
+                                        <input type="color" x-model="selectedRow.header_text" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Header BG</label>
-                                    <input type="color" x-model="selectedRow.header_bg" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+
+                            <!-- Row Styles -->
+                            <div class="space-y-3 border-t border-slate-800 pt-4">
+                                <label class="block text-[9px] font-black text-slate-500 uppercase">Items Row Style</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Size</label>
+                                        <input type="number" x-model="selectedRow.row_size" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-[10px] font-black outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Color</label>
+                                        <input type="color" x-model="selectedRow.row_color" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Weight</label>
+                                        <select x-model="selectedRow.row_weight" @change="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-1.5 text-[8px] font-black outline-none">
+                                            <option value="normal">Thin</option>
+                                            <option value="bold">Bold</option>
+                                            <option value="black">Black</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Header Text</label>
-                                    <input type="color" x-model="selectedRow.header_text" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+                            </div>
+
+                            <!-- Tax & Footer Styles -->
+                            <div class="space-y-3 border-t border-slate-800 pt-4">
+                                <label class="block text-[9px] font-black text-slate-500 uppercase">Tax & Total Style</label>
+                                <div class="grid grid-cols-2 gap-3 mb-3">
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Tax Label</label>
+                                        <input type="text" x-model="selectedRow.tax_label" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-[10px] font-black outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Tax (%)</label>
+                                        <input type="number" x-model="selectedRow.tax_percent" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-[10px] font-black outline-none">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Size</label>
+                                        <input type="number" x-model="selectedRow.footer_size" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-[10px] font-black outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Color</label>
+                                        <input type="color" x-model="selectedRow.footer_color" @change="saveHistory" class="h-8 w-full rounded border-0 bg-transparent cursor-pointer">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-slate-600 uppercase mb-1">Weight</label>
+                                        <select x-model="selectedRow.footer_weight" @change="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded p-1.5 text-[8px] font-black outline-none">
+                                            <option value="normal">Thin</option>
+                                            <option value="bold">Bold</option>
+                                            <option value="900">Black</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -308,18 +359,18 @@
                                         </thead>
                                         <tbody>
                                             <tr class="border-b border-slate-50">
-                                                <td class="p-3 text-xs font-bold text-slate-500">Sample item name...</td>
-                                                <td class="p-3 text-xs font-black text-slate-900 text-right">₹ 100.00</td>
+                                                <td class="p-3 font-medium" :style="{ fontSize: (row.row_size || 11) + 'pt', color: row.row_color || '#64748b', fontWeight: row.row_weight || 'normal' }">Sample item name...</td>
+                                                <td class="p-3 text-right" :style="{ fontSize: (row.row_size || 11) + 'pt', color: row.row_color || '#0f172a', fontWeight: row.row_weight || 'black' }">₹ 100.00</td>
                                             </tr>
                                             <template x-if="(row.tax_percent || 0) > 0">
                                                 <tr>
-                                                    <td class="p-2 text-right text-[8px] font-black uppercase text-slate-400" x-text="(row.tax_label || 'Tax') + ' (' + (row.tax_percent || 0) + '%)'"></td>
-                                                    <td class="p-2 text-right text-[10px] font-black text-slate-900" x-text="'₹ ' + (100 * (row.tax_percent || 0)/100).toFixed(2)"></td>
+                                                    <td class="p-2 text-right uppercase" x-text="(row.tax_label || 'Tax') + ' (' + (row.tax_percent || 0) + '%)'" :style="{ fontSize: (row.footer_size || 10) + 'pt', color: row.footer_color || '#94a3b8', fontWeight: '900' }"></td>
+                                                    <td class="p-2 text-right" x-text="'₹ ' + (100 * (row.tax_percent || 0)/100).toFixed(2)" :style="{ fontSize: (row.footer_size || 10) + 'pt', color: row.footer_color || '#0f172a', fontWeight: row.footer_weight || '900' }"></td>
                                                 </tr>
                                             </template>
                                             <tr>
-                                                <td class="p-2 text-right text-[10px] font-black uppercase text-slate-400">Total</td>
-                                                <td class="p-2 text-right text-sm font-black text-slate-900" x-text="'₹ ' + (100 * (1 + (row.tax_percent || 0)/100)).toFixed(2)"></td>
+                                                <td class="p-2 text-right uppercase" :style="{ fontSize: (row.footer_size || 11) + 'pt', color: row.footer_color || '#94a3b8', fontWeight: '900' }">Total</td>
+                                                <td class="p-2 text-right font-black" x-text="'₹ ' + (100 * (1 + (row.tax_percent || 0)/100)).toFixed(2)" :style="{ fontSize: ((row.footer_size || 11) + 2) + 'pt', color: row.footer_color || '#0f172a', fontWeight: row.footer_weight || '900' }"></td>
                                             </tr>
                                         </tbody>
                                     </table>

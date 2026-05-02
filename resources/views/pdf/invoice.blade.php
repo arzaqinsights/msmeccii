@@ -123,31 +123,43 @@
                         @if($submission->items && count($submission->items) > 0)
                             @foreach($submission->items as $item)
                                 <tr>
-                                    <td style="font-size: 11px; font-weight: 600;">{{ $item['description'] }}</td>
-                                    <td style="text-align: right; font-size: 11px; font-weight: 700;">₹ {{ number_format($item['amount'], 2) }}</td>
+                                    <td style="font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '600' }};">{{ $item['description'] }}</td>
+                                    <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">₹ {{ number_format($item['amount'], 2) }}</td>
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td style="font-size: 11px; font-weight: 600;">
+                                <td style="font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '600' }};">
                                     {{ $form->name ?? 'Standard Service' }}
                                 </td>
-                                <td style="text-align: right; font-size: 11px; font-weight: 700;">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $row['row_size'] ?? 11 }}pt; color: {{ $row['row_color'] ?? '#0f172a' }}; font-weight: {{ $row['row_weight'] ?? '700' }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
                             </tr>
                         @endif
-                        @if(isset($submission->data['tax_amount']) && $submission->data['tax_amount'] > 0)
+
+                        @php
+                            $subtotal = $submission->data['subtotal'] ?? $submission->total_amount_paid;
+                            $taxAmount = $submission->data['tax_amount'] ?? 0;
+                            $taxLabel = $submission->data['tax_label'] ?? 'Tax';
+                            $taxPercent = $submission->data['tax_percent'] ?? 0;
+                            
+                            $footerColor = $row['footer_color'] ?? '#0f172a';
+                            $footerSize = $row['footer_size'] ?? 11;
+                            $footerWeight = $row['footer_weight'] ?? '900';
+                        @endphp
+
+                        @if($taxAmount > 0)
                             <tr>
-                                <td style="text-align: right; font-size: 10px; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
-                                <td style="text-align: right; font-size: 11px; font-weight: 700; padding-top: 20px;">₹ {{ number_format($submission->data['subtotal'], 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }}; padding-top: 20px;">₹ {{ number_format($subtotal, 2) }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: right; font-size: 10px; font-weight: 700; color: #64748b;">{{ $submission->data['tax_label'] }} ({{ $submission->data['tax_percent'] }}%)</td>
-                                <td style="text-align: right; font-size: 11px; font-weight: 700;">₹ {{ number_format($submission->data['tax_amount'], 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b;">{{ $taxLabel }} ({{ $taxPercent }}%)</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }};">₹ {{ number_format($taxAmount, 2) }}</td>
                             </tr>
                         @endif
                         <tr style="border-top: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
-                            <td style="text-align: right; font-size: 12px; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
-                            <td style="text-align: right; font-size: 16px; font-weight: 900; padding-top: 10px; color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
+                            <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
+                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: {{ $footerWeight }}; padding-top: 10px; color: {{ $footerColor }};">₹ {{ number_format($submission->total_amount_paid, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
