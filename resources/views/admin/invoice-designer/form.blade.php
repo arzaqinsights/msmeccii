@@ -98,6 +98,25 @@
                                         <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Content</label>
                                         <textarea x-model="selectedBlock.content" @input="saveHistory" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-xs font-medium text-slate-200 outline-none focus:border-emerald-500"></textarea>
                                     </div>
+                                    <div class="space-y-4 pt-4 border-t border-slate-800">
+                                        <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Text Formatting</label>
+                                        <div class="flex flex-wrap gap-2">
+                                            <button @click="document.execCommand('bold')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Bold">
+                                                <i class="fa-solid fa-bold text-xs"></i>
+                                            </button>
+                                            <button @click="document.execCommand('italic')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Italic">
+                                                <i class="fa-solid fa-italic text-xs"></i>
+                                            </button>
+                                            <button @click="document.execCommand('underline')" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-brand-primary transition" title="Underline">
+                                                <i class="fa-solid fa-underline text-xs"></i>
+                                            </button>
+                                            <div class="flex items-center gap-1 bg-slate-800 rounded p-1">
+                                                <input type="color" @input="document.execCommand('foreColor', false, $event.target.value)" class="w-6 h-6 rounded border-0 bg-transparent cursor-pointer">
+                                                <span class="text-[8px] font-black uppercase text-slate-500 mr-1">Color</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Size (pt)</label>
@@ -248,6 +267,7 @@
                                                                  contenteditable="true"
                                                                  @input="block.content = $event.target.innerHTML; saveHistory()"
                                                                  @blur="saveHistory()"
+                                                                 @keydown.enter="if(!event.shiftKey) { event.preventDefault(); document.execCommand('insertLineBreak'); }"
                                                                  x-html="block.content"></div>
                                                         </template>
 
