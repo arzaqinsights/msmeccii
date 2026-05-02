@@ -15,11 +15,16 @@
             @endif
         </p>
     </div>
-    @if(isset($form))
-        <a href="{{ route('admin.forms.index') }}" class="text-slate-500 hover:text-slate-800 font-bold text-sm bg-white border border-slate-200 px-4 py-2 rounded-xl transition-all">
-            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Forms
+    <div class="flex items-center gap-3">
+        <a href="{{ route('admin.submissions.manual-create') }}" class="px-5 py-2.5 bg-emerald-500 text-white rounded-xl font-bold text-sm hover:bg-emerald-600 transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Manual Invoice
         </a>
-    @endif
+        @if(isset($form))
+            <a href="{{ route('admin.forms.index') }}" class="text-slate-500 hover:text-slate-800 font-bold text-sm bg-white border border-slate-200 px-4 py-2.5 rounded-xl transition-all">
+                <i class="fa-solid fa-arrow-left mr-1"></i> Back to Forms
+            </a>
+        @endif
+    </div>
 </div>
 
 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
@@ -85,6 +90,12 @@
                                         </button>
                                     </form>
                                 @endif
+                                <form action="{{ route('admin.submissions.send-email', $sub) }}" method="POST" onsubmit="return confirm('Send invoice to user email?');" class="inline">
+                                    @csrf
+                                    <button type="submit" class="p-2 text-indigo-500 hover:text-white transition-colors bg-white hover:bg-indigo-500 rounded-lg border border-indigo-200 shadow-sm" title="Email Invoice">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </form>
                                 <a href="{{ route('admin.submissions.show', $sub) }}" class="p-2 text-slate-400 hover:text-brand-primary transition-colors bg-white hover:bg-brand-primary/5 rounded-lg border border-slate-200">
                                     <i class="fa-regular fa-eye"></i>
                                 </a>

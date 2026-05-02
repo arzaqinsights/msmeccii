@@ -96,7 +96,12 @@ class AuthController extends Controller
                 'designation' => 'Not Provided',
                 'industry_sector' => 'Not Provided',
                 'membership_status' => 'pending',
+                'requires_password_setup' => true,
             ]);
+
+            // Optional: Send welcome mail here too if desired
+            $token = app('auth.password.broker')->createToken($user);
+            $user->notify(new \App\Notifications\WelcomeAndSetupPassword($token));
         }
 
         // Always log them in to make the subsequent form frictionless

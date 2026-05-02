@@ -210,6 +210,75 @@
                 </div>
             </div>
 
+            <!-- Email Configuration (SMTP) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden lg:col-span-2">
+                <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-envelope-circle-check text-brand-primary"></i> Email Configuration (SMTP)
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Configure your email server for automated notifications and invoices</p>
+                    </div>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Basic SMTP Settings -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">SMTP Host</label>
+                            <input type="text" name="settings[mail_host]" value="{{ $site['mail_host'] ?? '' }}"
+                                placeholder="e.g. smtp.gmail.com"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">SMTP Port</label>
+                            <input type="text" name="settings[mail_port]" value="{{ $site['mail_port'] ?? '587' }}"
+                                placeholder="e.g. 587 or 465"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Encryption</label>
+                            <select name="settings[mail_encryption]" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                                <option value="tls" {{ ($site['mail_encryption'] ?? 'tls') == 'tls' ? 'selected' : '' }}>TLS</option>
+                                <option value="ssl" {{ ($site['mail_encryption'] ?? '') == 'ssl' ? 'selected' : '' }}>SSL</option>
+                                <option value="none" {{ ($site['mail_encryption'] ?? '') == 'none' ? 'selected' : '' }}>None</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Authentication -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">SMTP Username</label>
+                            <input type="text" name="settings[mail_username]" value="{{ $site['mail_username'] ?? '' }}"
+                                placeholder="e.g. hello@msmeccii.in"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">SMTP Password</label>
+                            <input type="password" name="settings[mail_password]" value="{{ $site['mail_password'] ?? '' }}"
+                                placeholder="••••••••••••"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                    </div>
+
+                    <!-- Sender Info -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">From Address</label>
+                            <input type="email" name="settings[mail_from_address]" value="{{ $site['mail_from_address'] ?? '' }}"
+                                placeholder="e.g. support@msmeccii.in"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">From Name</label>
+                            <input type="text" name="settings[mail_from_name]" value="{{ $site['mail_from_name'] ?? 'MSMECCII' }}"
+                                placeholder="e.g. MSME Chamber of Commerce"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium outline-none focus:border-brand-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Save Button -->

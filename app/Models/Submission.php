@@ -11,12 +11,15 @@ class Submission extends Model
         'form_id',
         'award_category_id',
         'data',
+        'items',
         'total_amount_paid',
         'payment_status',
+        'manual_invoice_number',
     ];
 
     protected $casts = [
         'data' => 'array',
+        'items' => 'array',
         'total_amount_paid' => 'decimal:2',
     ];
 

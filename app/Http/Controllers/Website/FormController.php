@@ -52,7 +52,9 @@ class FormController extends Controller
         // 2. Auto-Authentication & Profile Sync Engine
         if (!$user) {
             $user = User::where('email', $request->email)->first();
+            $isNewUser = false;
             if (!$user) {
+                $isNewUser = true;
                 $user = User::create([
                     'name' => $request->first_name,
                     'email' => $request->email,
@@ -66,8 +68,13 @@ class FormController extends Controller
                     'gstin' => $request->gstin,
                     'website' => $request->website,
                     'password' => Hash::make(Str::random(16)),
-                    'role' => 'user'
+                    'role' => 'user',
+                    'requires_password_setup' => true
                 ]);
+
+                // Generate password reset token and send welcome mail
+                $token = app('auth.password.broker')->createToken($user);
+                $user->notify(new \App\Notifications\WelcomeAndSetupPassword($token));
             }
             Auth::login($user);
         }
