@@ -150,22 +150,22 @@
                             
                             $footerColor = $row['footer_color'] ?? '#0f172a';
                             $footerSize = $row['footer_size'] ?? 11;
-                            $footerWeight = $row['footer_weight'] ?? '900';
+                            $footerWeight = 'bold';
                         @endphp
 
                         @if($taxAmount > 0)
                             <tr>
                                 <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b; padding-top: 20px;">Subtotal</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }}; padding-top: 20px;" class="currency">{{ number_format($subtotal, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: bold; color: {{ $footerColor }}; padding-top: 20px;" class="currency">{{ number_format($subtotal, 2) }}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: right; font-size: {{ $footerSize - 1 }}pt; font-weight: 700; color: #64748b;">{{ $taxLabel }} ({{ $taxPercent }}%)</td>
-                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: {{ $footerWeight }}; color: {{ $footerColor }};" class="currency">{{ number_format($taxAmount, 2) }}</td>
+                                <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: bold; color: {{ $footerColor }};" class="currency">{{ number_format($taxAmount, 2) }}</td>
                             </tr>
                         @endif
                         <tr style="border-top: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
                             <td style="text-align: right; font-size: {{ $footerSize }}pt; font-weight: 900; padding-top: 10px; text-transform: uppercase;">Total Amount</td>
-                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: {{ $footerWeight }}; padding-top: 10px; color: {{ $footerColor }};" class="currency">{{ number_format($submission->total_amount_paid, 2) }}</td>
+                            <td style="text-align: right; font-size: {{ $footerSize + 4 }}pt; font-weight: bold; padding-top: 10px; color: {{ $footerColor }};" class="currency">{{ number_format($submission->total_amount_paid, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>
