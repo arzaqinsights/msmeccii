@@ -183,7 +183,7 @@
                     </template>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap justify-between items-end gap-6" x-data="{ taxPercent: 0, taxLabel: 'GST' }">
+                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap justify-between items-end gap-6" x-data="{ taxPercent: 18, taxLabel: 'GST' }">
                     <div class="flex flex-wrap items-center gap-6 flex-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="send_email" value="1" checked class="w-5 h-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
