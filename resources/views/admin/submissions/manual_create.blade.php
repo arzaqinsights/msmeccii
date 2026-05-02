@@ -18,12 +18,24 @@
         @csrf
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-100 bg-slate-50">
+            <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
                 <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-user text-brand-primary"></i> User Details
+                    <i class="fa-solid fa-user text-brand-primary"></i> User & Design
                 </h3>
             </div>
             <div class="p-6" x-data="{ userMode: 'existing' }">
+                <!-- Template Selection -->
+                <div class="mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Invoice Branding Template</label>
+                    <select name="invoice_template_id" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-bold text-slate-700 outline-none focus:border-brand-primary">
+                        <option value="">Default Branding</option>
+                        @foreach($templates as $tpl)
+                            <option value="{{ $tpl->id }}" {{ $tpl->is_default ? 'selected' : '' }}>{{ $tpl->name }}</option>
+                        @endforeach
+                    </select>
+                    <p class="text-[10px] text-slate-400 mt-2 font-bold italic">Select the professional look & feel for this specific invoice.</p>
+                </div>
+
                 <div class="mb-6 flex gap-4">
                     <button type="button" @click="userMode = 'existing'" :class="userMode === 'existing' ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'" class="px-4 py-2 rounded-lg text-xs font-bold transition">Existing User</button>
                     <button type="button" @click="userMode = 'new'" :class="userMode === 'new' ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'" class="px-4 py-2 rounded-lg text-xs font-bold transition">Create New User</button>

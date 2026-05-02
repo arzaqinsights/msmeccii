@@ -90,19 +90,21 @@
     <div class="invoice-container">
         <div class="header clearfix">
             <div class="logo">
-                @php
-                    $logoPath = null;
-                    if(isset($invoiceConfig['logo_url'])) {
-                        $logoPath = public_path(str_replace('/storage/', 'storage/', $invoiceConfig['logo_url']));
-                    } elseif(isset($form) && $form->invoice_logo) {
-                        $logoPath = public_path($form->invoice_logo);
-                    }
-                @endphp
+                @if($invoiceConfig['show_logo'] ?? true)
+                    @php
+                        $logoPath = null;
+                        if(isset($invoiceConfig['logo_url'])) {
+                            $logoPath = public_path(str_replace('/storage/', 'storage/', $invoiceConfig['logo_url']));
+                        } elseif(isset($form) && $form->invoice_logo) {
+                            $logoPath = public_path($form->invoice_logo);
+                        }
+                    @endphp
 
-                @if($logoPath && file_exists($logoPath))
-                    <img src="{{ $logoPath }}">
-                @else
-                    <div class="logo-text">MSME<span>CCII</span></div>
+                    @if($logoPath && file_exists($logoPath))
+                        <img src="{{ $logoPath }}">
+                    @else
+                        <div class="logo-text">MSME<span>CCII</span></div>
+                    @endif
                 @endif
             </div>
 
@@ -117,27 +119,31 @@
                 <td>
                     <div class="info-label">Customer Info</div>
                     <div class="info-value">{{ $user->name }}</div>
-                    @if($user->designation)
+                    @if(($invoiceConfig['show_metadata'] ?? true) && $user->designation)
                         <div class="info-sub"><strong>{{ $user->designation }}</strong></div>
                     @endif
-                    @if($user->company_name)
+                    @if(($invoiceConfig['show_metadata'] ?? true) && $user->company_name)
                         <div class="info-sub">{{ $user->company_name }}</div>
                     @endif
-                    @if($user->address)
+                    @if(($invoiceConfig['show_metadata'] ?? true) && $user->address)
                         <div class="info-sub" style="margin-top: 3px; font-style: italic;">{{ $user->address }}</div>
                     @endif
                     <div class="info-sub">{{ $user->email }}</div>
                     <div class="info-sub">{{ $user->phone_number }}</div>
-                    @if($user->gstin)
+                    @if(($invoiceConfig['show_metadata'] ?? true) && $user->gstin)
                         <div class="info-sub" style="margin-top: 5px;"><strong>GSTIN:</strong> {{ $user->gstin }}</div>
                     @endif
                 </td>
                 <td>
                     <div class="info-label">Vendor Info</div>
-                    <div class="info-value">{{ $invoiceConfig['company_name'] ?? 'MSME Chamber of Commerce' }}</div>
-                    <div class="info-sub" style="white-space: pre-wrap;">{{ $invoiceConfig['address'] ?? 'Official Business Address' }}</div>
+                    @if($invoiceConfig['show_company_name'] ?? true)
+                        <div class="info-value">{{ $invoiceConfig['company_name'] ?? 'MSME Chamber of Commerce' }}</div>
+                    @endif
+                    @if($invoiceConfig['show_address'] ?? true)
+                        <div class="info-sub" style="white-space: pre-wrap;">{{ $invoiceConfig['address'] ?? 'Official Business Address' }}</div>
+                    @endif
                     <div class="info-sub"><strong>Email:</strong> {{ $invoiceConfig['email'] ?? 'support@msmeccii.in' }}</div>
-                    @if(isset($invoiceConfig['gstin']) && $invoiceConfig['gstin'])
+                    @if(($invoiceConfig['show_gstin'] ?? true) && isset($invoiceConfig['gstin']) && $invoiceConfig['gstin'])
                         <div class="info-sub"><strong>GSTIN:</strong> {{ $invoiceConfig['gstin'] }}</div>
                     @endif
                 </td>
@@ -179,7 +185,7 @@
 
         <div class="summary-wrapper clearfix">
             <div class="notes-section">
-                @if($submission->data && count($submission->data) > 0)
+                @if(($invoiceConfig['show_metadata'] ?? true) && $submission->data && count($submission->data) > 0)
                     <div class="info-label">Registration Metadata</div>
                     <div class="meta-data">
                         <table class="meta-grid">
@@ -199,7 +205,7 @@
                 <div class="info-label" style="margin-top: 30px;">Terms & Remarks</div>
                 <div style="font-size: 11px; color: #64748b; white-space: pre-wrap;">{{ $invoiceConfig['terms'] ?? '1. Subject to local jurisdiction. 2. Computer generated invoice.' }}</div>
                 
-                @if(isset($invoiceConfig['bank_details']) && $invoiceConfig['bank_details'])
+                @if(($invoiceConfig['show_bank_details'] ?? true) && isset($invoiceConfig['bank_details']) && $invoiceConfig['bank_details'])
                     <div class="bank-box">
                         <strong>Bank Details:</strong><br>
                         {{ $invoiceConfig['bank_details'] }}
@@ -222,6 +228,15 @@
                 <div class="total-row grand-total">
                     Total Amount <span>Rs. {{ number_format($final, 2) }}</span>
                 </div>
+
+                @if($invoiceConfig['show_signature'] ?? true)
+                    <div style="margin-top: 40px; text-align: center;">
+                        <div style="height: 40px;"></div>
+                        <div style="border-top: 1px solid #1e293b; padding-top: 5px; font-size: 11px; font-weight: 900; text-transform: uppercase;">
+                            {{ $invoiceConfig['signature_text'] ?? 'Authorized Signatory' }}
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 

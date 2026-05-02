@@ -24,6 +24,8 @@ class ManualInvoiceController extends Controller
     {
         $request->validate([
             'user_id' => 'nullable|exists:users,id',
+            'invoice_template_id' => 'nullable|exists:invoice_templates,id',
+            // ... (rest of validation)
             'new_user_name' => 'nullable|required_without:user_id|string|max:255',
             'new_user_email' => 'nullable|required_without:user_id|email|max:255',
             'new_user_phone' => 'nullable|string|max:20',
@@ -71,6 +73,7 @@ class ManualInvoiceController extends Controller
 
         $submission = Submission::create([
             'user_id' => $userId,
+            'invoice_template_id' => $request->invoice_template_id,
             'items' => $request->items,
             'total_amount_paid' => $total,
             'payment_status' => $request->payment_status,
@@ -87,9 +90,9 @@ class ManualInvoiceController extends Controller
 
     public function sendEmail(Submission $submission)
     {
-        $submission->load(['user']);
+        $submission->load(['user', 'invoiceTemplate']);
         
-        $template = InvoiceTemplate::where('is_default', true)->first();
+        $template = $submission->invoiceTemplate ?? InvoiceTemplate::where('is_default', true)->first();
         $invoiceConfig = array_merge([
             'type' => 'tax',
             'company_name' => 'MSME Chamber of Commerce & Industry',
@@ -105,7 +108,7 @@ class ManualInvoiceController extends Controller
             'invoiceConfig' => $invoiceConfig,
         ]);
 
-        Mail::to($submission->user->email)->send(new InvoiceMailable($submission, $pdf->output()));
+        \Illuminate\Support\Facades\Mail::to($submission->user->email)->send(new \App\Mail\InvoiceMailable($submission, $pdf->output()));
 
         return back()->with('success', 'Invoice sent to user email.');
     }

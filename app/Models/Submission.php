@@ -10,12 +10,18 @@ class Submission extends Model
         'user_id',
         'form_id',
         'award_category_id',
+        'invoice_template_id',
         'data',
         'items',
         'total_amount_paid',
         'payment_status',
         'manual_invoice_number',
     ];
+
+    public function invoiceTemplate()
+    {
+        return $this->belongsTo(InvoiceTemplate::class);
+    }
 
     protected $casts = [
         'data' => 'array',

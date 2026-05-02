@@ -137,6 +137,49 @@
                     <input type="text" name="config[footer_text]" x-model="config.footer_text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 text-xs">
                 </div>
             </div>
+
+            <!-- Display Toggles -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-6 space-y-4">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Visibility Controls</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Logo</label>
+                        <input type="checkbox" name="config[show_logo]" x-model="config.show_logo" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Company Name</label>
+                        <input type="checkbox" name="config[show_company_name]" x-model="config.show_company_name" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Address</label>
+                        <input type="checkbox" name="config[show_address]" x-model="config.show_address" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show GSTIN</label>
+                        <input type="checkbox" name="config[show_gstin]" x-model="config.show_gstin" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show PAN</label>
+                        <input type="checkbox" name="config[show_pan]" x-model="config.show_pan" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Bank Details</label>
+                        <input type="checkbox" name="config[show_bank_details]" x-model="config.show_bank_details" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Metadata</label>
+                        <input type="checkbox" name="config[show_metadata]" x-model="config.show_metadata" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <label class="text-[10px] font-bold text-slate-600 uppercase">Show Signature</label>
+                        <input type="checkbox" name="config[show_signature]" x-model="config.show_signature" value="1" class="w-4 h-4 rounded text-emerald-600">
+                    </div>
+                </div>
+                <div x-show="config.show_signature">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Signature Label</label>
+                    <input type="text" name="config[signature_text]" x-model="config.signature_text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                </div>
+            </div>
         </form>
     </div>
 

@@ -105,6 +105,14 @@ class InvoiceTemplateController extends Controller
             'footer_text' => 'This is a computer-generated invoice.',
             'terms' => "1. Goods once sold will not be taken back.\n2. Subject to New Delhi jurisdiction.",
             'show_logo' => true,
+            'show_company_name' => true,
+            'show_address' => true,
+            'show_gstin' => true,
+            'show_pan' => true,
+            'show_bank_details' => true,
+            'show_signature' => true,
+            'signature_text' => 'Authorized Signatory',
+            'show_metadata' => true,
             'logo_url' => null,
         ];
     }
