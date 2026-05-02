@@ -111,13 +111,55 @@ class ManualInvoiceController extends Controller
         $template = $submission->invoiceTemplate ?? InvoiceTemplate::where('is_default', true)->first();
         $globalSettings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
         
-        $invoiceConfig = array_merge([
-            'type' => 'tax',
-            'company_name' => 'MSME Chamber of Commerce & Industry',
-            'address' => "India's MSME Headquarters\nNew Delhi, India",
-            'primary_color' => '#10b981',
+        $defaultConfig = [
             'font_family' => 'Helvetica',
-            'signature_url' => $globalSettings['signature'] ?? null,
+            'primary_color' => '#10b981',
+            'blocks' => [
+                [
+                    'type' => 'row',
+                    'columns' => [
+                        [
+                            'width' => '50%',
+                            'blocks' => [['type' => 'image', 'src' => 'logo', 'width' => 120, 'align' => 'left']]
+                        ],
+                        [
+                            'width' => '50%',
+                            'blocks' => [['type' => 'text', 'content' => "<strong>{{ company_name }}</strong>\n{{ company_address }}", 'align' => 'right', 'size' => 10]]
+                        ]
+                    ]
+                ],
+                [
+                    'type' => 'row',
+                    'spacing_top' => 30,
+                    'columns' => [
+                        [
+                            'width' => '50%',
+                            'blocks' => [['type' => 'text', 'content' => "<strong>Bill To:</strong>\n{{ user_name }}\n{{ user_address }}", 'size' => 10]]
+                        ],
+                        [
+                            'width' => '50%',
+                            'blocks' => [['type' => 'text', 'content' => "<strong>Invoice No:</strong> {{ invoice_no }}\n<strong>Date:</strong> {{ date }}", 'align' => 'right', 'size' => 10]]
+                        ]
+                    ]
+                ],
+                ['type' => 'items_table', 'spacing_top' => 40],
+                [
+                    'type' => 'row',
+                    'spacing_top' => 40,
+                    'columns' => [
+                        ['width' => '60%', 'blocks' => []],
+                        [
+                            'width' => '40%',
+                            'blocks' => [['type' => 'text', 'content' => "<strong>Total Amount:</strong>\n<span style='font-size:18pt; color:#10b981;'>₹ {{ total }}</span>", 'align' => 'right']]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $invoiceConfig = array_merge($defaultConfig, [
+            'company_name' => $globalSettings['company_name'] ?? 'MSME Chamber of Commerce',
+            'address' => $globalSettings['address'] ?? 'India',
         ], $template ? $template->config : []);
 
         // Override with submission specific data if exists

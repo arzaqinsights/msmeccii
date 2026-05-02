@@ -26,7 +26,7 @@ class InvoiceTemplateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'config' => 'required|array',
+            'config' => 'required',
             'logo' => 'nullable|image|max:2048',
             'signature' => 'nullable|image|max:2048'
         ]);
@@ -68,7 +68,7 @@ class InvoiceTemplateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'config' => 'required|array',
+            'config' => 'required',
             'logo' => 'nullable|image|max:2048',
             'signature' => 'nullable|image|max:2048'
         ]);
