@@ -115,8 +115,8 @@
                 <table class="items-table">
                     <thead>
                         <tr style="background-color: {{ $row['header_bg'] ?? '#f8fafc' }}; border-bottom: 2px solid {{ $row['border_color'] ?? ($invoiceConfig['primary_color'] ?? '#10b981') }};">
-                            <th style="color: {{ $row['header_text'] ?? '#64748b' }}; text-align: left;">Item Description</th>
-                            <th style="color: {{ $row['header_text'] ?? '#64748b' }}; text-align: right;">Amount</th>
+                            <th style="color: {{ $row['header_text'] ?? '#64748b' }}; text-align: left;">{{ $row['label_description'] ?? 'Item Description' }}</th>
+                            <th style="color: {{ $row['header_text'] ?? '#64748b' }}; text-align: right;">{{ $row['label_amount'] ?? 'Amount' }}</th>
                         </tr>
                     </thead>
                     <tbody>

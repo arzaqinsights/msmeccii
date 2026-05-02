@@ -244,8 +244,11 @@
                                                         
                                                         <template x-if="block.type === 'text'">
                                                             <div :style="{ textAlign: block.align || 'left', color: block.color || 'inherit', fontSize: (block.size || 11) + 'pt', fontWeight: block.weight || 'normal' }" 
-                                                                 class="whitespace-pre-wrap leading-tight" 
-                                                                 x-html="renderText(block.content)"></div>
+                                                                 class="outline-none focus:ring-1 focus:ring-brand-primary/20 rounded p-1 transition-all"
+                                                                 contenteditable="true"
+                                                                 @input="block.content = $event.target.innerText; saveHistory()"
+                                                                 @blur="saveHistory()"
+                                                                 x-text="block.content"></div>
                                                         </template>
 
                                                         <template x-if="block.type === 'image'">
@@ -273,8 +276,14 @@
                                     <table class="w-full">
                                         <thead>
                                             <tr :style="{ backgroundColor: row.header_bg || '#f8fafc' }">
-                                                <th class="p-3 text-[9px] font-black uppercase text-left tracking-wider" :style="{ color: row.header_text || '#64748b' }">Description</th>
-                                                <th class="p-3 text-[9px] font-black uppercase text-right tracking-wider" :style="{ color: row.header_text || '#64748b' }">Amount</th>
+                                                <th class="p-3 text-[9px] font-black uppercase text-left tracking-wider outline-none focus:bg-white" 
+                                                    contenteditable="true"
+                                                    @input="row.label_description = $event.target.innerText; saveHistory()"
+                                                    :style="{ color: row.header_text || '#64748b' }">Description</th>
+                                                <th class="p-3 text-[9px] font-black uppercase text-right tracking-wider outline-none focus:bg-white" 
+                                                    contenteditable="true"
+                                                    @input="row.label_amount = $event.target.innerText; saveHistory()"
+                                                    :style="{ color: row.header_text || '#64748b' }">Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
