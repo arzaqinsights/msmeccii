@@ -30,6 +30,7 @@ class MailServiceProvider extends ServiceProvider
                 ])->pluck('value', 'key');
 
                 if ($settings->get('mail_host')) {
+                    Config::set('mail.default', 'smtp');
                     Config::set('mail.mailers.smtp.host', $settings->get('mail_host'));
                     Config::set('mail.mailers.smtp.port', $settings->get('mail_port', 587));
                     Config::set('mail.mailers.smtp.username', $settings->get('mail_username'));
