@@ -17,7 +17,7 @@ class InvoiceController extends Controller
 
         $submission->load(['form.invoiceTemplate', 'user', 'payment']);
         
-        $template = $submission->form->invoiceTemplate;
+        $template = $submission->form->invoiceTemplate ?? null;
         
         if (!$template) {
             $template = \App\Models\InvoiceTemplate::where('is_default', true)->first();
