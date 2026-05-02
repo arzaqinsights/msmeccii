@@ -15,8 +15,9 @@
         }
         .header { 
             margin-bottom: 40px; 
-            border-bottom: 2px solid {{ $invoiceConfig['primary_color'] ?? '#10b981' }}20; 
-            padding-bottom: 20px;
+            border-bottom: 2px solid {{ $invoiceConfig['border_color'] ?? '#e2e8f0' }}; 
+            padding: 20px;
+            background-color: {{ $invoiceConfig['header_bg_color'] ?? '#ffffff' }};
             display: table;
             width: 100%;
         }
@@ -52,11 +53,21 @@
             color: {{ $invoiceConfig['text_color_sub'] ?? '#64748b' }}; 
             font-size: {{ ($invoiceConfig['font_size_body'] ?? 12) * 0.8 }}pt; 
         }
+
+        table.items th { 
+            background: {{ $invoiceConfig['table_header_bg'] ?? '#f8fafc' }}; 
+            color: {{ $invoiceConfig['table_header_text'] ?? '#64748b' }}; 
+            text-align: left; 
+            padding: 12px; 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            border-bottom: 2px solid {{ $invoiceConfig['primary_color'] ?? '#10b981' }};
+        }
         
         table.items { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
         table.items th { 
-            background: #f8fafc; 
-            color: #475569; 
+            background: {{ $invoiceConfig['table_header_bg'] ?? '#f8fafc' }}; 
+            color: {{ $invoiceConfig['table_header_text'] ?? '#475569' }}; 
             font-size: 10px; 
             font-weight: 900; 
             text-transform: uppercase; 
@@ -64,7 +75,8 @@
             text-align: left; 
             border-bottom: 2px solid {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; 
         }
-        table.items td { padding: 18px 15px; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 600; color: #334155; }
+        table.items td { padding: 18px 15px; border-bottom: 1px solid {{ $invoiceConfig['border_color'] ?? '#f1f5f9' }}; font-size: 13px; font-weight: 600; color: {{ $invoiceConfig['text_color_main'] ?? '#334155' }}; }
+        table.items tr:nth-child(even) { background-color: {{ $invoiceConfig['table_zebra_bg'] ?? '#fcfcfc' }}; }
         
         .summary-wrapper { width: 100%; margin-top: 20px; }
         .notes-section { width: 60%; float: left; }
@@ -251,7 +263,20 @@
 
                 @if($invoiceConfig['show_signature'] ?? true)
                     <div style="margin-top: 40px; text-align: center;">
-                        <div style="height: 40px;"></div>
+                        <div style="margin-bottom: 5px;">
+                            @php
+                                $sigPath = null;
+                                if(isset($invoiceConfig['signature_url'])) {
+                                    $sigPath = public_path(str_replace('/storage/', 'storage/', $invoiceConfig['signature_url']));
+                                }
+                            @endphp
+
+                            @if($sigPath && file_exists($sigPath))
+                                <img src="{{ $sigPath }}" style="width: {{ $invoiceConfig['signature_width'] ?? 150 }}px; height: auto;">
+                            @else
+                                <div style="height: 40px;"></div>
+                            @endif
+                        </div>
                         <div style="border-top: 1px solid #1e293b; padding-top: 5px; font-size: 11px; font-weight: 900; text-transform: uppercase;">
                             {{ $invoiceConfig['signature_text'] ?? 'Authorized Signatory' }}
                         </div>

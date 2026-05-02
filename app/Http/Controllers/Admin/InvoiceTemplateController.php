@@ -27,13 +27,19 @@ class InvoiceTemplateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'config' => 'required|array',
-            'logo' => 'nullable|image|max:2048'
+            'logo' => 'nullable|image|max:2048',
+            'signature' => 'nullable|image|max:2048'
         ]);
 
         $data = $request->input('config');
         if ($request->hasFile('logo')) {
             $path = $request->file('logo')->store('uploads/invoices', 'public');
             $data['logo_url'] = '/storage/' . $path;
+        }
+
+        if ($request->hasFile('signature')) {
+            $path = $request->file('signature')->store('uploads/invoices', 'public');
+            $data['signature_url'] = '/storage/' . $path;
         }
 
         $template = InvoiceTemplate::create([
@@ -60,13 +66,19 @@ class InvoiceTemplateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'config' => 'required|array',
-            'logo' => 'nullable|image|max:2048'
+            'logo' => 'nullable|image|max:2048',
+            'signature' => 'nullable|image|max:2048'
         ]);
 
         $data = $request->input('config');
         if ($request->hasFile('logo')) {
             $path = $request->file('logo')->store('uploads/invoices', 'public');
             $data['logo_url'] = '/storage/' . $path;
+        }
+
+        if ($request->hasFile('signature')) {
+            $path = $request->file('signature')->store('uploads/invoices', 'public');
+            $data['signature_url'] = '/storage/' . $path;
         }
 
         $template->update([
@@ -112,6 +124,8 @@ class InvoiceTemplateController extends Controller
             'show_bank_details' => true,
             'show_signature' => true,
             'signature_text' => 'Authorized Signatory',
+            'signature_url' => null,
+            'signature_width' => 150,
             'show_metadata' => true,
             'logo_url' => null,
             'logo_position' => 'left',
@@ -120,6 +134,11 @@ class InvoiceTemplateController extends Controller
             'text_color_sub' => '#64748b',
             'font_size_title' => 24,
             'font_size_body' => 12,
+            'header_bg_color' => '#ffffff',
+            'table_header_bg' => '#f8fafc',
+            'table_header_text' => '#64748b',
+            'table_zebra_bg' => '#fcfcfc',
+            'border_color' => '#e2e8f0',
         ];
     }
 }

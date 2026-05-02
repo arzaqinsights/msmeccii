@@ -41,7 +41,7 @@
 
             <!-- Branding & Type -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
-                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Branding & Layout</h3>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Branding & Colors</h3>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Primary Color</label>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Brand Primary Color</label>
                         <div class="flex gap-2">
                             <input type="color" name="config[primary_color]" x-model="config.primary_color" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
                             <input type="text" x-model="config.primary_color" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
@@ -61,22 +61,123 @@
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Template Logo</label>
-                    <div class="flex items-center gap-4">
-                        <template x-if="config.logo_url">
-                            <div class="h-16 w-32 bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center p-2 relative group">
-                                <img :src="config.logo_url" class="max-h-full max-w-full object-contain">
-                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <i class="fa-solid fa-camera text-white"></i>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Template Logo</label>
+                        <div class="flex items-center gap-4">
+                            <template x-if="config.logo_url">
+                                <div class="h-16 w-full bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center p-2 relative group">
+                                    <img :src="config.logo_url" class="max-h-full max-w-full object-contain">
                                 </div>
+                            </template>
+                            <div class="flex-1">
+                                <input type="file" name="logo" class="w-full text-[10px] text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                                <input type="hidden" name="config[logo_url]" x-model="config.logo_url">
                             </div>
-                        </template>
-                        <div class="flex-1">
-                            <input type="file" name="logo" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
-                            <p class="text-[10px] text-slate-400 mt-1">PNG/JPG. Recommended: 300x120px.</p>
-                            <input type="hidden" name="config[logo_url]" x-model="config.logo_url">
                         </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Signature Image</label>
+                        <div class="flex items-center gap-4">
+                            <template x-if="config.signature_url">
+                                <div class="h-16 w-full bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center p-2 relative group">
+                                    <img :src="config.signature_url" class="max-h-full max-w-full object-contain">
+                                </div>
+                            </template>
+                            <div class="flex-1">
+                                <input type="file" name="signature" class="w-full text-[10px] text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                                <input type="hidden" name="config[signature_url]" x-model="config.signature_url">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typography & Layout -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-6 space-y-6">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Typography & Layout</h3>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Position</label>
+                        <select name="config[logo_position]" x-model="config.logo_position" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-xs">
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Width (px)</label>
+                        <input type="number" name="config[logo_width]" x-model="config.logo_width" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Signature Width (px)</label>
+                        <input type="number" name="config[signature_width]" x-model="config.signature_width" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Font Family</label>
+                        <select name="config[font_family]" x-model="config.font_family" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-xs">
+                            <option value="Helvetica">Helvetica / Arial</option>
+                            <option value="Times">Times New Roman</option>
+                            <option value="Courier">Courier</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Main Text Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" name="config[text_color_main]" x-model="config.text_color_main" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
+                            <input type="text" x-model="config.text_color_main" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Sub Text Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" name="config[text_color_sub]" x-model="config.text_color_sub" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
+                            <input type="text" x-model="config.text_color_sub" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Header BG</label>
+                        <input type="color" name="config[header_bg_color]" x-model="config.header_bg_color" class="h-10 w-full rounded-lg border border-slate-200 p-1 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Table Head BG</label>
+                        <input type="color" name="config[table_header_bg]" x-model="config.table_header_bg" class="h-10 w-full rounded-lg border border-slate-200 p-1 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Table Head Text</label>
+                        <input type="color" name="config[table_header_text]" x-model="config.table_header_text" class="h-10 w-full rounded-lg border border-slate-200 p-1 cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Zebra Row BG</label>
+                        <input type="color" name="config[table_zebra_bg]" x-model="config.table_zebra_bg" class="h-10 w-full rounded-lg border border-slate-200 p-1 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Global Border Color</label>
+                        <input type="color" name="config[border_color]" x-model="config.border_color" class="h-10 w-full rounded-lg border border-slate-200 p-1 cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Title Size (pt)</label>
+                        <input type="number" name="config[font_size_title]" x-model="config.font_size_title" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Body Size (pt)</label>
+                        <input type="number" name="config[font_size_body]" x-model="config.font_size_body" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
                     </div>
                 </div>
             </div>
@@ -135,47 +236,6 @@
                 <div>
                     <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Footer Copyright/Note</label>
                     <input type="text" name="config[footer_text]" x-model="config.footer_text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-medium text-slate-900 text-xs">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Position</label>
-                        <select name="config[logo_position]" x-model="config.logo_position" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-xs">
-                            <option value="left">Left</option>
-                            <option value="center">Center</option>
-                            <option value="right">Right</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Logo Width (px)</label>
-                        <input type="number" name="config[logo_width]" x-model="config.logo_width" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Main Text Color</label>
-                        <div class="flex gap-2">
-                            <input type="color" name="config[text_color_main]" x-model="config.text_color_main" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
-                            <input type="text" x-model="config.text_color_main" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Sub Text Color</label>
-                        <div class="flex gap-2">
-                            <input type="color" name="config[text_color_sub]" x-model="config.text_color_sub" class="h-10 w-10 rounded-lg border border-slate-200 p-1 cursor-pointer">
-                            <input type="text" x-model="config.text_color_sub" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 outline-none text-xs font-mono font-bold">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Title Font Size (pt)</label>
-                        <input type="number" name="config[font_size_title]" x-model="config.font_size_title" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Body Font Size (pt)</label>
-                        <input type="number" name="config[font_size_body]" x-model="config.font_size_body" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-emerald-500 font-bold text-slate-900 text-sm">
-                    </div>
                 </div>
             </div>
 
@@ -224,11 +284,11 @@
         </form>
     </div>
 
-    <!-- Right: Preview Panel (Identical logic as before but reactive to 'config') -->
+    <!-- Right: Preview Panel -->
     <div class="sticky top-6">
         <div class="bg-slate-800 rounded-t-2xl p-4 flex items-center justify-between">
             <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <i class="fa-solid fa-eye text-emerald-400"></i> Active Layout Preview
+                <i class="fa-solid fa-eye text-emerald-400"></i> Advanced Layout Preview
             </h3>
             <div class="flex gap-1">
                 <div class="w-2 h-2 rounded-full bg-red-500"></div>
@@ -239,7 +299,7 @@
         
         <div class="bg-slate-200 p-8 rounded-b-2xl overflow-auto max-h-[850px] border border-slate-300 shadow-inner">
             <div class="bg-white shadow-2xl mx-auto p-10 min-h-[700px] w-full" :style="{ fontFamily: config.font_family + ', sans-serif', color: config.text_color_main, fontSize: config.font_size_body + 'pt' }">
-                <div class="flex mb-8 border-b-2 pb-6" :class="{ 'justify-between': config.logo_position === 'left', 'flex-col items-center text-center': config.logo_position === 'center', 'flex-row-reverse justify-between': config.logo_position === 'right' }" :style="{ borderBottomColor: config.primary_color + '20' }">
+                <div class="flex mb-8 border-b-2 pb-6" :class="{ 'justify-between': config.logo_position === 'left', 'flex-col items-center text-center': config.logo_position === 'center', 'flex-row-reverse justify-between': config.logo_position === 'right' }" :style="{ borderBottomColor: config.border_color, backgroundColor: config.header_bg_color }">
                     <div :class="{ 'text-left': config.logo_position === 'left', 'text-center': config.logo_position === 'center', 'text-right': config.logo_position === 'right' }">
                         <template x-if="config.show_logo">
                             <div>
@@ -283,13 +343,13 @@
 
                 <table class="w-full mb-8 border-collapse">
                     <thead>
-                        <tr class="bg-slate-50" :style="{ borderBottom: '2px solid ' + config.primary_color }">
-                            <th class="text-left py-3 px-2 text-[9px] font-black text-slate-500 uppercase">Item Description</th>
-                            <th class="text-right py-3 px-2 text-[9px] font-black text-slate-500 uppercase" x-text="config.type === 'tax' ? 'Rate' : 'Amount'"></th>
+                        <tr :style="{ backgroundColor: config.table_header_bg, borderBottom: '2px solid ' + config.primary_color }">
+                            <th class="text-left py-3 px-2 text-[9px] font-black uppercase" :style="{ color: config.table_header_text }">Item Description</th>
+                            <th class="text-right py-3 px-2 text-[9px] font-black uppercase" :style="{ color: config.table_header_text }" x-text="config.type === 'tax' ? 'Rate' : 'Amount'"></th>
                             <template x-if="config.type === 'tax'">
-                                <th class="text-right py-3 px-2 text-[9px] font-black text-slate-500 uppercase">Tax</th>
+                                <th class="text-right py-3 px-2 text-[9px] font-black uppercase" :style="{ color: config.table_header_text }">Tax</th>
                             </template>
-                            <th class="text-right py-3 px-2 text-[9px] font-black text-slate-500 uppercase">Total</th>
+                            <th class="text-right py-3 px-2 text-[9px] font-black uppercase" :style="{ color: config.table_header_text }">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -338,8 +398,19 @@
                             </div>
                         </template>
                          <div class="pt-4">
-                            <div class="text-[9px] font-black text-slate-900 uppercase">Authorized Signatory</div>
-                            <div class="mt-2 h-8 w-24 border-b border-slate-200 ml-auto"></div>
+                            <template x-if="config.show_signature">
+                                <div>
+                                    <div class="text-[9px] font-black text-slate-900 uppercase" x-text="config.signature_text"></div>
+                                    <div class="mt-2 ml-auto" :style="{ width: config.signature_width + 'px' }">
+                                        <template x-if="config.signature_url">
+                                            <img :src="config.signature_url" class="max-w-full h-auto">
+                                        </template>
+                                        <template x-if="!config.signature_url">
+                                            <div class="h-10 border-b border-slate-200"></div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>
