@@ -84,9 +84,9 @@
                 <div class="space-y-6">
                     <div class="space-y-3">
                         <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Top Spacing</label>
-                        <input type="range" x-model="selectedRow.spacing_top" @input="saveHistory" min="0" max="150" step="5" class="w-full accent-emerald-500">
+                        <input type="range" x-model="selectedRow.spacing_top" @input="saveHistory()" min="0" max="150" step="5" class="w-full accent-emerald-500">
                         <div class="flex justify-between text-[9px] font-black text-slate-600">
-                            <span x-text="selectedRow.spacing_top + 'px'"></span>
+                            <span x-text="(selectedRow.spacing_top || 0) + 'px'"></span>
                         </div>
                     </div>
 
@@ -246,9 +246,9 @@
                                                             <div :style="{ textAlign: block.align || 'left', color: block.color || 'inherit', fontSize: (block.size || 11) + 'pt', fontWeight: block.weight || 'normal' }" 
                                                                  class="outline-none focus:ring-1 focus:ring-brand-primary/20 rounded p-1 transition-all"
                                                                  contenteditable="true"
-                                                                 @input="block.content = $event.target.innerText; saveHistory()"
+                                                                 @input="block.content = $event.target.innerHTML; saveHistory()"
                                                                  @blur="saveHistory()"
-                                                                 x-text="block.content"></div>
+                                                                 x-html="block.content"></div>
                                                         </template>
 
                                                         <template x-if="block.type === 'image'">
@@ -291,15 +291,15 @@
                                                 <td class="p-3 text-xs font-bold text-slate-500">Sample item name...</td>
                                                 <td class="p-3 text-xs font-black text-slate-900 text-right">₹ 100.00</td>
                                             </tr>
-                                            <template x-if="row.tax_percent > 0">
+                                            <template x-if="(row.tax_percent || 0) > 0">
                                                 <tr>
-                                                    <td class="p-2 text-right text-[8px] font-black uppercase text-slate-400" x-text="row.tax_label + ' (' + row.tax_percent + '%)'"></td>
-                                                    <td class="p-2 text-right text-[10px] font-black text-slate-900" x-text="'₹ ' + (100 * row.tax_percent/100).toFixed(2)"></td>
+                                                    <td class="p-2 text-right text-[8px] font-black uppercase text-slate-400" x-text="(row.tax_label || 'Tax') + ' (' + (row.tax_percent || 0) + '%)'"></td>
+                                                    <td class="p-2 text-right text-[10px] font-black text-slate-900" x-text="'₹ ' + (100 * (row.tax_percent || 0)/100).toFixed(2)"></td>
                                                 </tr>
                                             </template>
                                             <tr>
                                                 <td class="p-2 text-right text-[10px] font-black uppercase text-slate-400">Total</td>
-                                                <td class="p-2 text-right text-sm font-black text-slate-900" x-text="'₹ ' + (100 * (1 + row.tax_percent/100)).toFixed(2)"></td>
+                                                <td class="p-2 text-right text-sm font-black text-slate-900" x-text="'₹ ' + (100 * (1 + (row.tax_percent || 0)/100)).toFixed(2)"></td>
                                             </tr>
                                         </tbody>
                                     </table>
