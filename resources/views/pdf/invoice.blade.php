@@ -14,27 +14,29 @@
             padding: 1cm; 
             color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
             font-size: {{ $invoiceConfig['font_size_body'] ?? 10 }}pt;
+            line-height: 1.0;
         }
-        div, p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
-        .row-container { width: 100%; clear: both; }
-        .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: none; }
-        .col-cell { vertical-align: top; padding: 0; border: none; }
+        div, p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; line-height: 1.0; }
+        .row-container { width: 100%; clear: both; font-size: 0; }
+        .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: none; font-size: 0; }
+        .col-cell { vertical-align: top; padding: 0; border: none; font-size: 0; line-height: 0; }
         
-        .items-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
-        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; }
-        .items-table th { padding: 4px 8px; font-size: 8.5pt; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
-        .items-table td { padding: 4px 8px; border: 1px solid #e2e8f0; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; font-size: 9pt; line-height: 1.2; }
+        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; font-size: 9pt; }
+        .items-table th { padding: 4px 8px; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
+        .items-table td { padding: 4px 8px; }
         
         .currency::before {
             content: "\20B9 ";
             font-family: 'DejaVu Sans', sans-serif;
         }
         
-        .block-wrapper { margin-bottom: 0; padding: 0; }
+        .block-wrapper { margin: 0; padding: 0; font-size: 0; line-height: 0; }
+        .text-block { line-height: 1.2; display: block; }
         .text-block p { margin: 0; padding: 0; line-height: 1.2; }
         .text-block h1 { margin: 0; padding: 0; line-height: 1.1; }
         
-        img { max-width: 100%; height: auto; }
+        img { max-width: 100%; height: auto; display: block; }
         
         a { color: {{ $invoiceConfig['primary_color'] ?? '#10b981' }}; text-decoration: none; }
     </style>
@@ -73,7 +75,7 @@
 
         $renderText = function($content) use ($vars) {
             $content = str_replace(array_keys($vars), array_values($vars), $content);
-            return nl2br($content);
+            return nl2br(trim($content));
         };
 
         $logoPath = null;
