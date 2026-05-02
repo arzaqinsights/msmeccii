@@ -23,23 +23,47 @@ class ManualInvoiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
+            'new_user_name' => 'nullable|required_without:user_id|string|max:255',
+            'new_user_email' => 'nullable|required_without:user_id|email|max:255',
+            'new_user_phone' => 'nullable|string|max:20',
             'items' => 'required|array|min:1',
             'items.*.description' => 'required|string',
             'items.*.amount' => 'required|numeric|min:0',
             'payment_status' => 'required|string',
         ]);
 
+        $userId = $request->user_id;
+
+        // Create new user if not selected
+        if (!$userId) {
+            $user = User::create([
+                'name' => $request->new_user_name,
+                'email' => $request->new_user_email,
+                'phone_number' => $request->new_user_phone,
+                'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(16)),
+                'role' => 'user',
+                'requires_password_setup' => true
+            ]);
+            $userId = $user->id;
+
+            // Send welcome mail with password setup
+            $token = app('auth.password.broker')->createToken($user);
+            $user->notify(new \App\Notifications\WelcomeAndSetupPassword($token));
+        } else {
+            $user = User::find($userId);
+        }
+
         $total = collect($request->items)->sum('amount');
         $invoiceNumber = 'MAN-' . date('Ymd') . '-' . strtoupper(\Illuminate\Support\Str::random(4));
 
         $submission = Submission::create([
-            'user_id' => $request->user_id,
+            'user_id' => $userId,
             'items' => $request->items,
             'total_amount_paid' => $total,
             'payment_status' => $request->payment_status,
             'manual_invoice_number' => $invoiceNumber,
-            'data' => [], // Empty for manual
+            'data' => [], 
         ]);
 
         if ($request->has('send_email')) {
