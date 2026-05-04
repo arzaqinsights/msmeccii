@@ -27,7 +27,7 @@
         <div class="swiper-wrapper">
             @foreach ($slides as $image)
                 <div class="swiper-slide relative">
-                    <!-- <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10"></div> -->
+                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/60 via-slate-900/30 to-transparent z-10"></div>
                     <img src="{{ asset($image) }}" alt="MSMECCII Slider" class="swiper-lazy w-full h-full object-cover">
                 </div>
             @endforeach
