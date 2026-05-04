@@ -56,6 +56,14 @@
             @php
                 $services = [
                     [
+                        'slug' => 'funding-initiative',
+                        'image' => 'https://images.unsplash.com/photo-1560472355-536de3962603?q=80&w=2070&auto=format&fit=crop',
+                        'icon' => 'hand-holding-dollar',
+                        'accent' => 'brand-primary',
+                        'title' => 'Funding Initiative',
+                        'desc' => 'Dedicated Funding Facilitation aimed at strengthening MSMEs by enabling seamless access to finance through leading Banks and NBFCs.'
+                    ],
+                    [
                         'slug' => 'strategic-promotion',
                         'image' => 'images/services/strategic-promotion.jpg',
                         'icon' => 'chart-line',
@@ -94,14 +102,6 @@
                         'accent' => 'rose-400',
                         'title' => 'Policy Advocacy',
                         'desc' => 'Instant access to government notifications and advocating for favorable MSME policies.'
-                    ],
-                    [
-                        'slug' => 'legal-liasoning',
-                        'image' => 'images/sectors/sustainability-leadership.jpg',
-                        'icon' => 'scale-balanced',
-                        'accent' => 'emerald-400',
-                        'title' => 'Legal & Liasoning',
-                        'desc' => 'Specialized legal support and government liasoning tailored for business security.'
                     ],
                 ];
             @endphp

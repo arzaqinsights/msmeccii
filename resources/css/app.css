@@ -35,9 +35,6 @@
     }
 }
 @layer components {
-    .container {
-        @apply mx-auto px-4 md:px-6 lg:px-8;
-    }
     .border {
         @apply border-brand-border;
     }
@@ -53,4 +50,7 @@
     .border-r {
         @apply border-brand-border;
     }
+}
+.container {
+    @apply max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8;
 }
