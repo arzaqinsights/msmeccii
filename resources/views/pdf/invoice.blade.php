@@ -11,10 +11,11 @@
         body { 
             font-family: 'DejaVu Sans', 'Helvetica', sans-serif; 
             margin: 0; 
-            padding: 1cm; 
+            padding: 1.5cm; 
             color: {{ $invoiceConfig['text_color_main'] ?? '#0f172a' }};
             font-size: {{ $invoiceConfig['font_size_body'] ?? 10 }}pt;
-            line-height: 1.0;
+            line-height: {{ $invoiceConfig['line_height'] ?? 1.2 }};
+            letter-spacing: {{ $invoiceConfig['letter_spacing'] ?? 0 }}px;
         }
         div, p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; line-height: 1.0; }
         .row-container { width: 100%; clear: both; font-size: 0; }
@@ -31,9 +32,9 @@
             font-family: 'DejaVu Sans', sans-serif;
         }
         
-        .block-wrapper { margin: 0; padding: 0; font-size: 0; line-height: 0; }
-        .text-block { line-height: 1.2; display: block; }
-        .text-block p { margin: 0; padding: 0; line-height: 1.2; }
+        .block-wrapper { margin: 0; padding: 0; }
+        .text-block { display: block; }
+        .text-block p { margin: 0; padding: 0; }
         .text-block h1 { margin: 0; padding: 0; line-height: 1.1; }
         
         img { max-width: 100%; height: auto; display: block; }
@@ -105,7 +106,7 @@
                                 @foreach($col['blocks'] ?? [] as $block)
                                     <div class="block-wrapper">
                                         @if($block['type'] === 'text')
-                                            <div class="text-block" style="text-align: {{ $block['align'] ?? 'left' }}; color: {{ $block['color'] ?? 'inherit' }}; font-size: {{ $block['size'] ?? 11 }}pt; font-weight: {{ $block['weight'] ?? 'normal' }}; line-height: {{ $block['line_height'] ?? 1.2 }};">
+                                            <div class="text-block" style="text-align: {{ $block['align'] ?? 'left' }}; color: {{ $block['color'] ?? 'inherit' }}; font-size: {{ $block['size'] ?? 11 }}pt; font-weight: {{ $block['weight'] ?? 'normal' }}; line-height: {{ $block['line_height'] ?? 1.2 }}; letter-spacing: {{ $block['letter_spacing'] ?? 0 }}px; margin-bottom: {{ $block['margin_bottom'] ?? 0 }}px;">
                                                 {!! $renderText($block['content'] ?? '') !!}
                                             </div>
                                         @elseif($block['type'] === 'image')

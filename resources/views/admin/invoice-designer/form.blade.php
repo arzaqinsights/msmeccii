@@ -3,7 +3,7 @@
 @section('title', $template->id ? 'Edit Invoice Designer' : 'Create Invoice Designer')
 
 @section('content')
-<div class="space-y-6" x-data="invoiceBuilder({{ json_encode($config) }})">
+<div class="space-y-6" x-data="invoiceBuilder({{ json_encode($config) }}, {{ json_encode($presets) }})">
     <!-- Header Section -->
     <div class="flex justify-between items-center bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
         <div class="flex items-center gap-4">
@@ -37,18 +37,38 @@
             
             <!-- Element Library -->
             <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                <div class="p-4 border-b border-slate-50 bg-slate-50/50">
+                <div class="p-4 border-b border-slate-50 bg-slate-50/50 flex justify-between items-center">
                     <h3 class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Element Library</h3>
+                    <div class="flex gap-1">
+                        <button @click="addRow" class="w-6 h-6 flex items-center justify-center bg-brand-primary/10 text-brand-primary rounded hover:bg-brand-primary hover:text-white transition" title="Add Row">
+                            <i class="fa-solid fa-plus text-[10px]"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="p-4 grid grid-cols-2 gap-3">
-                    <button @click="addRow" class="flex flex-col items-center justify-center p-4 bg-slate-50 border border-dashed border-slate-200 rounded-lg hover:border-brand-primary hover:bg-brand-primary/5 transition group">
+                    <button @click="addRow" class="flex flex-col items-center justify-center p-3 bg-slate-50 border border-dashed border-slate-200 rounded-lg hover:border-brand-primary hover:bg-brand-primary/5 transition group">
                         <i class="fa-solid fa-grip-lines text-slate-400 group-hover:text-brand-primary mb-1 text-sm"></i>
-                        <span class="text-[9px] font-black text-slate-500 uppercase">New Row</span>
+                        <span class="text-[8px] font-black text-slate-500 uppercase">New Row</span>
                     </button>
-                    <button @click="addTable" class="flex flex-col items-center justify-center p-4 bg-slate-50 border border-dashed border-slate-200 rounded-lg hover:border-brand-primary hover:bg-brand-primary/5 transition group">
+                    <button @click="addTable" class="flex flex-col items-center justify-center p-3 bg-slate-50 border border-dashed border-slate-200 rounded-lg hover:border-brand-primary hover:bg-brand-primary/5 transition group">
                         <i class="fa-solid fa-table text-slate-400 group-hover:text-brand-primary mb-1 text-sm"></i>
-                        <span class="text-[9px] font-black text-slate-500 uppercase">Items Table</span>
+                        <span class="text-[8px] font-black text-slate-500 uppercase">Items Table</span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Design Presets -->
+            <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-slate-50 bg-amber-50/50">
+                    <h3 class="text-[10px] font-black text-amber-900 uppercase tracking-widest">Design Presets</h3>
+                </div>
+                <div class="p-4 grid grid-cols-1 gap-2">
+                    <template x-for="preset in presets" :key="preset.id">
+                        <button @click="loadPreset(preset)" class="flex items-center justify-between p-3 bg-slate-50 border border-slate-100 rounded-lg hover:border-brand-primary hover:bg-white transition group">
+                            <span class="text-[9px] font-black text-slate-700 uppercase" x-text="preset.name"></span>
+                            <i class="fa-solid fa-magic-wand-sparkles text-slate-300 group-hover:text-brand-primary text-[10px]"></i>
+                        </button>
+                    </template>
                 </div>
             </div>
 
@@ -124,14 +144,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-3 gap-3">
+                                    <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Size (pt)</label>
                                             <input type="number" x-model="selectedBlock.size" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
-                                        </div>
-                                        <div>
-                                            <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Height</label>
-                                            <input type="number" x-model="selectedBlock.line_height" step="0.1" @input="saveHistory" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs font-black outline-none">
                                         </div>
                                         <div>
                                             <label class="block text-[9px] font-black text-slate-500 uppercase mb-1">Align</label>
@@ -140,6 +156,21 @@
                                                 <option value="center">Center</option>
                                                 <option value="right">Right</option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4 pt-4 border-t border-slate-800">
+                                        <div class="space-y-3">
+                                            <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Line Height (<span x-text="selectedBlock.line_height || 1.2"></span>)</label>
+                                            <input type="range" x-model="selectedBlock.line_height" @input="saveHistory()" min="0.8" max="3.0" step="0.1" class="w-full accent-emerald-500">
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Letter Spacing (<span x-text="selectedBlock.letter_spacing || 0"></span>px)</label>
+                                            <input type="range" x-model="selectedBlock.letter_spacing" @input="saveHistory()" min="-1" max="10" step="0.5" class="w-full accent-emerald-500">
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="block text-[9px] font-black text-slate-500 uppercase tracking-widest">Bottom Spacing (<span x-text="selectedBlock.margin_bottom || 0"></span>px)</label>
+                                            <input type="range" x-model="selectedBlock.margin_bottom" @input="saveHistory()" min="0" max="100" step="1" class="w-full accent-emerald-500">
                                         </div>
                                     </div>
                                 </div>
@@ -295,7 +326,14 @@
 
         <!-- Canvas: Real-time Preview -->
         <div class="col-span-12 lg:col-span-8">
-            <div class="bg-white rounded-lg shadow-xl border border-slate-200 p-10 min-h-[1000px] relative overflow-hidden" :style="{ fontFamily: config.font_family + ', sans-serif' }">
+            <div class="flex justify-center bg-slate-200/50 p-8 rounded-xl border border-slate-200 overflow-auto max-h-[calc(100vh-200px)]">
+                <div class="bg-white shadow-[0_0_50px_rgba(0,0,0,0.1)] relative overflow-hidden" 
+                     :style="{ 
+                        fontFamily: config.font_family + ', sans-serif',
+                        width: '210mm',
+                        minHeight: '297mm',
+                        padding: '15mm'
+                     }">
                 
                 <div id="layout-canvas" class="space-y-2">
                     <template x-for="(row, rowIndex) in config.blocks" :key="row.id">
@@ -324,7 +362,15 @@
                                                          :class="isSelected(rowIndex, colIndex, blockIndex) ? 'ring-1 ring-brand-primary p-2 bg-white shadow-sm' : 'hover:bg-white/80 p-2'">
                                                         
                                                         <template x-if="block.type === 'text'">
-                                                            <div :style="{ textAlign: block.align || 'left', color: block.color || 'inherit', fontSize: (block.size || 11) + 'pt', fontWeight: block.weight || 'normal', lineHeight: block.line_height || 1.2 }" 
+                                                            <div :style="{ 
+                                                                    textAlign: block.align || 'left', 
+                                                                    color: block.color || 'inherit', 
+                                                                    fontSize: (block.size || 11) + 'pt', 
+                                                                    fontWeight: block.weight || 'normal', 
+                                                                    lineHeight: block.line_height || 1.2,
+                                                                    letterSpacing: (block.letter_spacing || 0) + 'px',
+                                                                    marginBottom: (block.margin_bottom || 0) + 'px'
+                                                                 }" 
                                                                  class="outline-none focus:ring-1 focus:ring-brand-primary/20 rounded p-1 transition-all"
                                                                  contenteditable="true"
                                                                  @input="block.content = $event.target.innerHTML; saveHistory()"
@@ -399,9 +445,10 @@
 </div>
 
 <script>
-function invoiceBuilder(initialConfig) {
+function invoiceBuilder(initialConfig, presets) {
     return {
         config: initialConfig,
+        presets: presets,
         selected: null,
         history: [],
         historyIndex: -1,
@@ -534,6 +581,14 @@ function invoiceBuilder(initialConfig) {
         },
 
         copyVar(tag) { navigator.clipboard.writeText(tag); alert('Copied: ' + tag); },
+
+        loadPreset(preset) {
+            if (confirm('Load "' + preset.name + '"? This will replace your current design.')) {
+                this.config = JSON.parse(JSON.stringify(preset.config));
+                this.selected = null;
+                this.saveHistory();
+            }
+        },
 
         async saveTemplate() {
             const name = prompt('Template Name:', '{{ $template->name ?? 'New Layout' }}');
