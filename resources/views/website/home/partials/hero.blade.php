@@ -3,17 +3,14 @@
         'images/home/slide-0.jpeg',
         'images/home/award-1.jpeg',
         'images/home/slide-1.webp',
-        'images/home/slide-2.webp',
         'images/home/slide-3.webp',
         'images/home/slide-4.webp',
         'images/home/slide-5.webp',
         'images/home/slide-6.webp',
         'images/home/slide-7.webp',
-        'images/home/slide-8.webp',
         'images/home/slide-9.webp',
         'images/home/slide-10.webp',
-        'images/home/slide-11.webp',
-        'images/home/slide-12.webp',
+        'images/home/slide-12.webp'
     ];
 
     $slides = $sliders->count() > 0

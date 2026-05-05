@@ -14,7 +14,7 @@
         <div id="popup-backdrop" class="absolute inset-0 bg-slate-900/90 transition-opacity duration-500 opacity-0 cursor-pointer"></div>
 
         <!-- Modal Content -->
-        <div id="popup-content" class="relative w-full bg-white rounded-md shadow-2xl overflow-hidden flex flex-col md:max-w-lg lg:max-w-none lg:flex-row transform transition-all duration-500 scale-95 opacity-0">
+        <div id="popup-content" class="relative w-full bg-white rounded-md shadow-2xl overflow-hidden flex flex-col md:max-w-lg lg:max-w-6xl lg:flex-row transform transition-all duration-500 scale-95 opacity-0">
             
             <!-- Close Button -->
             <button id="close-popup-btn" class="absolute top-2 right-2 border z-50 w-10 h-10 rounded-full bg-white/50 hover:bg-white text-slate-900 flex items-center justify-center transition-all backdrop-blur-sm">

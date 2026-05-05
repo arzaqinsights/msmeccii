@@ -3,17 +3,14 @@
         'images/home/slide-0.jpeg',
         'images/home/award-1.jpeg',
         'images/home/slide-1.webp',
-        'images/home/slide-2.webp',
         'images/home/slide-3.webp',
         'images/home/slide-4.webp',
         'images/home/slide-5.webp',
         'images/home/slide-6.webp',
         'images/home/slide-7.webp',
-        'images/home/slide-8.webp',
         'images/home/slide-9.webp',
         'images/home/slide-10.webp',
-        'images/home/slide-11.webp',
-        'images/home/slide-12.webp',
+        'images/home/slide-12.webp'
     ];
 
     $slides = $sliders->count() > 0
@@ -27,7 +24,7 @@
         <div class="swiper-wrapper">
             <?php $__currentLoopData = $slides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="swiper-slide relative">
-                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10"></div>
+                    <div class="absolute inset-0 bg-linear-to-r from-slate-900/60 via-slate-900/30 to-transparent z-10"></div>
                     <img src="<?php echo e(asset($image)); ?>" alt="MSMECCII Slider" class="swiper-lazy w-full h-full object-cover">
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

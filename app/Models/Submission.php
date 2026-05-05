@@ -37,6 +37,11 @@ class Submission extends Model
         return $this->belongsTo(Form::class);
     }
 
+    public function awardCategory()
+    {
+        return $this->belongsTo(AwardCategory::class);
+    }
+
     public function payment() {
         return $this->hasOne(Payment::class);
     }
