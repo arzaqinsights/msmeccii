@@ -373,10 +373,11 @@
                                                                  }" 
                                                                  class="outline-none focus:ring-1 focus:ring-brand-primary/20 rounded p-1 transition-all"
                                                                  contenteditable="true"
-                                                                 @input="block.content = $event.target.innerHTML; saveHistory()"
+                                                                 x-init="$el.innerHTML = block.content"
+                                                                 @input="block.content = $el.innerHTML; saveHistory()"
                                                                  @blur="saveHistory()"
                                                                  @keydown.enter="if(!event.shiftKey) { event.preventDefault(); document.execCommand('insertLineBreak'); }"
-                                                                 x-html="block.content"></div>
+                                                                 x-effect="if (document.activeElement !== $el && $el.innerHTML !== block.content) $el.innerHTML = block.content"></div>
                                                         </template>
 
                                                         <template x-if="block.type === 'image'">
@@ -401,12 +402,13 @@
 
                             <template x-if="row.type === 'items_table'">
                                 <div class="w-full border-t pt-4" :style="{ borderTopColor: row.border_color || config.primary_color }">
-                                    <table class="w-full">
+                                    <table class="w-full border-collapse border border-slate-300">
                                         <thead>
-                                            <tr :style="{ backgroundColor: row.header_bg || '#f8fafc' }">
-                                                <th class="p-3 text-[9px] font-black uppercase text-left tracking-wider outline-none focus:bg-white" 
+                                            <tr :style="{ backgroundColor: row.header_bg || '#f8fafc' }" class="border-b border-slate-300">
+                                                <th class="p-3 text-[9px] font-black uppercase text-left tracking-wider outline-none focus:bg-white border-r border-slate-300" 
                                                     contenteditable="true"
                                                     @input="row.label_description = $event.target.innerText; saveHistory()"
+                                                    x-effect="if (document.activeElement !== $el && $el.innerText !== row.label_description) $el.innerText = row.label_description"
                                                     :style="{ color: row.header_text || '#64748b' }">Description</th>
                                                 <th class="p-3 text-[9px] font-black uppercase text-right tracking-wider outline-none focus:bg-white" 
                                                     contenteditable="true"
@@ -414,9 +416,9 @@
                                                     :style="{ color: row.header_text || '#64748b' }">Amount</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="border-b border-slate-50">
-                                                <td class="p-3 font-medium" :style="{ fontSize: (row.row_size || 11) + 'pt', color: row.row_color || '#64748b', fontWeight: row.row_weight || 'normal' }">Sample item name...</td>
+                                        <tbody class="divide-y divide-slate-300">
+                                            <tr class="border-b border-slate-300">
+                                                <td class="p-3 font-medium border-r border-slate-300" :style="{ fontSize: (row.row_size || 11) + 'pt', color: row.row_color || '#64748b', fontWeight: row.row_weight || 'normal' }">Sample item name...</td>
                                                 <td class="p-3 text-right" :style="{ fontSize: (row.row_size || 11) + 'pt', color: row.row_color || '#0f172a', fontWeight: row.row_weight || 'black' }">₹ 100.00</td>
                                             </tr>
                                             <template x-if="(row.tax_percent || 0) > 0">

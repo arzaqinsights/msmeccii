@@ -22,8 +22,8 @@
         .row-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: none; font-size: 0; }
         .col-cell { vertical-align: top; padding: 0; border: none; font-size: 0; line-height: 0; }
         
-        .items-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; font-size: 9pt; line-height: 1.2; }
-        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #e2e8f0; font-size: 9pt; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 5px; font-family: 'DejaVu Sans', sans-serif; border: 1px solid #cbd5e1; font-size: 9pt; line-height: 1.2; }
+        .items-table th, .items-table td { font-family: 'DejaVu Sans', sans-serif; border: 1px solid #cbd5e1; font-size: 9pt; }
         .items-table th { padding: 4px 8px; text-transform: uppercase; font-weight: 900; background-color: #f8fafc; }
         .items-table td { padding: 4px 8px; }
         

@@ -163,7 +163,7 @@ class InvoiceTemplateController extends Controller
                     'type' => 'items_table',
                     'header_bg' => '#f8fafc',
                     'header_text' => '#64748b',
-                    'border_color' => '#e2e8f0',
+                    'border_color' => '#cbd5e1',
                     'spacing_top' => 40,
                     'row_size' => 10,
                     'footer_size' => 10
