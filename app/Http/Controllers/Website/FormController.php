@@ -16,7 +16,9 @@ class FormController extends Controller
     public function show($slug)
     {
         $form = Form::where('slug', $slug)
-            ->where('status', 'published')
+            ->where(function ($query) {
+                $query->where('status', 'published')->orWhere('is_hidden', true);
+            })
             ->with([
                 'fields' => function ($q) {
                     $q->orderBy('order', 'asc');
@@ -30,7 +32,10 @@ class FormController extends Controller
 
     public function store(Request $request, $slug)
     {
-        $form = Form::where('slug', $slug)->where('status', 'published')->firstOrFail();
+        $form = Form::where('slug', $slug)
+            ->where(function ($query) {
+                $query->where('status', 'published')->orWhere('is_hidden', true);
+            })->firstOrFail();
 
         // 1. Fixed Authentication Field Validations
         $request->validate([
