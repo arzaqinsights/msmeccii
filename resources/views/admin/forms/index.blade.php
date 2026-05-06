@@ -46,9 +46,33 @@
                                 <a href="{{ route('admin.forms.edit', $form) }}" class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors">
                                     <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Blueprint
                                 </a>
-                                <button type="button" onclick="copyFormLink('{{ route('join.forms.show', $form->slug) }}', this)" class="text-purple-600 hover:text-purple-700 font-bold bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg transition-colors" title="Copy Form Link">
-                                    <i class="fa-solid fa-link mr-1"></i> Copy Link
-                                </button>
+                                <div x-data="{
+                                    copied: false,
+                                    copy() {
+                                        const url = '{{ route('join.forms.show', $form->slug) }}';
+                                        if (navigator.clipboard && window.isSecureContext) {
+                                            navigator.clipboard.writeText(url);
+                                        } else {
+                                            let textArea = document.createElement('textarea');
+                                            textArea.value = url;
+                                            textArea.style.position = 'fixed';
+                                            textArea.style.opacity = '0';
+                                            document.body.appendChild(textArea);
+                                            textArea.focus();
+                                            textArea.select();
+                                            try { document.execCommand('copy'); } catch (err) { }
+                                            textArea.remove();
+                                        }
+                                        this.copied = true;
+                                        setTimeout(() => this.copied = false, 2000);
+                                    }
+                                }">
+                                    <button type="button" @click="copy" class="text-purple-600 hover:text-purple-700 font-bold bg-purple-50 hover:bg-purple-100 w-8 h-8 flex items-center justify-center rounded-lg transition-colors relative" title="Copy Form Link">
+                                        <i class="fa-solid fa-link" x-show="!copied"></i>
+                                        <i class="fa-solid fa-check text-green-600" x-show="copied" style="display: none;"></i>
+                                        <span x-show="copied" x-transition style="display: none;" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded shadow-lg whitespace-nowrap z-10 pointer-events-none">Copied!</span>
+                                    </button>
+                                </div>
                                 <form action="{{ route('admin.forms.destroy', $form) }}" method="POST" onsubmit="return confirm('Are you sure you want to completely delete this form?');">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 font-bold bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors">
@@ -82,27 +106,4 @@
 
 @endsection
 
-@push('scripts')
-<script>
-function copyFormLink(url, btn) {
-    navigator.clipboard.writeText(url).then(() => {
-        const icon = btn.querySelector('i');
-        icon.classList.remove('fa-link');
-        icon.classList.add('fa-check', 'text-green-600');
-        const textNode = Array.from(btn.childNodes).find(node => node.nodeType === 3 && node.textContent.trim().length > 0);
-        if (textNode) {
-            const originalText = textNode.textContent;
-            textNode.textContent = ' Copied!';
-            setTimeout(() => {
-                icon.classList.remove('fa-check', 'text-green-600');
-                icon.classList.add('fa-link');
-                textNode.textContent = originalText;
-            }, 2000);
-        }
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy link. Please manually copy it.');
-    });
-}
-</script>
-@endpush
+
