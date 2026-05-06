@@ -37,14 +37,21 @@
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3 px-2 pb-2">
-                    @if($award->giver_image)
-                    <img src="{{ asset($award->giver_image) }}" class="w-10 h-10 rounded-full border-2 border-slate-50 object-cover shadow-sm">
-                    @endif
-                    <div>
-                        <p class="text-xs font-black text-slate-900 leading-none mb-1">{{ $award->giver_name }}</p>
-                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{{ Str::limit($award->giver_designation, 25) }}</p>
+                <div class="flex items-center justify-between gap-3 px-2 pb-2">
+                    <div class="flex items-center gap-3">
+                        @if($award->giver_image)
+                        <img src="{{ asset($award->giver_image) }}" class="w-10 h-10 rounded-full border-2 border-slate-50 object-cover shadow-sm">
+                        @endif
+                        <div>
+                            <p class="text-xs font-black text-slate-900 leading-none mb-1">{{ $award->giver_name }}</p>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{{ Str::limit($award->giver_designation, 25) }}</p>
+                        </div>
                     </div>
+                    @if($award->pdf_path)
+                    <a href="{{ asset($award->pdf_path) }}" target="_blank" class="w-8 h-8 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors shrink-0" title="View Document">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </a>
+                    @endif
                 </div>
             </div>
             @endforeach

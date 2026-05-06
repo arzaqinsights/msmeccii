@@ -15,7 +15,8 @@ class ExcellenceAward extends Model
         'giver_designation',
         'order',
         'show_on_home',
-        'status'
+        'status',
+        'pdf_path'
     ];
 
     protected $casts = [

@@ -45,18 +45,26 @@
                         {{ $award->title }}
                     </h3>
 
-                    <!-- Giver Info -->
-                    <div class="mt-auto flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                        @if($award->giver_image)
-                        <img src="{{ asset($award->giver_image) }}" class="w-12 h-12 rounded-full border-2 border-brand-primary/20 object-cover">
-                        @else
-                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
+                    <!-- Giver Info & PDF -->
+                    <div class="mt-auto flex flex-col gap-3">
+                        @if($award->pdf_path)
+                        <a href="{{ asset($award->pdf_path) }}" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-red-50 text-red-600 rounded-xl border border-red-100 hover:bg-red-600 hover:text-white transition-colors font-bold text-sm shadow-sm">
+                            <i class="fa-solid fa-file-pdf"></i> View Official Document
+                        </a>
                         @endif
-                        <div>
-                            <p class="text-sm font-black text-slate-900 leading-none mb-1">{{ $award->giver_name }}</p>
-                            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{{ $award->giver_designation }}</p>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                            @if($award->giver_image)
+                            <img src="{{ asset($award->giver_image) }}" class="w-12 h-12 rounded-full border-2 border-brand-primary/20 object-cover">
+                            @else
+                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            @endif
+                            <div>
+                                <p class="text-sm font-black text-slate-900 leading-none mb-1">{{ $award->giver_name }}</p>
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{{ $award->giver_designation }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

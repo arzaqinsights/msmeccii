@@ -87,6 +87,20 @@
                                class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:border-brand-primary outline-none text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-black file:bg-brand-primary file:text-white hover:file:bg-brand-primary-dark cursor-pointer">
                         <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-widest italic text-center">Recommended: Square 500x500px</p>
                     </div>
+
+                    <div class="md:col-span-2 pt-4 border-t border-slate-100 mt-2">
+                        <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Attached PDF (Optional)</label>
+                        @if($award->pdf_path)
+                        <div class="mb-4 bg-red-50 p-4 rounded-xl border border-red-100 inline-block">
+                            <a href="{{ asset($award->pdf_path) }}" target="_blank" class="text-red-600 font-black text-sm flex items-center gap-2 hover:underline">
+                                <i class="fa-solid fa-file-pdf text-xl"></i> View Current PDF
+                            </a>
+                        </div>
+                        @endif
+                        <input type="file" name="pdf_path" accept="application/pdf"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:border-brand-primary outline-none text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-black file:bg-red-500 file:text-white hover:file:bg-red-600 cursor-pointer">
+                        <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-widest italic">Upload a PDF document related to this recognition.</p>
+                    </div>
                 </div>
             </div>
         </div>

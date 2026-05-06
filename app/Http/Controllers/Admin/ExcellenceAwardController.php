@@ -70,6 +70,13 @@ class ExcellenceAwardController extends Controller
             $data['giver_image'] = '/uploads/excellence/' . $filename;
         }
 
+        if ($request->hasFile('pdf_path')) {
+            $file = $request->file('pdf_path');
+            $filename = time() . '_pdf_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/excellence'), $filename);
+            $data['pdf_path'] = '/uploads/excellence/' . $filename;
+        }
+
         $award->fill($data);
         $award->save();
 
