@@ -407,8 +407,10 @@
                 formData: {},
                 loading: false,
                 gatewayLimit: {{ (float) ($site['payment_gateway_limit'] ?? 500000) }},
+                forceManualPayment: {{ $form->force_manual_payment ? 'true' : 'false' }},
 
                 get isManualPayment() {
+                    if (this.forceManualPayment) return true;
                     return this.totalCalculated > this.gatewayLimit;
                 },
 

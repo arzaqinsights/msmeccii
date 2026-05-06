@@ -24,7 +24,9 @@ class Form extends Model
         'invoice_template_id',
         'og_title',
         'og_description',
-        'og_image'
+        'og_image',
+        'is_hidden',
+        'force_manual_payment'
     ];
 
     protected $casts = [

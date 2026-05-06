@@ -46,6 +46,26 @@ class FormController extends Controller
         return redirect()->route('admin.forms.index')->with('success', 'Form deleted successfully.');
     }
 
+    public function duplicate(Form $form)
+    {
+        $newForm = $form->replicate();
+        $newForm->name = $newForm->name . ' (Copy)';
+        $newForm->slug = \Illuminate\Support\Str::slug($newForm->name) . '-' . time();
+        $newForm->status = 'draft';
+        $newForm->is_hidden = $form->is_hidden;
+        $newForm->force_manual_payment = $form->force_manual_payment;
+        $newForm->save();
+
+        foreach ($form->fields as $field) {
+            $newField = $field->replicate();
+            $newField->form_id = $newForm->id;
+            $newField->field_identifier = (string) \Illuminate\Support\Str::uuid();
+            $newField->save();
+        }
+
+        return redirect()->route('admin.forms.edit', $newForm)->with('success', 'Form duplicated successfully. You can now edit the duplicate.');
+    }
+
     private function saveForm(Request $request, Form $form)
     {
         $request->validate([
@@ -69,6 +89,8 @@ class FormController extends Controller
         $form->invoice_template_id = $request->invoice_template_id;
         $form->og_title = $request->og_title;
         $form->og_description = $request->og_description;
+        $form->is_hidden = $request->boolean('is_hidden');
+        $form->force_manual_payment = $request->boolean('force_manual_payment');
         
         // Process Main Thumbnail
         if ($request->hasFile('thumbnail')) {

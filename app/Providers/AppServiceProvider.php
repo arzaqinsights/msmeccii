@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
                     'name' => 'JOIN US',
                     'route' => 'join.index',
                     'active' => 'join',
-                    'sub_menu' => \App\Models\Form::where('status', 'published')->get()->map(function ($form) {
+                    'sub_menu' => \App\Models\Form::where('status', 'published')->where('is_hidden', false)->get()->map(function ($form) {
                         return [
                             'name' => $form->name,
                             'route' => 'join.forms.show',

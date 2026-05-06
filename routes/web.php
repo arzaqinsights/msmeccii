@@ -138,6 +138,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::delete('invoice-designer/{template}', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'destroy'])->name('invoice-designer.destroy');
 
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
+    Route::post('forms/{form}/duplicate', [\App\Http\Controllers\Admin\FormController::class, 'duplicate'])->name('forms.duplicate');
     Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');
     Route::post('events/upload-attachment', [\App\Http\Controllers\Admin\EventController::class, 'uploadAttachment'])->name('events.upload-attachment');
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);

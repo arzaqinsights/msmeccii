@@ -52,7 +52,7 @@ class SitemapController extends Controller
         }
 
         // Forms / Memberships
-        $forms = Form::where('status', 'published')->get();
+        $forms = Form::where('status', 'published')->where('is_hidden', false)->get();
         foreach ($forms as $form) {
             $urls[] = [
                 'loc' => url('/join/application/' . $form->slug),

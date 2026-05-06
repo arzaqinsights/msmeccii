@@ -9,10 +9,23 @@
         <h2 class="text-2xl font-black text-slate-900">{{ $form->exists ? 'Edit Application Form' : 'Build Application Form' }}</h2>
         <p class="text-sm font-bold text-slate-500 mt-1">Design the data-capture endpoints, prices, and branching logic.</p>
     </div>
-    <a href="{{ route('admin.forms.index') }}" class="text-slate-500 hover:text-slate-800 font-bold text-sm bg-white border border-slate-200 px-4 py-2 rounded-xl">
-        <i class="fa-solid fa-arrow-left-long mr-1"></i> Back to Forms
-    </a>
+    <div class="flex gap-2">
+        @if($form->exists)
+        <button type="button" onclick="document.getElementById('duplicateForm').submit()" class="text-indigo-600 hover:text-indigo-800 font-bold text-sm bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl">
+            <i class="fa-solid fa-copy mr-1"></i> Duplicate
+        </button>
+        @endif
+        <a href="{{ route('admin.forms.index') }}" class="text-slate-500 hover:text-slate-800 font-bold text-sm bg-white border border-slate-200 px-4 py-2 rounded-xl">
+            <i class="fa-solid fa-arrow-left-long mr-1"></i> Back to Forms
+        </a>
+    </div>
 </div>
+
+@if($form->exists)
+<form id="duplicateForm" action="{{ route('admin.forms.duplicate', $form) }}" method="POST" class="hidden">
+    @csrf
+</form>
+@endif
 
 <form action="{{ $form->exists ? route('admin.forms.update', $form) : route('admin.forms.store') }}" method="POST" enctype="multipart/form-data"
       x-data="formBuilder()" @submit="prepareSubmit">
@@ -85,6 +98,17 @@
                         <option value="published" {{ old('status', $form->status) === 'published' ? 'selected' : '' }}>Published Live</option>
                         <option value="draft" {{ old('status', $form->status) === 'draft' ? 'selected' : '' }}>Private Draft</option>
                     </select>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex flex-col gap-3">
+                    <div class="flex items-center">
+                        <input type="checkbox" name="is_hidden" value="1" id="is_hidden" class="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer" {{ old('is_hidden', $form->is_hidden) ? 'checked' : '' }}>
+                        <label for="is_hidden" class="ml-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider cursor-pointer">Hide Form (Access via direct link only)</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="force_manual_payment" value="1" id="force_manual_payment" class="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer" {{ old('force_manual_payment', $form->force_manual_payment) ? 'checked' : '' }}>
+                        <label for="force_manual_payment" class="ml-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider cursor-pointer">Disable Razorpay (Force Manual Bank Details even if amount exists)</label>
+                    </div>
                 </div>
 
                 <div class="pt-4 border-t border-slate-100">

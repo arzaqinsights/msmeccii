@@ -18,7 +18,7 @@
 <section class="py-24 bg-brand-light">
     <div class="container">
         @php
-            $forms = \App\Models\Form::where('status', 'published')->get();
+            $forms = \App\Models\Form::where('status', 'published')->where('is_hidden', false)->get();
         @endphp
 
         @if($forms->count() > 0)
