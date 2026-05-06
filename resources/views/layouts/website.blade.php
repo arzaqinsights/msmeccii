@@ -176,7 +176,7 @@
                             'name' => 'PARTICIPATE',
                             'route' => 'join.index',
                             'active' => 'join',
-                            'sub_menu' => \App\Models\Form::where('status', 'published')->where('is_hidden', false)->get()->map(function ($form) {
+                            'sub_menu' => \App\Models\Form::where('status', 'published')->where('is_hidden', false)->whereNotIn('slug', 'like', 'nomination%')->get()->map(function ($form) {
                                 return [
                                     'name' => $form->name,    
                                     'route' => 'join.forms.show',
