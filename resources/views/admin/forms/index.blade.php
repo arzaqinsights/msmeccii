@@ -46,6 +46,9 @@
                                 <a href="{{ route('admin.forms.edit', $form) }}" class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors">
                                     <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Blueprint
                                 </a>
+                                <button type="button" onclick="copyFormLink('{{ route('join.forms.show', $form->slug) }}', this)" class="text-purple-600 hover:text-purple-700 font-bold bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg transition-colors" title="Copy Form Link">
+                                    <i class="fa-solid fa-link mr-1"></i> Copy Link
+                                </button>
                                 <form action="{{ route('admin.forms.destroy', $form) }}" method="POST" onsubmit="return confirm('Are you sure you want to completely delete this form?');">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 font-bold bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors">
@@ -78,3 +81,28 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+function copyFormLink(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+        const icon = btn.querySelector('i');
+        icon.classList.remove('fa-link');
+        icon.classList.add('fa-check', 'text-green-600');
+        const textNode = Array.from(btn.childNodes).find(node => node.nodeType === 3 && node.textContent.trim().length > 0);
+        if (textNode) {
+            const originalText = textNode.textContent;
+            textNode.textContent = ' Copied!';
+            setTimeout(() => {
+                icon.classList.remove('fa-check', 'text-green-600');
+                icon.classList.add('fa-link');
+                textNode.textContent = originalText;
+            }, 2000);
+        }
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Failed to copy link. Please manually copy it.');
+    });
+}
+</script>
+@endpush
