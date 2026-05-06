@@ -28,8 +28,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($excellenceAwards as $award)
-            <div class="bg-white rounded-[2rem] p-4 shadow-sm border border-slate-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group">
-                <div class="relative rounded-[1.5rem] overflow-hidden aspect-[4/5] mb-6">
+            <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group">
+                <div class="relative rounded-lg overflow-hidden aspect-4/5 mb-6">
                     <img src="{{ asset($award->award_image) }}" alt="{{ $award->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                     <div class="absolute bottom-6 left-6 right-6">
