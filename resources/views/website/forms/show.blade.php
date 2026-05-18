@@ -59,7 +59,7 @@
 
     <!-- Dynamic Reactive Engine -->
     <section class="py-16 bg-brand-light">
-        <div class="container max-w-3xl mx-auto">
+        <div class="container max-w-3xl! mx-auto">
 
             <form action="{{ route('join.forms.store', $form->slug) }}" method="POST" enctype="multipart/form-data"
                 class="bg-white p-8 md:p-12 rounded-lg shadow-xl border border-slate-200" x-data="formEngine()"
