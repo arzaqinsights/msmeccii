@@ -1,8 +1,6 @@
-@extends('layouts.admin')
+<?php $__env->startSection('title', 'Manage Forms'); ?>
 
-@section('title', 'Manage Forms')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="flex justify-between items-center mb-6">
     <div>
@@ -14,7 +12,7 @@
             <i class="fa-solid fa-file-import"></i>
             Import Form (SQL)
         </button>
-        <a href="{{ route('admin.forms.create') }}" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-emerald-500/40 transition-all flex items-center gap-2">
+        <a href="<?php echo e(route('admin.forms.create')); ?>" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-emerald-500/40 transition-all flex items-center gap-2">
             <i class="fa-solid fa-plus"></i>
             Create New Form
         </a>
@@ -33,32 +31,33 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
-                @forelse($forms as $form)
+                <?php $__empty_1 = true; $__currentLoopData = $forms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $form): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4">
-                            <p class="font-bold text-slate-900 text-base">{{ $form->name }}</p>
+                            <p class="font-bold text-slate-900 text-base"><?php echo e($form->name); ?></p>
                         </td>
                         <td class="px-6 py-4 font-black text-slate-800">
-                            {{ $form->fields_count }} Input Fields
+                            <?php echo e($form->fields_count); ?> Input Fields
                         </td>
                         <td class="px-6 py-4 font-medium text-slate-500">
-                            {{ $form->created_at->format('M d, Y') }}
+                            <?php echo e($form->created_at->format('M d, Y')); ?>
+
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-3">
-                                <a href="{{ route('admin.forms.submissions', $form) }}" class="text-blue-600 hover:text-blue-700 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
+                                <a href="<?php echo e(route('admin.forms.submissions', $form)); ?>" class="text-blue-600 hover:text-blue-700 font-bold bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
                                     <i class="fa-solid fa-users-viewfinder mr-1"></i> View Leads
                                 </a>
-                                <a href="{{ route('admin.forms.edit', $form) }}" class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors">
+                                <a href="<?php echo e(route('admin.forms.edit', $form)); ?>" class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors">
                                     <i class="fa-regular fa-pen-to-square mr-1"></i> Edit Blueprint
                                 </a>
-                                <a href="{{ route('admin.forms.export', $form) }}" class="text-slate-700 hover:text-slate-800 font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors" title="Export Form to SQL">
+                                <a href="<?php echo e(route('admin.forms.export', $form)); ?>" class="text-slate-700 hover:text-slate-800 font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors" title="Export Form to SQL">
                                     <i class="fa-solid fa-file-export mr-1"></i> Export
                                 </a>
                                 <div x-data="{
                                     copied: false,
                                     copy() {
-                                        const url = '{{ route('join.forms.show', $form->slug) }}';
+                                        const url = '<?php echo e(route('join.forms.show', $form->slug)); ?>';
                                         if (navigator.clipboard && window.isSecureContext) {
                                             navigator.clipboard.writeText(url);
                                         } else {
@@ -82,8 +81,8 @@
                                         <span x-show="copied" x-transition style="display: none;" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded shadow-lg whitespace-nowrap z-10 pointer-events-none">Copied!</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('admin.forms.destroy', $form) }}" method="POST" onsubmit="return confirm('Are you sure you want to completely delete this form?');">
-                                    @csrf @method('DELETE')
+                                <form action="<?php echo e(route('admin.forms.destroy', $form)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to completely delete this form?');">
+                                    <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     <button type="submit" class="text-red-500 hover:text-red-700 font-bold bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
@@ -91,26 +90,27 @@
                             </div>
                         </td>
                     </tr>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="4" class="px-6 py-12 text-center text-slate-500 font-medium">
                             <div class="inline-flex w-16 h-16 bg-slate-100 rounded-full items-center justify-center mb-4">
                                 <i class="fa-solid fa-list-check text-slate-400 text-2xl"></i>
                             </div>
                             <p>No dynamic forms exist yet.</p>
-                            <a href="{{ route('admin.forms.create') }}" class="text-emerald-500 font-bold hover:underline mt-2 inline-block">Build your first form here</a>
+                            <a href="<?php echo e(route('admin.forms.create')); ?>" class="text-emerald-500 font-bold hover:underline mt-2 inline-block">Build your first form here</a>
                         </td>
                     </tr>
-                @endforelse
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
     
-    @if($forms->hasPages())
+    <?php if($forms->hasPages()): ?>
         <div class="border-t border-slate-100 px-6 py-4">
-            {{ $forms->links() }}
+            <?php echo e($forms->links()); ?>
+
         </div>
-    @endif
+    <?php endif; ?>
 </div>
 
 <!-- Import Modal -->
@@ -124,8 +124,8 @@
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
-        <form action="{{ route('admin.forms.import') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        <form action="<?php echo e(route('admin.forms.import')); ?>" method="POST" enctype="multipart/form-data">
+            <?php echo csrf_field(); ?>
             <div class="mb-4">
                 <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Upload Exported SQL File</label>
                 <div class="border-2 border-dashed border-slate-200 hover:border-slate-300 rounded-xl p-6 text-center cursor-pointer transition-colors relative" onclick="document.getElementById('sql_file').click()">
@@ -147,6 +147,8 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\msmeccii\resources\views/admin/forms/index.blade.php ENDPATH**/ ?>

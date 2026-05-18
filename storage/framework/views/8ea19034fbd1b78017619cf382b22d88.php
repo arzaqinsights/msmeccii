@@ -173,12 +173,25 @@
                             })->toArray())
                         ],
                         [
-                            'name' => 'JOIN US',
+                            'name' => 'PARTICIPATE',
                             'route' => 'join.index',
                             'active' => 'join',
-                            'sub_menu' => \App\Models\Form::where('status', 'published')->get()->map(function ($form) {
+                            'sub_menu' => \App\Models\Form::where('status', 'published')->where('is_hidden', false)->whereNotIn('slug', ['nomination-form'])->get()->map(function ($form) {
                                 return [
-                                    'name' => $form->name,
+                                    'name' => $form->name,    
+                                    'route' => 'join.forms.show',
+                                    'slug' => $form->slug,
+                                    'active' => 'join/application/' . $form->slug
+                                ];
+                            })->toArray()
+                        ],
+                        [
+                            'name' => 'AWARDS',
+                            'route' => 'join.index',
+                            'active' => 'join',
+                            'sub_menu' => \App\Models\Form::where('status', 'published')->where('is_hidden', false)->where('slug', 'like', 'nomination%')->get()->map(function ($form) {
+                                return [
+                                    'name' => $form->name,    
                                     'route' => 'join.forms.show',
                                     'slug' => $form->slug,
                                     'active' => 'join/application/' . $form->slug

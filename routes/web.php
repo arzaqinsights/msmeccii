@@ -137,6 +137,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::put('invoice-designer/{template}', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'update'])->name('invoice-designer.update');
     Route::delete('invoice-designer/{template}', [\App\Http\Controllers\Admin\InvoiceTemplateController::class, 'destroy'])->name('invoice-designer.destroy');
 
+    Route::get('forms/{form}/export', [\App\Http\Controllers\Admin\FormController::class, 'export'])->name('forms.export');
+    Route::post('forms/import', [\App\Http\Controllers\Admin\FormController::class, 'import'])->name('forms.import');
     Route::resource('forms', \App\Http\Controllers\Admin\FormController::class);
     Route::post('forms/{form}/duplicate', [\App\Http\Controllers\Admin\FormController::class, 'duplicate'])->name('forms.duplicate');
     Route::get('forms/{form}/submissions', [\App\Http\Controllers\Admin\SubmissionController::class, 'formSubmissions'])->name('forms.submissions');
